@@ -1,0 +1,978 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        REPORTE DE DESCARGA
+                        <a title="Regresar" href="#/repDescarga" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                    <div class="input-group" style="float: right">
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <center>
+                                        <h4>
+                                            <b>DATOS GENERALES DE LA ENTRADA</b>
+                                        </h4>
+                                        <hr>
+                                    </center>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <p>Fecha</p>
+                                    <div class="form-group form-group-sm">
+                                        <div class="input-group date" data-provide="datepicker">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input required type="text" class="form-control pull-right" id="datepicker"
+                                                ng-model="descarga.fechaImpresion">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p>Responsable</p>
+                                    <div class="form-group form-group-sm">
+                                        <select chosen ng-model="nombreResponsable" class="form-control"
+                                            ng-options="nr.idPersonalOM as nr.nombre for nr in listaPersonal">
+                                            <option value="">Elija una opción</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 pull-right" ng-if="codigo > 0">
+                                    <label>&nbsp;</label>
+                                    <div class="form-group from-group-sm">
+                                        <button class="btn btn-danger btn-sm" title="Imprimir reporte"
+                                            ng-click="pdfDescarga()">
+                                            <i class="fa fa-file-pdf-o"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <br> -->
+                            <div class="row">
+                                <!-- <div class="col-lg-12">
+                                    <h5>
+                                        <b>PERSONAL</b>
+                                    </h5>
+                                    <hr>
+                                </div> -->
+                                <div class="col-lg-6">
+                                    <p>Personal de limpieza</p>
+                                    <div class="form-group form-group-sm">
+                                        <select chosen ng-model="nombreLimpieza" class="form-control"
+                                            ng-options="nl.idPersonalOM as nl.nombre for nl in listaPersonal">
+                                            <option value="">Elija una opción</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p>Personal de marcación</p>
+                                    <div class="form-group form-group-sm">
+                                        <select chosen ng-model="nombreMarcacion" class="form-control"
+                                            ng-options="nm.idPersonalOM as nm.nombre for nm in listaPersonal">
+                                            <option value="">Marcación</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12" ng-hide="codigo > 0">
+                                    Personal de descarga
+                                    <p style="font-size:11px;"> *Elija todas las opciones requeridas*</p>
+                                    <div class="form-group form-group-sm">
+                                        <select class="form-control" chosen multiple allow-single-deselect="true"
+                                            data-ersonal Oaxaca Miel" no-results-text="'Tough luck'"
+                                            ng-options="dS.idPersonalOM as dS.nombre for dS in listaPersonal"
+                                            ng-model="personalDescargas">
+                                            <option value=""> Seleccione los nombres</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="codigo > 0">
+                                <div class="col-lg-12">
+                                    <p>Descarga
+                                        <a class="btn btn-xs" style="background: gold; margin-left: 20px;"
+                                            ng-click="mostrarComboPersonal()">
+                                            <i style="color: #385428;" class="zmdi zmdi-account-add">
+                                                <span>Añadir</span>
+                                            </i>
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="form-group form-group-sm col-lg-4" ng-repeat="persona in personalDescargas">
+                                    <div class="input-group">
+                                        <div>
+                                            <input type="text" class="form-control" placeholder="Personal de descarga"
+                                                disabled="true" ng-model="persona.nombre">
+                                        </div>
+                                        <span class="input-group-addon">
+                                            <a ng-click="eliminarPersona($index);" class="btn btn-xs btn-danger"
+                                                title="Eliminar nombre">
+                                                <i style="color: white" class="zmdi zmdi-delete  pull-right"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <center>
+                                        <h4>
+                                            <b>DATOS DEL OPERADOR Y TRANSPORTE</b>
+                                        </h4>
+                                        <!-- <hr> -->
+                                    </center>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h5>
+                                        <b>DATOS PERSONALES</b>
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p>Operador</p>
+                                    <div class="form-group form-group-sm">
+                                        <div class="input-group">
+                                            <select chosen ng-model="eligeOperador" class="form-control"
+                                                ng-change="infoOperador(eligeOperador)"
+                                                ng-options="pa.idOperador as pa.operador for pa in operadoresC">
+                                                <option value=""> Elija una opción</option>
+                                            </select>
+                                            <div style="background-color: gold" ng-click="modalOperador()"
+                                                class="input-group-addon btn">
+                                                <i style="color: #385428" class="zmdi zmdi-account-add"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p>Empresa</p>
+                                    <div class="form-group form-group-sm">
+                                        <input type="text" class="form-control input-xs" ng-model="infoAnidada.compania"
+                                            disabled="true">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p>Licencia</p>
+                                    <div class="form-group form-group-sm">
+                                        <input type="text" class="form-control input-xs" ng-model="infoAnidada.licencia"
+                                            disabled="true">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p>Vigencia</p>
+                                    <div class="form-group form-group-sm">
+                                        <div class="input-group date" data-provide="datepicker">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input required type="text" class="form-control pull-right" id="datepicker"
+                                                ng-model="infoAnidada.vigencia" disabled="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h5>
+                                        <b>HIGIENE PERSONAL</b>
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <p>Cabello corto</p>
+                                        <div class="form-group form-group-sm">
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.cabello" value="1"> Sí
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.cabello" value="0"> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <p>Uñas cortas</p>
+                                        <div class="form-group form-group-sm">
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.unas" value="1"> Sí
+                                            </label>
+                                            <label class="radio-inline"></label>
+                                            <input type="radio" ng-model="descarga.unas" value="0"> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <p>Ropa limpia</p>
+                                        <div class="form-group form-group-sm">
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.ropa" value="1"> Sí
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.ropa" value="0"> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h5>
+                                        <b>DATOS DEL VEHÍCULO</b>
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p>Placas</p>
+                                    <div class="form-group form-group-sm">
+                                        <select ng-change="datosVehiculo(eligePlacas)" chosen ng-model="eligePlacas"
+                                            class="form-control" required="required"
+                                            ng-options="pl.idPlaca as pl.placa for pl in placasC">
+                                            <option value="">Elija una opción</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p>Tipo de vehículo</p>
+                                    <div class="form-group form-group-sm">
+                                        <input type="text" class="form-control input-xs" ng-model="datosUnidad.tipo"
+                                            disabled="true">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p>Marca</p>
+                                    <div class="form-group form-group-sm">
+                                        <input type="text" class="form-control input-xs" ng-model="datosUnidad.marca"
+                                            disabled="true">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p>Modelo</p>
+                                    <div class="form-group form-group-sm">
+                                        <input type="text" class="form-control input-xs" ng-model="datosUnidad.modelo"
+                                            disabled="true">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-if="datosUnidad.remolque !== null || datosUnidad.remolque > 0">
+                                <div class="col-lg-3">
+                                    <p>Remolque</p>
+                                    <div class="form-group form-group-sm">
+                                        <input type="text" class="form-control input-xs" ng-model="datosUnidad.remolque"
+                                            disabled="disabled" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p>Marca remolque</p>
+                                    <div class="form-group form-group-sm">
+                                        <input type="text" class="form-control input-xs"
+                                            ng-model="datosUnidad.marcaRemolque" disabled="true">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p>Modelo remolque</p>
+                                    <div class="form-group form-group-sm">
+                                        <input type="text" class="form-control input-xs"
+                                            ng-model="datosUnidad.modeloRemolque" disabled="true">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p>Placas remolque</p>
+                                    <div class="form-group form-group-sm">
+                                        <input type="text" class="form-control input-xs"
+                                            ng-model="datosUnidad.placaRemolque" disabled="true">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h5>
+                                        <b> CONDICIONES DE LA UNIDAD</b>
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <!-- <div class="col-lg-3">
+                                    <p>Tipo</p>
+                                    <div class="form-group form-group-sm">
+                                        <select chosen ng-model="descarga.tipo" class="form-control input-xs">
+                                            <option value="" selected>Elija una opción</option>
+                                            <option value="Automovil">Automovil</option>
+                                            <option value="Camioneta">Camioneta</option>
+                                            <option value="Camion">Camion</option>
+                                            <option value="Rabon">Rabon</option>
+                                            <option value="Torton">Torton</option>
+                                            <option value="Trailer">Trailer</option>
+                                        </select>
+                                    </div>
+                                </div> -->
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <p>Limpieza</p>
+                                        <div class="form-group form-group-sm">
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.limpieza" value="1"> Sí
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.limpieza" value="0"> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <p>Materiales extraños</p>
+                                        <div class="form-group form-group-sm">
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.materialExtrano" value="1"> Sí
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.materialExtrano" value="0"> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <p>Adecuado</p>
+                                        <div class="form-group form-group-sm">
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.vehiculoAdecuado" value="1"> Sí
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.vehiculoAdecuado" value="0"> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-hide="codigo > 0">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <center>
+                                            <h4>
+                                                <b>LISTA DE VERIFICACION</b>
+                                            </h4>
+                                            <hr>
+                                        </center>
+                                    </div>
+                                </div>
+                                <!-- <div class="row"> -->
+                                <!-- <div class="col-lg-12">
+                                    <h5 style="font-style: oblique;">
+                                        *El reporte tendrá que contener producto del mismo
+                                        tipo, es decir, convencional u
+                                        orgánico.
+                                        *En caso de que la descarga incluya producto de ambos tipos, tendrá que
+                                        realizar
+                                        reportes separados.
+                                        *Esto aplica únicamente para miel y cera.</h5>
+                                </div> -->
+                                <!-- </div> -->
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p>Elija un tipo de producto</p>
+                                        <select chosen class="form-control" ng-model="descarga.producto">
+                                            <option selected value="" disabled="disabled">Opciones</option>
+                                            <option value="1">Producto convencional</option>
+                                            <option value="2">Producto orgánico</option>
+                                            <option value="5">Producto Mantequilla</option>
+                                            <option value="6">Producto Altiplano</option>
+                                            <option value="7">Producto Naranjo</option>
+                                            <option value="8">Producto Aguacate</option>
+                                            <option value="9">Producto Mezquite</option>
+                                            <option value="0">No aplica</option>
+                                        </select>
+
+                                        <p ng-if="descarga.producto == 2">Clasificación</p>
+                                        <select ng-if="descarga.producto == 2" chosen class="form-control" ng-model="descarga.clasificacionMiel">
+                                            <option selected value="" disabled="disabled">Opciones</option>
+                                            <option value="EU">EU</option>
+                                            <option value="NOP+EU">NOP+EU</option>
+                                            <option value="NO_APLICA">No aplica</option>
+                                        </select>
+
+                                        <p ng-if="descarga.producto == 1">Clasificación</p>
+                                        <select ng-if="descarga.producto == 1" chosen class="form-control" ng-model="descarga.clasificacionMiel">
+                                            <option selected value="" disabled="disabled">Opciones</option>
+                                            <option value="T1">T1</option>
+                                            <option value="T0">T0</option>
+                                            <option value="CONVENCIONAL">CONVENCIONAL</option>
+                                            <option value="NO_APLICA">No aplica</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p>Elija una o varias opciones</p>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value=""
+                                                ng-model="descarga.miel">
+                                            Miel
+                                        </label>
+                                        <br>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value=""
+                                                ng-model="descarga.cera">
+                                            Cera
+                                        </label>
+                                        <br>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value=""
+                                                ng-model="descarga.apicolas">
+                                            Productos apícolas
+                                        </label>
+                                        <br>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value="" ng-model="descarga.mp">
+                                            Empaques (T, C y B)
+                                        </label>
+                                        <br>
+                                        <!-- <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value=""
+                                                ng-model="descarga.traspaso">
+                                            Traspaso
+                                        </label> -->
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value=""
+                                                ng-model="descarga.envasesFrascos">
+                                            Envases y frascos
+                                        </label>
+                                        <br>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value=""
+                                                ng-model="descarga.productosDerivados">
+                                            Productos derivados
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <p>Elija una o ambas opciones <strong style="font-size: 11px"> *Aplica
+                                                únicamente para miel</strong></p>
+                                        <label class="checkbox-inline">
+                                            <input ng-disabled="!mostrarRecipiente" type="checkbox" id="inlineCheckbox2"
+                                                value="" ng-model="descarga.tambor">
+                                            T
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input ng-disabled="!mostrarRecipiente" type="checkbox" id="inlineCheckbox3"
+                                                value="" ng-model="descarga.cubeta">
+                                            C
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="row" ng-show="codigo > 0">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <center>
+                                            <h4>
+                                                <b>DATOS DEL PRODUCTO</b>
+                                            </h4>
+                                            <!-- <hr> -->
+                                        </center>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <h5>
+                                        <b> FOLIOS DE ENTRADAS REGISTRADAS</b>
+                                    </h5>
+                                    <hr>
+                                </div>
+
+                                <div class="col-lg-4 col-lg-offset-4">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>Producto</th>
+                                                    <th>Entrada</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-if="descarga.tambor">
+                                                    <td>Miel {{producto }} {{clasificacion}} (T) </td>
+                                                    <td>
+                                                        <a href="#/nvoAlmacen/{{descarga.lote}}/{{tipoDeMiel}}"
+                                                            target="_blank">
+                                                            {{descarga.lote}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-if="descarga.cubeta">
+                                                    <td>Miel {{producto}} (C)</td>
+                                                    <td>
+                                                        <a href="#/nvoAlmacenQ/{{descarga.entradaCubeta}}/{{tipoDeMiel}}"
+                                                            target="_blank">
+                                                            {{descarga.entradaCubeta}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-if="descarga.cera">
+                                                    <td>Cera {{producto}}</td>
+                                                    <td>
+                                                        <a href="#/nuevaEntradaCera/{{descarga.entradaCera}}"
+                                                            target="_blank">
+                                                            {{descarga.entradaCera}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-if="descarga.apicolas">
+                                                    <td>Productos apícolas</td>
+                                                    <td>
+                                                        <a href="#/nuevaEntradaApicola/{{descarga.entradaApicola}}"
+                                                            target="_blank">
+                                                            {{descarga.entradaApicola}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-if="descarga.mp">
+                                                    <td>Empaques (T, C y B)</td>
+                                                    <td>
+                                                        <a href="#/nvaMatPrima/{{descarga.entradaMP}}/{{tipoDeMiel}}"
+                                                            target="_blank">
+                                                            {{descarga.entradaMP}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <!-- <tr ng-if="descarga.traspaso">
+                                                    <td>Traspaso</td>
+                                                    <td>
+                                                        <a href="#/detalleTraspaso/{{descarga.entradaTraspaso}}/{{tipoDeMiel}}"
+                                                            target="_blank">
+                                                            {{descarga.entradaTraspaso}}
+                                                        </a>
+                                                    </td>
+                                                </tr> -->
+                                                <tr ng-if="descarga.envasesFrascos">
+                                                    <td>Envases y frascos</td>
+                                                    <td>
+                                                        <a href="#/capturaEnvases/{{descarga.entradaEnvasesFrascos}}"
+                                                            target="_blank">
+                                                            {{descarga.entradaEnvasesFrascos}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-if="descarga.productosDerivados">
+                                                    <td>Productos derivados</td>
+                                                    <td>
+                                                        <a href="#/nuevaEntradaDerivados/{{descarga.entradaProductosDerivados}}"
+                                                            target="_blank">
+                                                            {{descarga.entradaProductosDerivados}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <!-- <tr ng-if="descarga.traspaso">
+                                                    <td>Traspaso</td>
+                                                    <td>
+                                                        <a href="#/detalleTraspaso/{{descarga.entradaTraspaso}}/{{tipoDeMiel}}"
+                                                            target="_blank">
+                                                            {{descarga.entradaTraspaso}}
+                                                        </a>
+                                                    </td>
+                                                </tr> -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h5>
+                                        <b> CONDICIONES FISICAS EXTERNAS DEL TAMBOR</b>
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <p>Roto</p>
+                                        <div class="form-group form-group-sm">
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.roto" value="1"> Sí
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.roto" value="0"> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <p>Abolladuras</p>
+                                        <div class="form-group form-group-sm">
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.abolladuras" value="1"> Sí
+                                            </label>
+                                            <label class="radio-inline"></label>
+                                            <input type="radio" ng-model="descarga.abolladuras" value="0"> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <p>Adecuado</p>
+                                        <div class="form-group form-group-sm">
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.recipienteAdecuado" value="1"> Sí
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.recipienteAdecuado" value="0"> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <p>Lavado exterior</p>
+                                        <div class="form-group form-group-sm">
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.lavadoExterior" value="1"> Sí
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" ng-model="descarga.lavadoExterior" value="0"> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <h5><b>OBSERVACIONES</b></h5>
+                                    <div class="form-group form-group-sm">
+                                        <textarea class="form-control" rows="3" ng-model="descarga.observaciones"
+                                            bservaciones">
+                                            </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p for="">&nbsp;</p>
+                                    <button type="submit" ng-click="guardarReporteDescarga();"
+                                        class="btn btn-warning btn-xs">Guardar</button>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal  fade" id="modalOperador" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Operador</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h5>
+                                    <b>DATOS PERSONALES</b>
+                                </h5>
+                                <hr>
+                            </div>
+                            <div class="col-lg-6">
+                                <p>Nombre completo</p>
+                                <div class="form-group form-group-sm">
+                                    <input type="text" class="form-control input-xs" ng-model="chofer.operador" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <p>Compañía</p>
+                                <div class="form-group form-group-sm">
+                                    <input type="text" class="form-control input-xs" ng-model="chofer.compania" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <p>Licencia</p>
+                                <div class="form-group form-group-sm">
+                                    <input type="text" class="form-control input-xs" ng-model="chofer.licencia" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <p>Vigencia</p>
+                                <div class="form-group form-group-sm">
+                                    <div class="input-group date" data-provide="datepicker">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input required type="text" class="form-control pull-right" id="datepicker"
+                                            ng-model="chofer.vigencia">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h5>
+                                    <b> DATOS DEL TRANSPORTE</b>
+                                </h5>
+                                <hr>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group-sm">
+                                        <div class="col-md-4">
+                                            <button class="btn btnMiel btn-block" ng-click="nuevaPlaca();">
+                                                <b>Añadir vehículo <i style="color: #385428"
+                                                        class="zmdi zmdi-plus"></i></b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group-sm">
+                                    <div ng-repeat="placa in arregloDePlacas" class="row">
+                                        <div class="col-lg-3">
+                                            <p>Tipo</p>
+                                            <div class="form-group form-group-sm">
+                                                <select chosen ng-model="placa.tipo" class="form-control input-xs">
+                                                    <option value="" selected>Elija una opción</option>
+                                                    <option value="Automovil">Automóvil</option>
+                                                    <option value="Camioneta">Camioneta</option>
+                                                    <option value="Camion">Camión</option>
+                                                    <option value="Rabon">Rabón</option>
+                                                    <option value="Torton">Torton</option>
+                                                    <option value="Trailer">Tráiler</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <p>Marca</p>
+                                                <input type="text" class="form-control input-xs"
+                                                    ng-model="placa.marca" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <p>Modelo</p>
+                                                <div class="form-group form-group-sm">
+                                                    <input type="text" class="form-control input-xs"
+                                                        ng-model="placa.modelo" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <p>Placas</p>
+                                                <div class="form-group form-group-sm">
+                                                    <input type="text" class="form-control input-xs"
+                                                        ng-model="placa.placa" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <p>Remolque</p>
+                                                <div class="form-group form-group-sm">
+                                                    <select ng-model="placa.remolque" class="form-group form-control">
+                                                        <option value="" selected>Opciones</option>
+                                                        <option value="1">Caja seca</option>
+                                                        <option value="2">Jaula</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <p>Marca remolque</p>
+                                                <input type="text" class="form-control input-xs"
+                                                    ng-model="placa.marcaRemolque" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <p>Modelo remolque</p>
+                                                <div class="form-group form-group-sm">
+                                                    <input type="text" class="form-control input-xs"
+                                                        ng-model="placa.modeloRemolque" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <p>Placas Remolque</p>
+                                                <div class="form-group form-group-sm">
+                                                    <input type="text" class="form-control input-xs"
+                                                        ng-model="placa.placaRemolque" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div ng-show="placa.idPlaca == 0" class="col-lg-1">
+                                            <div class="form-group">
+                                                <p>&nbsp;</p>
+                                                <a ng-click="eliminarPlaca($index);" class="btn btn-danger btn-xs"
+                                                    title="Eliminar Placa">
+                                                    <i class="zmdi zmdi-delete"></i>
+                                                </a>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-md-12">
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button type="button" ng-click="guardarOperador();" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="modal  fade" id="modalOperador" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Operador</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label style="font-weight: bold;" class="col-sm-3 control-label">Operador </label>
+                            <div class="col-sm-9">
+                                <input align="center" type="text" class="form-control input-xs" required="required"
+                                    ng-model="chofer.operador" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label style="font-weight: bold;" class="col-sm-3 control-label">Compañía </label>
+                            <div class="col-sm-9">
+                                <input align="center" type="text" class="form-control input-xs"
+                                    ng-model="chofer.compania" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label style="font-weight: bold;" class="col-sm-3 control-label">Licencia </label>
+                            <div class="col-sm-9">
+                                <input align="center" type="text" class="form-control input-xs"
+                                    ng-model="chofer.licencia" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label style="font-weight: bold;" class="col-sm-3 control-label">Remolque </label>
+                            <div class="col-sm-9">
+                                <input align="center" type="text" class="form-control input-xs"
+                                    ng-model="chofer.remolque" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label style="font-weight: bold;" class="col-sm-3 control-label">Vigencia </label>
+                            <div class="col-sm-9">
+                                <input type="date" date="dd/MM/yyyy" title="Vigencia" ng-model="chofer.vigencia" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label style="font-weight: bold;" class="col-sm-3 control-label">Placas </label>
+                            <div class="col-lg-2">
+                                <button class="btn bgm-blue" ng-click="nuevaPlaca();">
+                                    <i style="color: #385428" class="zmdi zmdi-plus"></i>
+                                </button>
+                            </div>
+                            <div class="col-sm-9">
+                                <div ng-repeat="numPlaca in arregloDePlacas" class="input-group">
+                                    <div>
+                                        <input type="text" class="form-control" ng-model="numPlaca.placa">
+                                    </div>
+                                    <span class="input-group-addon">
+                                        <a ng-click="eliminarNumPlaca($index);" class="btn btn-xs btn-danger"
+                                            title="Eliminar Placas">
+                                            <i class="zmdi zmdi-delete  pull-right"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button type="button" ng-click="guardarOperador();" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="modal  fade" id="modalComboPersonal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Personal Descarga</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <div class="fg-line">
+                            <select ng-model="descargador" class="form-control"
+                                ng-options="des.idPersonalOM as des.nombre for des in listaPersonal">
+                                <option value="">Elija una opción</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button type="button" ng-click="agregarDescargador();" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

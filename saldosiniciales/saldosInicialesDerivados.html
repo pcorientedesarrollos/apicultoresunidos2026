@@ -1,0 +1,120 @@
+<div class="box box-solid box-warning">
+    <div class="box-header" style="height: 50px;">
+        <h5 class="encabezadosTabla">
+            SALDOS INICIALES DE PRODUCTOS DERIVADOS
+        </h5>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <button type="button" class="btn btn-success" title="Productos derivados"
+                        ng-click="crearNuevoSaldo = !crearNuevoSaldo">
+                        <i class="fa fa-plus"></i> Nuevo saldo
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div ng-if="crearNuevoSaldo" class="nuevoSaldoInicialDerivado">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>Seleccione de la cuenta de productos derivados y especifique los campos solicitados</p>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label for="">Movimiento (*)</label>
+                        <select chosen ng-model="nuevoSaldoInicialDerivado.tipoMovimiento" class="form-control"
+                            ng-options="tm as tm.cuenta for tm in listaCuentasSeleccionadas"
+                            ng-change="cambioSeleccionCuenta()">
+                            <option disabled="disabled" value="">Tipo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label for="">Selecciona el concepto (*)</label>
+                        <select ng-model="nuevoSaldoInicialDerivado.concepto" chosen class="form-control"
+                            ng-options="c as c.subcuenta for c in listaSubcuentasSeleccionadas"
+                            ng-change="obtenerSubsubcuentas(nuevoSaldoInicialDerivado.concepto.idSubcuenta)">
+                            <option value="" disabled="disabled"> Conceptos </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label for="">Selecciona un subconcepto (*)</label>
+                        <select chosen ng-model="nuevoSaldoInicialDerivado.subconcepto" class="form-control"
+                            ng-options="ss as ss.subSubcuenta for ss in listaSubSubcuentas"
+                            ng-disabled="!listaSubSubcuentas.length">
+                            <option disabled="disabled" value="">Subsubcuenta</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label for="">Cantidad (*)</label>
+                        <input type="text" class="form-control" placeholder="Cantidad existencia pasada"
+                            ng-model="nuevoSaldoInicialDerivado.existenciaPasada">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label for="">Importe (*)</label>
+                        <input type="text" class="form-control" placeholder="Importe acumulado pasado"
+                            ng-model="nuevoSaldoInicialDerivado.importePasado">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success" ng-click="guardarNuevoSaldoDerivado()">
+                            <i class="fa fa-save"></i> Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p ng-if="!inventarios_derivados.length" class="lead">Los conceptos aparecerán de acuerdo a los movimientos
+            de
+            productos derivados</p>
+        <div class="table-responsive" ng-if="inventarios_derivados.length">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th clas="text-center"></th>
+                        <th clas="text-center">Producto</th>
+                        <th clas="text-center">Existencia pasada</th>
+                        <th clas="text-center">Importe pasado</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="inventario in inventarios_derivados">
+                        <td class="text-center">{{$index+1}}</td>
+                        <td class="text-left">{{inventario.nombre}}</td>
+                        <td class="text-right">
+                            <input type="text" class="form-control" placeholder="Cantidad existencia pasada"
+                                ng-model="inventario.existenciaPasada">
+                        </td>
+                        <td class="text-right">
+                            <input type="text" class="form-control" placeholder="Importe acumulado pasado"
+                                ng-model="inventario.importePasado">
+                        </td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-success btn-sm" title="Guardar saldo"
+                                ng-click="guardarSaldosInventario_derivados(inventario, $index);">
+                                <i class="fa fa-save"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div growl></div>

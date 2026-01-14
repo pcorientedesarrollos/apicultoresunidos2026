@@ -1,0 +1,75 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        SALIDA</h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <div class="table-responsive no-padding">
+                                    <table class="table table-bordered table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px; background-color: yellowgreen" colspan="12">Trazabilidad de salida</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="text-transform: none; font-weight: 600; background: none" rowspan="4">Fecha de envasado</th>
+                                                <th style="text-transform: none; font-weight: 600; background: none" rowspan="1" colspan="2">Lote</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="4">No. de ID de apicultores que conforman el lote</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="4">Volumen (kg) de miel usada por apicultor</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="4">Fecha de salida </th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="1" colspan="4">Destino y Volumen (Kg)</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="1" colspan="1">Homogeneizado</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="1" colspan="1" >
+                                                    <input
+                                                        type="tex"
+                                                        class="small">
+                                                </th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="3">Empresa de destino / Pais</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="3">Cantidad total de  (Kg) a exportar</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="3">Nacional (Kg)</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="3">Consumidor Directo (Kg)</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="1">Sin Homogenizar</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="1" colspan="1">
+                                                    <input
+                                                        type="text"
+                                                        class="small">
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="1" colspan="1">N° (c)</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none" rowspan="1" colspan="1">Kg</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{x.fechaDos|date:'dd/MM/yyyy'}}</td>
+                                                <td style="text-align: right">{{x.tamboresTotal}}</td>
+                                                <td style="text-align: right">{{x.totalImporte|currency}}</td>
+                                                <td style="text-align: right">{{x.tambores}}</td>
+                                                <td style="text-align: right">{{x.totalCompra|currency}}</td>
+                                                <td style="text-align: right">{{x.totalCompra|currency}}</td>
+                                                <td style="text-align: right">{{x.totalCompra|currency}}</td>
+                                                <td style="text-align: right">{{x.totalCompra|currency}}</td>
+                                                <td style="text-align: right">{{x.totalCompra|currency}}</td>
+                                            </tr> 
+                                        </tbody>
+
+                                    </table>
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

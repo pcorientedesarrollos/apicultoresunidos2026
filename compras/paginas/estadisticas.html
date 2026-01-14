@@ -1,0 +1,140 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        TABLA DE INDICADORES</h5>
+                </div>
+                <div class="box-body">
+                    <div class="col-lg-9">
+                        <h5>Periodo de evaluación</h5>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-4">
+                                <div class="form-group">
+                                    <!-- <label>Fecha inicio</label> -->
+                                    <div class="input-group date" data-provide="datepicker">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" class="form-control pull-right" id="datepicker"
+                                            placeholder="Fecha de inicio" ng-model="periodo.fechaUno">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <div class="form-group">
+                                    <!-- <label>Fecha Final</label> -->
+                                    <div class="input-group date" data-provide="datepicker">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" class="form-control pull-right" id="datepicker"
+                                            placeholder="Fecha final" ng-model="periodo.fechaDos">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-success btn-sm pull-right" ng-click="agregarEstadistica()">
+                                Buscar
+                            </button>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-sm-4">
+                                <label>Fecha Inicio</label>
+                                <input type="date" date="yyyy/MM/dd" required="required" ng-model="periodo.fechaUno" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Fecha Final</label>
+                                <input type="date" date="yyyy/MM/dd" required="required" ng-model="periodo.fechaDos" />
+
+                            </div>
+                        </div> -->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <hr>
+
+                            <!-- <h4 style="text-align: center">Tabla de Indicadores</h4> -->
+
+                            <div class="col-lg-12">
+                                <div class="table-responsive no-padding">
+                                    <table class="table table-bordered table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px; background-color: gold"
+                                                    colspan="2">Periodo</th>
+                                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px; background-color: yellowgreen"
+                                                    colspan="2">Area Compras</th>
+                                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px; background-color: orange"
+                                                    colspan="2">Area Almacén</th>
+                                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                    class="info" colspan="2">Diferencia</th>
+                                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px; background-color: gold"
+                                                    rowspan="2">Eliminar</th>
+                                            </tr>
+                                            <tr>
+                                                <th
+                                                    style="text-transform: none; font-weight: 600; background-color: gold">
+                                                    Fecha Inicio</th>
+                                                <th
+                                                    style="text-transform: none; font-weight: 600; background-color: gold">
+                                                    Fecha Final</th>
+                                                <th
+                                                    style="text-align: right; text-transform: none; font-weight: 600; background-color: yellowgreen">
+                                                    Total de tambores</th>
+                                                <th
+                                                    style="text-align: right; text-transform: none; font-weight: 600; background-color: yellowgreen">
+                                                    Importe solicitado</th>
+                                                <th
+                                                    style="text-align: right; text-transform: none; font-weight: 600; background-color: orange">
+                                                    Total de tambores</th>
+                                                <th
+                                                    style="text-align: right; text-transform: none; font-weight: 600; background-color: orange">
+                                                    Importe pagado</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600"
+                                                    class="info">De tambores</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600"
+                                                    class="info">De importe</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="estadistica in estadisticas">
+                                            <td>{{estadistica.fechaUno}}</td>
+                                            <td>{{estadistica.fechaDos}}</td>
+                                            <td style="text-align: right">{{estadistica.tamboresCompras}}</td>
+                                            <td style="text-align: right">{{estadistica.importeCompras|currency}}</td>
+                                            <td style="text-align: right">{{estadistica.tamboresAlmacen}}</td>
+                                            <td style="text-align: right">{{estadistica.importeAlmacen|currency}}</td>
+                                            <td style="text-align: right">
+                                                {{estadistica.tamboresCompras - estadistica.tamboresAlmacen}}</td>
+                                            <td style="text-align: right">
+                                                {{estadistica.importeCompras - estadistica.importeAlmacen|currency}}
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <div>
+                                                        <button title="Eliminar Registro"
+                                                            ng-click="eliminarEstadistica($index)"
+                                                            class="btn btn-xs btn-danger">
+                                                            <i class="zmdi zmdi-delete">
+                                                            </i>
+                                                        </button>
+                                                    </div>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

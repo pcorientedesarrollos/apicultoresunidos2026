@@ -1,0 +1,54 @@
+<section class="content">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2" ng-controller="compradorCtrl">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        COMPRADORES
+                        <a href="#/editarComprador/nuevo" class="btn btn-success btn-xs" style="float: right">
+                           <i class="zmdi zmdi-account-add"></i> Agregar
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr style="height: 35px;">
+                                <th style="text-transform: none; font-weight: 600">No.</th>                                
+                                <th style="text-transform: none; font-weight: 600">Nombre </th>
+                                <th style="text-transform: none; font-weight: 600">Teléfono</th>
+                                <th style="text-transform: none; font-weight: 600">Zonas</th>
+                                <th style="text-transform: none; font-weight: 600">Editar</th>
+                                <!--<th style="text-transform: none; font-weight: 600">Eliminar</th>-->
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="comp in compradores">
+                            <td>{{comp.idcomprador}}</td>                
+                            <td>{{comp.nombre|uppercase}}</td>
+                            <td>{{comp.telefono}}</td>
+                            <td>
+                                <a href="#/zonasAsignadas/{{comp.idcomprador}}" class="btn btn-default btn-xs">
+                                    <i class="zmdi zmdi-pin-drop"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#/editarComprador/{{comp.idcomprador}}" class="btn btn-warning btn-xs">
+                                    <i class="zmdi zmdi-edit"></i>
+                                </a>
+                            </td>
+<!--                            <td>
+                                <a ng-click="eliminarComp(comp.idcomprador)" class="btn btn-danger btn-xs " >
+                                    <i class="zmdi zmdi-delete"></i>
+                                </a>
+                            </td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>

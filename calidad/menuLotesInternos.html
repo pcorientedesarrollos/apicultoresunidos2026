@@ -1,0 +1,164 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" ng-model="busquedaInternos" class="form-control input-sm pull-right"
+                        placeholder="Ingrese lo que desea buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-warning">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+                <div class="input-group" style="width: 150px;">
+                    <input type="text" ng-model="busquedaInternos" name="table_search"
+                        class="form-control input-sm pull-right" placeholder="Buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CREACION DE LOTES INTERNOS
+                        <b ng-show="opcionCosechaInt == 1"> MIEL 100% PURA DE ABEJA</b>
+                        <b ng-show="opcionCosechaInt == 2"> MIEL 100% ORGÁNICA</b>
+                        <b ng-show="opcionCosechaInt == 5"> MIEL 100% MANTEQUILLA</b>
+                        <b ng-show="opcionCosechaInt == 6"> MIEL 100% ALTIPLANO</b>
+                        <b ng-show="opcionCosechaInt == 7"> MIEL 100% NARANJO</b>
+                        <b ng-show="opcionCosechaInt == 8"> MIEL 100% AGUACATE</b>
+                        <b ng-show="opcionCosechaInt == 9"> MIEL 100% MEZQUITE</b>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="1" ng-model="opcionCosechaInt">Convencional
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="2" ng-model="opcionCosechaInt">Orgánica
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="5" ng-model="opcionCosechaInt">Mantequilla
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="6" ng-model="opcionCosechaInt">Altiplano
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="7" ng-model="opcionCosechaInt">Naranjo
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="8" ng-model="opcionCosechaInt">Aguacate
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="9" ng-model="opcionCosechaInt">Mezquita
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class=" table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr>
+                                    <th style="text-transform: none; font-weight: 600">Lote Interno</th>
+                                    <th style="text-transform: none; font-weight: 600">Fecha Proceso</th>
+                                    <th style="text-transform: none; font-weight: 600">Fecha Envasado</th>
+                                    <th style="text-transform: none; font-weight: 600">Tambores</th>
+                                    <th style="text-transform: none; font-weight: 600;">Total Kg.</th>
+                                    <th style="text-transform: none; font-weight: 600; text-align: right">Marca
+                                        Laboratorio</th>
+                                    <th style="text-transform: none; font-weight: 600; text-align: right">Marca Final
+                                        Cliente</th>
+                                    <th style="text-transform: none; font-weight: 600; text-align: right">Contrato</th>
+                                    <th style="text-transform: none; font-weight: 600">Editar</th>
+                                    <th style="text-transform: none; font-weight: 600">Imprimir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="lotInt in menuLoteInterno| filter:busquedaInternos">
+                                    <td ng-show="opcionCosechaInt == 1">LC26-{{lotInt.idLoteInterno}}</td>
+                                    <td ng-show="opcionCosechaInt == 2">LO26-{{lotInt.idLoteInterno}}</td>
+                                    <td ng-show="opcionCosechaInt == 5">LM26-{{lotInt.idLoteInterno}}</td>
+                                    <td ng-show="opcionCosechaInt == 6">LA26-{{lotInt.idLoteInterno}}</td>
+                                    <td ng-show="opcionCosechaInt == 7">LN26-{{lotInt.idLoteInterno}}</td>
+                                    <td ng-show="opcionCosechaInt == 8">LG25-{{lotInt.idLoteInterno}}</td>
+                                    <td ng-show="opcionCosechaInt == 9">LZ26-{{lotInt.idLoteInterno}}</td>
+                                    <td>{{lotInt.fechaProceso | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{lotInt.fechaEnvasado | date:'dd/MM/yyyy'}}</td>
+                                    <td style="text-align: right">{{lotInt.numeroDeTambores | number}}</td>
+                                    <td style="text-align: right">{{lotInt.kilosTotales | number}}</td>
+                                    <td style="text-align: right">{{lotInt.loteCliente|uppercase}}</td>
+                                    <td style="text-align: right">{{lotInt.marcaFinalCliente|uppercase}}</td>
+                                    <td style="text-align: right">{{lotInt.contrato}}</td>
+                                    <!--<td style="text-align: right">{{lotInt.lote|uppercase}}</td>-->
+                                    <td>
+                                        <a class="btn btn-warning btn-xs"
+                                            ng-href="#/vrLotInt/{{lotInt.idLoteInterno}}/{{opcionCosechaInt}}"
+                                            title="Agregar precios">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a style="margin-right: 10px;" title="Imprimir PDF"
+                                            class="btn btn-danger btn-xs"
+                                            ng-click="pdfDescarga(lotInt.idLoteInterno, opcionCosechaInt)">
+                                            <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                                        </a>
+                                        <a style="margin-right: 10px" title="Imprimir XLS"
+                                            class="btn btn-success btn-xs"
+                                            ng-click="xlsDescarga(lotInt.idLoteInterno, opcionCosechaInt)">
+                                            <i class="zmdi zmdi-storage zmdi-hc-lg"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>

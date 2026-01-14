@@ -1,0 +1,62 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        OTRAS SALIDAS
+                        <a href="#/nvaSalida" class="btn btn-success btn-xs pull-right">
+                            <i class="fa fa-plus"></i> Nueva
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-5 col-md-offset-7">
+                            <div class="form-group">
+                                <div class="input-group pull-right">
+                                    <input type="text" ng-model="inputSearch" class="form-control input-sm pull-right" placeholder="Buscar">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-warning">
+                                            <i class="zmdi zmdi-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center"></th>
+                                    <th style="text-transform: none; font-weight: 600; text-align:left">Fecha reporte</th>
+                                    <th style="text-transform: none; font-weight: 600; text-align:left">Nombre</th>
+                                    <th style="text-transform: none; font-weight: 600; text-align:right">Kg</th>
+                                    <th style="text-transform: none; font-weight: 600; text-align:right">Importe</th>
+                                    <th style="text-align:center"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="salida in salidas | filter:inputSearch">
+                                    <td style="text-align:center" ng-bind="$index+1"></td>
+                                    <td style="text-align:left" ng-bind="salida.fecha | date:'dd/MM/yyyy'"></td>
+                                    <td style="text-align:left" ng-bind="salida.nombre | uppercase"></td>
+                                    <td style="text-align:right" ng-bind="salida.totalPeso | number"></td>
+                                    <td style="text-align:right" ng-bind="salida.totalImporte | currency"></td>
+                                    <td style="text-align:center">
+                                        <a href="#/nvaSalida/{{salida.idOtraSalida}}" class="btn btn-warning btn-xs">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

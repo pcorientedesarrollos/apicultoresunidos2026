@@ -1,0 +1,14 @@
+{
+    "resultExperimental":
+            [{
+                    "id": "1",
+                    "asignacion": "Exportacion"
+                }, {
+                    "id": "2",
+                    "asignacion": "Nacional"
+                }, {
+                    "id": "3",
+                    "asignacion": "Inventario Anterior"
+                }]
+
+}

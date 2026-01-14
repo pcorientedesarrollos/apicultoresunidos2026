@@ -1,0 +1,51 @@
+<div class="col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-1">
+    <div class="card col s12 m12">
+        <div class="card-header bgm-miel">
+            <h2 style="font-family: 'Didact Gothic', sans-serif; text-transform: uppercase">ENTRADAS DE ALMACEN DE MATERIAS PRIMAS Y EMPAQUES</h2>
+            <a title="Regresar" class="btn bgm-red btn-float waves-effect"
+               href="#/matPrima">
+                <i class="zmdi red zmdi-undo"></i>
+            </a>
+        </div>
+        <div class="card-body card-padding">
+            <div role="tabpanel">
+                <div class="tab-content">
+                    <div ng-switch="modulo">
+                        <!--<div ng-switch-when="a">-->
+                        <div class="table-responsive">
+                            <table class="table table-striped table-condensed" style="align-content: center">
+                                <thead>
+                                    <tr>
+                                        <!--<th style="text-transform: none; font-weight: 600">No.</th> -->
+                                        <th style="text-transform: none; font-weight: 600">Fecha</th>
+                                        <th style="text-transform: none; font-weight: 600">Proveedor</th>
+                                        <th style="text-align: right; text-transform: none; font-weight: 600">Verdes</th>
+                                        <th style="text-align: right; text-transform: none; font-weight: 600">Azules</th>
+                                        <th style="text-align: right; text-transform: none; font-weight: 600">Grises</th>
+                                        <th style="text-align: right; text-transform: none; font-weight: 600">Cafés</th>
+                                        <th style="text-align: right; text-transform: none; font-weight: 600">Blancos</th>
+
+                                    </tr>
+                                </thead>
+                                <tr ng-repeat="de in desgloseEntrada">
+                                    <!--     <td>{{de.idMateriaPrima}}</td>-->
+                                    <td>{{de.fecha | date:'dd-MM-yyyy'}}</td>
+                                    <td>{{de.proveedor}}</td>
+                                    <td style="text-align: right">{{de.verdes}}</td>
+                                    <td style="text-align: right">{{de.azules}}</td>
+                                    <td style="text-align: right">{{de.grises}}</td>
+                                    <td style="text-align: right">{{de.cafes}}</td>
+                                    <td style="text-align: right">{{de.blancos}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div growl>
+
+</div>

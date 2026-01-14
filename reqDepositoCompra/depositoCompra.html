@@ -1,0 +1,68 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        REQUERIMIENTO DE DEPOSITO DE COMPRAS
+                        <a href="#/nvoReq/nuevo" class="btn btn-success btn-xs pull-right">
+                            <i class="zmdi zmdi-plus"></i>
+                            Agregar
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6 col-md-offset-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" ng-model="busquedaReq" class="form-control" placeholder="Buscar"
+                                        aria-describedby="input-busqueda">
+                                    <span class="input-group-addon" id="input-busqueda"><i
+                                            class="zmdi zmdi-search"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Fecha Reporte</th>
+                                    <!--<th>Fecha Impresión</th>-->
+                                    <th>Tambores</th>
+                                    <th>Peso en Kg.</th>
+                                    <th>Importe</th>
+                                    <th>Req cobrados</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="i in infoDeposito|filter:busquedaReq">
+                                    <td>{{i.fechaRequisicion | date:'dd/MM/yyyy'}}</td>
+                                    <!--<td>{{i.fechaImpresion}}</td>-->
+                                    <td>{{i.totalTambores | number}}</td>
+                                    <td>{{i.totalKilos | number}}</td>
+                                    <td>{{i.importeTotal | currency}}</td>
+                                    <td>{{i.totalCobrado}}/{{i.totalDetalles}}</td>
+                                    <td>
+                                        <a class="btn btn-warning btn-xs" ng-href="#/nvoReq/{{i.idRequisicion}}"
+                                            title="Ver más">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
+                                        <button ng-disabled="!i.puedeEliminar" type="button"
+                                            class="btn btn-danger btn-xs" title="Eliminar registro"
+                                            ng-click="eliminarRequerimiento(i.idRequisicion)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

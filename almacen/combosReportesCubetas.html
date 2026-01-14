@@ -1,0 +1,182 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        REPORTES GENERALES
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label for="">
+                                    <b>Tipo de miel</b>
+                                </label>
+                                <select chosen ng-model="opcion.tipoDeMiel" class="form-control" ng-options="tipo.idTipoDeMiel as tipo.tipoDeMiel for tipo in tiposDeMiel">
+                                    <option value="">Selecciona un tipo de miel</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label for="">
+                                    <b>Tipo de reporte</b>
+                                </label>
+                                <select chosen ng-model="opcion.opcion" class="form-control">
+                                    <option value="">Seleccione una opción</option>
+                                    <option value="1">Por período</option>
+                                    <option value="2">Todo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="opcion.opcion == 1">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label>Fecha Inicio</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="datepicker" placeholder="Fecha inicio" ng-model="opcion.fecha1" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label>Fecha Final</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="datepicker" placeholder="Fecha final" ng-model="opcion.fecha2" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label for="">
+                                    <b>Tipo de almacén</b>
+                                </label>
+                                <select chosen ng-model="radio.opcion" class="form-control">
+                                    <option value="">Seleccione una opción</option>
+                                    <option value="3">Tambores</option>
+                                    <option value="4">Cubetas</option>
+                                    <option value="5">Ambos</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+
+                                <label for="">
+                                    <b>Proveedores</b>
+                                </label>
+                                <select ng-model="combo.opcion" class="form-control">
+                                    <option value="">Seleccione una opción</option>
+                                    <option value="6">Un proveedor</option>
+                                    <option value="7">Todos los proveedores</option>
+                                    <option value="12" ng-if="opcion.opcion == 2">Concentrado</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-3" ng-if="combo.opcion == 6">
+                            <div class="form-group">
+
+                                <label for="">
+                                    <b>Selecciona un proveedor</b>
+                                </label>
+                                <select chosen ng-model="combo.idProveedor" class="form-control" ng-options="a.idProveedor as a.nombre for a in nombresDeProveedores">
+                                    <option value="">Seleccione un Proveedor</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label for="">
+                                    <b>Zonas</b>
+                                </label>
+
+                                <select ng-model="combo.opcion" class="form-control">
+                                    <option value="">Seleccione una opción</option>
+                                    <option value="8">Una zona</option>
+                                    <option value="9">Todas las zonas</option>
+                                    <option value="13" ng-if="opcion.opcion == 2">Concentrado</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-3" ng-if="combo.opcion == 8">
+                            <div class="form-group">
+                                <label for="">
+                                    <b>Selecciona una zona</b>
+                                </label>
+                                <select chosen ng-model="combo.idZona" class="form-control" ng-options="cz.idzona as cz.zona for cz in nomZona">
+                                    <option value="">Seleccione una Zona</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label for="">
+                                    <b>Localidades</b>
+                                </label>
+
+                                <select ng-model="combo.opcion" class="form-control">
+                                    <option value="">Seleccione una opción</option>
+                                    <option value="10">Una localidad</option>
+                                    <option value="11">Todas las localidades</option>
+                                    <option value="14" ng-if="opcion.opcion == 2">Concentrado</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-3" ng-if="combo.opcion == 10">
+                            <div class="form-group">
+                                <label for="">
+                                    <b>Selecciona una localidad</b>
+                                </label>
+                                <select chosen ng-model="combo.idLocalidad" class="form-control" ng-options="lo.idlocalidad as lo.localidad for lo in listaLocalidades">
+                                    <option value="">Seleccione una Localidad</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div style="text-align: right">
+                                <button ng-click="validarFecha()" type="button" class="btn btn-success">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>
+<!-- Linea 266 -->

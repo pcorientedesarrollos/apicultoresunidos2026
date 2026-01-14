@@ -1,0 +1,569 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12 texto">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CAPTURA DE CERTIFICADO DE LOTES INTERNOS
+                        <a title="Regresar" href="#/certificadosLotes" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <br>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label style="font-weight: bold;">
+                                        Lote
+                                    </label>
+                                    <input disabled="disabled" ng-model="encabezado.idLote" type="text"
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-2" ng-if="mostrarMarca">
+                                <div class="form-group">
+                                    <label style="font-weight: bold;">Marcación final</label>
+                                    <input disabled="disabled" ng-model="encabezado.marcacionFinal" type="text"
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-lg-offset-1">
+                                <div class="form-group">
+                                    <label>Fecha</label>
+                                    <div class="input-group date" data-provide="datepicker">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input ng-model="encabezado.fecha" type="text" class="form-control pull-right"
+                                            id="datepicker" placeholder="Fecha">
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="idLote > 0" class="col-sm-1  pull-right">
+                                <label for="">&nbsp;</label>
+                                <button title="Imprimir PDF" class="btn btn-danger" ng-click="imprimirCertificado()">
+                                    <i class="fa fa-file-pdf-o"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- TABLA SENSORIALES -->
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="7" class="text-center">Sensoriales</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Análisis</center>
+                                            </th>
+                                            <th colspan="2" style="text-transform: none; font-weight: 600">
+                                                <center>NMX-F-036-NORMEX-2006</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Resultado</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Desviación</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Comentario</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Técnicas</center>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Apariencia</td>
+                                            <td colspan="2" ng-bind="tipoDeMiel" class="text-center"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.apariencia.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.apariencia.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.sensoriales.apariencia.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.apariencia.tecnicas"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Color</td>
+                                            <td colspan="2" rowspan="3"><textarea class="form-control" rows="6"
+                                                    ng-model="detalle.sensoriales.color.cuadroSensoriales"></textarea>
+                                            </td>
+                                            <!-- <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.color.parametro"></td> -->
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.color.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.color.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.sensoriales.color.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.color.tecnicas"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Olor</td>
+                                            <!-- <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.olor.parametro"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.olor.parametro"></td> -->
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.olor.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.olor.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.sensoriales.olor.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.olor.tecnicas"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sabor</td>
+                                            <!-- <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.sabor.parametro"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.sabor.parametro"></td> -->
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.sabor.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.sabor.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.sensoriales.sabor.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.sensoriales.sabor.tecnicas"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!----------------------->
+                            <!-- TABLA CARACTERISTICAS -->
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="7" class="text-center">Características</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Análisis</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Mínimo</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Máximo</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Resultado</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Desviación</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Comentario</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Técnicas</center>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tipo de miel</td>
+                                            <td colspan="2" class="text-center" ng-bind="tipoDeMiel"></td>
+                                            <td ng-bind="tipoDeMiel"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.tipoDeMiel.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.caracteristicas.tipoDeMiel.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.tipoDeMiel.tecnicas"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Humedad</td>
+                                            <td>
+                                                <input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.humedad.minimo">
+                                            </td>
+                                            <td>
+                                                <input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.humedad.maximo">
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.humedad.resultado">
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.humedad.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.caracteristicas.humedad.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.humedad.tecnicas">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Color</td>
+                                            <td><input class=" form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.color.minimo">
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.color.maximo">
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.color.resultado">
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.color.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.caracteristicas.color.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.color.tecnicas">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>HMF</td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.hmf.minimo"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.hmf.maximo"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.hmf.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.hmf.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.caracteristicas.hmf.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.hmf.tecnicas"></td>
+                                            <td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adulteración</td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.adulteracion.minimo"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.adulteracion.maximo"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.adulteracion.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.adulteracion.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.caracteristicas.adulteracion.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.adulteracion.tecnicas"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>F/G</td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.fg.minimo"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.fg.maximo"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.fg.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.fg.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.caracteristicas.fg.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.fg.tecnicas"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>°Brix</td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.brix.minimo"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.brix.maximo"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.brix.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.brix.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.caracteristicas.brix.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.brix.tecnicas"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sólidos totales</td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.solidos.minimo"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.solidos.maximo"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.solidos.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.solidos.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.caracteristicas.solidos.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.caracteristicas.solidos.tecnicas"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--------------------------->
+                            <!-- TABLA ANTIBIOTICOS -->
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="6" class="text-center">Antibióticos</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Análisis</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Parámetros</center>
+                                            </th>
+                                            <!-- <th style="text-transform: none; font-weight: 600">
+                                                <center>Máximo</center>
+                                            </th> -->
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Resultado</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Desviación</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Comentario</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Técnicas</center>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Sulfametazinas</td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.sulfametazinas.parametro"></td>
+                                            <!-- <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.sulfametazinas.maximo"></td> -->
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.sulfametazinas.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.sulfametazinas.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.antibioticos.sulfametazinas.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.sulfametazinas.tecnicas"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Estreptomicinas</td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.estreptomicinas.parametro"></td>
+                                            <!-- <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.estreptomicinas.maximo"></td> -->
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.estreptomicinas.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.estreptomicinas.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.antibioticos.estreptomicinas.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.estreptomicinas.tecnicas"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tetraciclinas</td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.tetraciclinas.parametro"></td>
+                                            <!-- <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.tetraciclinas.maximo"></td> -->
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.tetraciclinas.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.tetraciclinas.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.antibioticos.tetraciclinas.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.antibioticos.tetraciclinas.tecnicas"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!------------------------>
+                            <!-- TABLA MICROBIOLOGICOS -->
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="6" class="text-center">Microbiológicos</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Análisis</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Parámetros</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Resultado</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Desviación</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Comentario</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Técnicas</center>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Aerobios Mesofilos</td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.aerobios.parametro">
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.aerobios.resultado">
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.aerobios.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.microbiologicos.aerobios.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.aerobios.tecnicas"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Coliformes Totales</td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.coliformes.parametro"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.coliformes.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.coliformes.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.microbiologicos.coliformes.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.coliformes.tecnicas"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Salmonella</td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.salmonella.parametro"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.salmonella.resultado"></td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.salmonella.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.microbiologicos.salmonella.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.salmonella.tecnicas"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hongos</td>
+                                            <td>
+                                                <input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.hongos.parametro">
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.hongos.resultado">
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.hongos.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.microbiologicos.hongos.comentario"></textarea>
+                                            </td>
+                                            <td>
+                                                <input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.hongos.tecnicas">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Levaduras</td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.levaduras.parametro">
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.levaduras.resultado">
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.levaduras.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.microbiologicos.levaduras.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.levaduras.tecnicas">
+                                            </td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td>Listeria</td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.listeria.parametro">
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.listeria.resultado">
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.listeria.desviacion"></td>
+                                            <td>
+                                                <textarea style="font-size: 10px;" class="form-control" rows="2"
+                                                    ng-model="detalle.microbiologicos.listeria.comentario"></textarea>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text"
+                                                    ng-model="detalle.microbiologicos.listeria.tecnicas">
+                                            </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--------------------------->
+                            <button class="btn btn-success btn-xs pull-right" style="margin-right: 10px"
+                                ng-disabled="habilitar" ng-click="guardarCertificado();">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

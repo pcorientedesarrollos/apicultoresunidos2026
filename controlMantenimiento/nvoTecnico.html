@@ -1,0 +1,137 @@
+<div class="box box-solid box-warning">
+    <div class="box-header">
+        <h5 class="encabezadosTabla">
+            PROVEEDOR
+            <a title="Regresar" href="#/proveeMantto" class="btn btn-success btn-xs" style="float: right">
+                <i class="zmdi zmdi-arrow-left"></i>
+            </a>
+        </h5>
+    </div>
+    <div class="box-body">
+        <!-- <div class="row">
+            <div class="col-lg-12"> -->
+        <div class="row" ng-if="paramTecnico > 0">
+            <div class="col-xs-12 col-sm-3 pull-right">
+                <div class="form-group">
+                    <label style="font-weight: bold; color:red" class="control-label pull-right">
+                        Registro: {{tecnico.fechaRegistro}}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <div class="form-group">
+                    <label style="font-weight: bold;" class="control-label">Razón Social o
+                        Nombre del Proveedor</label>
+                    <input type="text" class="form-control input-xs" placeholder="Razón Social o Nombre del proveedor"
+                        ng-model="tecnico.nombreProveedor" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label style="font-weight: bold;" class="control-label">Contacto
+                    </label>
+                    <input type="text" class="form-control input-xs" placeholder="Nombre del contacto" ng-model="tecnico.nombreContacto" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label style="font-weight: bold;" class="control-label">Domicilio</label>
+                    <input type="text" class="form-control input-xs" placeholder="Dirección del proveedor" ng-model="tecnico.domicilio" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label style="font-weight: bold;" class="control-label">Tipo</label>
+                    <select chosen ng-model="elTipoDeProveedor" class="form-control" ng-options="tp.idTipoProveedor as tp.tipoProveedor for tp in listaTiposProveedores">
+                        <option value="">Tipo Proveedor</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label style="font-weight: bold;" class="control-label">Insumo </label>
+                    <input type="text" class="form-control input-xs" placeholder="Insumo suministrado" ng-model="tecnico.insumo" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label style="font-weight: bold;" class="control-label">Teléfono</label>
+                    <input type="text" class="form-control input-xs" placeholder="Teléfono" ng-model="tecnico.telefono" />
+                </div>
+            </div>
+            <!-- <div class="col-lg-4">
+                    <div class="form-group">
+                        <label style="font-weight: bold;"  class="col-sm-3 control-label">E-mail </label>
+                        <div class="col-sm-9">
+                            <input 
+                                align="center"
+                                type="text" 
+                                class="form-control input-xs" 
+                                placeholder="Correo electrónico"
+                                ng-model="tecnico.correo"/>
+                        </div>
+                    </div>
+                </div> -->
+            <!-- <div class="col-lg-4">
+                    <div class="form-group">
+                        <label style="font-weight: bold;"  class="col-sm-3 control-label">Web</label>
+                        <div class="col-sm-9">
+                            <input 
+                                align="center"
+                                type="text" 
+                                class="form-control input-xs" 
+                                placeholder="Sitio web"
+                                ng-model="tecnico.web"
+                                />
+                        </div>
+                    </div>
+                </div> -->
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label style="font-weight: bold;" class="control-label">Crédito</label>
+                    <input type="text" class="form-control input-xs" placeholder="Crédito" ng-model="tecnico.credito" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label style="font-weight: bold;" class="control-label">Estatus</label>
+                    <input type="text" class="form-control input-xs" placeholder="Seleccione opción" ng-model="tecnico.estatus"
+                        list="listaStatus">
+                    <datalist id="listaStatus">
+                        <option>ACTIVO</option>
+                        <option>ESPORADICO</option>
+                        <option>INACTIVO</option>
+                    </datalist>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label style="font-weight: bold;" class="control-label">Area </label>
+                    <select chosen ng-model="areaTecnico" class="form-control" ng-options="a.idArea as a.area for a in listDeAreas">
+                        <option value="">Area</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: right">
+            <button class="btn btn-warning btn-xs" ng-click="guardarTecnico()">Guardar</button>
+        </div>
+
+    </div>
+</div>
+
+<div growl>
+
+</div>

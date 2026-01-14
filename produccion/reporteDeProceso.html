@@ -1,0 +1,756 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        REPORTE DE PROCESO
+                        <b ng-show="parametroTipoCosecha == 1"> MIEL 100% PURA DE ABEJA</b>
+                        <b ng-show="parametroTipoCosecha == 2"> MIEL 100% ORGÁNICA</b>
+                        <b ng-show="parametroTipoCosecha == 5"> MIEL 100% MANTEQUILLA</b>
+                        <b ng-show="parametroTipoCosecha == 6"> MIEL 100% ALTIPLANO</b>
+                        <b ng-show="parametroTipoCosecha == 7"> MIEL 100% NARANJO</b>
+                        <b ng-show="parametroTipoCosecha == 8"> MIEL 100% AGUACATE</b>
+                        <b ng-show="parametroTipoCosecha == 9"> MIEL 100% MEZQUITE</b>
+                        <a title="Regresar" href="#/control" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-sm-offset-9">
+
+                            <a style="margin-right: 10px" title="Imprimir XLS" class="pull-right btn btn-success btn-sm" ng-click="xlsProcesos()">
+                                <i class="zmdi zmdi-storage zmdi-hc-lg"></i>
+                            </a>
+
+                            <a style="margin-right: 10px" title="Imprimir PDF" class="pull-right btn btn-danger btn-sm" ng-click="pdfProcesos()" target="_blank">
+                                <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="box-header">
+                            <h5>
+                                DATOS DE PROCESO
+                            </h5>
+                            <hr>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-4" ng-show="proceso == 0">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-4 text-primary">Lote interno </label>
+                                        <div class="col-sm-6">
+                                            <select chosen ng-model="numeroLote" class="form-control" ng-options="rp.idLoteInterno as rp.idLoteInterno for rp in listaLotes">
+                                                <option value="">Lote</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4" ng-hide="proceso == 0">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-4 text-primary">Lote interno </label>
+                                        <div class="col-sm-6">
+                                            {{numeroLote}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-5 text-primary">Fecha Proceso </label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" disabled="true" ng-model="infoLote.fechaProceso">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-2 text-primary">Responsable: </label>
+                                        <div class="col-sm-10">
+                                            <select chosen ng-model="responsable" class="form-control" ng-options="nr.idPersonalOM as nr.nombre for nr in listaPersonal">
+                                                <option value="">Responsable</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-2 text-primary">Supervisor:</label>
+                                        <div class="col-sm-10">
+                                            <select chosen ng-model="supervisor" class="form-control" ng-options="ns.idPersonalOM as ns.nombre for ns in listaPersonal">
+                                                <option value="">Supervisor</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label style="font-weight: bold;" class="col-sm-4 text-primary">Hora de inicio </label>
+                                    <div class="col-sm-6">
+                                        <div class="fg-line">
+                                            <input type="text" mask="99:99" class="form-control input-sm" placeholder="Hora Inicio" ng-model="reporteProceso.horaInicio">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+
+                                    <label style="font-weight: bold;" class="col-sm-4 text-primary">No. Tanque </label>
+                                    <div class="col-sm-6">
+                                        <div class="fg-line">
+                                            <input type="text" class="form-control input-sm" placeholder="Número Tanque" ng-model="reporteProceso.numeroTanque">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-5 text-primary">No. Tambores </label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" disabled="true" ng-model="infoLote.numeroDeTambores">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="card-header">
+                                        <h5>
+                                            HIGIENE PERSONAL ZONA INOCUA
+                                        </h5>
+                                        <hr>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label style="font-weight: bold;" class="col-sm-6 text-primary">Cabello corto </label>
+                                                <div class="col-sm-6">
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="1" ng-model="reporteProceso.cabello">Sí
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="0" ng-model="reporteProceso.cabello">No
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label style="font-weight: bold;" class="col-sm-6 text-primary">Cofía </label>
+                                                <div class="col-sm-6">
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="1" ng-model="reporteProceso.cofia">Sí
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="0" ng-model="reporteProceso.cofia">No
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label style="font-weight: bold;" class="col-sm-6 text-primary">Lavado de botas </label>
+                                                <div class="col-sm-6">
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="1" ng-model="reporteProceso.botas">Sí
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="0" ng-model="reporteProceso.botas">No
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label style="font-weight: bold;" class="col-sm-6 text-primary">Uñas cortas </label>
+                                                <div class="col-sm-6">
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="1" ng-model="reporteProceso.unas">Sí
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="0" ng-model="reporteProceso.unas">No
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label style="font-weight: bold;" class="col-sm-6 text-primary">Cubreboca </label>
+                                                <div class="col-sm-6">
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="1" ng-model="reporteProceso.cubreBoca">Sí
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="0" ng-model="reporteProceso.cubreBoca">No
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label style="font-weight: bold;" class="col-sm-6 text-primary">Sanitización de manos </label>
+                                                <div class="col-sm-6">
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="1" ng-model="reporteProceso.sanitizacionManos">Sí
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="0" ng-model="reporteProceso.sanitizacionManos">No
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label style="font-weight: bold;" class="col-sm-6 text-primary">Ropa limpia </label>
+                                                <div class="col-sm-6">
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="1" ng-model="reporteProceso.ropa">Sí
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="0" ng-model="reporteProceso.ropa">No
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label style="font-weight: bold;" class="col-sm-6 text-primary">Lavado de manos </label>
+                                                <div class="col-sm-6">
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="1" ng-model="reporteProceso.lavadoManos">Sí
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="0" ng-model="reporteProceso.lavadoManos">No
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label style="font-weight: bold;" class="col-sm-6 text-primary">Sanitización de botas </label>
+                                                <div class="col-sm-6">
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="1" ng-model="reporteProceso.sanitizacionBotas">Sí
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" value="0" ng-model="reporteProceso.sanitizacionBotas">No
+                                                        <i class="input-helper"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="card-header">
+                                        <h5>
+                                            DESCRIPCION
+                                        </h5>
+                                        <hr>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label style="font-weight: bold;" class="col-sm-3 text-primary">Producto </label>
+                                            <div class="col-sm-9">
+                                                <div class="fg-line">
+                                                    <p ng-show="parametroTipoCosecha == 1">Miel 100% pura de abeja</p>
+                                                    <p ng-show="parametroTipoCosecha == 2">Miel 100% orgánica</p>
+                                                    <p ng-show="parametroTipoCosecha == 5">Miel 100% mantequilla</p>
+                                                    <p ng-show="parametroTipoCosecha == 6">Miel 100% altiplano</p>
+                                                    <p ng-show="parametroTipoCosecha == 7">Miel 100% naranjo</p>
+                                                    <p ng-show="parametroTipoCosecha == 8">Miel 100% aguacate</p>
+                                                    <p ng-show="parametroTipoCosecha == 9">Miel 100% mezquite</p>
+                                                    <!-- <input type="text" class="form-control input-sm" placeholder="Producto" ng-model="producto" disabled="disabled"> -->
+                                                    <!-- <datalist id="productosLista">
+                                                        <option>Miel 100 % pura de abeja</option>
+                                                    </datalist> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label style="font-weight: bold;" class="col-sm-3 text-primary">Cant. </label>
+                                            <div class="col-sm-9">
+                                                <div class="fg-line">
+                                                    <input type="text" class="form-control" disabled="true" ng-model="infoLote.kilosTotales">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label style="font-weight: bold;" class="col-sm-3 text-primary">Bruto </label>
+                                            <div class="col-sm-9">
+                                                <div class="fg-line">
+                                                    <input type="text" class="form-control" disabled="true" ng-model="infoLote.brutoTotal">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label style="font-weight: bold;" class="col-sm-3 text-primary">Tara </label>
+                                            <div class="col-sm-9">
+                                                <div class="fg-line">
+                                                    <input type="text" class="form-control" disabled="true" ng-model="infoLote.taraTotal">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label style="font-weight: bold;" class="col-sm-3 text-primary">Neto </label>
+                                            <div class="col-sm-9">
+                                                <div class="fg-line">
+                                                    <input type="text" class="form-control" disabled="true" ng-model="infoLote.netoTotal">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label style="font-weight: bold;" class="col-sm-3 text-primary">Miel no procesada </label>
+                                            <div class="col-sm-9">
+                                                <div class="fg-line">
+                                                    <input type="text" class="form-control" ng-model="reporteProceso.noProcesada">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label style="font-weight: bold;" class="col-sm-3 text-primary">Miel Procesada </label>
+                                            <div class="col-sm-9">
+                                                <div class="fg-line">
+                                                    <input type="text" class="form-control" disabled="true" ng-model="reporteProceso.procesada">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" rows="3" ng-model="reporteProceso.observacionesDePesos" placeholder="Escriba las observaciones con respecto a la cantidad de miel y/o pesos.">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="card-header">
+                                        <h5>
+                                            PERSONAL
+                                        </h5>
+                                        <hr>
+                                    </div>
+                                    <div class="col-lg-12" ng-show="proceso > 0">
+                                        <div class="col-lg-4">
+                                            <div class="col-lg-12">
+                                                <button class="btn btnMiel" ng-click="agregarPersonalConformacion()" title="Agregar nombre">
+                                                    <i style="color: #385428" class="zmdi zmdi-account-add"></i> Conformación de lotes
+                                                </button>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="col-lg-12">
+                                                <div ng-repeat="pConformacion in personalConformacion" class="input-group">
+                                                    <div>
+                                                        <input type="text" class="form-control" placeholder="Personal conformacion de lotes" disabled="true" ng-model="pConformacion.nombre">
+                                                    </div>
+                                                    <span class="input-group-addon">
+                                                        <a ng-click="eliminarConformacion(pConformacion.idConformacionLote);" class="btn btn-danger btn-xs" title="Eliminar nombre">
+                                                            <i style="color: white" class="zmdi zmdi-delete  pull-right"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="col-lg-12">
+                                                <button class="btn btnMiel" ng-click="agregarPersonalProceso()" title="Agregar nombre">
+                                                    <i style="color: #385428" class="zmdi zmdi-account-add"></i> Proceso zona inocua
+                                                </button>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="col-lg-12">
+                                                <div ng-repeat="pProceso in personalProcesoInocuo" class="input-group">
+                                                    <div>
+                                                        <input type="text" class="form-control" placeholder="Personal proceso zona inocua" disabled="true" ng-model="pProceso.nombre">
+                                                    </div>
+                                                    <span class="input-group-addon">
+                                                        <a ng-click="eliminarProceso(pProceso.idProceso);" class="btn btn-danger btn-xs" title="Eliminar nombre">
+                                                            <i style="color: white" class="zmdi zmdi-delete  pull-right"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="col-lg-12">
+                                                <button class="btn btnMiel" ng-click="agregarPersonalFolios()" title="Agregar nombre">
+                                                    <i style="color: #385428" class="zmdi zmdi-account-add"></i> Busqueda de folios
+                                                </button>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="col-lg-12">
+                                                <div ng-repeat="pFolios in personalFolios" class="input-group">
+                                                    <div>
+                                                        <input type="text" class="form-control" placeholder="Personal busqueda de folios" disabled="true" ng-model="pFolios.nombre">
+                                                    </div>
+                                                    <span class="input-group-addon">
+                                                        <a ng-click="eliminarFolios(pFolios.idBusqueda);" class="btn btn-danger btn-xs" title="Eliminar nombre">
+                                                            <i style="color: white" class="zmdi zmdi-delete  pull-right"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12" ng-hide="proceso > 0">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label>Conformación de Lote</label>
+                                                <select class="form-control" chosen multiple allow-single-deselect="true" data-placeholder="Personal Oaxaca Miel" no-results-text="'Tough luck'"
+                                                    ng-options="dS.idPersonalOM as dS.nombre for dS in listaPersonal" ng-model="personalConformacion">
+                                                    <option value=""> Seleccione los nombres</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label>Proceso zona inocua</label>
+                                                <select class="form-control" chosen multiple allow-single-deselect="true" data-placeholder="Personal Oaxaca Miel" no-results-text="'Tough luck'"
+                                                    ng-options="dS.idPersonalOM as dS.nombre for dS in listaPersonal" ng-model="personalProcesoInocuo">
+                                                    <option value=""> Seleccione los nombres</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label>Busqueda de folios</label>
+                                                <select class="form-control" chosen multiple allow-single-deselect="true" data-placeholder="Personal Oaxaca Miel" no-results-text="'Tough luck'"
+                                                    ng-options="dS.idPersonalOM as dS.nombre for dS in listaPersonal" ng-model="personalFolios">
+                                                    <option value=""> Seleccione los nombres</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label style="font-weight: bold;" class="control-label text-primary">Hora Final: </label>
+                                            <input type="text" mask="99:99" class="form-control input-sm" placeholder="Hora Final" ng-change="copiarHora(reporteProceso.horaFinal)"
+                                                ng-model="reporteProceso.horaFinal">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="box-header">
+                                    <h5>
+                                        HORARIOS - TIEMPOS
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-4">
+                                            <label style="font-weight: bold;" class="col-sm-4 text-primary">Inicio de homogeneizado </label>
+                                            <div class="col-sm-6">
+                                                <div class="fg-line">
+                                                    <input type="text" mask="99:99" disabled="true" class="form-control input-sm" placeholder="Hora Inicio" ng-model="reporteProceso.inicioHomogeneizado">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+
+                                            <label style="font-weight: bold;" class="col-sm-4 text-primary">Final de homogeneizado </label>
+                                            <div class="col-sm-6">
+                                                <div class="fg-line">
+                                                    <input type="text" mask="99:99" class="form-control input-sm" placeholder="Hora Final" ng-model="reporteProceso.finalHomogeneizado">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label style="font-weight: bold;" class="col-sm-5 text-primary">Tiempo de homogeneización </label>
+                                            <div class="col-sm-6">
+                                                <div class="fg-line">
+                                                    <input disabled="true" mask="99:99" class="form-control input-sm" placeholder="Hora Inicio" disabled="true" ng-model="reporteProceso.tiempoHomogeneizacion">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-4">
+                                            <label style="font-weight: bold;" class="col-sm-4 text-primary">Hora final de reposo</label>
+                                            <div class="col-sm-6">
+                                                <div class="fg-line">
+                                                    <input type="text" mask="99:99" class="form-control input-sm" placeholder="Reposo" ng-model="reporteProceso.horaFinalReposo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label style="font-weight: bold;" class="col-sm-4 text-primary">Tiempo de reposo</label>
+                                            <div class="col-sm-6">
+                                                <div class="fg-line">
+                                                    <input type="text" class="form-control input-sm" ng-model="reporteProceso.tiempoReposo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="box-header">
+                                    <h5>
+                                        OBSERVACIONES
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-9">
+                                    <textarea class="form-control" rows="3" ng-model="reporteProceso.observaciones" placeholder="Observaciones">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="box-header">
+                                    <h5>
+                                        HERRAMIENTAS PARA PROCESO
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="table">
+                                                <table class="table table-responsive table-condensed table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="col-lg-4">Herramienta</th>
+                                                            <th class="col-lg-4">Cantidad</th>
+                                                            <th class="col-lg-4">Condiciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Llave para abrir tambos</td>
+                                                            <td>
+                                                                <input type="text" class="form-control input-sm" placeholder="Cantidad" ng-model="herramienta.cantidadLlave">
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                    <input type="radio" value="1" ng-model="herramienta.condicionLlave">Buenas
+                                                                    <i class="input-helper"></i>
+                                                                </label>
+                                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                    <input type="radio" value="0" ng-model="herramienta.condicionLlave">Malas
+                                                                    <i class="input-helper"></i>
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Pala</td>
+                                                            <td>
+                                                                <input type="text" class="form-control input-sm" placeholder="Cantidad" ng-model="herramienta.cantidadPala">
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                    <input type="radio" value="1" ng-model="herramienta.condicionPala">Buenas
+                                                                    <i class="input-helper"></i>
+                                                                </label>
+                                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                    <input type="radio" value="0" ng-model="herramienta.condicionPala">Malas
+                                                                    <i class="input-helper"></i>
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Otras</td>
+                                                            <td>
+                                                                <input type="text" class="form-control input-sm" placeholder="Cantidad" ng-model="herramienta.cantidadOtras">
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                    <input type="radio" value="1" ng-model="herramienta.condicionOtras">Buenas
+                                                                    <i class="input-helper"></i>
+                                                                </label>
+                                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                    <input type="radio" value="0" ng-model="herramienta.condicionOtras">Malas
+                                                                    <i class="input-helper"></i>
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <textarea class="form-control" rows="2" ng-model="reporteProceso.otrasHerramientas" placeholder="Escriba cuales son las otras herramientas usadas">
+                                            </textarea>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <label>¿Se realizó el lavado de tubería, fosa y tanque?</label>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="1" ng-model="reporteProceso.lavadoHerramientas">Sí
+                                                <i class="input-helper"></i>
+                                            </label>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="0" ng-model="reporteProceso.lavadoHerramientas">No
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <center>
+                            <div class="row" style="text-align: right">
+                                <br>
+                                <button type="submit" ng-click="guardarReporteProceso();" class="btn btn-warning btn-sm" ng-disabled="guardandoReporte">Guardar</button>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal  fade" id="agregarPersonalConformacion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Personal conformación de lotes</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <div class="fg-line">
+                            <select ng-model="conformador" class="form-control" ng-options="des.idPersonalOM as des.nombre for des in listaPersonal">
+                                <option value="">Personal</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button type="button" ng-click="agregarConformador();" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal  fade" id="agregarPersonalProceso" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Personal Proceso zona inocua</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <div class="fg-line">
+                            <select ng-model="procesador" class="form-control" ng-options="pro.idPersonalOM as pro.nombre for pro in listaPersonal">
+                                <option value="">Personal</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button type="button" ng-click="agregarProcesador();" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal  fade" id="agregarPersonalFolios" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Personal Busqueda de folios</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <div class="fg-line">
+                            <select ng-model="buscador" class="form-control" ng-options="b.idPersonalOM as b.nombre for b in listaPersonal">
+                                <option value="">Personal</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button type="button" ng-click="agregarBuscador();" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div growl>
+
+</div>

@@ -1,0 +1,177 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CRONOGRAMA DE MANTENIMIENTO
+                        <a title="Regresar" href="#/cronograma" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-sm-offset-9">
+                            <b> Codigo:</b> RST-M-01
+                            <div ng-show="paramCrono == '1'" class="col-sm-2 pull-right">
+                                <a style="margin-right: 10px"
+                                   title="Ver PDF"
+                                   class="pull-right btn btn-sm btn-danger"
+                                   ng-click="manttoPDF()">
+                                    <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                                </a>
+                            </div>
+                            <div ng-show="paramCrono == '2'" class="col-sm-2 pull-right">
+                                <a style="margin-right: 10px"
+                                   title="Ver PDF"
+                                   class="pull-right btn btn-sm btn-danger"
+                                   ng-click="manttoPDFArea(nameArea.idArea)">
+                                    <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>    
+                    <br>
+                    <h3 style="text-align: center" ng-show="paramCrono == '2'">{{nameArea.area}}</h3>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive table-bordered table-condensed">
+                            <thead>
+                                <tr style="border-color: black">
+                                    <th ng-if="paramCrono == '1'" style="border: black 1px solid; text-transform: none; font-weight: 600; color:white; background-color: #e57373; font-size: 10px;" rowspan="3">Area</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #f06292; font-size: 10px;" rowspan="3">Equipo</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: black; background-color: #e0e0e0; font-size: 10px;" rowspan="1" colspan="36">Meses</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #795548; font-size: 10px; " rowspan="3" colspan="1">Periodicidad</th>
+                                </tr>
+                                <tr>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ba68c8; font-size: 10px;" rowspan="1" colspan="3">Enero</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #7986cb; font-size: 10px;" rowspan="1" colspan="3">Febrero</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #64b5f6; font-size: 10px;" rowspan="1" colspan="3">Marzo</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #b2dfdb; font-size: 10px;" rowspan="1" colspan="3">Abril</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #4db6ac; font-size: 10px;" rowspan="1" colspan="3">Mayo</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #81c784; font-size: 10px;" rowspan="1" colspan="3">Junio</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #aed581; font-size: 10px;" rowspan="1" colspan="3">Julio</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #dce775; font-size: 10px;" rowspan="1" colspan="3">Agosto</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffeb3b; font-size: 10px;" rowspan="1" colspan="3">Septiembre</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffb74d; font-size: 10px;" rowspan="1" colspan="3">Octubre</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ff8a65; font-size: 10px;" rowspan="1" colspan="3">Noviembre</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #a1887f; font-size: 10px;" rowspan="1" colspan="3">Diciembre</th>
+                                </tr>
+                                <tr>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ba68c8; font-size: 10px;" rowspan="1" >Programada</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ba68c8; font-size: 10px;" rowspan="1" >Fecha.Real</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ba68c8; font-size: 10px;" rowspan="1" >Extraordinaria</th>
+
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #7986cb; font-size: 10px;" rowspan="1" >Programada</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #7986cb; font-size: 10px;" rowspan="1" >Fecha.Real</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #7986cb; font-size: 10px;" rowspan="1" >Extraordinaria</th>
+
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #64b5f6; font-size: 10px;" rowspan="1" >Programada</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #64b5f6; font-size: 10px;" rowspan="1" >Fecha.Real</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #64b5f6; font-size: 10px;" rowspan="1" >Extraordinaria</th>
+
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #b2dfdb; font-size: 10px;" rowspan="1" >Programada</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #b2dfdb; font-size: 10px;" rowspan="1" >Fecha.Real</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #b2dfdb; font-size: 10px;" rowspan="1" >Extraordinaria</th>
+
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #4db6ac; font-size: 10px;" rowspan="1" >Programada</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #4db6ac; font-size: 10px;" rowspan="1" >Fecha.Real</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #4db6ac; font-size: 10px;" rowspan="1" >Extraordinaria</th>
+
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #81c784; font-size: 10px;" rowspan="1" >Programada</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #81c784; font-size: 10px;" rowspan="1" >Fecha.Real</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #81c784; font-size: 10px;" rowspan="1" >Extraordinaria</th>
+
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #aed581; font-size: 10px;" rowspan="1" >Programada</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #aed581; font-size: 10px;" rowspan="1" >Fecha.Real</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #aed581; font-size: 10px;" rowspan="1" >Extraordinaria</th>
+
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #dce775; font-size: 10px;" rowspan="1" >Programada</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #dce775; font-size: 10px;" rowspan="1" >Fecha.Real</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #dce775; font-size: 10px;" rowspan="1" >Extraordinaria</th>
+
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffeb3b; font-size: 10px;" rowspan="1" >Programada</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffeb3b; font-size: 10px;" rowspan="1" >Fecha.Real</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffeb3b; font-size: 10px;" rowspan="1" >Extraordinaria</th>
+
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffb74d; font-size: 10px;" rowspan="1" >Programada</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffb74d; font-size: 10px;" rowspan="1" >Fecha.Real</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffb74d; font-size: 10px;" rowspan="1" >Extraordinaria</th>
+
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ff8a65; font-size: 10px;" rowspan="1" >Programada</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ff8a65; font-size: 10px;" rowspan="1" >Fecha.Real</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ff8a65; font-size: 10px;" rowspan="1" >Extraordinaria</th>
+
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #a1887f; font-size: 10px;" rowspan="1" >Programada</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #a1887f; font-size: 10px;" rowspan="1" >Fecha.Real</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #a1887f; font-size: 10px;" rowspan="1" >Extraordinaria</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="crono in tablaCronograma" style="font-size: 10px;">
+                                    <td ng-if="paramCrono == '1'">{{crono.area}}</td>
+                                    <td>{{crono.equipo}}</td>
+                                    <td >{{crono.fechas.enero.p}}</td>                                    
+                                    <td >{{crono.fechas.enero.r}}</td>
+                                    <td >{{crono.fechas.enero.ex}}</td>
+
+                                    <td >{{crono.fechas.febrero.p}}</td>
+                                    <td >{{crono.fechas.febrero.r}}</td>
+                                    <td >{{crono.fechas.febrero.ex}}</td>
+
+                                    <td>{{crono.fechas.marzo.p}}</td>
+                                    <td>{{crono.fechas.marzo.r}}</td>
+                                    <td>{{crono.fechas.marzo.ex}}</td>
+
+                                    <td>{{crono.fechas.abril.p}}</td>
+                                    <td>{{crono.fechas.abril.r}}</td>
+                                    <td>{{crono.fechas.abril.ex}}</td>
+
+                                    <td>{{crono.fechas.mayo.p}}</td>
+                                    <td>{{crono.fechas.mayo.r}}</td>
+                                    <td>{{crono.fechas.mayo.ex}}</td>
+
+                                    <td>{{crono.fechas.junio.p}}</td>
+                                    <td>{{crono.fechas.junio.r}}</td>
+                                    <td>{{crono.fechas.junio.ex}}</td>
+
+                                    <td>{{crono.fechas.julio.p}}</td>                                    
+                                    <td>{{crono.fechas.julio.r}}</td>
+                                    <td>{{crono.fechas.julio.ex}}</td>
+
+                                    <td>{{crono.fechas.agosto.p}}</td>
+                                    <td>{{crono.fechas.agosto.r}}</td>
+                                    <td>{{crono.fechas.agosto.ex}}</td>
+
+                                    <td>{{crono.fechas.septiembre.p}}</td>
+                                    <td>{{crono.fechas.septiembre.r}}</td>
+                                    <td>{{crono.fechas.septiembre.ex}}</td>
+
+                                    <td>{{crono.fechas.octubre.p}}</td>
+                                    <td>{{crono.fechas.octubre.r}}</td>
+                                    <td>{{crono.fechas.octubre.ex}}</td>
+
+                                    <td>{{crono.fechas.noviembre.p}}</td>
+                                    <td>{{crono.fechas.noviembre.r}}</td>
+                                    <td>{{crono.fechas.noviembre.ex}}</td>
+
+                                    <td>{{crono.fechas.diciembre.p}}</td>
+                                    <td>{{crono.fechas.diciembre.p}}</td>
+                                    <td>{{crono.fechas.diciembre.ex}}</td>
+
+                                    <td>{{crono.periodicidad}}</td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>

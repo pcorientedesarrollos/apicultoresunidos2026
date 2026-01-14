@@ -1,0 +1,64 @@
+<section class="content">
+
+    <div class="box box-solid box-warning">
+        <div class="box-header">
+            <h5 class="encabezadosTabla">
+                RECOLECCIÓN
+                <a title="Nueva recolección" href="#/recoleccion/nueva" class="btn btn-success btn-xs pull-right">
+                    Nueva recolección
+                </a>
+            </h5>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-12 col-md-5">
+                    <div class="input-group">
+                        <input type="text" ng-model="searchInput" class="form-control input-sm pull-right"
+                            placeholder="Buscar">
+                        <div class="input-group-btn">
+                            <button class="btn btn-sm btn-warning">
+                                <i class="zmdi zmdi-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <h4>Total de tambores recolectados: {{totalRecoleccion | number}}</h4>
+            <div class="table-responsive" ng-if="listaFechasRecoleccion && listaFechasRecoleccion.length">
+                <table class="table table-condensed table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>FECHA</th>
+                            <th>COMPRADORES</th>
+                            <th>LOCALIDADES</th>
+                            <th>TAMBORES</th>
+                            <th>IMPORTE TOTAL</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="recoleccion in listaFechasRecoleccion | filter:searchInput">
+                            <td>{{$index+1}}</td>
+                            <td>{{recoleccion.fecha | date:'dd/MM/yyyy'}}</td>
+                            <td>{{recoleccion.compradores}}</td>
+                            <td>{{recoleccion.localidades}}</td>
+                            <td>{{recoleccion.totalTambores | number}}</td>
+                            <td>{{recoleccion.totalImporteCompra | currency}}</td>
+                            <td>
+                                <a href="#/recoleccion/{{recoleccion.idRecoleccion}}" class="btn btn-warning btn-xs"
+                                    title="Recolección" aria-label="Ver detalle de la recolección">
+                                    <i class="fa fa-list"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<div growl></div>

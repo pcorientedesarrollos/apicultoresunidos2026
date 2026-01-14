@@ -1,0 +1,19 @@
+{
+    "rangos": [{
+            "idRangos": "1",
+            "rango": "<"
+        }, {
+            "idRangos": "2",
+            "rango": ">"
+        }, {
+            "idRangos": "3",
+            "rango": "<="
+        }, {
+            "idRangos": "4",
+            "rango": ">="
+        }, {
+            "idRangos": "5",
+            "rango": "Rango"
+        }]
+
+}

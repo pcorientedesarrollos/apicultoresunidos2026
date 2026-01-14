@@ -1,0 +1,216 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <a href="#/perfilesSistema" title="Regresar" class="btn btn-success btn-xs pull-right">
+                <i class="zmdi zmdi-arrow-left"></i>
+            </a>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        USUARIOS CON EL PERFIL
+                        <span ng-show="detallePerfil.perfil">"{{detallePerfil.perfil.perfil | uppercase}}"</span>
+                        <button title="Agregar usuario" class="btn btn-success btn-xs pull-right" ng-click="modalAgregarUsuario()">
+                            <i class="fa fa-plus"></i> Agregar
+                        </button>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6 col-md-offset-6">
+                            <div class="input-group">
+                                <input type="text" ng-model="searchInput" class="form-control input-sm pull-right" placeholder="Buscar">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive" ng-if="detallePerfil.usuarios.length > 0">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600"></th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">USUARIO</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">ENCARGADO</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">VER</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="usuario in detallePerfil.usuarios | filter:searchInput">
+                                    <td ng-bind="$index+1"></td>
+                                    <td ng-bind="usuario.usuario | uppercase"></td>
+                                    <td ng-bind="usuario.nombre | uppercase"></td>
+                                    <td>
+                                        <a href="#/usuariosSistema/{{usuario.idUsuario}}" target="_blank" class="btn btn-warning btn-xs" title="Ver usuario '{{usuario.usuario}}'">
+                                            <i class="fa fa-external-link"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div ng-if="detallePerfil.usuarios.length == 0">
+                        <p class="text-muted">No hay usuarios con el perfil "{{detallePerfil.perfil.perfil}}"</p>
+                    </div>
+                    <div ng-if="!detallePerfil.usuarios">
+                        <p class="text-muted">
+                            <i class="fa fa-spinner fa-spin fa-fw"></i> Cargando...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        SECCIONES CON ACCESO
+                        <button title="Agregar sección" class="btn btn-success btn-xs pull-right" ng-click="modalAgregarSeccion()">
+                            <i class="fa fa-plus"></i> Agregar
+                        </button>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6 col-md-offset-6">
+                            <div class="input-group">
+                                <input type="text" ng-model="searchInput2" class="form-control input-sm pull-right" placeholder="Buscar">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive" ng-if="detallePerfil.secciones.length > 0">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600"></th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">NOMBRE DE LA SECCIÓN</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">VER</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="seccion in detallePerfil.secciones | filter:searchInput2">
+                                    <td ng-bind="$index+1"></td>
+                                    <td ng-bind="seccion.seccion | uppercase"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs" ng-click="verModulosSeccion(seccion)" title="Ver sección">
+                                            <i class="fa fa-list-ol"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div ng-if="detallePerfil.secciones.length == 0">
+                        <p class="text-muted">No hay secciones a las cuales el perfil "{{detallePerfil.perfil.perfil}}" pueda acceder</p>
+                    </div>
+                    <div ng-if="!detallePerfil.secciones">
+                        <p class="text-muted">
+                            <i class="fa fa-spinner fa-spin fa-fw"></i> Cargando...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modal para agregar secciones al perfil -->
+<div class="modal fade" id="modalAgregarSeccion" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    AGREGAR SECCIONES AL PERFIL
+                    <span ng-show="perfil">
+                        "{{perfil.perfil | uppercase}}"
+                    </span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div ng-if="!perfil.secciones">
+                    <i class="fa fa-spinner fa-spin fa-fw"></i> Cargando...
+                </div>
+                <div ng-if="perfil.secciones">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="checkbox" ng-repeat="seccion in perfil.secciones">
+                                <label>
+                                    <input type="checkbox" value="seccion" ng-model="seccion.onProfile"> {{seccion.seccion}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success btn-sm" ng-click="guardarSeccionesDelPerfil()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar usuarios al perfil -->
+<div class="modal fade" id="modalAgregarUsuario" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    AGREGAR USUARIO AL PERFIL
+                    <span ng-show="perfil">
+                        "{{perfil.perfil | uppercase}}"
+                    </span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div ng-show="usuarios">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label for="">Selecciona al usuario</label>
+                            <select class="form-control" ng-model="perfil.nuevoUsuario" ng-options="usuario as usuario.usuario for usuario in usuarios">
+                                <option value="">Usuarios disponibles para el perfil</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" ng-show="perfil.nuevoUsuario">
+                        <div class="col-xs-12">
+                            <p>Usuario:
+                                <b>{{perfil.nuevoUsuario.usuario | uppercase}}</b>
+                            </p>
+                        </div>
+                        <div class="col-xs-12">
+                            <p>Encargado:
+                                <b>{{perfil.nuevoUsuario.nombre | uppercase}}</b>
+                            </p>
+                        </div>
+                        <div class="col-xs-12">
+                            <p>Perfil actual:
+                                <b>{{perfil.nuevoUsuario.perfil | uppercase}}</b>
+                            </p>
+                        </div>
+                        <div class="col-xs-12">
+                            <small>Al agregar este usuario, su perfil actual será reemplazado con "{{perfil.perfil | uppercase}}"</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success btn-sm" ng-click="guardarNuevoUsuarioPerfil()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div growl></div>

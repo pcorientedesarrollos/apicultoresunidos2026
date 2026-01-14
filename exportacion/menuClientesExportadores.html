@@ -1,0 +1,61 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CLIENTES EXPORTADORES
+                        <a href="#/exportador/0" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-plus"></i> Agregar
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4 col-md-offset-8">
+                            <div class="form-group">
+                                <div class="input-group pull-right">
+                                    <input type="text" ng-model="inputSearch" class="form-control input-sm pull-right" placeholder="Buscar">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-warning">
+                                            <i class="zmdi zmdi-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th></th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Nombre</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Localidad</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Estado</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Fecha de alta</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="info in clientesExportadores | filter:inputSearch">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{info.nombre | uppercase}}</td>
+                                    <td>{{info.localidad | uppercase}}</td>
+                                    <td>{{info.estado | uppercase}}</td>
+                                    <td>{{info.fecha | date:'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <a href="#/exportador/{{info.idClienteExportador}}" class="btn btn-warning btn-xs">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

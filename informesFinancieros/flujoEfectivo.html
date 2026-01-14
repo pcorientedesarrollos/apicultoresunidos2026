@@ -1,0 +1,187 @@
+<div class="box box-solid box-warning">
+    <div class="box-header">
+        <h5>
+            FLUJO DE EFECTIVO
+        </h5>
+    </div>
+    <div class="box-body">
+
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label for="">Selecciona una opción</label>
+                    <select chosen class="form-control" ng-model="opcionTipoReporte" ng-disabled="cargandoDatos">
+                        <option value="" disabled>Selecciona una opción</option>
+                        <option value="1">Acumulado</option>
+                        <option value="2">Por mes</option>
+                        <option value="3">Por meses</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <p><b>Obtener reporte por mes</b></p>
+                    <select chosen ng-model="opcionMes" class="form-control" ng-options="mes.idMes as mes.mes for mes in meses"
+                        ng-disabled="cargandoDatos || opcionTipoReporte == 1">
+                        <option value="" disabled>SELECCIONA MES</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <p><b>Mes final</b></p>
+                    <select chosen ng-model="opcionMesDos" class="form-control" ng-options="mes.idMes as mes.mes for mes in meses"
+                        ng-disabled="cargandoDatos || opcionTipoReporte != 3">
+                        <option value="" disabled>SELECCIONA MES</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row" ng-if="!flujoEfectivo">
+            <div class="col-xs-12">
+                <i class="fa fa-spinner fa-spin fa-fw"></i> CARGANDO INFORME...
+            </div>
+        </div>
+
+        <div ng-show="flujoEfectivo && flujoEfectivo.actividades_operacion">
+
+            <div class="row">
+
+                <div class="col-xs-12 col-md-5 col-md-offset-5">
+                    <p>&nbsp;</p>
+                    <input type="text" class="form-control" placeholder="Buscar" ng-model="inputSearch" ng-disabled="cargandoDatos">
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <div class="form-group">
+                        <p>&nbsp;</p>
+                        <button type="button" class="btn btn-danger pull-right" title="Ver en PDF" ng-click="pdfFlujoDeEfectivo()"
+                            ng-disabled="cargandoDatos">
+                            <i class="fa fa-file-pdf-o"></i>
+                        </button>
+                        <button type="button" class="btn btn-success pull-right" title="Descargar informe" ng-click="descargarInformeFlujoEfectivo()"
+                            ng-disabled="cargandoDatos">
+                            <i class="fa fa-file-excel-o"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="table-responsive">
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th class="text-center"> Concepto </th>
+                            <th class="text-center" ng-repeat="mes in flujoEfectivo.meses track by mes.idMes">
+                                {{mes.mes | uppercase}} </th>
+                            <th class="text-center"> Acumulado </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Cobranza a clientes -->
+                        <tr>
+                            <td class="text-center">
+                                <b> Cobranza a clientes </b>
+                            </td>
+                            <td class="text-right" ng-repeat="valor in flujoEfectivo.actividades_operacion.total_cobranza track by $index">
+                                <b>
+                                    {{valor | currency}}
+                                </b>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="cliente in flujoEfectivo.actividades_operacion.cobranza_clientes | filter:inputSearch">
+                            <td class="text-left">{{cliente.nombre | uppercase}}</td>
+                            <td class="text-right" ng-class="{'font-weight-bold': $index+1 == cliente.totalesPorMes.length, 'negative-number':totalPorMes < 0}"
+                                ng-repeat="totalPorMes in cliente.totalesPorMes track by $index">
+                                {{totalPorMes | currency}}
+                            </td>
+                        </tr>
+
+                        <!-- Otros ingresos -->
+                        <tr>
+                            <td class="text-center">
+                                <b> Otros ingresos </b>
+                            </td>
+                            <td class="text-right" ng-repeat="valor in flujoEfectivo.actividades_operacion.total_otros_ingresos track by $index">
+                                <b>
+                                    {{valor | currency}}
+                                </b>
+                            </td>
+                        </tr>
+
+                        <tr ng-repeat="otro in flujoEfectivo.actividades_operacion.otros_ingresos | filter:inputSearch">
+                            <td class="text-left">{{otro.concepto | uppercase}}</td>
+                            <td class="text-right" ng-class="{'font-weight-bold': $index+1 == otro.totalesPorMes.length, 'negative-number':totalPorMes < 0}"
+                                ng-repeat="totalPorMes in otro.totalesPorMes track by $index">
+                                {{totalPorMes | currency}}
+                            </td>
+                        </tr>
+
+                        <!-- Total Ingresos -->
+
+                        <tr>
+                            <td class="text-center">
+                                <b> **Total ingresos </b>
+                            </td>
+                            <td class="text-right" ng-repeat="t in flujoEfectivo.actividades_operacion.total_ingresos track by $index">
+                                <b>
+                                    {{t | currency}}
+                                </b>
+                            </td>
+                        </tr>
+
+                        <!-- Pago a proveedores Mat. Prima Directa -->
+                        <tr>
+                            <td class="text-center">
+                                <b> Pago a proveedores Mat. Prima Directa </b>
+                            </td>
+                        </tr>
+
+                        <tr ng-repeat="c in flujoEfectivo.pago_proveedores.conceptos | filter:inputSearch">
+                            <td class="text-left">{{c.concepto | uppercase}}</td>
+                            <td class="text-right" ng-class="{'font-weight-bold': $index+1 == c.totalesPorMes.length, 'negative-number':totalPorMes < 0}"
+                                ng-repeat="totalPorMes in c.totalesPorMes track by $index">
+                                {{totalPorMes | currency}}
+                            </td>
+                        </tr>
+
+                        <!-- Total pago proveedores -->
+
+                        <tr>
+                            <td class="text-center">
+                                <b> Compras Netas Materia Prima </b>
+                            </td>
+                            <td class="text-right" ng-repeat="total in flujoEfectivo.pago_proveedores.total_pago_proveedores track by $index">
+                                <b>
+                                    {{total | currency}}
+                                </b>
+                            </td>
+                        </tr>
+
+                        <!-- Gastos de operación -->
+                        <tr>
+                            <td class="text-center">
+                                <b> Gastos de operación </b>
+                            </td>
+                        </tr>
+
+                        <tr ng-repeat="cuenta in flujoEfectivo.gastos_operacion.cuentas | filter:inputSearch">
+                            <td class="text-left" ng-class="{'font-weight-bold': cuenta.esEncabezado}">
+                                {{cuenta.nombre | uppercase}}
+                            </td>
+                            <td class="text-right" ng-class="{'font-weight-bold': $index+1 == cuenta.totalesPorMes.length || cuenta.esEncabezado, 'negative-number':totalPorMes < 0}"
+                                ng-repeat="totalPorMes in cuenta.totalesPorMes track by $index">
+                                {{totalPorMes | currency}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

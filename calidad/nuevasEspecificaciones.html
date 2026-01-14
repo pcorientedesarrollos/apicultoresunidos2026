@@ -1,0 +1,215 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-9 col-lg-offset-2">
+
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        ESPECIFICACIONES
+                        <a title="regresar" href="#/especificaciones" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <!--box.header-->
+
+                <div class="box-body">
+                    <div class="row" ng-hide="loteInter > 0">
+                        <br>
+                        <div class="col-lg-6">
+                            <div class="fg-line">
+                                <label style="font-weight: bold;" class="col-sm-4">Tipo de miel: </label>
+                                <div class="col-sm-6">
+                                    <select chosen ng-model="mielTipo" class="form-control" ng-options="mt.idTipoDeMiel as mt.tipoDeMiel for mt in lstTipoCosecha">
+                                        <option disabled="disabled" value="">Miel</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="fg-line">
+                                <label style="font-weight: bold;" class="col-sm-4">Lote</label>
+                                <div class="col-sm-6">
+                                    <select chosen ng-model="numLote" class="form-control" ng-options="esp.idLoteInterno as esp.idLoteInterno for esp in listaLoteses">
+                                        <option disabled="disabled" value="">Lotes</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="loteInter > 0">
+                        <br>
+                        <div class="col-lg-6">
+                            <div class="fg-line">
+                                <label style="font-weight: bold;" class="col-sm-4">Tipo de miel: </label>
+                                <input disabled="disabled" type="text" class="form-group" ng-model="mielTipoTex">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="fg-line">
+                                <label style="font-weight: bold;" class="col-sm-4">Lote</label>
+                                <div class="col-sm-6">
+                                    <input disabled="disabled" type="text" class="form-group" ng-model="numLote">
+                                    <!-- <select disabled="true" chosen ng-model="numLote" class="form-control" ng-options="esp.idLoteInterno as esp.idLoteInterno for esp in listaLoteses">
+                                        <option value="">Lotes</option>
+                                    </select> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-transform: none; font-weight: 600" class="col-sm-4">
+                                                <center>Parametros</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600" class="col-sm-4">
+                                                <center>Especificaciones del Cliente</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600" class="col-sm-4">
+                                                <center>Lab.Oaxaca Miel</center>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <center>%Humedad:</center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="cliente.humedad">
+                                                </center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="laboratorioes.humedad">
+                                                </center>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <center>Color:</center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="cliente.color">
+                                                </center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="laboratorioes.color">
+                                                </center>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <center>Adulteracion:</center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="cliente.adulteracion">
+                                                </center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="laboratorioes.adulteracion">
+                                                </center>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <center>SF:</center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="cliente.sf">
+                                                </center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="laboratorioes.sf">
+                                                </center>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <center>ST:</center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="cliente.st">
+                                                </center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="laboratorioes.st">
+                                                </center>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <center>TT:</center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="cliente.tt">
+                                                </center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="laboratorioes.tt">
+                                                </center>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <center>HMF:</center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="cliente.hmf">
+                                                </center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <input class="form-group" ng-model="laboratorioes.hmf">
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <center>
+                                <div class="row" style="text-align: center">
+                                    <br>
+                                    <button type="submit" ng-click="guardarEspecificacion(mielTipo);" class="btn btn-warning">Guardar
+
+                                    </button>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                    <!--div.row-->
+                </div>
+                <!--Div box.body -->
+            </div>
+            <!--box-warnig-->
+        </div>
+        <!--col.lg-12-->
+    </div>
+    <!--div.row-->
+</section>

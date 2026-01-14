@@ -1,0 +1,46 @@
+<div ng-init="verificarAdmin()">
+    <h3></h3>
+    <div class="row">
+        <div class="col-xs-12 xol-sm-12 col-md-6 col-lg-6 col-md-offset-6 col-lg-offset-6">
+            <input type="text" class="form-control" placeholder="Buscar..." ng-model="busqueda" />
+        </div>
+    </div>&nbsp;
+    <div class="table-responsive">
+        <table class="table table-bordered table-condensed table-striped tabla-principal">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>FOLIO</th>
+                    <th>FECHA</th>
+                    <th>CLIENTE</th>
+                    <th>SUBTOTAL</th>
+                    <th>IVA</th>
+                    <th>TOTAL</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="presupuesto in presupuestos | filter:busqueda | orderBy:'-fecha'" align="center">
+                    <td ng-bind="$index + 1"></td>
+                    <td ng-bind="presupuesto.idFactura"></td>
+                    <td ng-bind="presupuesto.fecha| date:'dd/MM/yyyy'"></td>
+                    <td ng-bind="presupuesto.nombre"></td>
+                    <td ng-bind="presupuesto.subtotal | currency"></td>
+                    <td ng-bind="presupuesto.iva | currency"></td>
+                    <td ng-bind="presupuesto.total | currency"></td>
+                    <td>
+                        <a href="#/presupuesto/{{presupuesto.idFactura}}" class="btn btn-primary">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <button type="button" class="btn btn-success" ng-click="pdf_presupuesto(presupuesto.idFactura)">
+                            <i class="fa fa-print"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" ng-click="eliminar_presupuesto(presupuesto.idFactura, $index)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

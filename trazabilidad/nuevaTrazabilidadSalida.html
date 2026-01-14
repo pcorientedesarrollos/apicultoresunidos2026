@@ -1,0 +1,245 @@
+<section class="content">
+    <!-- <div class="row">
+        <div class="col-lg-12"> -->
+    <div class="box box-solid box-warning">
+        <div class="box-header" style="height: 50px">
+            <h5 class="encabezadosTabla">
+                TRAZABILIDAD SALIDA
+                <a title="Regresar" href="#/tSalida" class="btn btn-success btn-xs" style="float: right">
+                    <i class="zmdi zmdi-arrow-left"></i>
+                </a>
+            </h5>
+        </div>
+        <div class="box-body">
+
+            <div class="row" ng-hide="parametroSalida == 0">
+                <div class="col-sm-3 col-sm-offset-9">
+                    <a style="margin-right: 10px" title="Imprimir XLS" class="pull-right btn btn-success btn-sm" ng-click="xlsTranzabilidadSalida()">
+                        <i class="zmdi zmdi-storage zmdi-hc-lg"></i>
+                    </a>
+                    <a style="margin-right: 10px" title="Imprimir PDF" class="pull-right btn btn-danger btn-sm" ng-click="pdfTramzabilidadSalida()"
+                        target="_blank">
+                        <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- <div class="row">
+                <label for="">Seleccione el tipo de miel para traer los lotes</label>
+                <div class="col-xs-12 col-md-3">
+                    <label class="radio radio-inline m-r-20">
+                        <input type="radio" value="1" ng-model="encabezadoSalida.tipoMiel">Miel 100% pura de abeja
+                    </label>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <label class="radio radio-inline m-r-20">
+                        <input type="radio" value="2" ng-model="encabezadoSalida.tipoMiel">Miel 100% orgánica
+                    </label>
+                </div>
+
+            </div> -->
+            <br>
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="row" ng-show="parametroSalida == 0">
+                            <div class="col-lg-12">
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>N° de Lote</label>
+                                        <select chosen ng-change="concentradoSalida()" ng-model="comboSalida" class="form-control small" ng-options="rp.idLoteInterno as rp.idLoteInterno for rp in lotesSalida">
+                                            <option value="">Lote</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-hide="parametroSalida == 0">
+                            <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>N° de Lote</label>
+                                        18-{{parametroSalida}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;" class="col-sm-6">Fecha Envasado</label>
+                                        <input ng-model="encabezadoSalida.fechaEnvasado" type="text" disabled="true" class="small" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;" class="col-sm-6">Homogeneizado</label>
+                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                            <input type="radio" value="1" ng-model="encabezadoSalida.homogeneizado">Sí
+                                            <i class="input-helper"></i>
+                                        </label>
+                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                            <input type="radio" value="0" ng-model="encabezadoSalida.homogeneizado">No
+                                            <i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;" class="col-sm-6">Kilogramos</label>
+                                        <input ng-model="encabezadoSalida.kilosSalida" type="text" disabled="true" class="small" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;" class="col-sm-6">Fecha Salida</label>
+                                        <!--                                                <input 
+                                                                                                    type="date" 
+                                                                                                    date="yyyy/MM/dd"
+                                                                                                    required="required"
+                                                                                                    ng-model="encabezadoSalida.fechaSalida"/> -->
+                                        <div class="form-group">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text" class="form-control pull-right" id="datepicker"
+                                                    placeholder="Fecha" ng-model="encabezadoSalida.fechaSalida">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;" class="col-sm-6">Empresa destino - País</label>
+                                        <select chosen ng-model="comboDestino" class="small col-sm-6" ng-options="ep.idEmpresaPais as ep.destino for ep in comboDestinos">
+                                            <option value="">Empresa-País</option>
+                                        </select>
+                                        <button ng-click="nuevoDestino()" class="btn btn-warning btn-xs col-lg- pull-right" title="Agregar nuevo destino">
+                                            <i class="zmdi zmdi-plus">
+                                            </i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;" class="col-sm-6">Cantidad total a exportar (Kg.)
+                                        </label>
+                                        <input ng-model="encabezadoSalida.kgExportar" type="text" class="small" ng-change="copiarKg(encabezadoSalida.kgExportar)"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <Br>
+                        <div class="row">
+                            <div class="col-sm-2 pull-right">
+                                <button type="button" ng-click="guardarTrazabilidadSalida()" class="btn btn-info btn-xs">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="table-responsive no-padding">
+                            <table class="table table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px; background-color: yellowgreen" colspan="6">Trazabilidad
+                                            salida
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-transform: none; font-weight: 600; background: none">ID proveedor</th>
+                                        <th style="text-align: right; text-transform: none; font-weight: 600; background: none">Volumen
+                                            de miel usada por apicultor</th>
+                                        <th style="text-transform: none; font-weight: 600; background: none">Nacional (Kg.)
+                                        </th>
+                                        <th style="text-align: right; text-transform: none; font-weight: 600; background: none">Consumidor
+                                            directo (Kg.)</th>
+                                    </tr>
+                                </thead>
+                                <tr ng-repeat="tSalida in detalleTrazabilidadSalida">
+                                    <td style="text-align: right">{{tSalida.idSagarpa}}</td>
+                                    <td style="text-align: right">{{tSalida.volumen}}</td>
+                                    <td style="text-align: right"></td>
+                                    <td style="text-align: right"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="comboSalida > 0">
+                        <div class="col-lg-3 pull-right">
+                            <center>
+                                <label>
+                                    <strong class="text-red">Miel usada por apicultores</strong>
+                                </label>
+                                <br>
+                                <strong>{{kilosTotales}} kg. </strong>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="parametroSalida > 0">
+                        <div class="col-lg-3 pull-right">
+                            <center>
+                                <label>
+                                    <strong class="text-red">Miel usada por apicultores</strong>
+                                </label>
+                                <br>
+                                <strong>{{kilosTotales}} kg. </strong>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- </div>
+    </div> -->
+</section>
+<div growl>
+
+</div>
+<div class="modal  fade" id="modalDestino" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="col-lg-6">
+                                <label style="font-weight: bold; color: navy" class="col-lg-3 control-label"> Empresa </label>
+                                <div class="col-sm-7">
+                                    <input align="center" type="text" class=" input-xs" placeholder="Empresa destino" required="required" ng-model="aDestino.empresa"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <label style="font-weight: bold; color: navy" class="col-lg-2 control-label"> País </label>
+                                <div class="col-sm-10">
+                                    <input align="center" type="text" class=" input-xs" placeholder="País" required="required" ng-model="aDestino.pais" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button style="float: right" value="enviar" class="btn btn-info" ng-click="guardarDestino()"> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

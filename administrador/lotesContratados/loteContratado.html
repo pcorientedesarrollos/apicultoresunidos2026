@@ -1,0 +1,234 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        LOTE CONTRATADO
+                        <a title="Regresar" href="#/lotesContratados" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <div class="form-group">
+                                    <label style="font-weight: bold;">Tipo de miel</label>
+                                    <select ng-disabled="loteContratado.idLoteContratado > 0" chosen
+                                        class="form-control" ng-model="loteContratado.tipoDeMiel">
+                                        <option value="" selected disabled>Elige una opción</option>
+                                        <option value="1">Miel convencional</option>
+                                        <option value="2">Miel orgánica</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <div class="form-group">
+                                    <label style="font-weight: bold;">Cliente</label>
+                                    <select chosen class="form-control" ng-model="loteContratado.tipoDeCliente">
+                                        <option value="" selected disabled>Elige una opción</option>
+                                        <option value="10">Clientes exportadores</option>
+                                        <option value="6">Clientes nacionales</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3" ng-if="loteContratado.tipoDeCliente == 6">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Catálogo de clientes</label>
+                                    <div class="input-group">
+                                        <select chosen ng-model="loteContratado.idCliente" class="form-control"
+                                            ng-options="clientes.id as clientes.nombre for clientes in listaClientes">
+                                            <option value="" disabled>Nombre</option>
+                                        </select>
+                                        <div style="background-color: gold" class="input-group-addon btn"
+                                            ng-click="altaRapida()" title="Añadir">
+                                            <i class="zmdi zmdi-plus"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3" ng-if="loteContratado.tipoDeCliente == 10">
+                                <div class="form-group">
+                                    <label for="">Catálogo de clientes</label>
+                                    <select chosen ng-model="loteContratado.idCliente" class="form-control"
+                                        ng-options="cliente.idClienteExportador as cliente.nombre for cliente in listaClientesExportadores">
+                                        <option value="" disabled>Nombre</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Contrato</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.contrato">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Marca cliente</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.marcaCliente">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Lote interno</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.loteInterno">
+                            </div> -->
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Kilos</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.kilos">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Humedad</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.humedad">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Color</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.color">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">HMF</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.hmf">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">F/G</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.fg">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Glucosa</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.glucosa">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Diastasa</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.diastasa">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Invertasa</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.invertasa">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Sulfas</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.sulfas">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Estrepto</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.estrepto">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Tetras</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.tetras">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Cloranphenicol</label>
+                                <input type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.cloranphenicol">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Macrolidas</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.macrolidas">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Nitrofuranos</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.nitrofuranos">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Fluroquinolanas</label>
+                                <input type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.fluroquinolanas">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Pesticidas</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.pesticidas">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Glifosato</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.glifosato">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">OGM</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.ogm">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">PA´s</label>
+                                <input type="text" class="form-control input-sm" ng-model="loteContratado.pas">
+                            </div>
+                            <div class="col-xs-12 col-md-3" ng-show="idLoteContrato == '0'">
+                                <label style="font-weight: bold;">Número de lotes a entregar</label>
+                                <input type="number" class="form-control input-sm" ng-model="loteContratado.numeroLotes">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3 col-md-offset-9">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-sm btn-block btn-success" ng-click="guardarLoteContratado();">
+                                    Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</section>
+<div class="modal fade" id="modalAltaRapida" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Alta rápida a clientes nacionales</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Nombre:</label>
+                                <input ng-model="altasCC.nombreProveedor" type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Domicilio:</label>
+                                <input ng-model="altasCC.domicilio" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Teléfono </label>
+                                <input ng-model="altasCC.telefono" type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success"
+                    ng-click="guardarNuevoProveedorCC(altasCC);">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

@@ -1,0 +1,93 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        LISTA DE CHEQUES ENTREGADOS
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <select chosen ng-model="banco" class="form-control"
+                                    ng-options="b.idBanco as b.banco for b in listaDeBancos">
+                                    <option disabled="disabled" value="">Elija un banco</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" ng-model="busquedaReq" class="form-control" placeholder="Buscar"
+                                        aria-describedby="input-busqueda">
+                                    <span class="input-group-addon" id="input-busqueda"><i
+                                            class="zmdi zmdi-search"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="chequesEntregados.chequesEntregados.length > 0">
+                        <div class="table-responsive col-md-6">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="text-center">Total de cheques</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Girados</td>
+                                        <td class="text-center">{{chequesEntregados.girados}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cobrados</td>
+                                        <td class="text-center">{{chequesEntregados.cobrados}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 ">
+                            <select class="form-control" ng-model="filtroCheque"
+                                ng-change="filtrarCheques(filtroCheque)">
+                                <option value="1">Cobrados</option>
+                                <option value="2">No Cobrados</option>
+                                <option value="3">Todos</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p ng-if="chequesEntregados.chequesEntregados.length == 0">No se encuentran datos</p>
+                    <div class="table-responsive" ng-if="chequesEntregados.chequesEntregados.length > 0">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Fecha Entrega</th>
+                                    <th>Banco</th>
+                                    <th>Recibe</th>
+                                    <th>Folio</th>
+                                    <th>Beneficiario</th>
+                                    <th class="text-center">Importe</th>
+                                    <th class="text-center">Fecha cobro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-class="{ 'auditoria-verde': cheque.fechaCobro}"
+                                    ng-repeat="cheque in chequesEntregados.chequesEntregados|filter:busquedaReq">
+                                    <td>{{cheque.fechaEntrega | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{cheque.banco}}</td>
+                                    <td>{{cheque.recibe}}</td>
+                                    <td>{{cheque.folioCheque}}</td>
+                                    <td>{{cheque.beneficiario}}</td>
+                                    <td class="text-right">{{cheque.importe | currency}}</td>
+                                    <td class="text-center">{{cheque.fechaCobro|date:'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

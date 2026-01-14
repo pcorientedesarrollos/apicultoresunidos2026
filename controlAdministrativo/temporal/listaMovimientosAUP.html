@@ -1,0 +1,96 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" ng-model="filtroBusquedaAUP" class="form-control input-sm pull-right" placeholder="Ingrese lo que desea buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-warning">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+                <div class="input-group" style="width: 150px;">
+                    <input type="text" ng-model="filtroBusquedaAUP" name="table_search" class="form-control input-sm pull-right" placeholder="Buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        MOVIMIENTOS AUP EN AUXILIAR DE BANCOS
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- <div class="table-responsive no-padding">
+                                <table class="table table-bordered table-condensed" style="font-size: 10px">
+                                </table>
+                            </div> -->
+                            <div class="table-responsive" style="font-size: 10px">
+                                <table class="table table-responsive table-bordered table-condensed">
+                                    <thead style="text-align: center;">
+                                        <tr>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;">Fecha</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;">Hora</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;">Banco - Cuenta</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;">Movimiento</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;">Concepto</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;">Descripción</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;">Catálogo</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;">A nombre de</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;">Cantidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-class="aup.ingresoEgreso == 0 ? 'ingreso-green' : 'egreso-red'" ng-repeat="aup in listaAUP|filter:filtroBusquedaAUP">
+                                            <td>{{aup.fecha|date:'dd-MM-yyyy'}}</td>
+                                            <td>{{aup.hora}}</td>
+                                            <td>{{aup.banco}} - {{aup.numDeCuenta}}</td>
+                                            <td>{{aup.movimiento|uppercase}}</td>
+                                            <td>{{aup.concepto|uppercase}}</td>
+                                            <td>{{aup.descripcion|uppercase}}</td>
+                                            <td>
+                                                <select chosen ng-model="aup.tipoDePersona" class="form-control" ng-change="traeNombres(aup.tipoDePersona)">
+                                                    <option value="" disabled="disabled"> Catálogo </option>
+                                                    <option value="1">Apicultores</option>
+                                                    <option value="3">Proveedores</option>
+                                                    <option value="4">Personal</option>
+                                                    <option value="6">Clientes</option>
+                                                    <option value="8">Propios</option>
+                                                    <option value="9">Acreedores</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select chosen ng-model="aup.nombreDe" class="form-control" ng-options="nombre.id as nombre.nombre for nombre in personas">
+                                                    <option disabled="disabled" value="">Nombre</option>
+                                                </select>
+                                            </td>
+                                            <td class="derecha">{{aup.cantidad|currency}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-4 pull-right">
+                                    <button ng-click="guardarSaldos()">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<div growl></div>

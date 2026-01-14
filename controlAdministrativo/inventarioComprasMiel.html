@@ -1,0 +1,460 @@
+<section class="content">
+    <div class="row">
+        <div class="box box-solid box-warning">
+            <div class="box-header" style="height: 50px;">
+                <h5 class="encabezadosTabla">
+                    INVENTARIO COMPRAS DE MIEL
+                </h5>
+            </div>
+            <div class="box-body">
+
+                <div class="row">
+                    <!-- Fila para las opciones de tipo de miel y el botón de descarga -->
+                    <div class="col-xs-12 col-md-2">
+                        <div class="form-group">
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" value="1" ng-model="opcionMes.tipoMiel"
+                                    ng-disabled="cargandoDatos">Convencional
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-2">
+                        <div class="form-group">
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" value="2" ng-model="opcionMes.tipoMiel"
+                                    ng-disabled="cargandoDatos">Orgánica
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-2">
+                        <div class="form-group">
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" value="5" ng-model="opcionMes.tipoMiel"
+                                    ng-disabled="cargandoDatos">Mantequilla
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-2">
+                        <div class="form-group">
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" value="6" ng-model="opcionMes.tipoMiel"
+                                    ng-disabled="cargandoDatos">Altiplano
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Fila para las opciones de tipo de miel y el botón de descarga -->
+                    <div class="col-xs-12 col-md-2">
+                        <div class="form-group">
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" value="7" ng-model="opcionMes.tipoMiel"
+                                    ng-disabled="cargandoDatos">Naranjo
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-2">
+                        <div class="form-group">
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" value="8" ng-model="opcionMes.tipoMiel"
+                                    ng-disabled="cargandoDatos">Aguacate
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-2">
+                        <div class="form-group">
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" value="9" ng-model="opcionMes.tipoMiel"
+                                    ng-disabled="cargandoDatos">Mezquite
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        <div class="form-group">
+                            <label for="">Elige una opción</label>
+                            <select chosen class="form-control" ng-model="opcionMes.filtro">
+                                <option value="" disabled>Elige una opción</option>
+                                <option value="0">TODO</option>
+                                <option value="2">Local</option>
+                                <option value="5">Nacional</option>
+                                <option value="1">Exportación</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-2">
+                        <div class="form-group">
+                            <label for="">Elige una opción</label>
+                            <select chosen class="form-control" ng-model="opcionMes.opcion">
+                                <option value="" disabled>Elige una opción</option>
+                                <option value="1">Acumulado</option>
+                                <option value="2">Por mes</option>
+                                <option value="3">Periodo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3" ng-if="opcionMes.opcion == 2">
+                        <div class="form-group">
+                            <label for="">Selecciona un mes</label>
+                            <select chosen ng-model="opcionMes.mes" class="form-control"
+                                ng-options="mes.idMes as mes.mes for mes in meses">
+                                <option value="" disabled>SELECCIONA MES</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4" ng-if="opcionMes.opcion == 3">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label>Fecha Inicio</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text"
+                                        class="form-control pull-right" id="datepicker" placeholder="Fecha"
+                                        ng-model="opcionMes.fechaUno">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label>Fecha Final</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text"
+                                        class="form-control pull-right" id="datepicker" placeholder="Fecha"
+                                        ng-model="opcionMes.fechaDos">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <div class="form-group">
+                            <br>
+                            <button ng-disabled="cargandoDatos" type="button" ng-click="verMes(opcionMes);"
+                                class="btn btn-success btn-sm">Ver
+                                resultados
+                            </button>
+                            <button ng-disabled="cargandoDatos" type="button" ng-click="imprimirAlmacen(opcionMes)"
+                                class="btn btn-success btn-sm">
+                                <i class="fa fa-file-excel-o"></i>
+                            </button>
+                            <!-- <a class="pull-right" href="" ng-click="setMielInicialAnual()">
+                                <i class="fa fa-cog"></i> Miel inicial del año</a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive no-padding">
+                    <table class="table table-bordered table-condensed" style="font-size: 10px">
+                        <thead>
+                            <tr>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2">Fecha</th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2">Folio
+                                    Interno
+                                </th>
+                                <!-- <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="2">Control</th> -->
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2"></th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2">Nombre
+                                    del apicultor</th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="1" colspan="2">Kilogramos</th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2">Existencia
+                                    (kg.)
+                                </th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2">Precio
+                                    por kg.</th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="1" colspan="2">Importe</th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2">Importe
+                                    acumulado
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="text-transform: none; font-weight: 600;">Entradas</th>
+                                <th style="text-transform: none; font-weight: 600;">Salidas</th>
+                                <th style="text-transform: none; font-weight: 600;">Entradas</th>
+                                <th style="text-transform: none; font-weight: 600;">Salidas</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <!-- <td></td> -->
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align: right">{{existenciaPasada | number}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align: right">{{importeAcumuladoPasado | currency}}</td>
+                        </tr>
+                        <tr ng-repeat="inventario in inventarioDeMiel">
+                            <td style="text-align: left">{{inventario.fecha | date:'dd-MM-yyyy'}}</td>
+                            <td style="text-align: left">{{inventario.folioInterno}}</td>
+                            <!-- <td style="text-align: left">{{inventario.clasificacion}}</td> -->
+                            <td style="text-align: left">{{inventario.folio}}</td>
+                            <td style="text-align: left">{{inventario.nombre}}</td>
+                            <td style="text-align: right">{{inventario.entrada | number}}</td>
+                            <td style="text-align: right">{{inventario.salida | number}}</td>
+                            <td style="text-align: right">{{inventario.existencia | number}}</td>
+                            <td style="text-align: right">{{inventario.precio | currency}}</td>
+                            <td style="text-align: right">{{inventario.totalImporte | currency}}</td>
+                            <td style="text-align: right">{{inventario.totalSalida | currency}}</td>
+                            <td style="text-align: right">{{inventario.importeAcumulado | currency}}</td>
+                        </tr>
+                        <tr style="font-size:15px" ng-if="inventarioDeMiel.length > 0">
+                            <td style="text-align: right"></td>
+                            <td style="text-align: right"></td>
+                            <!-- <td style="text-align: right"></td> -->
+                            <td style="text-align: right"></td>
+                            <th style="text-align: right">
+                                <b>Total Acumulado</b>
+                            </th>
+                            <th style="text-align: right">{{totalEntradas | number}}</th>
+                            <th style="text-align: right">{{totalSalidas | number}}</th>
+                            <th style="text-align: right">{{totalInventario | number}}</th>
+                            <th style="text-align: right">{{promedioPrecio | currency}}</th>
+                            <th style="text-align: right">{{totalImporteEntrada | currency}}</th>
+                            <th style="text-align: right">{{totalImporteSalida | currency}}</th>
+                            <th style="text-align: right">{{totalImportesAcumulados | currency}}</th>
+                        </tr>
+                    </table>
+                </div>
+                <div ng-if="resumenPorEmpresas && resumenPorEmpresas.empresas.length" class="col-xs-12">
+                    <p class="lead">Resumen por empresa / proveedor</p>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-bordered table-condensed" style="font-size: 10px">
+                            <thead>
+                                <tr>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Empresa</th>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Localidad</th>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Kg</th>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Precio
+                                        Promedio
+                                    </th>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Importe</th>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        %
+                                        Compra
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tr ng-repeat="empresa in resumenPorEmpresas.empresas">
+                                <td style="text-align: left">{{empresa.nombre}}</td>
+                                <td style="text-align: left">{{empresa.localidad}}</td>
+                                <td style="text-align: right">{{empresa.neto | number}}</td>
+                                <td style="text-align: right">{{empresa.precioPromedio | currency}}</td>
+                                <td style="text-align: right">{{empresa.importe | currency}}</td>
+                                <td style="text-align: right">{{empresa.porcentajeCompra | number}} %</td>
+                            </tr>
+                            <tr style="font-size:15px">
+                                <th style="text-align: center" colspan="2">
+                                    <b>TOTAL GENERAL</b>
+                                </th>
+                                <th style="text-align: right">{{resumenPorEmpresas.totalKg | number}}</th>
+                                <th style="text-align: right">{{resumenPorEmpresas.precioPromedio | currency}}</th>
+                                <th style="text-align: right">{{resumenPorEmpresas.totalImporte | currency}}</th>
+                                <th style="text-align: right">{{resumenPorEmpresas.totalPorcentaje | number:2}} %</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div ng-if="precioPromedioPorMeses" class="col-xs-12">
+                    <p class="lead">Precio promedio por meses</p>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-bordered table-condensed" style="font-size: 10px">
+                            <thead>
+                                <tr>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Periodo</th>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Kg Entrada</th>
+
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Importe
+                                        entrada</th>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        %
+                                        Compra Entradas
+                                    </th>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Precio
+                                        promedio (Entradas)
+                                    </th>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Precio
+                                        promedio (Salidas)
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tr ng-repeat="mes in precioPromedioPorMeses.datos">
+                                <td style="text-align: left">{{mes.mes}}</td>
+                                <td style="text-align: right">{{mes.totalEntradas | number}}</td>
+                                <td style="text-align: right">{{mes.totalImporteEntrada | currency}}</td>
+                                <td style="text-align: right">{{mes.porcentajeCompra | number}} %</td>
+                                <td style="text-align: right">{{mes.promedioPrecio | currency}}</td>
+                                <td style="text-align: right">{{mes.promedioPrecioSalida | currency}}</td>
+                            </tr>
+                            <tr style="font-size:15px">
+                                <th style="text-align: left">
+                                    <b>FINAL TEMPORADA</b>
+                                </th>
+                                <th style="text-align: right">{{precioPromedioPorMeses.resumenCompra.totalKgEntrada |
+                                    number:2}}</th>
+                                <th style="text-align: right">{{precioPromedioPorMeses.resumenCompra.totalImporteEntrada
+                                    |
+                                    currency}}</th>
+                                <th style="text-align: right">{{precioPromedioPorMeses.resumenCompra.pCompra |
+                                    number:2}}
+                                    %
+                                </th>
+                                <th style="text-align: right">{{precioPromedioPorMeses.resumenCompra.precioPromedio |
+                                    currency}}</th>
+                                <th style="text-align: right">
+                                    {{precioPromedioPorMeses.resumenCompra.precioPromedioSalidas |
+                                    currency}}</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                <div ng-if="precioPromedioPorPeriodo" class="col-xs-12">
+                    <p class="lead">Precio promedio por periodo</p>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-bordered table-condensed" style="font-size: 10px">
+                            <thead>
+                                <tr>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Periodo</th>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Kg Entrada</th>
+
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Importe
+                                        entrada</th>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        %
+                                        Compra Entradas
+                                    </th>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Precio
+                                        promedio (Entradas)
+                                    </th>
+                                    <th
+                                        style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;">
+                                        Precio
+                                        promedio (Salidas)
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <!-- <tr ng-repeat="mes in precioPromedioPorMeses.datos">
+                                <td style="text-align: left">{{mes.mes}}</td>
+                                <td style="text-align: right">{{mes.totalEntradas | number}}</td>
+                                <td style="text-align: right">{{mes.totalImporteEntrada | currency}}</td>
+                                <td style="text-align: right">{{mes.porcentajeCompra | number}} %</td>
+                                <td style="text-align: right">{{mes.promedioPrecio | currency}}</td>
+                                <td style="text-align: right">{{mes.promedioPrecioSalida | currency}}</td>
+                            </tr> -->
+                            <tr style="font-size:15px">
+                                <td style="text-align: left">
+                                    {{precioPromedioPorPeriodo.resumenCompra.periodo}}
+                                </td>
+                                <td style="text-align: right">{{precioPromedioPorPeriodo.resumenCompra.totalKgEntrada |
+                                    number:2}}</td>
+
+                                <td style="text-align: right">
+                                    {{precioPromedioPorPeriodo.resumenCompra.totalImporteEntrada |
+                                    currency}}</td>
+                                <td style="text-align: right">{{precioPromedioPorPeriodo.resumenCompra.pCompra |
+                                    number:2}}
+                                    %
+                                </td>
+                                <td style="text-align: right">{{precioPromedioPorPeriodo.resumenCompra.precioPromedio |
+                                    currency}}</td>
+                                <td style="text-align: right">
+                                    {{precioPromedioPorPeriodo.resumenCompra.precioPromedioSalidas |
+                                    currency}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div class="modal fade" id="modalMielInicial" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Miel inicial del año</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label>Existencia de miel</label>
+                            <input type="text" class="form-control" ng-model="mielInicialAnual.existenciaPasada">
+
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label>Importe acumulado</label>
+                            <input type="text" class="form-control" ng-model="mielInicialAnual.importeAcumuladoPasado">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarNuevoMienInicialAnual()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

@@ -1,0 +1,386 @@
+<div class="col-lg-12"  ng-controller="proveedores">
+    <div class="card">
+
+        <div class="card-header bgm-miel">
+            <h2 style="font-family: 'Didact Gothic', sans-serif; text-transform: uppercase"><b>Subir documentación</b></h2>
+            <a title="Regresar" class="btn bgm-red btn-float waves-effect"
+               href="#proveedor">
+                <i class="zmdi red zmdi-undo"></i>
+            </a>
+        </div>
+
+        <div class="card-body card-padding">
+            <div class="row">
+                <div class="col-lg-4 col-sm-12">
+                    <div class="col-sm-2">
+                        <button class="btn bgm-blue" ng-click="modalContrato()" title="Subir Contrato Mercantil">
+                            <i style="color: #385428" class="zmdi zmdi-upload"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <a ng-if="proveedor.archivoContrato" 
+                           ng-href="proveedores/{{proveedor.archivoContrato}}" 
+                           target="_blank" title="Ver archivo">
+                            <button class="btn bgm-amber">
+                                <i style="color: #385428" class="zmdi zmdi-file"></i>
+                            </button>
+                        </a>
+                    </div>  
+                    <div class="col-sm-8">
+                        <b class="text-primary"> Contrato Mercantil </b>
+                    </div> 
+                </div> 
+                <div class="col-lg-4 col-sm-12">
+                    <div class="col-sm-2">
+
+                        <button class="btn bgm-blue" ng-click="modalRFC()" title="Subir RFC">
+                            <i style="color: #385428" class="zmdi zmdi-upload"></i>
+                        </button>
+                        <!--     <a href="#/instalacion/{{proveedor.id}}" title="Subir archivo">  
+                             </a>-->
+                    </div>
+
+                    <div class="col-sm-2">
+                        <a ng-if="proveedor.archivoRFC" ng-href="proveedores/{{proveedor.archivoRFC}}" target="_blank" title="Ver archivo">
+                            <button class="btn bgm-amber">
+                                <i style="color: #385428" class="zmdi zmdi-file"></i>
+                            </button>
+                        </a>
+                    </div> 
+                    <div class="col-sm-8">
+                        <b class="text-primary">RFC </b>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="col-sm-2">
+
+                        <button class="btn bgm-blue" ng-click="modalIdSagarpa()" title="Subir ID Sagarpa">
+                            <i style="color: #385428" class="zmdi zmdi-upload"></i>
+                        </button>
+                        <!--     <a href="#/instalacion/{{proveedor.id}}" title="Subir archivo">  
+                             </a>-->
+                    </div>
+
+                    <div class="col-sm-2">
+                        <a ng-if="proveedor.archivoSagarpa" ng-href="proveedores/{{proveedor.archivoSagarpa}}" target="_blank" title="Ver archivo">
+                            <button class="btn bgm-amber">
+                                <i style="color: #385428" class="zmdi zmdi-file"></i>
+                            </button>
+                        </a>
+                    </div>  
+                    <div class="col-sm-8">
+                        <b class="text-primary">ID Sagarpa</b>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-lg-4 col-sm-12">
+                    <div class="col-sm-2">
+
+                        <button class="btn bgm-blue" ng-click="modalInstalacion()" title="Subir Revisión de Instalaciones">
+                            <i style="color: #385428" class="zmdi zmdi-upload"></i>
+                        </button>
+                        <!--     <a href="#/instalacion/{{proveedor.id}}" title="Subir archivo">  
+                             </a>-->
+                    </div>
+
+                    <div class="col-sm-2">
+                        <a ng-if="proveedor.archivoInstalacion" ng-href="proveedores/{{proveedor.archivoInstalacion}}" target="_blank" title="Ver archivo">
+                            <button class="btn bgm-amber">
+                                <i style="color: #385428" class="zmdi zmdi-file"></i>
+                            </button>
+                        </a>
+                    </div>  
+                    <div class="col-sm-8">
+                        <b class="text-primary">Revision de Instalaciones </b>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="col-sm-2">
+                        <button class="btn bgm-blue" ng-click="modalApiario()" title="Subir Revisión de Apiarios">
+                            <i style="color: #385428" class="zmdi zmdi-upload"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <a  
+                            ng-show="proveedor.archivoApiario"
+                            ng-href="proveedores/{{proveedor.archivoApiario}}" target="_blank" title="Ver archivo">
+                            <button class="btn bgm-amber">
+                                <i style="color: #385428" class="zmdi zmdi-file"></i>
+                            </button>
+                        </a>
+                    </div>  
+                    <div class="col-sm-8"> 
+                        <b class="text-primary">Revisión de Apiarios</b>
+                    </div>
+                </div> 
+                <div class="col-lg-4 col-sm-12">
+                    <div class="col-sm-2">
+                        <button class="btn bgm-blue" ng-click="modalCarta()" title="Subir Carta Responsiva">
+                            <i style="color: #385428" class="zmdi zmdi-upload"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <a ng-if="proveedor.archivoCarta" ng-href="proveedores/{{proveedor.archivoCarta}}" target="_blank" title="Ver archivo">
+                            <button class="btn bgm-amber">
+                                <i style="color: #385428" class="zmdi zmdi-file"></i>
+                            </button>
+                        </a>
+                    </div>  
+                    <div class="col-sm-8">
+                        <b class="text-primary"> Carta Responsiva </b>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <br><br>
+        </div> 
+    </div>
+
+    <div class="modal  fade" id="modalInstalacion" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bgm-miel">
+                    <h4 class="modal-title" style="color: white">REVISION DE INSTALACIONES</h4>
+                </div>
+                <BR>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <h5>Subir archivo PDF o JPG/PNG</h5>
+                        <hr>
+                        <div class="form-group">
+                            <input
+                                type="file" 
+                                name="file"
+                                uploader-model="file"
+                                required="required"/>
+                        </div>    
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <br>
+                    <button style="float: right"
+                            value="enviar" class="btn btn-info" 
+                            ng-click="guardarInstalacion()"> Guardar
+                    </button> 
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-1" ng-repeat="di in docInstalacion.images">
+                        <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;" ng-src="proveedores/{{di.archivoInstalacion}}"/>
+                        <button class="btn btn-danger botn" ng-click="eliminarDocInstalacion(di.idInstalacion)" >
+                            <i class="zmdi zmdi-delete"></i>
+                        </button><br><br>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal  fade" id="modalContrato" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bgm-miel">
+                    <h4 class="modal-title" style="color: white">CONTRATO MERCANTIL</h4>
+                </div>
+                <BR>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <h5>Subir archivo PDF o JPG/PNG</h5>
+                        <hr>
+                        <div class="form-group">
+                            <input
+                                type="file" 
+                                name="file"
+                                uploader-model="file"
+                                required="required"/>
+                        </div>    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <br>
+                    <button style="float: right"
+                            value="enviar" class="btn btn-info" 
+                            ng-click="guardarContrato()"> Guardar
+                    </button> 
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-1" ng-repeat="dc in docContrato.images">
+                        <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;" ng-src="proveedores/{{dc.archivoContrato}}"/>
+                        <button class="btn btn-danger botn" ng-click="eliminarDocContrato(dc.idContrato)" >
+                            <i class="zmdi zmdi-delete"></i>
+                        </button><br><br>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal  fade" id="modalCarta" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bgm-miel">
+                    <h4 class="modal-title" style="color: white">CARTA RESPONSIVA</h4>
+                </div>
+                <BR>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <h5>Subir archivo PDF o JPG/PNG</h5>
+                        <hr>
+                        <div class="form-group">
+                            <input
+                                type="file" 
+                                name="file"
+                                uploader-model="file"
+                                required="required"/>
+                        </div>    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <br>
+                    <button style="float: right"
+                            value="enviar" class="btn btn-info" 
+                            ng-click="guardarCarta()"> Guardar
+                    </button> 
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-1" ng-repeat="img in docCarta.images">
+                        <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;" ng-src="proveedores/{{img.archivoCarta}}"/>
+                        <button class="btn btn-danger botn" ng-click="eliminarDocCarta(img.idCarta)" >
+                            <i class="zmdi zmdi-delete"></i>
+                        </button><br><br>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal  fade" id="modalApiario" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bgm-miel">
+                    <h4 class="modal-title" style="color: white">REVISION DE APIARIO</h4>
+                </div>
+                <BR>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <h5>Subir archivo PDF o JPG/PNG</h5>
+                        <hr>
+                        <div class="form-group">
+                            <input
+                                type="file" 
+                                name="file"
+                                uploader-model="file"
+                                required="required"/>
+                        </div>    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <br>
+                    <button style="float: right"
+                            value="enviar" class="btn btn-info" 
+                            ng-click="guardarApiario()"> Guardar
+                    </button> 
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-1" ng-repeat="da in docApiario.images">
+                        <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;" ng-src="proveedores/{{da.archivoApiario}}"/>
+                        <button class="btn btn-danger botn" ng-click="eliminarDocApiario(da.idApiario)" >
+                            <i class="zmdi zmdi-delete"></i>
+                        </button><br><br>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal  fade" id="modalRFC" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bgm-miel">
+                    <h4 class="modal-title" style="color: white">RFC</h4>
+                </div>
+                <BR>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <h5>Subir archivo PDF o JPG/PNG</h5>
+                        <hr>
+                        <div class="form-group">
+                            <input
+                                type="file" 
+                                name="file"
+                                uploader-model="file"
+                                required="required"/>
+                        </div>    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <br>
+                    <button style="float: right"
+                            value="enviar" class="btn btn-info" 
+                            ng-click="guardarRFC()"> Guardar
+                    </button> 
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-1" ng-repeat="doc in docRFC.images">
+                        <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;" ng-src="proveedores/{{doc.archivoRFC}}"/>
+                        <button class="btn btn-danger botn" ng-click="eliminarDocRFC(doc.idRFC)" >
+                            <i class="zmdi zmdi-delete"></i>
+                        </button><br><br>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal  fade" id="modalIdSagarpa" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bgm-miel">
+                    <h4 class="modal-title" style="color: white">ID SAGARPA</h4>
+                </div>
+                <BR>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <h5>Subir archivo PDF o JPG/PNG</h5>
+                        <hr>
+                        <div class="form-group">
+                            <input
+                                type="file" 
+                                name="file"
+                                uploader-model="file"
+                                required="required"/>
+                        </div>    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <br>
+                    <button style="float: right"
+                            value="enviar" class="btn btn-info" 
+                            ng-click="guardarIdSagarpa()"> Guardar
+                    </button> 
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-1" ng-repeat="dis in docIdSagarpa.images">
+                        <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;" ng-src="proveedores/{{dis.archivoSagarpa}}"/>
+                        <button class="btn btn-danger botn" ng-click="eliminarDocIdSagarpa(dis.idSagarpaId)" >
+                            <i class="zmdi zmdi-delete"></i>
+                        </button><br><br>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl>
+
+</div>
+
+
+
+
+

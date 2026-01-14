@@ -1,0 +1,126 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        FECHAS PROGRAMADAS
+                        
+                        <!--<a  title="Regresar" href="#/verEquipos/{{programacion.idArea}}" class="btn btn-success btn-xs" style="float: right">-->
+                        <a  title="Regresar" href="#/equiposProgramar/1/{{programacion.idArea}}" class="btn btn-success btn-xs" style="float: right"> 
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                    <div class="input-group" style="float: right">
+
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="box-header">
+                        <div class="row" >
+                            <div class="col-lg-12">
+                                <div class="col-lg-3">
+                                    <label style="font-weight: bold;">Area </label>
+                                    <div class="form-group-sm">
+                                        <input class="form-control" type="text" 
+                                               disabled="true"
+                                               ng-model="programacion.area"/>
+                                    </div>  
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="font-weight: bold;">Equipo </label>
+                                    <div class="form-group-sm">
+                                        <input class="form-control" type="text" 
+                                               disabled="true"
+                                               ng-model="programacion.nombre"/>
+                                    </div>  
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="font-weight: bold;">Código </label>
+                                    <div class="form-group-sm">
+                                        <input class="form-control" type="text" 
+                                               disabled="true"
+                                               ng-model="programacion.codigo"/>
+                                    </div>  
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="font-weight: bold;">Periodicidad </label>
+                                    <div class="form-group-sm">
+                                        <input class="form-control" type="text" 
+                                               disabled="true"
+                                               ng-model="programacion.periodicidad"/>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>                                
+                        <hr>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4 col-lg-offset-4">
+                            <div class="table table-responsive">
+                                <table class="table table-responsive table-bordered table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Mes</th>
+                                            <th>Fecha Programada</th>
+                                            <th>Editar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="fecha in arregloDeFechas">
+                                            <td>{{fecha.mes}}</td>
+                                            <td>{{fecha.fechaProgramada}}</td>
+                                            <td style="text-align: center">
+                                                <button class="btn btn-warning btn-xs"
+                                                        style="margin-left: 10px;"
+                                                        ng-click="modalFechaP(fecha.idProgramacion)">
+                                                    <i class="zmdi zmdi-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="modalFechaP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar Fecha</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                       type="text" class="form-control pull-right"
+                                       id="datepicker" placeholder="Fecha" 
+                                       ng-model="fechaP.fechaProgramada">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancelar</button>
+                <button type="button" ng-click="editarFechaP()" class="btn btn-primary  btn-xs">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div growl>
+
+</div>

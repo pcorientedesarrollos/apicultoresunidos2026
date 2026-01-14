@@ -1,0 +1,176 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CONTROL DE MANTENIMIENTO A ARTÍCULOS
+                        <a title="Regresar" href="#/conManttos/1/{{infoEquipo.idArea}}" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                        <!--                        <a title="Regresar" href="#/verEquipos/1/{{infoEquipo.idArea}}" class="btn btn-success btn-xs" style="float: right">
+                                                    <i class="zmdi zmdi-arrow-left"></i> 
+                                                </a>-->
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="box-header">
+                                <div class="row" >
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-3">
+                                            <label style="font-weight: bold;">Area </label>
+                                            <div class="form-group-sm">
+                                                <input class="form-control" type="text" 
+                                                       disabled="true"
+                                                       ng-model="infoEquipo.area"/>
+                                            </div>  
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label style="font-weight: bold;">Artículo </label>
+                                            <div class="form-group-sm">
+                                                <input class="form-control" type="text" 
+                                                       disabled="true"
+                                                       ng-model="infoEquipo.equipo"/>
+                                            </div>  
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label style="font-weight: bold;">Código </label>
+                                            <div class="form-group-sm">
+                                                <input class="form-control" type="text" 
+                                                       disabled="true"
+                                                       ng-model="infoEquipo.codigo"/>
+                                            </div>  
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label style="font-weight: bold;">Periodicidad </label>
+                                            <div class="form-group-sm">
+                                                <input class="form-control" type="text" 
+                                                       disabled="true"
+                                                       ng-model="infoEquipo.periodicidad"/>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </div>                                
+                                <hr>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-inline">
+                                        <div class="col-sm-3">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="1" ng-model="vistaMantto.opcion">Mantenimientos programados
+                                                <i class="input-helper"></i> 
+                                            </label> 
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="2" ng-model="vistaMantto.opcion">Mantenimientos extraordinarios
+                                                <i class="input-helper"></i>    
+                                            </label> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 pull-right" align="right">
+                                    <a href="#/manttoExtraNvo/{{paramEquipo}}" class="btn btn-pinterest" align="right" >
+                                        <i class="zmdi zmdi-assignment-o"></i> Nuevo Extraordinario
+                                    </a>
+                                </div>
+
+                            </div>
+                            <br>
+                            <div class="row" ng-if="vistaMantto.opcion == 1">
+                                <div class="col-lg-12">
+                                    <div class="table table-responsive">
+                                        <table class="table table-responsive table-condensed table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="7" style="text-align: center">P R O G R A M A D O S</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Mes</th>
+                                                    <th class="col-lg-1"> Programada</th>
+                                                    <th > Real</th>
+                                                    <th >Descripcion</th>
+                                                    <th >Observaciones</th>
+                                                    <th >Realizó</th>
+                                                    <th>Reporte</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="manttos in mantenimientos">
+                                                    <td>{{manttos.mes}}</td>
+                                                    <td>{{manttos.fechaProgramada}}</td>
+                                                    <td>{{manttos.fechaReal}}</td>
+                                                    <td>{{manttos.descripcion}}</td>
+                                                    <td>{{manttos.observaciones}}</td>
+                                                    <td>{{manttos.nombre}}</td>
+                                                    <td style="text-align: center">
+                                                        <!--                                                        <a class="btn btn-warning btn-xs" ng-click="editarMantto(manttos.idMantenimiento)" title="Editar">
+                                                                                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                                                                                </a>-->
+                                                        <a class="btn btn-warning btn-xs" href="#/nvoMantto/{{manttos.idProgramacion}}" title="Editar">
+                                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-if="vistaMantto.opcion == 2">
+
+
+                                <div class="col-lg-12">
+                                    <br>
+                                    <div class="table table-responsive">
+                                        <table class="table table-responsive table-condensed table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="6" style="text-align: center">E X T R A O R D I N A R I O S</th>
+                                                </tr>
+                                                <tr>                       
+                                                    <th class="col-lg-1"> Fecha</th>
+                                                    <th>Mes</th>
+                                                    <th >Descripcion</th>
+                                                    <th >Observaciones</th>
+                                                    <th >Realizó</th>
+                                                    <th>Reporte</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="extra in extraordinarios">
+                                                    <td>{{extra.fechaReal}}</td>
+                                                    <td>{{extra.mes}}</td>
+                                                    <td>{{extra.descripcion}}</td>
+                                                    <td>{{extra.observaciones}}</td>
+                                                    <td>{{extra.nombre}}</td>
+                                                    <td style="text-align: center">
+                                                        <!--                                                        <a class="btn btn-warning btn-xs" ng-click="editarMantto(manttos.idMantenimiento)" title="Editar">
+                                                                                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                                                                                </a>-->
+                                                        <a class="btn btn-warning btn-xs" href="#/manttoExtra/{{extra.idMantenimiento}}" title="Editar">
+                                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</section>

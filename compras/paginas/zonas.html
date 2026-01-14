@@ -1,0 +1,362 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-lg-offset-3 col-md-offset-3" ng-controller="formZonaCtrl">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        ZONAS
+                        <a title="Regresar" href="#/zonas" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-lg-8 col-sm-8 col-md-8">
+                                    <br>
+                                    <p style="font-size: 15px;">
+                                        <i class="zmdi zmdi-label-alt" style="color: #49A8D3"></i>
+                                        Mario Alejandro Miranda Chan
+                                    </p>
+                                    <p style="font-size: 15px;">
+                                        <i class="zmdi zmdi-label-alt" style="color: #B3B3AF"></i>  
+                                        Gerando Canche Ku
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8 col-md-8 col-lg-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-2" >
+                                    <div id="nombre">
+                                        <img src="images/yuuca.png" alt="Mi Península" usemap="#Map"/>              
+                                        <map id="Map" name="Map">
+                                            <area title="Poniente" coords="109,66,116,71" ng-click="modalPoniente()" shape="rect" alt="Poniente" >
+                                            <area  title="Sur" coords="132,96,140,102" ng-click="modalSur()" shape="rect" alt="Sur">
+                                            <area title="Campeche" coords="89,138,98,145" ng-click="modalCampeche()" shape="rect" alt="Campeche" >
+                                            <area title="Quintana Roo" coords="181,116,191,124" ng-click="modalQRoo()" shape="rect" alt="Quintana Roo" >
+                                            <area title="Oriente" coords="207,24,214,31" ng-click="modalOriente()" shape="rect" alt="Oriente" >
+                                            <area title="Centro Gerardo" coords="146,48,154,54" ng-click="modalCentroG()" shape="rect" alt="Centro Gerardo" >
+                                            <area title="Centro Mario" coords="147,66,154,71" ng-click="modalCentroM()" shape="rect" alt="Centro Mario" >
+                                        </map></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <button ng-click="modalLocalidad()" type="button" class="btn btn-primary right-align">
+                        <i class="zmdi zmdi-plus-circle"></i> Agregar localidad
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal  fade" id="modalPoniente">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Zona Poniente</h4>
+                        </div>
+                        <BR>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Localidad
+                                            </th>
+                                        </tr>    
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="p in poniente">
+                                            <td>
+                                                {{p.localidad}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger"  ng-click="cerrarPoniente()">
+                                <i class="zmdi zmdi-close-circle-o"></i> CERRAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal  fade" id="modalCampeche">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Zona Campeche</h4>
+                        </div>
+                        <BR>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Localidad
+                                            </th>
+                                        </tr>    
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="c in campeche">
+                                            <td>
+                                                {{c.localidad}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" ng-click="cerrarCampeche()">
+                                <i class="zmdi zmdi-close-circle-o"></i> CERRAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal  fade" id="modalSur">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Zona Sur</h4>
+                        </div>
+                        <BR>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Localidad
+                                            </th>
+                                        </tr>    
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="s in sur">
+                                            <td>
+                                                {{s.localidad}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" ng-click="cerrarSur()">
+                                <i class="zmdi zmdi-close-circle-o"></i>  CERRAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal  fade" id="modalCentroM">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Zona Centro Mario</h4>
+                        </div>
+                        <BR>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Localidad
+                                            </th>
+                                        </tr>    
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="cm in centroM">
+                                            <td>
+                                                {{cm.localidad}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" ng-click="cerrarCentroM()">
+                                <i class="zmdi zmdi-close-circle-o"></i>  CERRAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal  fade" id="modalCentroG">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Zona Centro Gerardo</h4>
+                        </div>
+                        <BR>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Localidad
+                                            </th>
+                                        </tr>    
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="cg in centroG">
+                                            <td>
+                                                {{cg.localidad}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" ng-click="cerrarCentroG()">
+                                <i class="zmdi zmdi-close-circle-o"></i>  CERRAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal  fade" id="modalOriente">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Zona Oriente</h4>
+                        </div>
+                        <BR>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Localidad
+                                            </th>
+                                        </tr>    
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="o in oriente">
+                                            <td>
+                                                {{o.localidad}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" ng-click="cerrarOriente()">
+                                <i class="zmdi zmdi-close-circle-o"></i>    CERRAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal  fade" id="modalQRoo">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Zona Quintana Roo</h4>
+                        </div>
+                        <BR>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Localidad
+                                            </th>
+                                        </tr>    
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="qr in qRoo">
+                                            <td>
+                                                {{qr.localidad}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" ng-click="cerrarQRoo()">
+                                <i class="zmdi zmdi-close-circle-o"></i>    CERRAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal  fade" id="agregarLocalidad">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" >Agregar Localidad</h4>
+                        </div>
+                        <BR>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label style="font-weight: bold;"  class="col-sm-2 col-sm-offset-1 control-label"> Zona: </label>
+                                <div class="col-sm-9">
+                                    <select 
+                                        ng-model="eligeLocalidad" 
+                                        class="form-control" 
+                                        ng-options="z.idzona as z.zona for z in nomZonas"> 
+                                        <option value="">Selecciona una Zona</option>   
+                                    </select>
+
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label style="font-weight: bold;"  class="col-sm-2 col-sm-offset-1 control-label">Localidad: </label>
+                                <div class="col-sm-9">
+                                    <input 
+                                        align="center"
+                                        type="text" 
+                                        class="form-control input-xs" 
+                                        placeholder="Escriba una Localidad"
+                                        required="required"
+                                        ng-model="pueblito.localidad"/>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="modal-footer">
+                            <button style="float: right"
+                                    value="enviar" class="btn btn-info" 
+                                    ng-click="guardarLcldd()"> Guardar
+                            </button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>
+
+
+
+
+
+

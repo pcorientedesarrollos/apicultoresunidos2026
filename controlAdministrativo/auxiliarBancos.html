@@ -1,0 +1,78 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        AUXILIAR DE BANCOS
+                        <div class="btn-group pull-right">
+                            <a title="Regresar" href="#/menuAuxBancos" class="btn btn-success btn-xs">
+                                <i class="zmdi zmdi-arrow-left"></i>
+                            </a>
+                            <button class="btn btn-success btn-xs" ng-click="movimientoConMes()" ng-disabled="bloquearBtnCerrarMes">
+                                <i class="zmdi zmdi-plus"></i> Agregar
+                            </button>
+                            <button type="button" class="btn btn-success btn-xs" ng-click="cerrarMes(menuAuxiliarDeBancos)" ng-disabled="bloquearBtnCerrarMes">
+                                <i class="fa fa-lock"></i> Cerrar mes
+                            </button>
+                        </div>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class=table-responsive no-padding>
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr>
+                                    <th style="text-transform: none; font-weight: 600">Banco </th>
+                                    <th style="text-transform: none; font-weight: 600">N° de cuenta </th>
+                                    <th class="derecha" style="text-transform: none; font-weight: 600">Inicial</th>
+                                    <th class="derecha" style="text-transform: none; font-weight: 600">Ingresos</th>
+                                    <th class="derecha" style="text-transform: none; font-weight: 600">Egresos</th>
+                                    <th class="derecha" style="text-transform: none; font-weight: 600">Saldo</th>
+                                    <th style="text-align: right; text-transform: none; font-weight: 600">Ver</th>
+                                    <th style="text-align: right; text-transform: none; font-weight: 600">Imprimir</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="menuC in menuAuxiliarDeBancos track by $index">
+                                    <td>{{menuC.banco}}</td>
+                                    <td>{{menuC.numDeCuenta}}</td>
+                                    <td class="derecha">{{menuC.saldoInicial|currency:'$':2}}</td>
+                                    <td class="derecha">{{menuC.saldoIngresos|currency:'$':2}}</td>
+                                    <td class="derecha">{{menuC.saldoEgresos|currency:'$':2}}</td>
+                                    <td class="derecha">{{menuC.saldoActual|currency:'$':2}}</td>
+                                    <td style="text-align: right">
+                                        <a class="btn btn-warning btn-xs" ng-href="#/nvoAuxBanco/{{menuC.idCuenta}}/{{idMesBanco}}" title="Ver más">
+                                            <i class="zmdi zmdi-plus"></i>
+                                        </a>
+                                    </td>
+                                    <td style="text-align: right">
+                                        <button class="btn btn-danger btn-xs" ng-click="imprimirReporteBancario(menuC.idCuenta, idMesBanco)" title="Ver PDF">
+                                            <i class="fa fa-file-pdf-o"></i>
+                                        </button>
+                                        <button class="btn btn-success btn-xs" ng-click="imprimirReporteBancarioXls(menuC.idCuenta, idMesBanco)" title="Descargar Excel">
+                                            <i class="fa fa-file-excel-o"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr style="background-color: lightcoral">
+                                    <td colspan="2">
+                                        <center>TOTALES</center>
+                                    </td>
+                                    <td class="derecha" colspan="1">{{totalIniciales|currency}}</td>
+                                    <td class="derecha" colspan="1">{{totalIngresos|currency}}</td>
+                                    <td class="derecha" colspan="1">{{totalEgresos|currency}}</td>
+                                    <td class="derecha" colspan="1">{{totalSaldos|currency}}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

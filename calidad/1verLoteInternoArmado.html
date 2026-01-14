@@ -1,0 +1,317 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        LOTE INTERNO
+                        <b ng-show="paramCosechaInt == 1"> MIEL 100% PURA DE ABEJA</b>
+                        <b ng-show="paramCosechaInt == 2"> MIEL 100% ORGÁNICA</b>
+                        <a title="Regresar" href="#/interno" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="row">
+                            <a title="ELIMINAR LOTE INTERNO" ng-click="eliminarLoteInt()" class="btn btn-danger btn-sm"
+                                style="float: right; margin-right: 28px;">
+                                <i class="zmdi zmdi-delete"> ELIMINAR LOTE INTERNO
+                                </i>
+                            </a>
+                            <a title="ELIMINAR TODOS LOS TAMBOS" ng-click="eliminarTambosLoteInt()"
+                                class="btn btn-danger btn-sm" style="float: right; margin-right: 28px;">
+                                <i class="zmdi zmdi-delete"> ELIMINAR TODOS LOS TAMBOS
+                                </i>
+                            </a>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Lote Interno
+                                </label>
+                                <label style="color:red"
+                                    ng-show="paramCosechaInt == 1">LC26-{{loteInterno.idLoteInterno}}</label>
+                                <label style="color:red"
+                                    ng-show="paramCosechaInt == 2">LO26-{{loteInterno.idLoteInterno}}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Marca Final Cliente
+                                </label>
+                                {{loteInterno.marcaFinalCliente}}
+                                <button class="btn btn-warning btn-xs" style="margin-left: 10px;"
+                                    title="Agregar o editar" ng-click="editarMarcaCliente()">
+                                    <i class="zmdi zmdi-edit"></i> Cambiar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Fecha Proceso
+                                </label>
+                                {{loteInterno.fechaProceso}}
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Número de tambores
+                                </label>
+                                {{loteInterno.numeroDeTambores}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Fecha Envasado
+                                </label>
+                                {{loteInterno.fechaEnvasado}}
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Kilos Totales
+                                </label>
+                                {{loteInterno.kilosTotales}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Marca Laboratorio
+                                </label>
+                                {{loteInterno.loteCliente}}
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Observaciones
+                                </label>
+                                <br>
+                                <p class="col-lg-12">{{loteInterno.observaciones}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <a title="Añadir tambo" ng-click="anexarTamboInt()" class="btn btn-info btn-sm"
+                            style="float: right; margin-right: 28px;">
+                            <i class="zmdi zmdi-plus"> Añadir tambo
+                            </i>
+                        </a>
+                    </div>
+                    <br>
+                    <div ng-show="nvoTambo">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <select class="form-control" ng-model="tipo">
+                                            <option disabled value="">Selecciona una opción</option>
+                                            <option value="0">Almacén</option>
+                                            <option value="1">Miel sobrante</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4" ng-show="tipo == 1">
+                                        <div class="form-group">
+                                            <select ng-model="sobrante" class="form-control"
+                                                ng-options="sobrante.idSobrante as sobrante.nombre for sobrante in listaSobrantes">
+                                                <option disabled="disabled" value="">Seleccione un tipo de sobrante
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="form-group">
+                                    <div class="col-lg-3">
+                                        <input type="text" ng-model="tamborInt" placeholder="Escriba el N° de Folio"
+                                            class="form-control" ng-keyup="buscarDatosTambor(tamborInt, sobrante)" />
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <b>Bruto: </b> {{infoTambo.bruto}}
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <b>Tara: </b> {{infoTambo.tara}}
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <b>Neto: </b> {{infoTambo.neto}}
+                                    </div>
+                                    <button ng-click="guardarTamboInt(tamborInt, sobrante, tipo)"
+                                        class="btn btn-sm btn-warning">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div ng-show="nvoTambo">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <select class="form-control" ng-model="tipo">
+                                            <option disabled value="">Selecciona una opción</option>
+                                            <option value="0">Almacén</option>
+                                            <option value="1">Miel sobrante</option>
+                                            <option value="2">Traspaso</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4" ng-show="tipo == 1">
+                                        <div class="form-group">
+                                            <select ng-model="sobrante" class="form-control"
+                                                ng-options="sobrante.idSobrante as sobrante.nombre for sobrante in listaSobrantes">
+                                                <option disabled="disabled" value="">Seleccione un tipo de sobrante
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="form-group">
+                                    <div class="col-lg-3" ng-show="tipo != 2">
+                                        <input type="text" ng-model="tamborInt" placeholder="Escriba el N° de Folio"
+                                            class="form-control" ng-keyup="buscarDatosTambor(tamborInt, sobrante)" />
+                                    </div>
+                                    <div class="col-lg-3" ng-show="tipo == 2">
+                                        <input type="text" ng-model="tamborInt" placeholder="Escriba el N° de Folio"
+                                            class="form-control" ng-keyup="buscarDatosTraspaso(tamborInt)" />
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <b>Bruto: </b> {{infoTambo.bruto}}
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <b>Tara: </b> {{infoTambo.tara}}
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <b>Neto: </b> {{infoTambo.neto}}
+                                    </div>
+                                    <button ng-click="guardarTamboInt(tamborInt, sobrante, tipo)"
+                                        class="btn btn-sm btn-warning">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table  table-bordered" id="tablaExperimental">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-transform: none">
+                                                Entrada
+                                            </th>
+                                            <th style="text-transform: none">Folio</th>
+                                            <th style="text-transform: none; width: 35%">Proveedor</th>
+                                            <th style="text-transform: none">IDSagarpa</th>
+                                            <th style="text-transform: none">Localidad</th>
+                                            <th style="text-transform: none">Bruto</th>
+                                            <th style="text-transform: none">Tara</th>
+                                            <th style="text-transform: none">Neto</th>
+                                            <th>%H</th>
+                                            <th>Sf</th>
+                                            <th>St</th>
+                                            <th>C13</th>
+                                            <th>Hmf</th>
+                                            <th style="text-transform: none">Resultado Final</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="font-size: 12px;"
+                                            ng-repeat="lote in filtered = (informacionCalidad| filter:filterExpr) track by $index">
+                                            <td style="width: 15%">
+                                                {{lote.fecha}}
+                                            </td>
+                                            <td>
+                                                <label style="color: red">
+                                                    {{lote.folioTambor}}
+                                                </label>
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.nombre}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.idSagarpa}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.localidad}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.bruto}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.tara}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.neto}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.porcentaje}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.sfDescripcion}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.stDescripcion}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.adulteracionDescripcion}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.hmf}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.resultado}}
+                                            </td>
+                                            <td style="width: 10%">
+                                                <a title="Eliminar registro"
+                                                    ng-click="eliminarTamboLote(lote.folioTambor, lote.clasificacion)">
+                                                    <i style="font-size: 15px; margin-left: 15px; margin-top: 13px; color: red"
+                                                        class="zmdi zmdi-delete"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="editarMarcaCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Editar la Marca Cliente</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <input ng-model="marcaFinalCliente" style="margin-top: 6px" type="text" class="form-control"
+                                placeholder="Escriba la nueva Marca Cliente" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" ng-click="guardarMarcaFinalCliente()" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

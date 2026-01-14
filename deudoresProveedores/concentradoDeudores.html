@@ -1,0 +1,263 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" ng-model="filtroBusquedaConcentradoDeudor"
+                        class="form-control input-sm pull-right" placeholder="Ingrese lo que desea buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-warning">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+                <div class="input-group" style="width: 150px;">
+                    <input type="text" ng-model="filtroBusquedaConcentradoDeudor" name="table_search"
+                        class="form-control input-sm pull-right" placeholder="Buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CONCENTRADO
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-2">
+                                    <div class="form-group">
+                                        <select chosen class="form-control" ng-model="opcionCuenta.vista">
+                                            <option value="" disabled>Selecciona una opción</option>
+                                            <option value="1">Acumulado</option>
+                                            <option value="2">Por mes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-2" ng-if="opcionCuenta.vista == 2">
+                                    <div class="form-group">
+                                        <select chosen ng-model="opcionCuenta.mes" class="form-control"
+                                            ng-options="mes.idMes as mes.mes for mes in meses">
+                                            <option value="" disabled>Seleccione un mes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-control" ng-model="opcionCuenta.opcionDeudor">
+                                        <option value="" selected data-default disabled>Seleccione una opción</option>
+                                        <option value="activos">Activos</option>
+                                        <option value="morosos">Morosos</option>
+                                        <option value="todos">Todos</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-12 col-md-2">
+                                    <div class="form-group">
+                                        <select chosen ng-model="opcionCuenta.comprador" class="form-control"
+                                            ng-options="comp.idcomprador as comp.nombre for comp in listaCompradores">
+                                            <option value="" disabled>Seleccione un comprador</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-2">
+                                    <button ng-disabled="cargandoDatos" type="button"
+                                        ng-click="verEstadoCuenta(opcionCuenta);" class="btn btn-success btn-sm">Ver
+                                        resultados</button>
+                                </div>
+                                <div class="col-xs-12 col-md-1">
+                                    <button type="button" class="btn btn-success btn-sm" title="Imprimir XLS"
+                                        ng-click="verEstadoCuentaEXCEL(opcionCuenta);">
+                                        <i class="fa fa-file-excel-o"></i>
+                                    </button>
+                                </div>
+                                <div class="col-xs-12 col-md-1">
+                                    <button type="button" class="btn btn-danger btn-sm" title="Ver en PDF"
+                                        ng-click="verEstadoCuentaPDF(opcionCuenta);">
+                                        <i class="fa fa-file-pdf-o"></i>
+                                    </button>
+                                </div>
+
+                                <div ng-if="arrayDeudores.length < 1">
+                                    <i class="fa fa-spinner fa-spin fa-fw"></i> Cargando...
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-5 pull-right">
+                                    <div class="table-responsive no-padding">
+                                        <table class="table table-bordered table-condensed" style="font-size: 10px;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center; font-weight: 700; font-size: 15px;"
+                                                        colspan="3">Saldo actual</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="text-align: center; font-weight: 700; font-size: 15px;">
+                                                        Miel por pagar</th>
+                                                    <th style="text-align: center; font-weight: 700; font-size: 15px;">
+                                                        Anticipos entregados</th>
+                                                    <th style="text-align: center; font-weight: 700; font-size: 15px;">
+                                                        Saldo</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td
+                                                        style="text-align: right; font-weight: 600; font-size: 14px; color:red">
+                                                        {{totalSaldoProveedor|currency}}</td>
+                                                    <td style="text-align: right; font-weight: 600; font-size: 14px;">
+                                                        {{totalSaldoDeudor|currency}}</td>
+                                                    <td style="text-align: right; font-weight: 600; font-size: 14px;">
+                                                        {{conciliacion|currency}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="arrayDeudores" class="table-responsive no-padding">
+                                <table class="table table-bordered table-condensed" style="font-size: 10px">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: 600; text-align: center; font-size: 15px;"
+                                                colspan="13">TOTALES</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="font-weight: 600; text-align: center; font-size: 15px; background-color: lightgreen "
+                                                colspan="4">INGRESOS</th>
+                                            <th style="font-weight: 600; text-align: center; font-size: 15px; background-color: lightpink"
+                                                colspan="8">EGRESOS</th>
+                                            <th style="font-weight: 600; text-align: center; font-size: 15px;">Saldo
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style=" background-color: lightgreen">Bancos</th>
+                                            <th style=" background-color: lightgreen">Efectivo</th>
+                                            <th style=" background-color: lightgreen">Cera/Prod. Apícolas</th>
+                                            <th style=" background-color: lightgreen">ISR Ret</th>
+                                            <th style=" background-color: lightpink">Kilos Miel</th>
+                                            <th style=" background-color: lightpink">Precio promedio</th>
+                                            <th style=" background-color: lightpink">Importe Miel</th>
+                                            <th style=" background-color: lightpink">Importe Cera/Prod. Apícolas</th>
+                                            <th style=" background-color: lightpink">Gastos</th>
+                                            <th style=" background-color: lightpink">Devoluciones Efectivo</th>
+                                            <th style=" background-color: lightpink">Devoluciones Cera/Prod. Apícolas
+                                            </th>
+                                            <th style=" background-color: lightpink">Pago Cera/Prod. Apícolas</th>
+                                            <th>Final</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="font-size:14px">
+                                            <td style="text-align: right">{{cantidadTotalBancos | number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalEfectivo | number:2}}</td>
+                                            <td style="text-align: right">
+                                                {{cantidadTotalIngresosCeraApicola | number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalRetenciones | number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalKilosMiel | number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalPrecioPromedio | number:2}}
+                                            </td>
+                                            <td style="text-align: right">{{cantidadTotalImporteMiel | number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalEgresosCeraApicola | number:2}}
+                                            </td>
+                                            <td style="text-align: right">{{cantidadTotalGastos | number:2}}</td>
+                                            <td style="text-align: right">
+                                                {{cantidadTotalDevolucionesEfectivo | number:2}}</td>
+                                            <td style="text-align: right">
+                                                {{cantidadTotalDevolucionesCeraApicola | number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalVentasCeraApicola | number:2}}
+                                            </td>
+                                            <td style="text-align: right">{{cantidadTotalGranTotal | number:2}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div ng-if="arrayDeudores" class="table-responsive no-padding">
+                                <table class="table table-bordered table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2"></th>
+                                            <th rowspan="2">Id Sagarpa</th>
+                                            <th rowspan="2">Localidad</th>
+                                            <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="2">Deudor/Proveedor</th>
+                                            <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="1">Proveedores</th>
+                                            <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="1">Deudores</th>
+                                            <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="2">Estado de cuenta</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-transform: none; font-weight: 600; text-align: center;">Miel
+                                                por pagar</th>
+                                            <th style="text-transform: none; font-weight: 600; text-align: center;">
+                                                Anticipos entregados</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="data in arrayDeudores|filter:filtroBusquedaConcentradoDeudor">
+                                            <td>{{$index + 1}}</td>
+                                            <td style="text-align: left">{{data.idSagarpa}}</td>
+                                            <td style="text-align: left">{{data.localidad|uppercase}}</td>
+                                            <td style="text-align: left">{{data.nombre|uppercase}}</td>
+                                            <td style="text-align: right"
+                                                ng-class="{ 'auditoria-rojo': data.saldoProveedor < 0 }">
+                                                {{data.saldoProveedor| currency}}</td>
+                                            <td style="text-align: right">{{data.saldoDeudor| currency}}</td>
+                                            <td style="align-content: center; text-align: center">
+                                                <button type="button" ng-click="imprimirEstadoCuenta(data.idProveedor)"
+                                                    class="btn btn-success btn-xs" title="Imprimir XLS">
+                                                    <i class="fa fa-file-excel-o"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-xs"
+                                                    ng-click="verPdf(data.idProveedor)" title="Ver PDF">
+                                                    <i class="fa fa-file-pdf-o"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td colspan="4" style="text-align: center; font-weight: 600; font-size: 13px;">Saldo Actual</td>
+                                            <td style="text-align: right; font-weight: 600; font-size: 13px; color:red">{{totalSaldoProveedor|currency}}</td>
+                                            <td style="text-align: right; font-weight: 600; font-size: 13px;">{{totalSaldoDeudor|currency}}</td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <!-- <div class="row">
+                                <div class="col-lg-4 pull-right">
+                                    <div class="table-responsive no-padding">
+                                        <table class="table table-bordered table-condensed" style="font-size: 10px;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center; font-weight: 700; font-size: 15px;">Conciliación</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="text-align: right; font-weight: 600; font-size: 15px;">{{conciliacion|currency}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<div growl></div>

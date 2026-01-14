@@ -1,0 +1,12 @@
+{
+    "estadosDeudores": [
+        {
+            "idEstado": "1",
+            "estado": "Activo"
+        },
+        {
+            "idEstado": "2",
+            "estado": "Moroso"
+        }
+    ]
+}

@@ -1,0 +1,90 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        CONTROL DE ENVASADO
+                        <button class="btn btn-success btn-xs" style="float: right" ng-click="nuevoControlEnvasado()">
+                            <i class="fa fa-plus"></i> Agregar
+                        </button>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-control" ng-model="verTipoDeMiel">
+                                <option value="" disabled selected>Tipo de miel</option>
+                                <option value="1">Convencional</option>
+                                <option value="2">Orgánica</option>
+                                <option value="5">Mantequilla</option>
+                                <option value="6">Altiplano</option>
+                                <option value="7">Naranjo</option>
+                                <option value="8">Aguacate</option>
+                                <option value="9">Mezquite</option>
+                            </select>
+                        </div>
+                        <!-- <div class="col-xs-6">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optradio" value="1" ng-model="verTipoDeMiel">Miel 100% pura de abeja
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optradio" value="2" ng-model="verTipoDeMiel">Miel 100% orgánica
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" ng-model="busquedaEnvasadoCtrl" class="form-control input-sm pull-right" placeholder="Buscar...">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-warning">
+                                            <i class="zmdi zmdi-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">No.</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Fecha Proceso
+                                    </th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Lote interno
+                                    </th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Tambores</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Kilos</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="rp in menuEnvasado| filter:busquedaEnvasadoCtrl">
+                                    <td ng-bind="$index + 1"></td>
+                                    <td ng-bind="rp.fechaEnvasado"></td>
+                                    <td ng-bind="rp.idLoteInterno"></td>
+                                    <td ng-bind="rp.totalDeTambores"></td>
+                                    <td ng-bind="rp.netosEnvasados"></td>
+                                    <td>
+                                        <a href="#/nvoEnvasado/{{rp.idReporteEnvasado}}/{{verTipoDeMiel}}"
+                                            class="btn btn-warning btn-xs">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<div growl></div>

@@ -1,0 +1,122 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h3 class="encabezadosTabla">
+                        REPORTES
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="box-header">
+                            <h4 class="page-header">
+                                Seleccione una opción
+                            </h4>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="form-group"> 
+                                    <br> <div class="col-sm-12" >
+                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                            <input type="radio" 
+                                                   value="0" ng-model="combo.opcion">Periodo
+                                            <i class="input-helper"></i>    
+                                        </label> 
+                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                            <input type="radio" 
+                                                   value="1" ng-model="combo.opcion">Zona
+                                            <i class="input-helper"></i>    
+                                        </label> 
+                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                            <input type="radio" 
+                                                   value="2" ng-model="combo.opcion">Proveedor
+                                            <i class="input-helper"></i>    
+                                        </label> 
+                                    </div>
+                                </div>
+                                <div ng-if="combo.opcion == 1">
+                                    <hr><hr>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" style="text-align: center">Zona</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group form-inline"> 
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <label>Zona</label>
+                                                    <select>
+                                                        <option value="volvo">Volvo</option>
+                                                        <option value="saab">Saab</option>
+                                                        <option value="vw">VW</option>
+                                                        <option value="audi" selected>Audi</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-if="combo.opcion == 2">
+                                    <hr><hr>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" style="text-align: center">Proveedor</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <select 
+                                                        chosen
+                                                        ng-model="proveeReporte" 
+                                                        class="form-control" 
+                                                        ng-options="a.idProveedor as a.nombre for a in nombresDeProveedores"> 
+                                                        <option value="">Seleccione un Proveedor</option>   
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div ng-if="combo.opcion == 0">
+                                    <hr><hr>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" style="text-align: center">Periodo</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group form-inline"> 
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <label>Fecha Inicio</label>
+                                                    <input 
+                                                        type="date" 
+                                                        date="yyyy/MM/dd"
+                                                        required="required"
+                                                        ng-model="repEntrada.fecha1"/> 
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label>Fecha Final</label>
+                                                    <input 
+                                                        type="date" 
+                                                        date="yyyy/MM/dd"
+                                                        required="required"
+                                                        ng-model="repEntrada.fecha2"/> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div style="text-align: right">
+                                <button type="button" class="btn btn-success">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

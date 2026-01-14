@@ -1,0 +1,93 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CONDICIONES DE ALMACENAMIENTO</h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-8 col-sm-6">
+                            <div class="form-group">
+                                <select chosen class="form-control" ng-model="verAlmacen" ng-options="almacen.idSubarea as almacen.nombre for almacen in almacenes">
+                                    <option value="">Selecciona almacen</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-6 pull-right">
+                            <button type="button" ng-click="filtrarMenuAlmacenes();" class="btn btn-facebook btn-sm waves-effect">Filtrar menú</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8 col-sm-6">
+                            <div class="form-group">
+                                <select chosen ng-model="nombreMes" class="form-control" ng-options="mes.idMes as mes.mes for mes in meses">
+                                    <option value="">SELECCIONA MES</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-6 pull-right">
+                            <button type="button" ng-click="crearCondicionAlmacen(nombreMes, verAlmacen);" class="btn btn-facebook btn-sm waves-effect">Crear</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr>
+                                    <th style="text-transform: none; font-weight: 600">Mes</th>
+                                    <th style="text-transform: none; font-weight: 600">S1</th>
+                                    <th style="text-transform: none; font-weight: 600">S2</th>
+                                    <th style="text-transform: none; font-weight: 600">S3</th>
+                                    <th style="text-transform: none; font-weight: 600">S4</th>
+                                    <th style="text-transform: none; font-weight: 600">S5</th>
+                                    <th style=" text-transform: none; font-weight: 600">Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="info in infoCondiciones">
+                                    <td ng-bind="info.mes"></td>
+                                    <td ng-bind="info.registro1"></td>
+                                    <td ng-bind="info.registro2"></td>
+                                    <td ng-bind="info.registro3"></td>
+                                    <td ng-bind="info.registro4"></td>
+                                    <td ng-bind="info.registro5"></td>
+                                    <td>
+                                        <a class="btn btn-warning btn-xs" ng-href="#/nvaCondicion/{{info.idMes}}/{{info.almacen}}" title="Ver más">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>
+
+<!-- Modal para el filtro de los almacenes -->
+<div class="modal fade" id="modalFiltroAlmacenes">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">FILTRO ALMACENES</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-if="almacenesDisponibles.length > 0">
+                    <div class="checkbox" ng-repeat="almacen in almacenesDisponibles">
+                        <label>
+                            <input type="checkbox" ng-model="almacen.active" ng-checked="almacen.active">{{ almacen.nombreLg }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarFiltroAlmacenes()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>

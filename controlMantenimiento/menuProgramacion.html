@@ -1,0 +1,36 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        Seleccione un área para ver sus artículos y programaciones
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th style="text-transform: none; font-weight: 600; text-align: center">Area</th>
+                                    <th style="text-transform: none; font-weight: 600; text-align: center">Artículos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="mt in verAreas">
+                                    <td>{{mt.area}}</td>
+                                    <td style="align-content: center">
+                                        <a href="#/equiposProgramar/1/{{mt.idArea}}" class="btn btn-twitter btn-block" >
+                                            <b style="padding: 5px;">{{mt.totalArticulosC}} </b>
+                                        </a>  
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

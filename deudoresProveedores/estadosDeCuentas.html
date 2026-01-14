@@ -1,0 +1,337 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" ng-model="filtroBusquedaDeudores" class="form-control input-sm pull-right"
+                        placeholder="Ingrese lo que desea buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-warning">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+                <div class="input-group" style="width: 150px;">
+                    <input type="text" ng-model="filtroBusquedaDeudores" name="table_search"
+                        class="form-control input-sm pull-right" placeholder="Buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        ESTADOS DE CUENTAS
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        <select chosen class="form-control" ng-model="opcionCuenta.vista">
+                                            <option value="" disabled>Selecciona una opción</option>
+                                            <option value="1">Acumulado</option>
+                                            <option value="2">Por mes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-3" ng-if="opcionCuenta.vista == 2">
+                                    <div class="form-group">
+                                        <select chosen ng-model="opcionCuenta.mes" class="form-control"
+                                            ng-options="mes.idMes as mes.mes for mes in meses">
+                                            <option value="" disabled>Seleccione un mes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <select chosen class="form-control" ng-model="opcionCuenta.opcionDeudor">
+                                        <option value="" selected data-default disabled>Seleccione una opción</option>
+                                        <option value="activos">Activos</option>
+                                        <option value="morosos">Morosos</option>
+                                        <option value="todos">Todos</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-12 col-md-2">
+                                    <div class="form-group">
+                                        <select chosen ng-model="opcionCuenta.comprador" class="form-control"
+                                            ng-options="comp.idcomprador as comp.nombre for comp in listaCompradores">
+                                            <option value="" disabled>Seleccione un comprador</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <diFv class="form-group">
+                                        <button ng-disabled="cargandoDatos" type="button"
+                                            ng-click="verEstadoCuenta(opcionCuenta);" class="btn btn-success btn-xs">Ver
+                                            resultados</button>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div ng-if="arrayDeudores.length < 1">
+                                <i class="fa fa-spinner fa-spin fa-fw"></i> Cargando...
+                            </div>
+
+                            <div ng-if="arrayDeudores" class="table-responsive no-padding">
+                                <table class="table table-bordered table-condensed" style="font-size: 10px">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: 600; text-align: center; font-size: 15px;"
+                                                colspan="13">TOTALES</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="font-weight: 600; text-align: center; font-size: 15px; background-color: lightgreen "
+                                                colspan="4">INGRESOS</th>
+                                            <th style="font-weight: 600; text-align: center; font-size: 15px; background-color: lightpink"
+                                                colspan="8">EGRESOS</th>
+                                            <th style="font-weight: 600; text-align: center; font-size: 15px;">Saldo
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style=" background-color: lightgreen">Bancos</th>
+                                            <th style=" background-color: lightgreen">Efectivo</th>
+                                            <th style=" background-color: lightgreen">Cera/Prod. Apícolas</th>
+                                            <th style=" background-color: lightgreen">ISR Ret</th>
+                                            <th style=" background-color: lightpink">Kilos Miel</th>
+                                            <th style=" background-color: lightpink">Precio promedio</th>
+                                            <th style=" background-color: lightpink">Importe Miel</th>
+                                            <th style=" background-color: lightpink">Importe Cera/Prod. Apícolas</th>
+                                            <th style=" background-color: lightpink">Gastos</th>
+                                            <th style=" background-color: lightpink">Devoluciones Efectivo</th>
+                                            <th style=" background-color: lightpink">Devoluciones Cera/Prod. Apícolas
+                                            </th>
+                                            <th style=" background-color: lightpink">Pago Cera/Prod. Apícolas</th>
+                                            <th>Final</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="font-size:14px">
+                                            <td style="text-align: right">{{cantidadTotalBancos | number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalEfectivo | number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalIngresosCeraApicola |
+                                                number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalRetenciones | number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalKilosMiel | number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalPrecioPromedio | number:2}}
+                                            </td>
+                                            <td style="text-align: right">{{cantidadTotalImporteMiel | number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalEgresosCeraApicola |
+                                                number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalGastos | number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalDevolucionesEfectivo |
+                                                number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalDevolucionesCeraApicola |
+                                                number:2}}</td>
+                                            <td style="text-align: right">{{cantidadTotalVentasCeraApicola | number:2}}
+                                            </td>
+                                            <td style="text-align: right">{{cantidadTotalGranTotal | number:2}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="table-responsive no-padding"
+                                ng-repeat="dyp in arrayDeudores | filter: filtroBusquedaDeudores">
+                                <table class="table table-striped table-bordered table-condensed"
+                                    style="font-size: 10px">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-transform: none; font-weight: 600; text-align: center; font-size: 15px; background-color: khaki; color:BLACK"
+                                                colspan="16">{{dyp.nombre|uppercase}} | {{dyp.idSagarpa}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="2">Fecha</th>
+                                            <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="2">Concepto</th>
+                                            <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="2">Referencia</th>
+                                            <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="1" colspan="4">Ingreso o Egreso</th>
+                                            <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="1" colspan="4">Miel</th>
+                                            <!-- <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="1" colspan="1">Cera/Prod. Apícolas</th> -->
+                                            <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="2">Gastos</th>
+                                            <!-- <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="2">ISR Ret</th> -->
+                                            <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="2">Otros</th>
+                                            <!-- <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="1" colspan="2">Devoluciones</th> -->
+                                            <!-- <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="2">Pago por cera/Prod. Apícolas</th> -->
+                                            <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                                rowspan="1" colspan="1">Saldo</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-transform: none; font-weight: 600;">Bancos</th>
+                                            <th style="text-transform: none; font-weight: 600;">Efectivo</th>
+                                            <th style="text-transform: none; font-weight: 600;">Cera/Prod. Apícolas</th>
+                                            <th style="text-transform: none; font-weight: 600;">ISR Ret</th>
+                                            <th style="text-transform: none; font-weight: 600;">Entrada</th>
+                                            <th style="text-transform: none; font-weight: 600;">Kg.</th>
+                                            <th style="text-transform: none; font-weight: 600;">Precio</th>
+                                            <th style="text-transform: none; font-weight: 600;">Importe</th>
+                                            <!-- <th style="text-transform: none; font-weight: 600;">Importe</th> -->
+                                            <!-- <th style="text-transform: none; font-weight: 600;">Efectivo por compras
+                                                miel</th> -->
+                                            <!-- <th style="text-transform: none; font-weight: 600;">Cera/Prod. Apícolas</th> -->
+                                            <th style="text-transform: none; font-weight: 600;">Final</th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td></td>
+                                        <td><b>Saldo inicial</b></td>
+                                        <td colspan="11">
+                                        </td>
+                                        <td style="text-align: right">
+                                            <b>{{dyp.saldoInicial|number:2}}</b>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="data in dyp.arregloDeMovimientos">
+                                        <td style="text-align: left">{{data.fecha | date:'dd-MM-yyyy'}}</td>
+                                        <td style="text-align: left">{{data.descripcion|uppercase}}</td>
+                                        <td style="text-align: left">{{data.cheque}} {{data.deBanco|uppercase}}
+                                            {{data.deCuenta}}</td>
+                                        <td style="text-align: right">{{data.banco| number:2}}</td>
+                                        <td style="text-align: right">{{data.caja| number:2}}</td>
+                                        <td style="text-align: right">{{data.ceraApicola| number:2}}</td>
+                                        <td style="text-align: right">{{data.retenciones| number:2}}</td>
+                                        <td style="text-align: right">{{data.entrada}}</td>
+                                        <td style="text-align: right">{{data.kilosNeto| number:2}}</td>
+                                        <td style="text-align: center">
+                                            {{data.precioPromedio|currency}}
+                                            <a ng-show="data.entrada > 0" class="btn btn-xs"
+                                                ng-click="verPrecios(data.entrada, data.origen)">
+                                                <i class="fa fa-plus"></i>
+                                            </a>
+                                        </td>
+                                        <td style="text-align: right">{{data.importe| number:2}}</td>
+                                        <!-- <td style="text-align: right">{{data.egresosCeraApicola|number:2}}</td> -->
+                                        <td style="text-align: right">{{data.gastos| number:2}}</td>
+                                        <td style="text-align: right">{{data.desconocido| number:2}}</td>
+                                        <!-- <td style="text-align: right">{{data.devolucionesMiel|number:2}}</td> -->
+                                        <!-- <td style="text-align: right">{{data.devolucionesCeraApicola|number:2}}</td> -->
+                                        <!-- <td style="text-align: right">{{data.ventasCeraApicola}}</td> -->
+                                        <td style="text-align: right">{{data.saldo| number:2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: right">
+                                            <b>{{dyp.totalBancos | number:2}}</b>
+                                        </td>
+                                        <td style="text-align: right">
+                                            <b>{{dyp.totalCaja | number:2}}</b>
+                                        </td>
+                                        <td style="text-align: right">
+                                            <b>{{dyp.totalCeraApicola | number:2}}</b>
+                                        </td>
+                                        <td style="text-align: right">
+                                            <b>{{dyp.totalRetenciones| number:2}}</b>
+                                        </td>
+                                        <td></td>
+                                        <td style="text-align: right">
+                                            <b>{{dyp.totalKilos| number:2}}</b>
+                                        </td>
+                                        <td style="text-align: right">
+                                            <b>{{dyp.totalPrecio| number:2}}</b>
+                                        </td>
+                                        <td style="text-align: right">
+                                            <b>{{dyp.totalImporte| number:2}}</b>
+                                        </td>
+                                        <!-- <td style="text-align: right">
+                                            <b>{{dyp.totalEgresosCeraApicola| number:2}}</b>
+                                        </td> -->
+                                        <!-- <td style="text-align: right">
+                                             <b>{{dyp.totalApicolas| number:2}}</b> 
+                                        </td> -->
+                                        <td style="text-align: right">
+                                            <b>{{dyp.totalGastos| number:2}}</b>
+                                        </td>
+                                        <!-- <td style="text-align: right">
+                                            <b>{{dyp.totalDevolucionesMiel| number:2}}</b>
+                                        </td> -->
+                                        <!-- <td style="text-align: right">
+                                            <b>{{dyp.totalDevolucionesCeraApicola|number:2}}</b>
+                                        </td> -->
+                                        <!-- <td style="text-align: right">
+                                            <b>{{dyp.totalVentasCeraApicola|number:2}}</b>
+                                        </td> -->
+                                        <td></td>
+                                        <td style="text-align: right">
+                                            <b>{{dyp.totalSaldo| number:2}} </b>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>
+<div class="modal fade" id="preciosPorEntrada" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align: center">
+                    <b> {{tipo}}</b>
+                    <br>
+                    <b>Precios de la entrada {{id}}</b>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table table-responsive">
+                            <table class="table table-condensed table-bordered text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Contenedor</th>
+                                        <th>Cantidad</th>
+                                        <th>Total Kilos</th>
+                                        <th>Precio</th>
+                                        <th>Importe</th>
+                                    </tr>
+                                </thead>
+                         
+                                <tbody>
+                                    <tr ng-repeat="precio in preciosGrupo">
+                                        <td>{{precio.referencia}}</td>
+                                        <td>{{precio.totalTambos}}</td>
+                                        <td style="text-align: right;">{{precio.totalKilos}}</td>
+                                        <td style="text-align: right;">{{precio.precio|currency}}</td>
+                                        <td style="text-align: right;">{{precio.importe|currency}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: right;" colspan="4">
+                                            <b>Importe total</b>
+                                        </td>
+                                        <td style="text-align: right;"> {{importeTotal|currency}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,421 @@
+<!-- Todas las zonas de la auditoría -->
+<section class="content" ng-if="mostrarZonasAuditoria && !mostrarDetalleZona">
+    <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        AUDITORÍA
+                        <span ng-if="datosAuditoria.fecha"> DEL {{datosAuditoria.fecha | date:'dd/MM/yyyy'}}</span>
+                        <span ng-if="datosAuditoria.finalizado"> AL {{datosAuditoria.finalizado | date:'dd/MM/yyyy'}}</span>
+                        <span ng-if="datosAuditoria.estado"> - ESTADO: {{datosAuditoria.estado | uppercase}}</span>
+                        <button title="Ver auditorías" class="btn btn-success btn-xs pull-right" ng-click="regresarVistaZonas()">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </button>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <!-- <pre>
+                                {{listaZonasAuditoria.encabezado | json}}
+                            </pre> -->
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <th colspan="3" style="text-align:center">Resultados de la auditoría</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Concepto</th>
+                                        <th>Cantidad</th>
+                                        <th>Neto</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Tambores escaneados</td>
+                                        <td style="text-align:right" ng-bind="listaZonasAuditoria.encabezado.tambores_escaneados | number"></td>
+                                        <td style="text-align:right" ng-bind="listaZonasAuditoria.encabezado.escaneado | number"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tambores no encontrados</td>
+                                        <td style="text-align:right" ng-bind="listaZonasAuditoria.encabezado.cantidad_tambores_no_encontrados | number"></td>
+                                        <td style="text-align:right" ng-bind="listaZonasAuditoria.encabezado.no_encontrado | number"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#/inventarioMiel?acumulado" target="_blank">Compras de miel</a>
+                                        </td>
+                                        <td style="text-align:right"></td>
+                                        <td style="text-align:right" ng-bind="listaZonasAuditoria.encabezado.comprasMiel | number"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <div class="">
+                                    <div class="input-group">
+                                        <input type="text" ng-model="busquedaZonas" class="form-control input-sm pull-right" placeholder="Buscar">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-warning">
+                                                <i class="zmdi zmdi-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success" ng-click="abrirModalDescargarReporteAuditoria()">
+                                    <i class="fa fa-download"></i> Reporte
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="!listaZonasAuditoria.zonas">
+                        <i class="fa fa-spinner fa-spin fa-fw"></i> Cargando...
+                    </div>
+                    <div class="table-responsive" ng-if="listaZonasAuditoria.zonas">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600"></th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">ZONA</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">TIPO DE MIEL</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">ESCANEADOS</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">
+                                        <b>NO</b> ENCONTRADOS</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">NETO ESCANEADO</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">VER</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="zona in listaZonasAuditoria.zonas| filter:busquedaZonas" ng-class="{'egreso-red': zona.tambEscaneados == '0'}">
+                                    <td ng-bind="$index + 1"></td>
+                                    <td ng-bind="zona.zona"></td>
+                                    <td ng-bind="zona.tipoDeMiel"></td>
+                                    <td style="text-align:center" ng-bind="zona.tambEscaneados"></td>
+                                    <td style="text-align:center" ng-bind="zona.tambores_faltantes"></td>
+                                    <td style="text-align:center" ng-bind="zona.neto | number"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs" ng-click="verDetalleZona(zona)">
+                                            Detalle
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Detalle de una zona de la auditoría -->
+
+<section class="" ng-if="!mostrarZonasAuditoria && mostrarDetalleZona">
+    <!-- {{datosAuditoria.fecha}} -->
+
+    <div class="box box-solid box-warning">
+        <div class="box-header" style="height: 50px;">
+            <h5 class="encabezadosTabla">
+                DETALLE DE ZONA EN AUDITORÍA
+                <button title="Regresar" class="btn btn-success btn-xs pull-right" ng-click="regresarVistaZonas()">
+                    <i class="zmdi zmdi-arrow-left"></i>
+                </button>
+            </h5>
+        </div>
+        <div class="box-body table-responsive">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <p class="lead">
+                            <b>Zona: </b>{{datosZona.nombre | uppercase}}</p>
+                        <p class="lead">
+                            <b>Tipo de miel: </b>{{datosZona.tipoDeMiel}}</p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-5">
+                    <div class="form-group">
+                        <label for="tipoReporteAuditoria">Ver reporte</label>
+                        <select name="tipoReporteAuditoria" class="form-control" ng-model="tipoDeReporteAuditoria" ng-change="verReporteAuditoria(tipoDeReporteAuditoria)">
+                            <option value="">Selecciona una opción</option>
+                            <option value="1">Se mantuvo en su zona</option>
+                            <option value="2">Migró a esta zona</option>
+                            <option value="3">No escaneados</option>
+                            <option value="4">Todo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="table-responsive">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center" colspan="7">Resultados de tambores escaneados</th>
+                                </tr>
+                                <tr>
+                                    <th style="text-align:center" colspan=""></th>
+                                    <th style="text-align:center" colspan="">Disponible</th>
+                                    <th style="text-align:center" colspan="">Experimentales</th>
+                                    <th style="text-align:center" colspan="">En lote interno</th>
+                                    <th style="text-align:center" colspan="">Envasado</th>
+                                    <th style="text-align:center" colspan="">Exportacion</th>
+                                    <th style="text-align:center" colspan="">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Bruto</td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.disponibles.bruto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.experimentales.bruto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.lotes_internos.bruto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.envasados.bruto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.exportados.bruto | number"></td>
+                                    <td style="text-align:right" ng-bind="detalleZona.escaneados.bruto | number"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tara</td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.disponibles.tara | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.experimentales.tara | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.lotes_internos.tara | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.envasados.tara | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.exportados.tara | number"></td>
+                                    <td style="text-align:right" ng-bind="detalleZona.escaneados.tara | number"></td>
+                                </tr>
+                                <tr>
+                                    <td>Neto</td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.disponibles.neto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.experimentales.neto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.lotes_internos.neto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.envasados.neto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.escaneados.exportados.neto | number"></td>
+                                    <td style="text-align:right" ng-bind="detalleZona.escaneados.neto | number"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center" colspan="6">Resultados de tambores
+                                        <b>NO</b> escaneados</th>
+                                </tr>
+                                <tr>
+                                    <th style="text-align:center" colspan=""></th>
+                                    <th style="text-align:center" colspan="">Disponible</th>
+                                    <th style="text-align:center" colspan="">Experimentales</th>
+                                    <th style="text-align:center" colspan="">En lote interno</th>
+                                    <th style="text-align:center" colspan="">Envasados</th>
+                                    <th style="text-align:center" colspan="">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Bruto</td>
+                                    <td style="text-align:center" ng-bind="detalleZona.no_escaneados.disponibles.bruto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.no_escaneados.experimentales.bruto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.no_escaneados.lotes_internos.bruto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.no_escaneados.envasados.bruto | number"></td>
+                                    <td style="text-align:right" ng-bind="detalleZona.no_escaneados.bruto | number"></td>
+                                    <td style="text-align:right"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tara</td>
+                                    <td style="text-align:center" ng-bind="detalleZona.no_escaneados.disponibles.tara | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.no_escaneados.experimentales.tara | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.no_escaneados.lotes_internos.tara | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.no_escaneados.envasados.tara | number"></td>
+                                    <td style="text-align:right" ng-bind="detalleZona.no_escaneados.tara | number"></td>
+                                    <td style="text-align:right"></td>
+                                </tr>
+                                <tr>
+                                    <td>Neto</td>
+                                    <td style="text-align:center" ng-bind="detalleZona.no_escaneados.disponibles.neto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.no_escaneados.experimentales.neto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.no_escaneados.lotes_internos.neto | number"></td>
+                                    <td style="text-align:center" ng-bind="detalleZona.no_escaneados.envasados.neto | number"></td>
+                                    <td style="text-align:right" ng-bind="detalleZona.no_escaneados.neto | number"></td>
+                                    <td style="text-align:right"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div class="table-responsive">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th colspan="3" style="text-align:center">Acotaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Se mantuvo en su zona</td>
+                                    <td style="text-align:center">
+                                        <i class="fa fa-circle auditoria-verde"></i>
+                                    </td>
+                                    <td style="text-align:center">{{ detalleZona.encabezado.se_mantuvo | number }}</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Migró a esta zona</td>
+                                    <td style="text-align:center">
+                                        <i class="fa fa-circle auditoria-naranja"></i>
+                                    </td>
+                                    <td style="text-align:center">{{ detalleZona.encabezado.cambio_zona | number }}</td>
+                                </tr>
+                                <tr>
+                                    <td>No escaneados</td>
+                                    <td style="text-align:center">
+                                        <i class="fa fa-circle auditoria-rojo"></i>
+                                    </td>
+                                    <td style="text-align:center">{{ detalleZona.encabezado.no_escaneado | number }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th colspan="3" style="text-align:center">Totales</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Tambores escaneados en la zona</td>
+                                    <td style="text-align:right" ng-bind="detalleZona.encabezado.escaneados | number"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tambores exportados</td>
+                                    <td style="text-align:right" ng-bind="detalleZona.escaneados.exportados.tambores | number"></td>
+                                </tr>
+                                <tr class="remarcar_fila_auditoria">
+                                    <td>Tambores con entrada
+                                        <b>posterior</b> a la auditoría
+                                        <br>
+                                        <small>Es posible que no se hayan escaneado</small>
+                                    </td>
+                                    <td style="text-align:right" ng-bind="detalleZona.encabezado.entrada_posterior | number"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tambores faltantes</td>
+                                    <td style="text-align:right" ng-bind="detalleZona.encabezado.no_encontrado | number"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="!detalleZona.tambores">
+                <i class="fa fa-spinner fa-spin fa-fw"></i> Cargando...
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-4 col-md-offset-6 pull-right">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" ng-model="busquedaDetalle" class="form-control input-sm pull-right" placeholder="Buscar">
+                            <div class="input-group-btn">
+                                <button class="btn btn-sm btn-warning">
+                                    <i class="zmdi zmdi-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" ng-if="detalleZona.tambores">
+                <table class="table">
+                    <thead>
+                        <tr style="height: 35px">
+                            <th class="bgm-blue" style="text-transform: none; font-weight: 600"></th>
+                            <th class="bgm-blue" style="text-transform: none; font-weight: 600">FOLIO TAMBOR</th>
+                            <th class="bgm-blue" style="text-transform: none; font-weight: 600">FECHA ENTRADA</th>
+                            <th class="bgm-blue" style="text-transform: none; font-weight: 600">ANTERIOR ZONA</th>
+                            <th class="bgm-blue" style="text-transform: none; font-weight: 600">NUEVA ZONA</th>
+                            <th class="bgm-blue" style="text-transform: none; font-weight: 600">Bruto</th>
+                            <th class="bgm-blue" style="text-transform: none; font-weight: 600">Tara</th>
+                            <th class="bgm-blue" style="text-transform: none; font-weight: 600">Neto</th>
+                            <th class="bgm-blue" style="text-transform: none; font-weight: 600">Estado tambor</th>
+                            <th class="bgm-blue" style="text-transform: none; font-weight: 600; text-align:center">Estado auditoría</th>
+                            <th class="bgm-blue" style="text-transform: none; font-weight: 600; text-align:center">Usuario que escanea</th>
+                            <th class="bgm-blue" style="text-transform: none; font-weight: 600; text-align:center">Fecha y hora escaneo</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="detalle in detalleZona.tambores| filter:busquedaDetalle" ng-class="{'remarcar_fila_auditoria': detalle.fecha >= datosAuditoria.fecha}"
+                            title="{{ detalle.fecha > datosAuditoria.fecha ? 'Fecha de entrada posterior al inicio de la auditoría' : 'Fecha de entrada'}}">
+                            <td>{{$index + 1}}</td>
+                            <td ng-bind="detalle.idAlmacen"></td>
+                            <td>{{detalle.fecha | date:'dd/MM/yyyy'}}</td>
+                            <td ng-bind="detalle.zonaAntes | uppercase"></td>
+                            <td ng-bind="detalle.zona | uppercase"></td>
+                            <td style="text-align: right">
+                                <p ng-if="detalle.bruto != 0">{{ detalle.bruto | number }}</p>
+                            </td>
+                            <td style="text-align: right">
+                                <p ng-if="detalle.tara != 0">{{ detalle.tara | number }}</p>
+                            </td>
+                            <td style="text-align: right">
+                                <p ng-if="detalle.neto != 0">{{ detalle.neto | number }}</p>
+                            </td>
+                            <td ng-bind="detalle.estado_tambor | uppercase"></td>
+                            <td style="text-align:center">
+                                <i class="fa fa-circle" ng-class="{ 'auditoria-verde': detalle.zonaAntes == detalle.zona, 'auditoria-naranja': detalle.zonaAntes != detalle.zona && detalle.zona != '', 'auditoria-rojo': detalle.zona == '' }"></i>
+                            </td>
+                            <td ng-bind="detalle.usuario | uppercase"></td>
+                            <td ng-bind="detalle.hora"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="modalDescargarReporteAuditoria" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Seleccione un tipo de reporte</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="radio-inline">
+                                <input type="radio" name="opcionDescargaReporteAuditoria" ng-model="opcionDescargaReporteAuditoria" value="1"> Acumulado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="radio-inline">
+                                <input type="radio" name="opcionDescargaReporteAuditoria" ng-model="opcionDescargaReporteAuditoria" value="2"> Por zonas
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="radio-inline">
+                                <input type="radio" name="opcionDescargaReporteAuditoria" ng-model="opcionDescargaReporteAuditoria" value="3"> Tambores no encontrados
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="descargarReporteAuditoria(opcionDescargaReporteAuditoria)">Descargar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div growl>
+
+</div>

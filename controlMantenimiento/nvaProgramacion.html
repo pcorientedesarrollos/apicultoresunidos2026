@@ -1,0 +1,361 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        PROGRAMAR FECHAS
+                        <!--<a title="Regresar" href="#/verEquipos/1/{{programacion.idArea}}" class="btn btn-success btn-xs" style="float: right">-->
+                        <a title="Regresar" href="#/equiposProgramar/1/{{programacion.idArea}}" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                    <div class="input-group" style="float: right">
+
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="box-header">
+                                <div class="row" >
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-3">
+                                            <label style="font-weight: bold;">Area </label>
+                                            <div class="form-group-sm">
+                                                <input class="form-control" type="text" 
+                                                       disabled="true"
+                                                       ng-model="programacion.area"/>
+                                            </div>  
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label style="font-weight: bold;">Artículo </label>
+                                            <div class="form-group-sm">
+                                                <input class="form-control" type="text" 
+                                                       disabled="true"
+                                                       ng-model="programacion.nombre"/>
+                                            </div>  
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label style="font-weight: bold;">Código </label>
+                                            <div class="form-group-sm">
+                                                <input class="form-control" type="text" 
+                                                       disabled="true"
+                                                       ng-model="programacion.codigo"/>
+                                            </div>  
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label style="font-weight: bold;">Periodicidad </label>
+                                            <div class="form-group-sm">
+                                                <input class="form-control" type="text" 
+                                                       disabled="true"
+                                                       ng-model="programacion.periodicidad"/>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </div>                                
+                                <hr>
+                            </div> 
+                            <form ng-submit="guardarProgramacion()">
+                                <div ng-if="programacion.periodicidad == 'Mensual'">
+
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                           type="text" class="form-control pull-right"
+                                                           id="datepicker" placeholder="Fecha" 
+                                                           ng-model="fechasArreglo.fecha1.fechaProgramada"
+                                                           required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                           type="text" class="form-control pull-right"
+                                                           id="datepicker" placeholder="Fecha" 
+                                                           ng-model="fechasArreglo.fecha2.fechaProgramada"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                           type="text" class="form-control pull-right"
+                                                           id="datepicker" placeholder="Fecha" 
+                                                           ng-model="fechasArreglo.fecha3.fechaProgramada"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                           type="text" class="form-control pull-right"
+                                                           id="datepicker" placeholder="Fecha" 
+                                                           ng-model="fechasArreglo.fecha4.fechaProgramada"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                           type="text" class="form-control pull-right"
+                                                           id="datepicker" placeholder="Fecha" 
+                                                           ng-model="fechasArreglo.fecha5.fechaProgramada"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                           type="text" class="form-control pull-right"
+                                                           id="datepicker" placeholder="Fecha" 
+                                                           ng-model="fechasArreglo.fecha6.fechaProgramada"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                           type="text" class="form-control pull-right"
+                                                           id="datepicker" placeholder="Fecha" 
+                                                           ng-model="fechasArreglo.fecha7.fechaProgramada"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                           type="text" class="form-control pull-right"
+                                                           id="datepicker" placeholder="Fecha" 
+                                                           ng-model="fechasArreglo.fecha8.fechaProgramada"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                           type="text" class="form-control pull-right"
+                                                           id="datepicker" placeholder="Fecha" 
+                                                           ng-model="fechasArreglo.fecha9.fechaProgramada"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                           type="text" class="form-control pull-right"
+                                                           id="datepicker" placeholder="Fecha" 
+                                                           ng-model="fechasArreglo.fecha10.fechaProgramada"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                           type="text" class="form-control pull-right"
+                                                           id="datepicker" placeholder="Fecha" 
+                                                           ng-model="fechasArreglo.fecha11.fechaProgramada"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                           type="text" class="form-control pull-right "
+                                                           id="datepicker" placeholder="Fecha" 
+                                                           ng-model="fechasArreglo.fecha12.fechaProgramada"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" ng-if="programacion.periodicidad == 'Trimestral'">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                       type="text" class="form-control pull-right"
+                                                       id="datepicker" placeholder="Fecha" 
+                                                       ng-model="fechasArreglo.fecha1.fechaProgramada"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                       type="text" class="form-control pull-right"
+                                                       id="datepicker" placeholder="Fecha" 
+                                                       ng-model="fechasArreglo.fecha2.fechaProgramada"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div>  <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                       type="text" class="form-control pull-right"
+                                                       id="datepicker" placeholder="Fecha" 
+                                                       ng-model="fechasArreglo.fecha3.fechaProgramada"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                       type="text" class="form-control pull-right"
+                                                       id="datepicker" placeholder="Fecha" 
+                                                       ng-model="fechasArreglo.fecha4.fechaProgramada"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-if="programacion.periodicidad == 'Semestral'">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                       type="text" class="form-control pull-right"
+                                                       id="datepicker" placeholder="Fecha" 
+                                                       ng-model="fechasArreglo.fecha1.fechaProgramada"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                       type="text" class="form-control pull-right"
+                                                       id="datepicker" placeholder="Fecha" 
+                                                       ng-model="fechasArreglo.fecha2.fechaProgramada"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="row" ng-if="programacion.periodicidad == 'Anual'">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                       type="text" class="form-control pull-right"
+                                                       id="datepicker" placeholder="Fecha" 
+                                                       ng-model="fechasArreglo.fecha1.fechaProgramada"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <br>
+                                <div style="text-align: right">
+                                    <!--                                <button class="btn btn-warning btn-xs"
+                                                                            ng-click="guardarProgramacion()" >Guardar</button>-->
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>
+

@@ -1,0 +1,79 @@
+<section class="content">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        ÁREA
+                        <a title="Regresar" href="#/areas" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--<form ng-submit="guardarNuevaArea()">-->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group-sm">
+                                        <label style="font-weight: bold;" class="col-sm-2 control-label"> Nombre </label>
+                                        <div class="col-sm-9">
+                                            <input align="center" type="text" class="form-control input-xs" placeholder="Escriba el área deseada" required="required"
+                                                ng-model="detalleDeAreas.area" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group-sm">
+                                        <label style="font-weight: bold;" class="col-sm-2 control-label">Subárea </label>
+                                        <div class="col-lg-2">
+                                            <button class="btn btnMiel" ng-click="nuevasSubareas();">
+                                                <i style="color: #385428" class="zmdi zmdi-plus"></i> Agregar subárea
+                                            </button>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="col-sm-12">
+                                            <div ng-repeat="subarea in arregloSubareas" class="input-group">
+                                                <div class="col-lg-4">
+                                                    <input type="text" class="form-control" placeholder="Zona o subárea" ng-model="subarea.subarea" maxlength="3">
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" placeholder="Descripción, referencia o nombre de la zona" ng-model="subarea.nombre"
+                                                    />
+                                                </div>
+                                                <span ng-hide="subarea.idSubarea > 0" class="input-group-addon">
+                                                    <a ng-click="eliminarSubarea($index);" class="btn btn-danger btn-xs" title="Eliminar Subárea">
+                                                        <i class="zmdi zmdi-delete  pull-right"></i>
+                                                    </a>
+                                                </span>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div style="text-align: right">
+                                <p class="right-align">
+                                    <button type="button" ng-click="guardarNuevaArea()" class="btn btn-warning btn-xs right-align">
+                                        <i></i> Guardar
+                                    </button>
+                                </p>
+                            </div>
+                            <!--</form>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>

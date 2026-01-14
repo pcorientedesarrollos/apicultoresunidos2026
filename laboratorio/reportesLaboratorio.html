@@ -1,0 +1,94 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <h4>REPORTES</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <label>Tipo de reporte *</label>
+                                    <div class="form-group form-inline">
+                                        <label class="radio-inline">
+                                            <input type="radio" value="1" ng-model="punto.punto"> Periodo</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="2" ng-model="punto.punto"> Todo</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="form-group">
+                                        <label>Tipo de miel *</label>
+                                        <select chosen class="form-control" ng-model="punto.tipoDeMiel">
+                                            <option value="">Selecciona...</option>
+                                            <option value="1">Miel 100% pura de abeja</option>
+                                            <option value="2">Miel 100% orgánica</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="punto.punto == 1">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>Fecha Inicio</label>
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text" class="form-control pull-right" id="datepicker"
+                                                    placeholder="Fecha" ng-model="punto.fechaUno">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>Fecha Final</label>
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text" class="form-control pull-right" id="datepicker"
+                                                    placeholder="Fecha" ng-model="punto.fechaDos">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <label>Reporte *</label>
+                            <div class="form-group form-inline">
+                                <label class="radio-inline">
+                                    <input type="radio" value="3" ng-model="analisis.opcion">Concentrado</label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="4" ng-model="analisis.opcion">Antibióticos</label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="5" ng-model="analisis.opcion">HMF</label>
+                            </div>
+                            <div class="fom-group form-inline">
+                                <label class="radio-inline">
+                                    <input type="radio" value="6" ng-model="analisis.opcion">Adulteración</label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="7" ng-model="analisis.opcion">Humedad</label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="8" ng-model="analisis.opcion">% Rechazo</label>
+                            </div>
+                            <hr>
+                            <div style="text-align: right">
+                                <button ng-click="verReporte()" type="button" class="btn btn-success btn-sm">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<div growl></div>

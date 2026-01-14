@@ -1,0 +1,470 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        LISTA DE PRODUCTO TERMINADO
+                        <a title="Regresar" href="#/lstPesos" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <p style="font-size: 15px;">DATOS DE CARGA</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">Tipo de miel </label>
+                                <select chosen class="form-control" ng-change="obtenerListaMarcasLotes()"
+                                    ng-model="reportePesos.tipoMiel"
+                                    ng-options="miel.idTipoDeMiel as miel.tipoDeMiel for miel in tiposDeMiel">
+                                    <option value="" disabled>SELECCIONA</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">Cliente</label>
+                                <select chosen class="form-control" ng-model="reportePesos.tipoDeCliente">
+                                    <option value="" selected disabled>SELECCIONA</option>
+                                    <option value="10">Exportadores</option>
+                                    <option value="6">Nacionales</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3" ng-if="reportePesos.tipoDeCliente == 6">
+                            <div class="form-group">
+                                <label for="">Catálogo de clientes</label>
+                                <select chosen ng-model="reportePesos.idCliente" class="form-control"
+                                    ng-options="clientes.id as clientes.nombre for clientes in listaClientes">
+                                    <option value="" disabled>Nombre</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3" ng-if="reportePesos.tipoDeCliente == 10">
+                            <div class="form-group">
+                                <label for="">Catálogo de clientes</label>
+                                <select chosen ng-model="reportePesos.idCliente" class="form-control"
+                                    ng-options="cliente.idClienteExportador as cliente.nombre for cliente in listaClientesExportadores">
+                                    <option value="" disabled>Nombre</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-1">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">Clasificación </label>
+                                <br> {{reportePesos.clasificacion}}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">Destino </label>
+                                <input type="text" class="form-control input-sm" ng-model="reportePesos.destino"
+                                    placeholder="Destino">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <p style="font-size: 15px;">DATOS DEL PRODUCTO</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-2">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">Marca final</label>
+                                <div>
+                                    <select disabled chosen ng-model="lotePesos" class="form-control"
+                                        ng-change="informacionCarga(lotePesos)"
+                                        ng-options="rp.lote as rp.lote for rp in listaMarcasLotes">
+                                        <option value="" disabled>Marca final</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3">
+                            <div class="form-group-sm">
+                                <label>Tratamiento</label>
+                                <select chosen name="" id="" ng-model="reportePesos.mielHomogeneizada"
+                                    class="form-control">
+                                    <option value="" disabled>SELECCIONA UNA OPCIÓN</option>
+                                    <option value=1>Homogeneizada</option>
+                                    <option value=2>No homogeneizada</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-3">
+                            <div class="form-group-sm">
+                                <label>Tipo</label>
+                                <select chosen name="" id="" ng-model="reportePesos.filtro"
+                                    class="form-control">
+                                    <option value="" disabled>SELECCIONA UNA OPCIÓN</option>
+                                    <option value="Filtrada">Filtrada</option>
+                                    <option value="Limpia">Limpia</option>
+                                    <option value="Sin filtrar">Sin filtrar</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-2">
+                            <div class="form-group">
+                                <label>Fecha carga</label>
+                                <br> {{anidaCarga.fechaImpresion | date:'dd/MM/yyyy'}}
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-1">
+                            <div class="form-group">
+                                <label>Lote</label>
+                                <br> {{anidaCarga.idLoteInterno}}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-1">
+                            <div class="form-group" ng-if="tamborPeso > 0">
+                                <div class="pull-right">
+                                    <label style="font-weight: bold; color:red" class="col-sm-4 control-label">Folio
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <b> {{tamborPeso}}</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p style="font-size: 15px;">DATOS DEL OPERADOR Y VEHÍCULO</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>
+                                        <b>Empresa:</b>
+                                    </td>
+                                    <td>{{anidaCarga.compania}}</td>
+                                    <td>
+                                        <b>Operador:</b>
+                                    </td>
+                                    <td>{{anidaCarga.operador}}</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Marca:</b>
+                                    </td>
+                                    <td>{{anidaCarga.marca}}</td>
+                                    <td>
+                                        <b>Modelo:</b>
+                                    </td>
+                                    <td>{{anidaCarga.modelo}}</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Placa:</b>
+                                    </td>
+                                    <td>{{anidaCarga.placa}}</td>
+                                    <td>
+                                        <b>Contenedor:</b>
+                                    </td>
+                                    <td>{{anidaCarga.contenedor}}</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Sello:</b>
+                                    </td>
+                                    <td>{{anidaCarga.sello}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div ng-show="reportePesos.mielHomogeneizada && reportePesos.tipoMiel">
+                        <hr>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <p style="font-size: 15px;">SELECCIONE UN MODO DE CAPTURA</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-4">
+                                <div class="form-group-sm">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="1" ng-model="opcionCaptura">Añadir uno a uno los
+                                        tambos (Presionando Enter)
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <div class="form-group-sm">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="2" ng-model="opcionCaptura">
+                                        <span ng-if="reportePesos.mielHomogeneizada == '1'">Asignar mismos
+                                            valores</span>
+                                        <span ng-if="reportePesos.mielHomogeneizada == '2'">Número de tambores</span>
+
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <div class="input-group" ng-show="opcionCaptura == 2">
+                                    <input placeholder="Número de tambos" type="number" class="form-control"
+                                        data-ng-model="counter">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" ng-click="updateModel()">
+                                            Aceptar
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row" ng-show="opcionCaptura == 1">
+                            <div ng-if="reportePesos.mielHomogeneizada == '1'">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group-sm">
+                                                <label style="font-weight: bold;">Bruto:</label>
+                                                <input class="form-control" type="text" ng-model="pesoTambo.bruto"
+                                                    ng-keyup="totalDePesosBrutos()" mask="9" repeat="10" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group-sm">
+                                                <label style="font-weight: bold;">Tara:</label>
+                                                <input class="form-control" type="text" ng-model="pesoTambo.tara"
+                                                    mask="9" repeat="10" ng-keyup="totalDePesosTara()" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group-sm">
+                                                <label style="font-weight: bold;">Neto:</label>
+                                                <input class="form-control" type="text" disabled="true"
+                                                    ng-keyup="totalDeLosNetos()" ng-model="pesoTambo.neto" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group-sm">
+                                                <label>Floración</label>
+                                                <select class="form-control" ng-model="pesoTambo.idFloracion"
+                                                    ng-options="floraciones.idFloracion as floraciones.floracion for floraciones in listaFloracion">
+                                                    <option value="" disabled>SELECCIONA</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group-sm">
+                                                <label>Humedad</label>
+                                                <input ng-model="pesoTambo.porcentaje" type="text"
+                                                    class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group-sm">
+                                                <label>Color</label>
+                                                <input ng-model="pesoTambo.color" type="text" class="form-control"
+                                                    ng-keyup="agregaTambo()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="reportePesos.mielHomogeneizada == '2'">
+                                <div class="col-xs-12 col-md-4">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label for="">Clasificación (En caso de miel sobrante)</label>
+                                                <select class="form-control" ng-model="clasificacionTambor"
+                                                    ng-options="clasSobrante.idSobrante as clasSobrante.nombre for clasSobrante in catalogoSobrantes">
+                                                    <option value="0">NO APLICA</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label for="Folio del tambor"></label>
+                                                <label for="folioTambor">
+                                                    <input type="text" id="folioTambor" class="form-control"
+                                                        placeholder="Folio" ng-model="nuevoTamborFolio"
+                                                        ng-keyup="agregaTambo(nuevoTamborFolio, clasificacionTambor)">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="opcionCaptura == 2">
+                            <div ng-show="reportePesos.mielHomogeneizada == '1'">
+                                <div class="col-md-2">
+                                    <div class="form-group-sm">
+                                        <label>Bruto</label>
+                                        <input ng-change="valoresIguales(1);" ng-model="pBruto" type="text"
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group-sm">
+                                        <label>Tara</label>
+                                        <input ng-change="valoresIguales(2);" ng-model="pTara" type="text"
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group-sm">
+                                        <label>Humedad</label>
+                                        <input ng-change="valoresIguales(3);" ng-model="pHumedad" type="text"
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group-sm">
+                                        <label>Color</label>
+                                        <input ng-change="valoresIguales(4);" ng-model="pColor" type="text"
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group-sm">
+                                        <label>Floración</label>
+                                        <select ng-change="valoresIguales(5);" class="form-control"
+                                            ng-model="pFloracion"
+                                            ng-options="floraciones.idFloracion as floraciones.floracion for floraciones in listaFloracion">
+                                            <option value="" disabled>SELECCIONA</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <br>
+                        <div>
+                            <p ng-if="bloquearDocumento && reportePesos.mielHomogeneizada == 2">
+                                <b>Nota:</b> Campos bloqueados debido al uso de folios de tambores.
+                            </p>
+                        </div>
+                        <div class="table-responsive no-padding">
+                            <table class="table table-responsive table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="text-transform: none"></th>
+                                        <th style="text-transform: none" ng-if="reportePesos.mielHomogeneizada == 2">
+                                            Folio</th>
+                                        <th style="text-transform: none" ng-if="reportePesos.mielHomogeneizada == 2">
+                                            Sobrante</th>
+                                        <th style="text-transform: none">Peso Bruto</th>
+                                        <th style="text-transform: none">Tara</th>
+                                        <th style="text-transform: none">Peso Neto</th>
+                                        <th style="text-transform: none">Humedad</th>
+                                        <th style="text-transform: none">Color</th>
+                                        <th style="text-transform: none">Floración</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="pesoTambo in pesosTambos track by $index">
+
+                                        <td style="font-size: 12px;">
+                                            {{$index + 1}}
+                                        </td>
+                                        <td ng-if="reportePesos.mielHomogeneizada == 2"
+                                            style="font-size: 12px; text-align: right">
+                                            <input type="text" ng-model="pesoTambo.folio" tabindex="1"
+                                                ng-keyup="buscarDatosFolioTambor(pesoTambo.folio, $index, pesoTambo.clasificacion)"
+                                                ng-disabled="bloquearDocumento && reportePesos.mielHomogeneizada == 2 && pesoTambo.folio && pesoTambo.idPesoTambo"
+                                                class="form-control input-sm" />
+                                        </td>
+                                        <td ng-if="reportePesos.mielHomogeneizada == 2"
+                                            style="font-size: 12px; text-align: right">
+                                            <select chosen tabindex="2" class="form-control input-sm"
+                                                ng-model="pesoTambo.clasificacion"
+                                                ng-change="buscarDatosFolioTambor(pesoTambo.folio, $index, pesoTambo.clasificacion)"
+                                                ng-options="clasSobrante.idSobrante as clasSobrante.nombre for clasSobrante in catalogoSobrantes">
+                                                <option value="">NO APLICA</option>
+                                            </select>
+                                        </td>
+                                        <td style="font-size: 12px; text-align: right">
+                                            <input type="text" ng-model="pesoTambo.bruto" tabindex="3"
+                                                class="form-control input-sm" />
+                                        </td>
+                                        <td style="font-size: 12px; text-align: right">
+                                            <input type="text" ng-model="pesoTambo.tara" tabindex="4"
+                                                class="form-control input-sm" />
+                                        </td>
+                                        <td style="font-size: 12px; text-align: right">
+                                            <input disabled="true" type="text"
+                                                ng-value="pesoTambo.neto = pesoTambo.bruto - pesoTambo.tara"
+                                                class="form-control input-sm" />
+                                        </td>
+
+                                        <td style="font-size: 12px; text-align: right">
+                                            <input type="text" ng-model="pesoTambo.porcentaje" tabindex="5"
+                                                class="form-control input-sm" />
+                                        </td>
+
+                                        <td style="font-size: 12px; text-align: right">
+                                            <input type="text" ng-model="pesoTambo.color" tabindex="6"
+                                                class="form-control input-sm" />
+                                        </td>
+
+                                        <td style="font-size: 12px">
+                                            <select chosen tabindex="7" class="form-control input-sm"
+                                                ng-model="pesoTambo.idFloracion"
+                                                ng-options="floraciones.idFloracion as floraciones.floracion for floraciones in listaFloracion">
+                                                <option value="" disabled>SELECCIONA</option>
+                                            </select>
+                                        </td>
+
+                                        <td style="text-align: center">
+                                            <button type="button" class="btn btn-danger btn-xs"
+                                                title="Eliminar registro" ng-click="borraTambo($index)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            <button ng-if="tamborPeso > 0" type="button" class="btn btn-warning btn-xs"
+                                                title="Mandar a imprimir etiqueta"
+                                                ng-click="mandarEtiquetas(null, pesoTambo)">
+                                                <i class="zmdi zmdi-print"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: red; text-align: right">Total</td>
+                                        <td ng-if="reportePesos.mielHomogeneizada == 2"></td>
+                                        <td></td>
+                                        <td style="text-align: right; font-weight: 700;">
+                                            {{reportePesos.totalBruto | number}}</td>
+                                        <td style="text-align: right; font-weight: 700;">
+                                            {{reportePesos.totalTara | number}}</td>
+                                        <td style="text-align: right; font-weight: 700;">
+                                            {{reportePesos.totalNeto | number}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div style="text-align: right">
+                                    <button type="submit" ng-click="guardarReportePesos();"
+                                        class="btn btn-warning btn-sm"
+                                        title="Guardar reporte de lista de producto terminado">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<div growl></div>

@@ -1,0 +1,28 @@
+{
+    "clasificaciones":
+            [{
+                    "idClasificacion": "1",
+                    "clasificacion": "Muebles y Escritorios"
+                }, {
+                    "idClasificacion": "2",
+                    "clasificacion": "Cómputo, Impresoras y Telefonía, Electrónica"
+                }, {
+                    "idClasificacion": "3",
+                    "clasificacion": "Aires Acondicionados y Ventiladores"
+                }, {
+                    "idClasificacion": "4",
+                    "clasificacion": "Herramientas"
+                }, {
+                    "idClasificacion": "5",
+                    "clasificacion": "Equipo de Laboratorio"
+                }, {
+                    "idClasificacion": "6",
+                    "clasificacion": "Cristalería Laboratorio"
+                }, {
+                    "idClasificacion": "7",
+                    "clasificacion": "Materiales de Almacén y Producción"
+                }, {
+                    "idClasificacion": "8",
+                    "clasificacion": "Equipo de Transporte"
+                }]
+}

@@ -1,0 +1,40 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        EVALUACION A PROVEEDORES
+                        <a href="#/nvaEvaluacion/0" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-plus"></i> Agregar
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr style="height: 35px">
+                                <th class="bgm-blue" style="text-transform: none; font-weight: 600">Fecha</th>
+                                <th class="bgm-blue" style="text-transform: none; font-weight: 600">Empresa</th>
+                                <th class="bgm-blue" style="text-transform: none; font-weight: 600">Teléfono</th>
+                                <th class="bgm-blue" style="text-transform: none; font-weight: 600">Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="mt in menuEvaluacion">
+                                <td>{{mt.fecha | date:'dd-MM-yyyy'}}</td>
+                                <td>{{mt.nombreProveedor}}</td>
+                                <td>{{mt.telefono}}</td>
+                                <td>
+                                    <a href="#/nvaEvaluacion/{{mt.idEvaluacion}}" class="btn btn-warning btn-xs">
+                                        <i class="zmdi zmdi-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

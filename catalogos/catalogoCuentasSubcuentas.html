@@ -1,0 +1,377 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-5">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CATÁLOGO DE CUENTAS
+                        <button type="button" class="btn btn-success btn-xs pull-right" title="Agregar catálogo"
+                            ng-click="nuevaCuenta()">
+                            <i class="fa fa-plus"></i> Nuevo
+                        </button>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label class="radio-inline">
+                                    <input type="radio" name="tipo" ng-model="tipo" value="0"> Ingresos
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label class="radio-inline">
+                                    <input type="radio" name="tipo" ng-model="tipo" value="1">Egresos
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600"></th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">NOMBRE</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="cuenta in cuentas track by cuenta.idCuentaConcepto">
+                                    <td ng-bind="$index+1"></td>
+                                    <td ng-bind="cuenta.cuenta | uppercase"></td>
+                                    <td>
+                                        <button title="Ver" type="button" class="btn btn-warning btn-xs" ng-click="mostrarCatalogo($index)">
+                                            <i class="fa fa-arrow-right"></i>
+                                        </button>
+                                        <button title="Editar" type="button" class="btn btn-default btn-xs" ng-click="nuevaCuenta($index)">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                        <button title="Eliminar" type="button" class="btn btn-danger btn-xs" ng-click="eliminarCatalogo(1, cuenta)" disabled>
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-7">
+            <div ng-if="!cuenta">
+                <p class="text-muted">Seleccione un catálogo...</p>
+            </div>
+            <div class="box box-solid box-warning" ng-if="cuenta">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        {{ cuenta.cuenta | uppercase }}
+                        <button type="button" class="btn btn-success btn-xs pull-right" title="Agregar conceptos a {{cuenta.cuenta}}"
+                            ng-click="editarInfoProducto()">
+                            <i class="fa fa-plus"></i> Nuevo
+                        </button>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive" ng-if="subcuentas.length > 0">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>SUBCUENTA</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="concepto in subcuentas">
+                                <tr>
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{concepto.subcuenta}}</td>
+                                    <td>
+                                        <button title="Editar" type="button" class="btn btn-default btn-xs" ng-click="editarInfoProducto($index)">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                        <button title="Sub - subcuentas" ng-if="concepto.subSubcuentas.length > 0"
+                                            class="btn btn-warning btn-xs" type="button" data-toggle="collapse"
+                                            data-target="#collapseExample{{concepto.idSubcuenta}}" aria-expanded="false"
+                                            aria-controls="collapseExample">
+                                            <i class="fa fa-sort-desc"></i>
+                                        </button>
+                                        <!-- <button title="Eliminar" type="button" class="btn btn-danger btn-xs" ng-click="eliminarRegistro(concepto.idSubSubcuenta, $index)">
+                                            <i class="fa fa-trash"></i>
+                                        </button> -->
+                                    </td>
+                                </tr>
+                                <tr ng-if="concepto.subSubcuentas.length > 0">
+                                    <td colspan="3">
+                                        <div class="collapse" id="collapseExample{{concepto.idSubcuenta}}">
+                                            <div class="well" style="padding:5px;">
+                                                <ol>
+                                                    <li ng-repeat="subSub in concepto.subSubcuentas">
+                                                        {{subSub.subSubcuenta}} - {{ subSub.precioUnitario | currency}}</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div ng-if="subcuentas.length == 0">
+                        <p class="text-muted">No hay conceptos en el catálogo.</p>
+                    </div>
+                    <div ng-if="!subcuentas">
+                        <p class="text-muted">
+                            <i class="fa fa-spinner fa-spin fa-fw"></i> Cargando...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade p-3" id="modalInfoProducto" >
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content" >
+            <div class="modal-header" >
+                <h4 class="modal-title">Información</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">Cuenta</label>
+                            <input type="text" class="form-control" ng-model="cuenta.cuenta" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label for="">Subcuenta</label>
+                            <input type="text" class="form-control" ng-model="verConcepto.subcuenta">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- <div class="col-md-2"><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>
+                    </div> -->
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <button class="btn bgm-blue btn-block" ng-click="nuevaSubSubcuenta();">
+                                Añadir Sub-subcuenta
+                            </button>
+                        </div>
+                        <span class="form-group">
+                            <input type="checkbox" ng-model="verConcepto.deudores" ng-true-value="'1'" ng-false-value="'0'">
+                            Considerar <span ng-if="verConcepto.subcuenta && verConcepto.subcuenta != ''">"{{verConcepto.subcuenta}}"</span>
+                            en Deudores y proveedores
+                        </span>
+                    </div>
+                    <div class="col-md-2"></div>
+                    
+                </div>
+                <hr>
+                <div class="row">
+                    <!-- <div class="col-md-3">
+ 
+                    </div> -->
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-1">CLAVE</div>
+                            <div class="col-md-4">PRODUCTO</div>
+                            <div class="col-md-1">UNIDAD</div>
+                            <div class="col-md-1">PESO</div>
+                            <div class="col-md-1">PRECIO</div>
+                            <div class="col-md-1">MIN</div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-1"></div>
+                        </div>
+                        <hr>
+                        <div class="form-group" ng-repeat="subSubcuenta in subSubcuentas">
+                            <div class="row">
+                             
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control" placeholder="Clave" ng-model="subSubcuenta.clave" onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                </div>
+                                <div class="col-md-4">
+                                    <input ng-hide="subSubcuenta.idSubSubcuenta == 0" type="text" class="form-control" placeholder="Escriba el nombre" title="{{subSubcuenta.subSubcuenta | uppercase}}" ng-model="subSubcuenta.subSubcuenta" disabled>
+                                    <input ng-hide="subSubcuenta.idSubSubcuenta > 0" type="text" class="form-control" placeholder="Escriba el nombre" ng-model="subSubcuenta.subSubcuenta">
+                                    
+                                </div>
+                           
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <!-- <label for="">Unidad (<a href="#/catalogoUnidades" target="_blank">Catálogo de unidades</a>)
+                                        </label> -->
+                                        <select class="form-control" ng-model="subSubcuenta.unidad" ng-options="unidad.idUnidad as unidad.nombre for unidad in unidades"></select>
+                                    </div>                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control" placeholder="Peso" ng-model="subSubcuenta.peso">
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control" placeholder="Precio" ng-model="subSubcuenta.precioUnitario">
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control" placeholder="Min" ng-model="subSubcuenta.min">
+                                </div>
+                              
+                                <!-- <div class="col-md-2">
+                                    <input type="text" class="form-control" placeholder="Máximo" ng-model="subSubcuenta.max">
+                                </div> -->
+                                <div class="col-md-2">
+                                    <!-- {{ subSubcuenta.subSubcuenta | uppercase }} -->
+                                    <div class="input-group">
+                                        <!-- <input ng-hide="subSubcuenta.idSubSubcuenta == 0" type="text" class="form-control" placeholder="Escriba el nombre" title="{{subSubcuenta.subSubcuenta | uppercase}}" ng-model="subSubcuenta.subSubcuenta" disabled>
+                                        <input ng-hide="subSubcuenta.idSubSubcuenta > 0" type="text" class="form-control" placeholder="Escriba el nombre" ng-model="subSubcuenta.subSubcuenta"> -->
+                                        <!-- <span class="input-group-btn">
+                                            <button ng-hide="subSubcuenta.idSubSubcuenta > 0" ng-click="eliminarSubSubcuenta($index);"
+                                                class="btn btn-default" type="button">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </button>
+                                        </span> -->
+                                        <span class="input-group-addon" ng-if="tipo == 0">
+                                            <input type="checkbox" ng-model="subSubcuenta.precio" ng-true-value="'1'"
+                                                ng-false-value="'0'"> $
+                                        </span>
+                                        <span class="input-group-addon">
+        
+                                        <button ng-show="subSubcuenta.idSubSubcuenta > 0" ng-click="eliminarRegistro(subSubcuenta.idSubSubcuenta, $index, subSubcuenta.idSubcuenta)"
+                                            class="btn btn-default" type="button">
+                                            <i class="zmdi zmdi-delete"></i>
+                                        </button>
+                                    </span>
+                                    </div>
+                                 
+                                </div>
+
+                                <div class="col-md-1">
+                                    <button ng-show="subSubcuenta.idSubSubcuenta > 0" ng-click="traePrecioHistorial(subSubcuenta.idSubSubcuenta)"
+                                        class="btn btn-default" type="button">
+                                        <i class="zmdi zmdi-money"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarInfoProducto()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para dar de alta un nuevo catálogo -->
+
+<div class="modal fade" id="modalNuevoCatalogo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar nueva cuenta</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>
+                                Nombre de la cuenta
+                            </label>
+                            <input type="text" ng-model="verCuenta.cuenta" class="form-control" autocomplete="off"
+                                uib-typeahead="c as c.cuenta for c in cuentas | filter:{cuenta:$viewValue}"
+                                typeahead-on-select="" typeahead-show-hint="false" typeahead-min-length="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label>
+                                Tipo
+                            </label>
+                            <select class="form-control" ng-model="verCuenta.ingresoEgreso">
+                                <option value="0">Ingreso</option>
+                                <option value="1">Egreso</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-6" ng-if="mostrarLista">
+                        <div class="form-group">
+                            <label>
+                                Informe financiero
+                            </label>
+                            <select chosen multiple allow-single-deselect="true" no-results-text="'Tough luck'"
+                                ng-model="verCuenta.idInforme" class="form-control" data-placeholder="" ng-options="inf.idInforme as inf.informeFinanciero for inf in informesFinancieros">
+                                <option value="" disabled> Seleccione los nombres</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarNuevoCatalogo()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalPrecio">
+    <div class="modal-dialog p-3" style="width: 40%; border-radius: 20px;">
+      <div class="modal-content">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4"><h4><strong>HISTORIAL DE PRECIOS</strong></h4></div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <!-- <div class="col-md-3">
+
+            </div> -->
+            <div class="col-md-12">
+                <div class="row" style="padding: 20px; margin: 0; box-sizing: border-box; " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2">FECHA</div>
+                    <div class="col-md-6">PRODUCTO</div>
+                    <!-- <div class="col-md-2">ID</div> -->
+                    <div class="col-md-2">PRECIO</div>
+                </div>
+                <hr>
+                <div ng-if="array_historial_precios.length > 0">
+                    <div class="form-group" ng-repeat="subSubcuenta in array_historial_precios" style="padding: 20px; margin: 0; box-sizing: border-box; " >
+                        <div class="row">
+                            <div class="col-md-2">
+                                {{$index + 1}}
+                            </div>
+
+                            <div class="col-md-2">
+                                {{ subSubcuenta.fecha }}
+                             
+                            </div>
+    
+                            <div class="col-md-6">
+                                {{ subSubcuenta.subSubcuenta | uppercase }}
+                             
+                            </div>
+
+    
+                            <div class="col-md-2">
+                                ${{ subSubcuenta.precioUnitario }}
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="array_historial_precios == 0">
+                    NO HAY INFORMACIÓN POR EL MOMENTO
+                </div>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div growl></div>

@@ -1,0 +1,164 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        SALIDAS DE ALMACEN DE MATERIAS PRIMAS Y EMPAQUES
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <select chosen class="form-control" ng-model="opcionCosecha" ng-disabled="cargandoDatos">
+                                <option value="" disabled selected>Tipo</option>
+                                <option value="1">Convencional</option>
+                                <option value="2">Orgánico</option>
+                                <option value="7">Naranjo</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-11 col-md-4 col-md-offset-4">
+                            <div class="input-group">
+                                <input type="text" ng-model="filtroBusqueda" class="form-control input-sm pull-right"
+                                    placeholder="Buscar">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-1 col-md-1">
+                            <button type="button" class="btn btn-success btn-sm" title="Descargar"
+                                ng-click="modalDescargarReporte()">
+                                <i class="fa fa-file-excel-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <div ng-if="infoSalida && !infoSalida.length">
+                        No hay registros
+                    </div>
+                    <br>
+                    <div ng-if="infoSalida && infoSalida.length">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center; text-transform: none; font-weight: 600">No.</th>
+                                        <th style="text-align: left; text-transform: none; font-weight: 600">Fecha</th>
+                                        <th style="text-align: left; text-transform: none; font-weight: 600">Proveedor
+                                        </th>
+                                        <th style="text-align: right; text-transform: none; font-weight: 600">Cantidad
+                                        </th>
+                                        <th style="text-align: right; text-transform: none; font-weight: 600">Importe
+                                        </th>
+                                        <th style="text-align: center; text-transform: none; font-weight: 600">Editar
+                                        </th>
+                                        <th style="text-align: center; text-transform: none; font-weight: 600">Imprimir
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="mps in infoSalida | filter:filtroBusqueda">
+                                        <td style="text-align: center">{{mps.idSalidaMateria}}</td>
+                                        <td style="text-align: left">{{mps.fecha | date:'dd-MM-yyyy'}}</td>
+                                        <td style="text-align: left">{{mps.proveedor | uppercase}}</td>
+                                        <td style="text-align: right">{{mps.cantidadTotal | number}}</td>
+                                        <td style="text-align: right">{{mps.importeTotal|currency}}</td>
+                                        <td style="text-align: center">
+                                            <a class="btn btn-warning btn-xs"
+                                                ng-href="#/nvaSalidaMatPrima/{{mps.idSalidaMateria}}/{{opcionCosecha}}"
+                                                title="Ver más">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </a>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <a class="btn btn-danger btn-xs"
+                                                ng-click="imprimirSalida(mps.idSalidaMateria)" title="Imprimir PDF">
+                                                <i class="fa fa-file-pdf-o"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>
+
+
+<!-- Modal para descargar el reporte -->
+
+<div class="modal fade" id="descargarReporteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Descargar reporte...
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <div class="form-group">
+                            <select ng-model="opcionDescargarMP.tipo" class="form-control">
+                                <option value="1">Convencional</option>
+                                <option value="2">Orgánica</option>
+                                <option value="7">Naranjo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <label class="radio radio-inline m-r-20">
+                            <input type="radio" value="1" ng-model="opcionDescargarMP.opcion"> Todo
+                        </label>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <label class="radio radio-inline m-r-20">
+                            <input type="radio" value="2" ng-model="opcionDescargarMP.opcion"> Rango de fechas
+                        </label>
+                    </div>
+                </div>
+                <br>
+                <div class="row" ng-show="opcionDescargarMP.opcion == 2">
+                    <div class="col-xs-12 col-md-5">
+                        <div class="form-group form-inline">
+                            <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker"
+                                    placeholder="Fecha inicial" ng-model="opcionDescargarMP.fecha1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-5">
+                        <div class="form-group form-inline">
+                            <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker"
+                                    placeholder="Fecha final" ng-model="opcionDescargarMP.fecha2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success btn-sm"
+                    ng-click="descargarReporteMP(opcionDescargarMP)">Descargar</button>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<section class="content">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        INVENTARIO DE REACTIVOS
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label for="">Selecciona una opción</label>
+                                <select chosen class="form-control" ng-model="opcionMes.opcion">
+                                    <option value="" disabled>Selecciona una opción</option>
+                                    <option value="1">Acumulado</option>
+                                    <option value="2">Por mes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4" ng-if="opcionMes.opcion == 2">
+                            <div class="form-group">
+                                <label for="">Selecciona un mes</label>
+                                <select chosen ng-model="opcionMes.mes" class="form-control"
+                                    ng-options="mes.idMes as mes.mes for mes in meses">
+                                    <option value="" disabled>SELECCIONA MES</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <br>
+                                <button ng-disabled="cargandoDatos" type="button" ng-click="verMes(opcionMes);"
+                                    class="btn btn-success btn-sm">Ver resultados</button>
+                                <!-- <button ng-disabled="cargandoDatos" type="button" ng-click="imprimirAlmacen(opcionMes)" class="btn btn-success btn-sm">
+                                    <i class="fa fa-file-excel-o"></i>
+                                </button> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive no-padding col-md-10 col-md-offset-1"
+                        ng-repeat="react in registrosReactivos" ng-if="react.registros.length > 0">
+                        <table class="table table-bordered table-condensed" style="font-size: 10px">
+                            <thead>
+                                <tr>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                        colspan="4"> {{react.reactivo | uppercase}}</th>
+                                </tr>
+                                <tr>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                        rowspan="2">Fecha</th>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                        rowspan="1" colspan="2">Cantidad</th>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                        rowspan="2">Existencia </th>
+                                </tr>
+                                <tr>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                        rowspan="1" colspan="1">Entradas</th>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                        rowspan="1" colspan="1">Salidas</th>
+                                </tr>
+                            </thead>
+                            <tr style="font-size:12px; font-weight: 600">
+                                <td style="text-align: right" colspan="3">Saldos iniciales</td>
+                                <td style="text-align: right">{{react.existenciaAcumuladaPasada | number}}
+                                </td>
+                            </tr>
+                            <tr ng-repeat="registro in react.registros">
+                                <td style="text-align: left">{{registro.fecha | date:'dd-MM-yyyy'}}</td>
+                                <td style="text-align: right">{{registro.entrada | number}}</td>
+                                <td style="text-align: right">{{registro.salida | number}}</td>
+                                <td style="text-align: right">{{registro.existencia | number}}</td>
+                            </tr>
+                            <tr style="font-size:12px; font-weight: 600">
+                                <th style="text-align: right">
+                                    <b>Total</b>
+                                </th>
+                                <td style="text-align: right">{{react.totalEntradas | number}}</td>
+                                <td style="text-align: right">{{react.totalSalidas | number}}</td>
+                                <td style="text-align: right">{{react.totalExistencia | number}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<div growl></div>

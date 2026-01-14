@@ -1,0 +1,95 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        TRAZABILIDAD LABORATORIO
+                        <a title="Regresar" href="#/tLaboratorio" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <br>
+                            <div class="row" ng-show="miParametro == 0">
+                                <div class="col-sm-12">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;"  class="col-sm-12 text-primary">Seleccione el número de lote</label>
+                                        <div class="col-sm-2">
+                                            <select 
+                                                chosen
+                                                ng-change="concentradoAnalisis()"
+                                                ng-model="comboAnalisis" 
+                                                class="form-control" 
+                                                ng-options="rp.idLoteInterno as rp.idLoteInterno for rp in listaDeLotes"> 
+                                                <option value="">Lote</option>   
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-hide="miParametro == 0">
+                                <div class="col-sm-12">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold; font-size: 17px;"  class="col-sm-12"> <strong class="text-primary">Número de lote:</strong>  <strong class="text-red">{{miParametro}}</strong></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <br>
+                            <div class="col-lg-12">
+                                <div class="table-responsive no-padding">
+                                    <table class="table table-bordered table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px; background-color: orange" colspan="6">Análisis de laboratorio</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="text-transform: none; font-weight: 600; background: none">N° de muestra</th>
+                                                <th style="text-transform: none; font-weight: 600; background: none">N° de lote</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none">ID Proveedor</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none">Nombre del Laboratorio</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none">Fecha del protocolo</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none">N° de Folio de la Constancia del Protocolo</th>
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="tAnalisis in trazabilidadAnalisis">
+                                            <td></td>
+                                            <td>{{tAnalisis.idLoteInterno}}</td>
+                                            <td style="text-align: right">{{tAnalisis.idSagarpa}}</td>
+                                            <td style="text-align: right">
+                                                <input
+                                                    type="text"
+                                                    class="small"
+                                                    ng-model="tAnalisis.nombreLaboratorio"/>
+                                            </td>
+                                            <td style="text-align: right">
+                                                <input
+                                                    type="date" 
+                                                    date="dd/MM/yyyy"
+                                                    class="small"
+                                                    ng-model="tAnalisis.fechaProtocolo"/>
+                                                {{tAnalisis.fechaProtocolo}}
+                                            </td>
+                                            <td style="text-align: right">
+                                                <input
+                                                    type="text"
+                                                    class="small"
+                                                    ng-model="tAnalisis.folioProtocolo"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>    
+                            </div>
+                            <button type="button" ng-click="guardarTrazabilidadAnalisis()" class="btn btn-info pull-right btn-sm">Guardar</button>
+                            hola {{trazabilidadAnalisis}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

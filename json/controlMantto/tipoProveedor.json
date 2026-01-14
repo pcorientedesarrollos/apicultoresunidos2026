@@ -1,0 +1,14 @@
+{
+    "tiposProveedores":
+            [{
+                    "idTipoProveedor": "1",
+                    "tipoProveedor": "Insumos"
+                }, {
+                    "idTipoProveedor": "2",
+                    "tipoProveedor": "Servicios"
+                }, {
+                    "idTipoProveedor": "3",
+                    "tipoProveedor": "Transportistas"
+                }]
+
+}

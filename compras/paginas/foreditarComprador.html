@@ -1,0 +1,66 @@
+<section class="content">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        COMPRADOR
+                        <a title="Regresar" href="#/compradores" class="btn btn-success btn-xs" style="float: right">
+                           <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <br>
+                        <div class="col-md-12">
+                            <form ng-submit="guardarCom()">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;"  class="col-sm-2 col-sm-offset-1 control-label">Nombre:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" 
+                                                   class="form-control input-xs" 
+                                                   placeholder="Nombre(s) | Apellido paterno | Apellido materno"
+                                                   ng-model="compra.nombre">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;"  class="col-sm-2 col-sm-offset-1 control-label">Teléfono:</label>
+                                        <div class="col-sm-9">
+                                            <div class="fg-line">
+                                                <input type="text" 
+                                                       class="form-control input-xs" 
+                                                       placeholder="Número telefónico"
+                                                       ng-model="compra.telefono">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="text-align: right">
+                                    <p class="right-align">
+                                        <button type="submit" class="btn btn-warning btn-xs right-align">
+                                            <i ></i> Guardar
+                                        </button>
+                                    </p>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>
+
+
+
+

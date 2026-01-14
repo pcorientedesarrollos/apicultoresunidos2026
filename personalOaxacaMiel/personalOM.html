@@ -1,0 +1,106 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" ng-model="busquedaPersonalOM" class="form-control input-sm pull-right" placeholder="Ingrese lo que desea buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-warning">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+                <div class="input-group" style="width: 150px;">
+                    <input type="text" ng-model="busquedaPersonalOM" name="table_search" class="form-control input-sm pull-right" placeholder="Buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        Personal Oaxaca Miel
+                        <a href="#/nvoPersonal/0" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-plus"></i> Agregar
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-inline">
+                                <div class="form-group col-lg-2">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optradio" value="1" ng-model="estadoPersonal">Activos
+                                    </label>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optradio" value="2" ng-model="estadoPersonal">Inactivos
+                                    </label>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optradio" value="3" ng-model="estadoPersonal">Todos
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive no-padding" ng-show="estadoPersonal > 0">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">No.</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Area</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Clave </th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Nombre</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Puesto</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Editar</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="om in personalOM| filter:busquedaPersonalOM" style="font-size: 12px;">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{om.area|uppercase}}</td>
+                                    <td>{{om.clave|uppercase}}</td>
+                                    <td>{{om.nombre|uppercase}}</td>
+                                    <td>{{om.puesto|uppercase}}</td>
+                                    <td ng-if="om.estado == 0" class="text-center">
+                                        <a href="#/nvoPersonal/{{om.idPersonalOM}}" class="btn btn-warning btn-xs">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td ng-if="om.estado == 1" class="text-center">
+                                        <a disabled class="btn btn-warning btn-xs">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a ng-show="om.estado == 1" ng-click="activarPersonal(om.idPersonalOM)" class="btn btn-danger btn-xs">
+                                            <i class="fa fa-thumbs-o-down "></i>
+                                        </a>
+                                        <a ng-show="om.estado == 0" ng-click="desactivarPersonal(om.idPersonalOM)" class="btn btn-success btn-xs">
+                                            <i class="fa fa-thumbs-o-up "></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

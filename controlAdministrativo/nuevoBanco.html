@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-xs-12 col-md-10 col-md-offset-1">
+        <div class="box box-solid box-warning">
+            <div class="box-header" style="height: 50px;">
+                <h5 class="encabezadosTabla">
+                    BANCO
+                    <a title="Regresar" href="#/menuBancos" class="btn btn-success btn-xs" style="float: right">
+                        <i class="zmdi zmdi-arrow-left"></i>
+                    </a>
+                </h5>
+            </div>
+            <div class="box-body">
+
+                <div class="row">
+                    <div class="col-xs-8 col-md-6">
+                        <div class="form-group">
+                            <p><b>Banco</b></p>
+                            <input type="text" class="form-control" placeholder="Nombre del banco" ng-model="banco.banco"
+                                onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-md-6">
+                        <div class="form-group">
+                            <p>&nbsp;</p>
+                            <button class="btn btnMiel" ng-click="nuevasCuentas();">
+                                <i class="zmdi zmdi-plus"></i> Cuenta
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xs-12" ng-if="arregloCuentas && arregloCuentas.length">
+                        <div class="form-group">
+                            <h5><b>Cuentas del banco</b></h5>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" ng-repeat="cuenta in arregloCuentas">
+
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Cuenta #{{$index+1}}</span>
+                                <input type="text" class="form-control" placeholder="Número de cuenta" ng-model="cuenta.numDeCuenta">
+                                <span class="input-group-btn" ng-show="paramBanco == 0" ng-click="eliminarCuenta($index)"
+                                    title="Eliminar cuenta">
+                                    <button class="btn btn-danger" type="button">
+                                        <i class="zmdi zmdi-delete"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <select class="form-control" ng-model="cuenta.moneda">
+                                <option value="1">Moneda nacional</option>
+                                <option value="2">Moneda extranjera</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button class="btn btn-warning pull-right" ng-click="guardarBanco()">Guardar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

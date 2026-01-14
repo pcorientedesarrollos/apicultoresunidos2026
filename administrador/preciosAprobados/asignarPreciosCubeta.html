@@ -1,0 +1,127 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        ASIGNACION DE PRECIOS
+                        <b ng-show="parametroCosecha == 1">100% PURA DE ABEJA</b>
+                        <b ng-show="parametroCosecha == 2">100% ORGÁNICA</b>
+                        <a title="Regresar" href="#/aprobarCubetas" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">
+                                    Proveedor:
+                                </label>
+                                <input class="form-control" type="text" style="margin-top: 8px" disabled="true"
+                                    ng-model="prove2.proveedor" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">Localidad:</label>
+                                <input class="form-control" type="text" style="margin-top: 8px" disabled="true"
+                                    ng-model="prove2.localidad" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">Trazabilidad:</label>
+                                <input class="form-control" type="text" disabled="true" style="margin-top: 8px"
+                                    ng-model="prove2.sagarpa" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label style="font-weight: bold; color:red">folio:</label>
+                                {{prove2.idAlmacen}}
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-offset-9 col-md-3">
+                            <div class="form-group">
+                                <label style="margin-top: 5px" class="checkbox checkbox-inline m-r-20">
+                                    <input type="checkbox" class="col-sm-1" ng-change="aprobarTodoCubetas()"
+                                        ng-model="seleccionarTodo" ng-true-value="'1'" ng-false-value="'0'">
+                                    <i class="input-helper"></i>
+                                    <b>Aprobar todo</b>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <th style="text-transform: none; font-weight: 600">Folio Tambor</th>
+                                <th style="text-transform: none; font-weight: 600">Zona</th>
+                                <th style="text-transform: none; font-weight: 600">Peso Lista</th>
+                                <th style="text-transform: none; font-weight: 600">Bruto</th>
+                                <th style="text-transform: none; font-weight: 600">Tara</th>
+                                <th style="text-transform: none; font-weight: 600">Neto</th>
+                                <th style="text-transform: none; font-weight: 600">Diferencia</th>
+                                <th>Humedad</th>
+                                <th style="text-transform: none; font-weight: 600">
+                                    <center>Precio</center>
+                                </th>
+                                <th style="text-align: right; text-transform: none; font-weight: 600">Costo Total</th>
+                                <th style="text-align: right; text-transform: none; font-weight: 600">Aprobar</th>
+                            </thead>
+                            <tr ng-repeat="cb in cubetaMiel">
+                                <td>{{cb.idAlmacen}}</td>
+                                <td>{{cb.zona}}</td>
+                                <td>{{cb.pesoLista|number}}</td>
+                                <td>{{cb.bruto|number}}</td>
+                                <td>{{cb.tara|number}}</td>
+                                <td>{{cb.neto|number}}</td>
+                                <td>{{cb.diferencia|number}}</td>
+                                <td>{{cb.humedad}}</td>
+                                <td>
+                                    <label>
+                                        <input type="text" class="text-right small" required="required"
+                                            ng-keyup="dameTotalCub();" ng-model="cb.precio">
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </td>
+                                <td style="text-align: right">
+                                    <input ng-model="cb.costoTotal" class="text-right small" type="text"
+                                        ng-value="cb.costoTotal = cb.neto*cb.precio" />
+                                    </label>
+                                </td>
+                                <td>
+                                    <input ng-if="cb.idAlmacen > 0" type="checkbox" ng-true-value="'1'"
+                                        ng-false-value="'0'" ng-model="cb.aprobado"
+                                        ng-change="aprobarPrecioCubetas(cb)">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-5 col-sm-offset-7">
+                            <p class="text-right" style="margin-right: 8%">
+                                <b> <strong>Total de la Compra</strong> = <span
+                                        style="color:red;">{{prove2.totalCompra|currency}}</span> </b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <center>
+                    <br>
+                    <button class="btn btn-primary" ng-click="guardarPrecioCub()">Guardar</button>
+                </center>
+                <br>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+</div>

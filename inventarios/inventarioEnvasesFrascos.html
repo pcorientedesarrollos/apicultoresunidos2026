@@ -1,0 +1,140 @@
+<section class="content">
+    <div class="row">
+        <div class="box box-solid box-warning">
+            <div class="box-header" style="height: 50px;">
+                <h5 class="encabezadosTabla">
+                    INVENTARIO DE ENVASES Y FRASCOS
+                </h5>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <label for="">Selecciona una opción</label>
+                            <select chosen class="form-control" ng-model="opcionMes.opcion">
+                                <option value="" disabled>Selecciona una opción</option>
+                                <option value="1">Acumulado</option>
+                                <option value="2">Por mes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4" ng-if="opcionMes.opcion == 2">
+                        <div class="form-group">
+                            <label for="">Selecciona un mes</label>
+                            <select chosen ng-model="opcionMes.mes" class="form-control"
+                                ng-options="mes.idMes as mes.mes for mes in meses">
+                                <option value="" disabled>SELECCIONA MES</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <br>
+                            <button ng-disabled="cargandoDatos" type="button" ng-click="verMes(opcionMes);"
+                                class="btn btn-success btn-sm">Ver resultados</button>
+                            <button ng-disabled="cargandoDatos" type="button" ng-click="imprimirEnvasesFrascosXls(opcionMes)"
+                                class="btn btn-success btn-sm">
+                                <i class="fa fa-file-excel-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive no-padding">
+                    <table class="table table-bordered table-condensed" style="font-size: 10px">
+                        <thead>
+                            <tr>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2">Fecha</th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2">Nombre</th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2">Catálogo</th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2">Concepto</th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="1" colspan="2">Cantidad</th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2">Existencia (kg.)</th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2">Precio unitario</th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="1" colspan="2">Importe</th>
+                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                    rowspan="2">Importe acumulado</th>
+                            </tr>
+                            <tr>
+                                <th style="text-transform: none; font-weight: 600;">Entradas</th>
+                                <th style="text-transform: none; font-weight: 600;">Salidas</th>
+                                <th style="text-transform: none; font-weight: 600;">Entradas</th>
+                                <th style="text-transform: none; font-weight: 600;">Salidas</th>
+                            </tr>
+                        </thead>
+                        <tr style="font-size:12px; font-weight: 600">
+                            <td style="text-align: right" colspan="6">Saldos iniciales</td>
+                            <td style="text-align: right">{{registrosMP.encabezado.existenciaAcumuladaPasada | number}}
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align: right">{{ registrosMP.encabezado.importeAcumuladoPasado | currency }}
+                            </td>
+                        </tr>
+                        <tr ng-repeat="inventario in registrosMP.registros">
+                            <td style="text-align: left">{{inventario.fecha | date:'dd-MM-yyyy'}}</td>
+                            <td style="text-align: left">{{inventario.proveedor | uppercase}}</td>
+                            <td style="text-align: left">{{inventario.subcuenta | uppercase}}</td>
+                            <td style="text-align: left">{{inventario.concepto | uppercase}}</td>
+                            <td style="text-align: right">{{inventario.entrada | number}}</td>
+                            <td style="text-align: right">{{inventario.salida | number}}</td>
+                            <td style="text-align: right">{{inventario.existencia | number}}</td>
+                            <td style="text-align: right">{{inventario.precioUnitario | currency}}</td>
+                            <td style="text-align: right">{{inventario.importeEntrada | currency}}</td>
+                            <td style="text-align: right">{{inventario.importeSalida | currency}}</td>
+                            <td style="text-align: right">{{inventario.importeAcumulado | currency}}</td>
+                        </tr>
+                        <tr style="font-size:12px; font-weight: 600">
+                            <th style="text-align: right" colspan="4">
+                                <b>Total</b>
+                            </th>
+                            <td style="text-align: right">{{registrosMP.encabezado.totalEntradas | number}}</td>
+                            <td style="text-align: right">{{registrosMP.encabezado.totalSalidas | number}}</td>
+                            <td style="text-align: right">{{registrosMP.encabezado.totalExistencia | number}}</td>
+                            <td style="text-align: right"></td>
+                            <td style="text-align: right">{{registrosMP.encabezado.totalImporteEntradas | currency}}
+                            </td>
+                            <td style="text-align: right">{{registrosMP.encabezado.totalImporteSalidas | currency}}</td>
+                            <td style="text-align: right">{{registrosMP.encabezado.totalImporteAcumulado | currency}}
+                                </th>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="table-responsive no-padding">
+                    <div class="table-responsive no-padding">
+                        <table class="table table-bordered table-condensed" style="font-size: 10px">
+                            <thead>
+                                <tr>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                        rowspan="2">Concepto</th>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;"
+                                        rowspan="1" colspan="2">Cantidad</th>
+                                </tr>
+                                <tr>
+                                    <th style="text-transform: none; font-weight: 600;">Entradas</th>
+                                    <th style="text-transform: none; font-weight: 600;">Salidas</th>
+                                </tr>
+                            </thead>
+                            <tr ng-repeat="inventario in registrosMP.registros">
+                                <td style="text-align: left">{{inventario.concepto | uppercase}}</td>
+                                <td style="text-align: right">{{inventario.entrada | number}}</td>
+                                <td style="text-align: right">{{inventario.salida | number}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div growl></div>

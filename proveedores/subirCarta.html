@@ -1,0 +1,52 @@
+<div class="col-md-6 col-md-offset-3"  ng-controller="almacen">
+    <div class="card">
+        <div class="card-header bgm-miel">
+            <h2 style="font-family: 'Didact Gothic', sans-serif; text-transform: uppercase"><b>Carta Responsiva</b></h2>
+            <a title="Regresar" class="btn bgm-red btn-float waves-effect"
+               href="#/provee">
+                <i class="zmdi red zmdi-undo"></i>
+            </a>
+        </div>
+        <div class="card-body card-padding">
+            <div class="row">
+                <div class="card-header">
+                    <h4 class="page-header">
+                        Subir Archivo PDF o JPG/PNG
+                    </h4>
+                </div>
+                <div class="col-md-12">
+                    <br>
+                    <div class="form-group">
+                        <input
+                            type="file" 
+                            name="file"
+                            uploader-model="file"
+                            required="required"/>
+                    </div>    
+                    <br>
+                    <button style="float: right"
+                            value="enviar" class="btn btn-info" 
+                            ng-click="subirCarta()"> Guardar
+                    </button> 
+                    <br><br>
+                   <!-- <div class="row">
+                        <div class="col-lg-4" ng-repeat="img in imgLista.images">
+                            <img class="thumbnail" style=" width: 200px; height: 150px;" ng-src="precios/{{img.archivoRelacion}}"/>
+                            <button class="btn btn-danger botn" ng-click="eliminarImagenLista(img.idImagen)" >
+                                <i class="zmdi zmdi-delete"></i>
+                            </button><br><br>
+                        </div> 
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div growl>
+
+</div>
+
+
+
+
+

@@ -1,0 +1,113 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        FORMULARIO PARA ANEXO
+                        <a title="Regresar" href="#/solicitudCertificado" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                    <div class="input-group" style="float: right">
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <form ng-submit="guardarAnexo()">
+                            <div class="col-lg-12">
+                                <div class="row" ng-show="verBoton">
+                                    <div class="col-sm-1 pull-right">
+                                        <a ng-click="imprimirAnexo(3)" class="btn btn-danger btn-xs">
+                                            <i class="fa fa-file-pdf-o"></i> Inglés
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-1 pull-right">
+                                        <a ng-click="imprimirAnexo(2)" class="btn btn-danger btn-xs">
+                                            <i class="fa fa-file-pdf-o"></i> Alemán
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-1 pull-right">
+                                        <a ng-click="imprimirAnexo(1)" class="btn btn-danger btn-xs">
+                                            <i class="fa fa-file-pdf-o"></i> 
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- <div class="col-lg-12">
+                                        <h5>
+                                            <b>PRODUCTOS O SUBPRODUCTOS</b>
+                                        </h5>
+                                        <hr>
+                                    </div> -->
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Medios de transporte</p>
+                                        <div class="form-group form-group-sm">
+                                            <select class="form-control" chosen ng-model="datosAnexo.medioTransporte"
+                                                required>
+                                                <option value="" selected disabled>elige una opción</option>
+                                                <option value="1">Aéreo</option>
+                                                <option value="2">Marítimo</option>
+                                                <option value="3">Terrestre</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Nombre del medio de transporte</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosAnexo.identificacion" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Número de BL</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosAnexo.referenciasDocumentales" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col-lg-12">
+                                            <h5>
+                                                <b>PRODUCTOS O SUBPRODUCTOS</b>
+                                            </h5>
+                                            <hr>
+                                        </div> -->
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Peso bruto</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosAnexo.cantidad" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Identificación del contenedor</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosAnexo.idContenedor" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Sello</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosAnexo.sello" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="text-align: right">
+                                    <button class="btn btn-warning btn-xs" type="submit">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

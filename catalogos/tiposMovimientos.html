@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+        <div class="box box-solid box-warning">
+            <div class="box-header">
+                <h5>
+                    TIPOS DE MOVIMIENTO PARA AUXILIAR DE BANCOS
+                    <button title="Nuevo tipo" class="btn btn-success pull-right btn-sm" ng-click="modificarTipo()">
+                        <i class="fa fa-plus"></i>
+                        Nuevo
+                    </button>
+                </h5>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center"></th>
+                                <th class="text-left">NOMBRE</th>
+                                <th class="text-center">Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="tipo in tipos">
+                                <td class="text-center" ng-bind="$index+1"></td>
+                                <td class="text-left">{{tipo.movimiento}}</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-warning btn-sm" title="Editar nombre" ng-click="modificarTipo($index)">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para crear y editar nombres -->
+<div class="modal fade" tabindex="-1" id="modalTipoMovimiento">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span ng-show="tipo.idMovimiento">
+                        Editar nombre
+                    </span>
+                    <span ng-show="!tipo.idMovimiento">
+                        Nuevo tipo de movimiento
+                    </span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nombre o descripción del tipo de movimiento"
+                                ng-model="tipo.movimiento">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-sm" ng-click="guardarTipoDeMovimiento()">Guardar</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

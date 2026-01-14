@@ -1,0 +1,69 @@
+<section class="content">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2 texto" ng-controller="zonaAsigCtrl">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        Zonas Asignadas: <b>{{nombre.nombre|uppercase}}</b>
+                        <a title="Regresar" href="#/compradores" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi red zmdi-undo"></i>   </a>
+                    </h5>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th class="bgm-blue" style="text-transform: none; font-weight: 600">Zona</th>                                
+                                <th class="bgm-blue" style="text-transform: none; font-weight: 600">Localidad </th>
+                                <th class="bgm-blue" style="text-transform: none; font-weight: 600">Proveedor</th>
+                                <!--  <th class="bgm-blue">PROVEEDORES</th> -->
+                            </tr>
+                        </thead>   
+                        <tbody>
+                            <tr ng-repeat="z in zComprador" style="height: 30px;">
+                                <td>{{z.zona|uppercase}}</td>
+                                <td>{{z.localidad|uppercase}}</td>
+                                <!--    <td>
+                                        <a ng-click="mostrarProveedores()" class="btn btn-warning">
+                                            <i class="zmdi zmdi-person"></i>
+                                        </a>
+                                    </td>-->
+                                <td>{{z.nombre|uppercase}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal  fade" id="modalProveedores" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" >Proveedores de </h4>
+                </div>
+                <BR>
+                <div class="modal-body">
+                    <div class="table table-responsive table-striped">
+                        <table class="table table-responsive table-striped ">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue">PROVEEDOR</th>
+                                </tr>
+                            </thead>   
+                            <tbody>
+                                <tr ng-repeat="n in nombreP" style="height: 30px;">
+                                    <td>{{n.nombre|uppercase}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+

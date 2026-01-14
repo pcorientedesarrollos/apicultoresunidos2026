@@ -1,0 +1,198 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" ng-model="filtroBusquedaLab" class="form-control input-sm pull-right"
+                        placeholder="Ingrese lo que desea buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-warning">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+                <div class="input-group" style="width: 150px;">
+                    <input type="text" ng-model="filtroBusquedaLab" name="table_search"
+                        class="form-control input-sm pull-right" placeholder="Buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        LABORATORIO
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <select chosen class="form-control" ng-model="mostrarMes"
+                                    ng-options="mes.idMes as mes.mes for mes in listaDeMeses"
+                                    ng-disabled="cargandoDatos">
+                                    <option value="">Todo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select ng-disabled="cargandoDatos" chosen class="form-control" ng-model="verTipoDeMiel">
+                                <option value="" selected disabled>Opciones</option>
+                                <option value="1">Miel 100% pura de abeja</option>
+                                <option value="2">Miel 100% orgánica</option>
+                                <option value="5">Miel 100% Mantequilla</option>
+                                <option value="6">Miel 100% Altiplano</option>
+                                <option value="7">Miel 100% Naranjo</option>
+                                <option value="8">Miel 100% Aguacate</option>
+                                <option value="9">Miel 100% Mezquite</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="margin-left: 20px" class="radio m-b-15">
+                            <!-- <button style="margin-right: 20px" title="Exportar entrada de tambores"
+                                ng-click="modalReporte()" class="pull-right btn btn-success btn-sm">
+                                <i class="fa fa-file-excel-o"></i> Exportar
+                            </button> -->
+                            <button style="margin-right: 20px" title="Exportar entrada de tambores"
+                                ng-click="exportarExcel(1)" ng-click="modalProveedor(opcionCosecha)"
+                                class="pull-right btn btn-success btn-sm">
+                                <i class="fa fa-file-excel-o"></i> Exportar
+                            </button>
+                        </div>
+                        <div style="margin-left: 20px" class="radio m-b-15">
+                            <button style="margin-right: 20px" title="Reporte C13" ng-click="exportarExcel(2)"
+                                class="pull-right btn btn-info btn-sm">
+                                <i class="fa fa-file-excel-o"></i> Reporte C13
+                            </button>
+                        </div>
+                        <div style="margin-left: 20px" class="radio m-b-15">
+                            <button style="margin-right: 20px" title="Reporte Antibióticos" ng-click="exportarExcel(3)"
+                                class="pull-right btn btn-warning btn-sm">
+                                <i class="fa fa-file-excel-o"></i> Reporte Antibióticos
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <div ng-if="menuLab && !menuLab.length">
+                        No hay registros
+                    </div>
+                    <div ng-if="menuLab && menuLab.length">
+                        <div class="table-responsive no-padding">
+                            <table class="table table-striped table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th style="text-transform: none; font-weight: 600">Folio Comprobante</th>
+                                        <th style="text-transform: none; font-weight: 600">Fecha</th>
+                                        <th style="text-transform: none; font-weight: 600">Proveedor</th>
+                                        <th style="text-transform: none; font-weight: 600">Localidad</th>
+                                        <th style="text-transform: none; font-weight: 600">Muestras</th>
+                                        <th style="text-transform: none; font-weight: 600">Análisis</th>
+                                        <th style="text-transform: none; font-weight: 600">Agregar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="mL in menuLab|filter:filtroBusquedaLab">
+                                        <td>{{mL.folio}} {{ mL.clasificacionMiel}} </td>
+                                        <td>{{mL.fecha | date:'dd-MM-yyyy'}}</td>
+                                        <td>{{mL.nombre|uppercase}}</td>
+                                        <td>{{mL.localidad|uppercase}}</td>
+                                        <td>{{mL.datosAutorizados}}/{{mL.muestras}}</td>
+                                        <td>{{mL.registros}}/{{mL.muestras}}</td>
+                                        <td>
+                                            <a class="btn btn-warning btn-xs"
+                                                ng-href="#/nvoLaboratorio/{{mL.id}}/{{verTipoDeMiel}}"
+                                                title="Agregar precios">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="modal  fade" id="modalExcel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <h4 class="modal-title">Operador</h4> -->
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group-sm">
+                                    <div class="col-lg-4">
+                                        <p>Elija una opción</p>
+                                        <div class="form-group form-group-sm">
+                                            <select ng-model="opcion.opcion" class="form-control input-xs">
+                                                <option value="" selected>Opciones</option>
+                                                <option value="1">Todo</option>
+                                                <option value="2">Periodo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group-sm">
+                                    <div class="col-lg-4">
+                                        <p>Fecha Uno</p>
+                                        <div class="form-group form-group-sm">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input required type="text" class="form-control pull-right"
+                                                    id="datepicker" ng-model="opcion.fechaUno"
+                                                    ng-disabled="opcion.opcion != 2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group-sm">
+                                    <div class="col-lg-4">
+                                        <p>Fecha dos</p>
+                                        <div class="form-group form-group-sm">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input required type="text" class="form-control pull-right"
+                                                    id="datepicker" ng-model="opcion.fechaDos"
+                                                    ng-disabled="opcion.opcion != 2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button type="button" ng-click="exportarExcel(1, opcion);" class="btn btn-success">Exportar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div growl></div>

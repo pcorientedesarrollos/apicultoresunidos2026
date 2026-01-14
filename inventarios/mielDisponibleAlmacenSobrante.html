@@ -1,0 +1,163 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        MIEL SOBRANTE DISPONIBLE
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4 pull-right">
+                            <div class="input-group">
+                                <input type="text" ng-model="inputSearch" class="form-control input-sm pull-right" placeholder="Buscar">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <select chosen class="form-control" ng-model="mielOpcion.tipoMiel">
+                                    <option value="" disabled>Selecciona un tipo de miel</option>
+                                    <option value="1">Miel 100% pura de abeja</option>
+                                    <option value="2">Miel 100% orgánica</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                            <div class="form-group">
+                                <select chosen class="form-control" ng-model="mielOpcion.opcion">
+                                    <option value="" disabled>Selecciona una opción</option>
+                                    <option value="1">Acumulado</option>
+                                    <option value="3">Por Clasificación</option>
+                                    <!-- <option value="2">Por zona</option> -->
+                                </select>
+                            </div>
+                        </div>
+                        <!-- <div class="col-xs-12 col-md-2" ng-if="mielOpcion.opcion == 2">
+                            <div class="form-group">
+                                <select chosen ng-model="mielOpcion.zona" class="form-control" ng-options="zona.idZonaTambor as zona.nombre for zona in zonas">
+                                    <option value="" disabled>Selecciona una zona</option>
+                                </select>
+                            </div>
+                        </div> -->
+                        <div class="col-xs-12 col-md-2" ng-if="mielOpcion.opcion == 3">
+                            <div class="form-group">
+                                <select chosen ng-model="mielOpcion.sobrante" class="form-control" ng-options="sob.idSobrante as sob.nombre for sob in lstSobrantes">
+                                    <option value="" disabled>Selecciona una clasificación</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <button ng-disabled="cargandoDatos" type="button" ng-click="verMielSobranteDisponible(mielOpcion);" class="btn btn-success btn-sm">Ver resultados</button>
+                                <button ng-disabled="cargandoDatos" type="button" ng-click="descargarExcel()" class="btn btn-success btn-sm">
+                                    <i class="fa fa-file-excel-o"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <th colspan="2" style="text-align:center">Resultados</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Bruto</td>
+                                        <td style="text-align: right">{{mielDisponible.encabezado.bruto | number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tara</td>
+                                        <td style="text-align: right">{{mielDisponible.encabezado.tara | number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Neto</td>
+                                        <td style="text-align: right">{{mielDisponible.encabezado.neto | number}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-bordered table-condensed table-responsive" style="font-size: 10px">
+                            <thead>
+                                <tr style="font-size:12px; font-weight: 600">
+                                    <th></th>
+                                    <th style="text-transform: none">Folio</th>
+                                    <th style="text-transform: none">Código</th>
+                                    <th style="text-transform: none">Entrada</th>
+                                    <th style="text-transform: none">Fecha</th>
+                                    <th style="text-transform: none; width: 35%">Clasificaciónn</th>
+                                    <th style="text-transform: none">Zona</th>
+                                    <th style="text-transform: none">Bruto</th>
+                                    <th style="text-transform: none">Tara</th>
+                                    <th style="text-transform: none">Neto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="miel in mielDisponible.registros | filter: inputSearch">
+                                    <td>{{$index + 1}}</td>
+                                    <td style="text-align: left">{{miel.consecutivo}}</td>
+                                    <td style="text-align: left">{{miel.codigo}}</td>
+                                    <td style="text-align: right">{{miel.consecutivoEntrada}}</td>
+                                    <td style="text-align: right">{{miel.fecha}}</td>
+                                    <td style="text-align: left">{{miel.sobrante | uppercase}}</td>
+                                    <td style="text-align: left">{{miel.zona | uppercase}}</td>
+                                    <td style="text-align: right">{{miel.bruto | number}}</td>
+                                    <td style="text-align: right">{{miel.tara | number}}</td>
+                                    <td style="text-align: right">{{miel.neto | number}}</td>
+                                </tr>
+                                <tr style="font-size:12px; font-weight: 600">
+                                    <th style="text-align: right" colspan="7">
+                                        <b>Total</b>
+                                    </th>
+                                    <td style="text-align: right">{{mielDisponible.encabezado.bruto | number}}</td>
+                                    <td style="text-align: right">{{mielDisponible.encabezado.tara | number}}</td>
+                                    <td style="text-align: right">{{mielDisponible.encabezado.neto | number}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- <div class="modal fade" id="modalDescargarExcel">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Descargar inventario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="laboratorio" ng-model="laboratorio" value="1">Con resultados de laboratorio
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="laboratorio" ng-model="laboratorio" value="0">Sin resultados de laboratorio
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="float: right" class="btn btn-success" ng-click="descargarExcel(laboratorio)">
+                    <i class="fa fa-file-excel-o"></i> Descargar
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div growl>
+</div>

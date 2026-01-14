@@ -1,0 +1,110 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        TRAZABILIDAD ENTRADA</h5>198
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-sm-offset-9">
+
+                            <a style="margin-right: 10px"
+                               title="Imprimir XLS"
+                               class="pull-right btn btn-success btn-sm"
+                               ng-click="xlsTranzabilidadEntrada()">
+                                <i class="zmdi zmdi-storage zmdi-hc-lg"></i>
+                            </a>
+
+                            <a style="margin-right: 10px"
+                               title="Imprimir PDF"
+                               class="pull-right btn btn-danger btn-sm"
+                               ng-click="pdfTramzabilidadEntrada()"
+                               target="_blank">
+                                <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="fg-line">
+                                            <label style="font-weight: bold;" class="col-sm-12">Seleccione el número de lote</label>
+                                            <div class="col-sm-6">
+                                                <select 
+                                                    chosen
+                                                    ng-change="concentradoEntrada()"
+                                                    ng-model="comboEntrada" 
+                                                    class="form-control" 
+                                                    ng-options="rp.idLoteInterno as rp.idLoteInterno for rp in listaLotesEntrada"> 
+                                                    <option value="">Lote</option>   
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="fg-line">
+                                            <label style="font-weight: bold;" class="col-sm-12">Lote </label>
+                                            <input
+                                                ng-model="loteMarcaEntrada"
+                                                type="text" 
+                                                class="small"/>
+                                            <div class="col-sm-2 pull-right">
+                                                <button type="button" ng-click="guardarTrazabilidadEntrada()" class="btn btn-info btn-xs">Guardar</button>                                
+                                            </div> 
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <hr>
+                            <br>
+                            <div class="col-lg-12">
+                                <div class="table-responsive no-padding">
+                                    <table class="table table-bordered table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px; background-color: gold" colspan="6">Trazabilidad de entrada</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="text-transform: none; font-weight: 600; background: none">Fecha de recepción</th>
+                                                <th style="text-transform: none; font-weight: 600; background: none">N° de lote</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none">ID Proveedor</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none">Dirección del Proveedor</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none">Volumen Kg.</th>
+                                                <th style="text-align: right; text-transform: none; font-weight: 600; background: none">N° de muestra</th>
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="tEntrada in trazabilidadEntrada">
+                                            <td>{{tEntrada.fecha | date:'dd-MM-yyyy'}} </td>
+                                            <td>{{tEntrada.lote}}</td>
+                                            <td style="text-align: right">{{tEntrada.idSagarpa}}</td>
+                                            <td style="text-align: right">{{tEntrada.domicilio}}</td>
+                                            <td style="text-align: right">{{tEntrada.kilos}}</td>
+                                            <td style="text-align: right"></td>
+                                        </tr>
+                                    </table>
+                                </div>    
+                            </div>
+                            <div class="row" ng-show="comboEntrada > 0">
+                                <div class="col-lg-3 pull-right">
+                                    <center>
+                                        <label>
+                                            <strong class="text-red">Miel usada por apicultores</strong> 
+                                        </label>
+                                        <br>
+                                        <strong>{{totalEntrada}} kg. </strong>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

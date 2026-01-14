@@ -1,0 +1,136 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CONFIGURACION DE LABORATORIO</h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio" value="1" ng-model="verTipoDeMiel">Miel 100% pura de abeja
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio" value="2" ng-model="verTipoDeMiel">Miel 100% orgánica
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <br>
+                        <div class="col-lg-4 col-md-2 col-sm-2">
+                            <select ng-change="obtenerConfiguracion()" ng-model="opciones" class="form-control" ng-options="opt.id as opt.opcion for opt in opcionesLaboratorio track by opt.id"
+                                ng-disabled="!verTipoDeMiel">
+                                <option value="">Opciones Laboratorio</option>
+                            </select>
+                            <br>
+                        </div>
+                        <!--                        <div class="col-lg-1">
+                            <button 
+                                ng-click="nuevaOpcionLab()"
+                                class="btn btn-warning btn-sm">
+                                <i class="zmdi zmdi-plus">
+                                </i>
+                            </button>
+                        </div>-->
+                    </div>
+                    <div ng-show="opciones > 0" class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <select ng-model="opcionesRango" class="form-control" ng-options="rango.rango as rango.rango for rango in listaRangos track by rango.idRangos">
+                                <option value="">Opciones Rangos</option>
+                            </select>
+                            <br>
+                        </div>
+                        <div class="col-lg-1">
+                            <button ng-click="agregarConfiguracion()" class="btn btn-warning btn-sm">
+                                <i class="zmdi zmdi-plus">
+                                </i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Condición</th>
+                                    <th>Valor 1</th>
+                                    <th>Valor 2</th>
+                                    <th>Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="opcion in opcionesRangosObtenidos">
+                                    <td>
+                                        <label>{{opcion.simbolo}}</label>
+                                    </td>
+                                    <td>
+                                        <input style="margin-top: 6px" type="text" class="form-control" ng-model="opcion.rango1" /> </td>
+                                    <td>
+                                        <input style="margin-top: 6px" type="text" class="form-control" ng-model="opcion.rango2" />
+                                    </td>
+                                    <td>
+                                        <input style="margin-top: 6px" type="text" class="form-control" ng-model="opcion.descripcion" placeholder="Descripción" />
+                                    </td>
+
+
+                                    <td>
+                                        <center>
+                                            <a style="font-size: 18px; color: red" ng-click="eliminarConfiguracion(opcion.id, $index)">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </a>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <button class="btn btn-warning btn-sm pull-right" ng-click="guardarConfiguracion()" ng-disabled="!verTipoDeMiel">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal  fade" id="modalConfigLaboratorio" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="color:white">Agregar</h4>
+            </div>
+            <br>
+            <br>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="col-lg-6">
+                                <label style="font-weight: bold; color: navy" class="col-sm-2 control-label"> Tipo </label>
+                                <div class="col-sm-10">
+                                    <input align="center" type="text" class="form-control input-xs" placeholder="Tipo de análisis" required="required" ng-model="opcionLab.opciones"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <label style="font-weight: bold; color: navy" class="col-sm-2 control-label"> Signo </label>
+                                <div class="col-sm-10">
+                                    <input align="center" type="text" class="form-control input-xs" placeholder="Abreviatura o signo" required="required" ng-model="opcionLab.signo"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button style="float: right" value="enviar" class="btn btn-info" ng-click="guardarOpcionLaboratorio()"> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div growl>
+</div>

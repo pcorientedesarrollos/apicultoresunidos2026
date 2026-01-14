@@ -1,0 +1,61 @@
+<section class="content">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        ASIGNACIÓN DE CENTROS DE ACOPIO
+                        <a title="Regresar" href="#/distribucionZonas" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Comprador </label>
+                                        <select chosen ng-model="asignacionAcopio.idcomprador" class="form-control"
+                                            ng-options="compradores.idcomprador as compradores.nombre for compradores in listaCompradores">
+                                            <option value="" disabled>Seleccione una opción</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Zona </label>
+                                        <select chosen ng-model="asignacionAcopio.idzona" class="form-control"
+                                            ng-options="zonas.idzona as zonas.zona for zonas in listaZonas">
+                                            <option value="" disabled>Seleccione una opción</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for=""> Localidades</label>
+                                        <select class="form-control" chosen multiple allow-single-deselect="true"
+                                            no-results-text="'No se encuentran opciones'"
+                                            ng-options="localidades.idlocalidad as localidades.localidad for localidades in listaLocalidades"
+                                            ng-model="asignacionAcopio.idlocalidad">
+                                            <option value=""> Seleccione las opciones requeridas</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align: right">
+                                <button type="button" class="btn btn-success"
+                                    ng-click="guardarAsignacion()">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

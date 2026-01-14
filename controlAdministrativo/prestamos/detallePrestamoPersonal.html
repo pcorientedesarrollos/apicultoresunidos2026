@@ -1,0 +1,112 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        REGISTRO DE PRÉSTAMOS
+                        <a title="Regresar" href="#/controlPrestamos" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h4 ng-bind="encabezadoPrestamos.nombreDePersonal"></h4>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-condensed table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="text-transform: none; font-weight: 600">Fecha </th>
+                                    <th style="text-transform: none; font-weight: 600">Cantidad </th>
+                                    <th style="text-transform: none; font-weight: 600">Abono </th>
+                                    <th style="text-transform: none; font-weight: 600">Saldo </th>
+                                    <th style="text-transform: none; font-weight: 600">Estado </th>
+                                    <th style="text-align: right; text-transform: none; font-weight: 600">Ver</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="prestamo in listaDePrestamos">
+                                    <td ng-bind="prestamo.fecha | date:'dd / MM / yyyy'"></td>
+                                    <td ng-bind="prestamo.cantidad | currency"></td>
+                                    <td ng-bind="prestamo.totalAbono | currency"></td>
+                                    <td ng-bind="prestamo.restante | currency"></td>
+                                    <td ng-bind="prestamo.dacc"></td>
+                                    <td style="text-align: right">
+                                        <a class="btn btn-warning btn-xs" ng-href="#/controlPrestamos/{{prestamo.idPrestamo}}" title="Ver más">
+                                            <i class="fa fa-hand-pointer-o"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>
+
+
+<!-- Modal para nuevo préstamo -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modalNuevoPrestamo">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Nuevo préstamo</h4>
+            </div>
+            <div class="modal-body">
+                Todos los datos son requeridos
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label for="datepicker">Fecha</label>
+                            <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group-addon ">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker" placeholder="Fecha" ng-model="prestamo.fecha">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label for="hora">Hora</label> <small>(24Hrs.)</small>
+                            <input type="text" class="form-control" id="hora" ng-model="prestamo.hora">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label for="nombreDelPersonal">Nombre del personal</label>
+                            <input type="text" ng-model="prestamo.nombre" placeholder="Nombre del personal" class="form-control" autocomplete="off" name="nombreDelPersonal"
+                                uib-typeahead="personal as personal.nombre for personal in listaDelPersonal | filter:{nombre:$viewValue}"
+                                typeahead-on-select="" typeahead-show-hint="false" typeahead-min-length="1">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label for="cantidad">Cantidad de préstamo</label>
+                            <input type="number" class="form-control" id="cantidad" ng-model="prestamo.cantidad">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" ng-click="aceptarNuevoPrestamo(prestamo)">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

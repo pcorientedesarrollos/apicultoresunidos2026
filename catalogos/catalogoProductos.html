@@ -1,0 +1,217 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-5">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CATÁLOGO DE PRODUCTOS
+                        <!-- <button type="button" class="btn btn-success btn-xs pull-right" title="Agregar catálogo"
+                            ng-click="nuevoCatalogo()">
+                            <i class="fa fa-plus"></i> Nuevo
+                        </button> -->
+                    </h5>
+                </div>
+                <div class="box-body">
+
+                    <button type="button" ng-click="ImprimirReporte()" class="btn btn-success btn-sm">
+                        <i class="fa fa-file-excel-o"></i>
+                    </button>
+
+                    <button title="Descargar PDF" type="button" ng-click="ImprimirReportePDF()" class="btn btn-danger btn-sm">
+                        <i class="fa fa-file-pdf-o"></i>
+                    </button>
+
+                    <h4>Selecciona el catálogo</h4>
+
+                    <select chosen class="form-control" ng-options="cat as cat.cuenta for cat in catalogos track by cat.idCuentaConcepto"
+                        ng-model="selectedCatalogue" ng-change="cambioSeleccionCatalogo()">
+                        <option value="" disabled>Selecciona una cuenta</option>
+                    </select>
+
+                    <hr>
+                    <div ng-if="!listaSubcuentas">
+                        <p class="text-muted">Seleccione un catálogo...</p>
+                    </div>
+                    <div ng-if="listaSubcuentas && !listaSubcuentas.length">
+                        <p class="text-muted">No hay subcuentas en este catálogo</p>
+                    </div>
+
+                    <div class="table-responsive" ng-if="listaSubcuentas && listaSubcuentas.length">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="text-left">NOMBRE</th>
+                                    <th class="text-center">VER</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="subcuenta in listaSubcuentas track by subcuenta.idSubcuenta">
+                                    <td class="text-center" ng-bind="$index+1"></td>
+                                    <td class="text-left" ng-bind="subcuenta.subcuenta | uppercase"></td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-warning btn-xs" ng-click="mostrarSubsubcuentas($index)">
+                                            <i class="fa fa-arrow-right"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-7">
+            <!-- Catalogo es la subcuenta -->
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        {{ catalogo.subcuenta | uppercase }}
+                        <!-- <button type="button" class="btn btn-success btn-xs pull-right" title="Agregar conceptos a {{catalogo.subcuenta}}"
+                            ng-click="editarInfoProducto()">
+                            <i class="fa fa-plus"></i> Nuevo
+                        </button> -->
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive" ng-if="catalogo.subsubcuentas.length > 0">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600"></th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Concepto</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Unidad</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Peso</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Precio</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600"></th>
+
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="concepto in catalogo.subsubcuentas">
+                                    <td ng-bind="$index+1"></td>
+                                    <td ng-bind="concepto.subSubcuenta | uppercase"></td>
+                                    <td ng-bind="concepto.nombreUnidad | uppercase"></td>
+                                    <td ng-bind="concepto.peso | number"></td>
+                                    <td ng-bind="concepto.precioUnitario | currency"></td>
+                                    <!-- <td>
+                                        <button type="button" class="btn btn-default btn-xs" ng-click="editarInfoProducto($index)">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <a ng-click="eliminarRegistro(concepto.idSubSubcuenta, $index)" class="btn btn-danger btn-xs">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div ng-if="catalogo && catalogo.subsubcuentas.length == 0">
+                        <p class="text-muted">No hay subsubcuentas en el catálogo.</p>
+                    </div>
+                    <div ng-if="catalogo && !catalogo.subsubcuentas">
+                        <p class="text-muted">
+                            <i class="fa fa-spinner fa-spin fa-fw"></i> Cargando...</p>
+                    </div>
+                    <div ng-if="!catalogo">
+                        <p class="text-muted">Seleccione una subcuenta...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal para modificar la unidad, peso y precio de un producto -->
+
+<div class="modal fade" id="modalInfoProducto">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Información del producto</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="">Catálogo</label>
+                            <input type="text" class="form-control" ng-model="catalogo.subcuenta" disabled>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="">Concepto</label>
+                            <input type="text" class="form-control" ng-model="verConcepto.subSubcuenta" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="">Unidad (<a href="#/catalogoUnidades" target="_blank">Catálogo de unidades</a>)
+                            </label>
+                            <select class="form-control" ng-model="verConcepto.unidad" ng-options="unidad.idUnidad as unidad.nombre for unidad in unidades"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="">Peso (Kg.)</label>
+                            <input type="text" class="form-control" ng-model="verConcepto.peso">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="">Precio</label>
+                            <input type="text" class="form-control" ng-model="verConcepto.precioUnitario">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarInfoProducto()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para dar de alta un nuevo catálogo -->
+
+<div class="modal fade" id="modalNuevoCatalogo">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar nuevo catálogo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>
+                                Nombre del catálogo
+                            </label>
+                            <input type="text" ng-model="nombreNuevoCatalogo" placeholder="Productos apícolas..." class="form-control"
+                                autocomplete="off" uib-typeahead="c as c.concepto for c in catalogos | filter:{concepto:$viewValue}"
+                                typeahead-on-select="" typeahead-show-hint="false" typeahead-min-length="1">
+                            <!-- <input type="text" class="form-control" placeholder="Productos apícolas..." ng-model="nombreNuevoCatalogo"> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarNuevoCatalogo()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div growl></div>

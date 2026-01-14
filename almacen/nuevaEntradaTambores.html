@@ -1,0 +1,398 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        ENTRADA DE TAMBORES CON MIEL {{ prove.clasificacionMiel }}
+                        <a title="Regresar" href="#/tambores" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group-sm" ng-show="idAlmacenista == 0">
+                                <label style="font-weight: bold;">Miel:</label>
+                                <select ng-change="traeProv(mielCosecha)" ng-model="mielCosecha" chosen
+                                    class="form-control"
+                                    ng-options="tm as tm.tipoDeMiel for tm in listaCosecha track by tm.idTipoDeMiel">
+                                    <option disabled="disabled" value="">Seleccione un tipo de miel</option>
+                                </select>
+                            </div>
+                            <div class="form-group-sm" ng-hide="idAlmacenista == 0">
+                                <label style="font-weight: bold;">Miel:</label>
+                                <input class="form-control" type="text" disabled="true" ng-model="laMiel" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group-sm" ng-show="idAlmacenista == 0">
+                                <label style="font-weight: bold;">
+                                    Proveedor:
+                                </label>
+                                <button class="btn btnMiel btn-sm pull-right" ng-click="nuevoProveedor();"
+                                    title="Nuevo proveedor">
+                                    <i style="color: #385428" class="zmdi zmdi-plus"></i>
+                                </button>
+                                <select ng-model="prove" chosen ng-change="obeterInfoAlmacenProveedor();"
+                                    class="form-control"
+                                    ng-options="proveedores as proveedores.nombre for proveedores in listaProveedor track by proveedores.id">
+                                    <option value="">Seleccione un Proveedor</option>
+                                </select>
+                            </div>
+                            <div class="form-group-sm" ng-hide="idAlmacenista == 0">
+                                <label style="font-weight: bold;">
+                                    Proveedor
+                                </label>
+                                <button class="btn btnMiel btn-sm pull-right" ng-click="cambiarProveedor();"
+                                    title="Modificar proveedor">
+                                    <i style="color: #385428" class="zmdi zmdi-edit"></i> Editar
+                                </button>
+                                <select ng-model="prove" disabled="true" class="form-control"
+                                    ng-options="proveedores as proveedores.nombre for proveedores in listaProveedor track by proveedores.id">
+                                    <option value="">Seleccione un Proveedor</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">Localidad:</label>
+                                <input class="form-control" type="text" disabled="true" ng-model="prove.localidad" />
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">Trazabilidad:</label>
+                                <input class="form-control" type="text" disabled="true" ng-model="prove.sagarpa" />
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <h4 ng-show="idAlmacenista > 0" style="font-weight: bold; color: black ; margin-top: 0px">
+                                No. Entrada :
+                                <span style="color: red"> {{idAlmacenista}}</span>
+                            </h4>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-sm-2">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Zona</label>
+                                    <select ng-model="almacen.zona" chosen class="form-control"
+                                        ng-options="m.idZonaTambor as m.nombre for m in listaZonasTambos">
+                                        <option disabled="disabled" value="">Seleccione una zona</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Bruto</label>
+                                    <input class="form-control" type="text" ng-model="almacen.bruto"
+                                        ng-keyup="calcularNeto();" mask="9" repeat="10" />
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Tara</label>
+                                    <input class="form-control" type="text" ng-model="almacen.tara"
+                                        ng-keyup="calcularNeto();" mask="9" repeat="10" />
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Neto</label>
+                                    <input class="form-control" type="text" disabled="true" ng-model="almacen.neto" />
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">P. Lista</label>
+                                    <input class="form-control" type="text" ng-model="almacen.pesoLista"
+                                        ng-keyup="calcularDiferencia();" mask="9" repeat="10" />
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Diferencia</label>
+                                    <input class="form-control" disabled="true" ng-model="almacen.diferencia"
+                                        type="text" />
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Humedad</label>
+                                    <input class="form-control" ng-model="almacen.humedad" type="text" />
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Referencia</label>
+                                    <input class="form-control" ng-model="almacen.referencia" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button class="btn btn-xs btn-success pull-right" ng-click="agregarAlmacen()"> Agregar
+                    </button>
+                    <br>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-3 col-sm-offset-6" ng-show="idAlmacenista > 0">
+                            <label style="margin-top: 5px" class="checkbox checkbox-inline m-r-20">
+                                <input type="checkbox" class="col-sm-1" ng-change="validarTodoMuestreo()"
+                                    ng-model="seleccionarTodo" ng-true-value="'1'" ng-false-value="'0'">
+                                <i class="input-helper"></i>
+                                <b>Validar muestreo</b>
+                            </label>
+                        </div>
+                        <div class="col-sm-3" ng-show="idAlmacenista > 0">
+                            <button class="btn btn-info btn-xs" ng-click="mandarImprimirTodo();">Mandar a imprimir
+                                todo</button>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="font-size: 11px;">#</th>
+                                    <th style="font-size: 11px;" ng-show="idAlmacenista > 0">Folio</th>
+                                    <th style="font-size: 11px;">Ref.</th>
+                                    <th style="font-size: 11px;">Zona</th>
+                                    <th style="font-size: 11px;">Bruto</th>
+                                    <th style="font-size: 11px;">Tara</th>
+                                    <th style="font-size: 11px;">Neto</th>
+                                    <th style="font-size: 11px;">Peso Lista</th>
+                                    <th style="font-size: 11px;">Dif</th>
+                                    <th style="font-size: 11px;">Humedad</th>
+                                    <th style="font-size: 11px;" ng-show="idAlmacenista > 0">Muestra</th>
+                                    <th style="font-size: 11px;" ng-hide="idAlmacenista > 0">
+                                        <center>Eliminar</center>
+                                    </th>
+                                    <th style="font-size: 11px;" ng-show="idAlmacenista > 0">
+                                        <center>Imprimir</center>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="almacen in almacenesDetalle">
+                                    <td>{{$index + 1}}</td>
+                                    <td ng-show="idAlmacenista > 0">{{almacen.idAlmacen}}</td>
+                                    <td>
+                                        <input type="text" ng-model="almacen.referencia" />
+                                    </td>
+                                    <td style="width: 100px;">
+                                        <select ng-model="almacen.zona" chosen class="form-control"
+                                            ng-options="m.idZonaTambor as m.nombre for m in listaZonasTambos">
+                                            <option disabled="disabled" value="">Seleccione una zona</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="almacen.bruto" mask="9" repeat="10" />
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="almacen.tara" mask="9" repeat="10" />
+                                    </td>
+                                    <td>
+                                        {{almacen.neto = almacen.bruto - almacen.tara}}
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="almacen.pesoLista" />
+                                        <!--    {{almacen.pesoLista}} -->
+                                    </td>
+                                    <td>
+
+                                        {{almacen.diferencia = almacen.neto - almacen.pesoLista}}
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="almacen.humedad" />
+                                    </td>
+                                    <td ng-show="almacen.idAlmacen > 0">
+                                        <label style="margin-top: 5px; margin-left: 20px" class="checkbox m-r-20">
+                                            <input type="checkbox" ng-model="almacen.estado" ng-true-value="'1'"
+                                                ng-false-value="'0'" ng-change="cambiarEstado(almacen)">
+                                            <i class="input-helper"></i>
+                                        </label>
+                                    </td>
+
+                                    <td ng-show="almacen.idAlmacen == 0">
+                                        <center>
+                                            <div ng-if="almacen.idAlmacen == 0" class="col-sm-1">
+                                                <button title="Eliminar Registro" ng-click="eliminarAlmacen($index)"
+                                                    class="btn btn-danger btn-xs">
+                                                    <i class="zmdi zmdi-delete">
+                                                    </i>
+                                                </button>
+                                            </div>
+                                        </center>
+                                    </td>
+                                    <td style="text-align: left" ng-if="almacen.idAlmacen > 0">
+                                        <button ng-click="mandarImprimir(almacen.idAlmacen)"
+                                            class="btn btn-warning btn-xs">
+                                            <i class="zmdi zmdi-print"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <br>
+                    <div class="row" ng-show="idAlmacenista > 0">
+                        <div class="col-lg-3 pull-right">
+                            <div class="table table-responsive">
+                                <table class="table table-responsive table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">
+                                                <center>TOTALES (KG.)</center>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Bruto</td>
+                                            <td style="text-align: right">{{totalKgBruto|number:2}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tara</td>
+                                            <td style="text-align: right">{{totalKgTara|number:2}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Neto</td>
+                                            <td style="text-align: right">{{totalKgNeto|number:2}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Diferencia</td>
+                                            <td style="text-align: right">{{totalKgDiferencia|number:2}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <center>
+                        <br>
+                        <button class="btn btn-warning btn-xs" ng-disabled="bloquearGuardar"
+                            ng-click="guardarAlmacen();">Guardar</button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="mdlProveedor" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar un nuevo proveedor</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Nombre*</label>
+                                <input ng-model="proveedor.nombre" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Id Sagarpa</label>
+                                <input type="text" ng-model="proveedor.idSagarpa" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Dirección</label>
+                                <input ng-model="proveedor.direccionCompleta" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Teléfono* </label>
+                                <input ng-model="proveedor.telefono" type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-xs-12">
+                        <p><b>Tipo de producto*</b></p>
+                    </div>
+
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" value="1" ng-model="proveedor.tipoDeMiel">Miel 100% pura de abeja.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" value="2" ng-model="proveedor.tipoDeMiel">Miel 100% orgánica.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" value="3" ng-model="proveedor.tipoDeMiel">Ambos.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarProveedor();">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdlEditarProveedor" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Modificar Proveedor</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Nombre:</label>
+                                <select ng-model="proveedorEditado" class="form-control"
+                                    ng-options="proveedores as proveedores.nombre for proveedores in listaProveedor track by proveedores.id">
+                                    <option value="">Seleccione un Proveedor</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="modificarProveedor();">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl>
+
+</div>

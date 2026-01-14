@@ -1,0 +1,178 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        LOTE CONTRATADO
+                        <a title="Regresar" href="#/calidadLotesContratados" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <div class="form-group">
+                                    <label style="font-weight: bold;">Tipo de miel</label>
+                                    <select disabled chosen class="form-control" ng-model="loteContratado.tipoDeMiel">
+                                        <option value="" selected disabled>Elige una opción</option>
+                                        <option value="1">Miel convencional</option>
+                                        <option value="2">Miel orgánica</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <div class="form-group">
+                                    <label style="font-weight: bold;">Cliente</label>
+                                    <select disabled chosen class="form-control"
+                                        ng-model="loteContratado.tipoDeCliente">
+                                        <option value="" selected disabled>Elige una opción</option>
+                                        <option value="10">Clientes exportadores</option>
+                                        <option value="6">Clientes nacionales</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3" ng-if="loteContratado.tipoDeCliente == 6">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Catálogo de clientes</label>
+                                    <div class="input-group">
+                                        <select disabled chosen ng-model="loteContratado.idCliente" class="form-control"
+                                            ng-options="clientes.id as clientes.nombre for clientes in listaClientes">
+                                            <option value="" disabled>Nombre</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3" ng-if="loteContratado.tipoDeCliente == 10">
+                                <div class="form-group">
+                                    <label for="">Catálogo de clientes</label>
+                                    <select disabled chosen ng-model="loteContratado.idCliente" class="form-control"
+                                        ng-options="cliente.idClienteExportador as cliente.nombre for cliente in listaClientesExportadores">
+                                        <option value="" disabled>Nombre</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Contrato</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.contrato">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Kilos</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.kilos">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Humedad</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.humedad">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Color</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.color">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">HMF</label>
+                                <input disabled type="text" class="form-control input-sm" ng-model="loteContratado.hmf">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">F/G</label>
+                                <input disabled type="text" class="form-control input-sm" ng-model="loteContratado.fg">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Glucosa</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.glucosa">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Diastasa</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.diastasa">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Invertasa</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.invertasa">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Sulfas</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.sulfas">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Estrepto</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.estrepto">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Tetras</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.tetras">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Cloranphenicol</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.cloranphenicol">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Macrolidas</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.macrolidas">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Nitrofuranos</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.nitrofuranos">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Fluroquinolanas</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.fluroquinolanas">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Pesticidas</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.pesticidas">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Glifosato</label>
+                                <input disabled type="text" class="form-control input-sm"
+                                    ng-model="loteContratado.glifosato">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">OGM</label>
+                                <input disabled type="text" class="form-control input-sm" ng-model="loteContratado.ogm">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">PA´s</label>
+                                <input disabled type="text" class="form-control input-sm" ng-model="loteContratado.pas">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</section>

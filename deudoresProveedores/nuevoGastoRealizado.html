@@ -1,0 +1,74 @@
+<section class="content">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        NUEVO GASTO
+                        <a ng-show="idGasto > 0" title="Regresar" href="#/menuGastosProveedor/{{gastos.idProveedor}}" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                        <a ng-hide="idGasto > 0" title="Regresar" href="#/gastosRealizados" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form ng-submit="guardarGastoRealizado()">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group ">
+                                            <label style="font-weight: bold;"> Proveedor </label>
+                                            <select chosen ng-model="nombreDeudor" class="form-control" ng-options="nd.idProveedor as nd.nombre for nd in lstProveedores">
+                                                <option value="" disabled>Selecciona un nombre</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group ">
+                                            <label style="font-weight: bold;"> Concepto </label>
+                                            <input placeholder="Escriba aquí una breve descripción" type="text" class="form-control" ng-model="gastos.concepto" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label style="font-weight: bold;">Fecha</label>
+                                        <div class="form-group">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text" class="form-control pull-right" id="datepicker" placeholder="Fecha" ng-model="gastos.fecha">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <label style="font-weight: bold;">Cantidad </label>
+                                            <input align="right" type="text" class="form-control" ng-model="gastos.cantidad" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="col-sm-2 pull-right">
+                                    <button title="Guardar" class=" btn btn-sm btn-warning pull-right">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

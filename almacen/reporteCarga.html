@@ -1,0 +1,245 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        REPORTES DE CARGA
+                        <a href="#/nvoCarga/0/0" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-plus"></i> Agregar
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select chosen class="form-control" ng-model="mostrarMes"
+                                        ng-options="mes.idMes as mes.mes for mes in listaDeMeses"
+                                        ng-disabled="cargandoDatos">
+                                        <option value="">Todo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <select chosen class="form-control" ng-model="verTipoDeMiel"
+                                        ng-disabled="cargandoDatos">
+                                        <option value="" selected disabled>Tipo de producto</option>
+                                        <option value="1">Productos convencionales</option>
+                                        <option value="2">Productos organicos</option>
+                                        <option value="5">Productos Mantequilla</option>
+                                        <option value="6">Productos Altiplano</option>
+                                        <option value="7">Productos Naranjo</option>
+                                        <option value="8">Productos Aguacate</option>
+                                        <option value="9">Productos Mezquite</option>
+                                        <option value="0">Apícolas/Envases y frascos/Derivados</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <select chosen class="form-control" ng-model="estadoReporte"
+                                        ng-disabled="cargandoDatos">
+                                        <option value="" selected disabled>Tipo de reporte</option>
+                                        <option value="1">Reportes realizados</option>
+                                        <option value="2">Reportes no realizados</option>
+                                        <option value="0">Realizados y no realizados</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" ng-model="repDescarga" class="form-control input-sm pull-right"
+                                        placeholder="Buscar">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-warning">
+                                            <i class="zmdi zmdi-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div ng-if="infoCargas && !infoCargas.length">
+                        No hay registros
+                    </div>
+                    <div ng-if="infoCargas && infoCargas.length">
+                        <div class="table-responsive no-padding">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Cotización</th>
+                                        <th style="text-transform: none; font-weight: 600">Fecha</th>
+                                        <th ng-if="!ocultarColumnas" style="text-transform: none; font-weight: 600">
+                                            Miel
+                                        </th>
+                                        <th ng-if="!ocultarColumnas" style="text-transform: none; font-weight: 600">Cera
+                                        </th>
+                                        <th style="text-transform: none; font-weight: 600">Prod. Apícolas</th>
+                                        <th ng-if="!ocultarColumnas" style="text-transform: none; font-weight: 600">
+                                            Empaques (T, C y B)</th>
+                                        <th style="text-transform: none; font-weight: 600">Envases y frascos</th>
+                                        <th style="text-transform: none; font-weight: 600">Productos derivados</th>
+                                        <th style="text-align: center; text-transform: none; font-weight: 600">Editar
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="estadoReporte == 0" ng-repeat="info in infoCargas  | filter:repDescarga">
+                                        <td>{{info.idReporte}}</td>
+                                        <td>{{info.folioCotizacion}}</td>
+                                        <td>
+                                            {{info.fechaImpresion}}
+                                        </td>
+                                        <td ng-if="!ocultarColumnas" class="text-center">
+                                            <i ng-if="info.miel == '1'"
+                                                ng-class="{ 'auditoria-verde': info.entradaMiel > 0, 'auditoria-rojo': info.entradaMiel == null}"
+                                                class="fa fa-circle"></i> {{info.lote}}
+                                        </td>
+                                        <td ng-if="!ocultarColumnas" class="text-center">
+                                            <i ng-if="info.cera == '1'"
+                                                ng-class="{ 'auditoria-verde': info.entradaCera > 0, 'auditoria-rojo': info.entradaCera == null}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <i ng-if="info.apicolas == '1'"
+                                                ng-class="{ 'auditoria-verde': info.entradaApicola > 0, 'auditoria-rojo': info.entradaApicola == null}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td ng-if="!ocultarColumnas" class="text-center">
+                                            <i ng-if="info.mp == '1'"
+                                                ng-class="{ 'auditoria-verde': info.entradaMP > 0, 'auditoria-rojo': info.entradaMP == null}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <i ng-if="info.envasesFrascos == '1'"
+                                                ng-class="{ 'auditoria-verde': info.entradaEnvasesFrascos > 0, 'auditoria-rojo': info.entradaEnvasesFrascos == null}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <i ng-if="info.productosDerivados == '1'"
+                                                ng-class="{ 'auditoria-verde': info.entradaProductosDerivados > 0, 'auditoria-rojo': info.entradaProductosDerivados == null}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <a class="btn btn-warning btn-xs"
+                                                ng-href="#/nvoCarga/{{info.idReporte}}/{{verTipoDeMiel}}"
+                                                title="Ver más">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-if="estadoReporte == 1 && info.miel == '1' && info.entradaMiel > 0
+                                        || estadoReporte == 1 && info.cera == '1' && info.entradaCera > 0 
+                                        || estadoReporte == 1 && info.apicola == '1' && info.entradaApicola > 0 
+                                        || estadoReporte == 1 && info.mp == '1' && info.entradaMP > 0
+                                        || estadoReporte == 1 && info.envasesFrascos == '1' && info.entradaEnvasesFrascos > 0
+                                        || estadoReporte == 1 && info.productosDerivados == '1' && info.entradaProductosDerivados > 0"
+                                        ng-repeat="info in infoCargas">
+                                        <td>{{info.idReporte}}</td>
+                                        <td>
+                                            {{info.fechaImpresion}}
+                                        </td>
+                                        <td ng-if="!ocultarColumnas" class="text-center">
+                                            <i ng-if="info.miel == '1' && info.entradaMiel > 0"
+                                                ng-class="{ 'auditoria-verde': info.entradaMiel > 0}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td ng-if="!ocultarColumnas" class="text-center">
+                                            <i ng-if="info.cera == '1' && info.entradaCera > 0"
+                                                ng-class="{ 'auditoria-verde': info.entradaCera > 0}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <i ng-if="info.apicolas == '1' && info.entradaApicola > 0"
+                                                ng-class="{ 'auditoria-verde': info.entradaApicola > 0}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <i ng-if="info.mp == '1' && info.entradaMP > 0"
+                                                ng-class="{ 'auditoria-verde': info.entradaMP > 0}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <i ng-if="info.envasesFrascos == '1' && info.entradaEnvasesFrascos > 0"
+                                                ng-class="{ 'auditoria-verde': info.entradaEnvasesFrascos > 0}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <i ng-if="info.productosDerivados == '1' && info.entradaProductosDerivados > 0"
+                                                ng-class="{ 'auditoria-verde': info.entradaProductosDerivados > 0}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <a class="btn btn-warning btn-xs"
+                                                ng-href="#/nvoCarga/{{info.idReporte}}/{{verTipoDeMiel}}"
+                                                title="Ver más">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-if="estadoReporte == 2 && info.miel == '1' && info.entradaMiel == null 
+                                    || estadoReporte == 2 && info.cera == '1' && info.entradaCera == null 
+                                    || estadoReporte == 2 && info.apicola == '1' && info.entradaApicola == null 
+                                    || estadoReporte == 2 && info.mp == '1' && info.entradaMP == null
+                                    || estadoReporte == 2 && info.envasesFrascos == '1' && info.entradaEnvasesFrascos == null
+                                    || estadoReporte == 2 && info.productosDerivados == '1' && info.entradaProductosDerivados == null"
+                                        ng-repeat="info in infoCargas">
+                                        <td>{{info.idReporte}}</td>
+                                        <td>
+                                            {{info.fechaImpresion}}
+                                        </td>
+                                        <td ng-if="!ocultarColumnas" class="text-center">
+                                            <i ng-if="info.miel == '1' && info.entradaMiel == null"
+                                                ng-class="{ 'auditoria-rojo': info.entradaMiel == null}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td ng-if="!ocultarColumnas" class="text-center">
+                                            <i ng-if="info.cera == '1' && info.entradaCera == null"
+                                                ng-class="{ 'auditoria-rojo': info.entradaCera == null}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <i ng-if="info.apicolas == '1' && info.entradaApicola == null"
+                                                ng-class="{ 'auditoria-rojo': info.entradaApicola == null}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <i ng-if="info.mp == '1' && info.entradaMP == null"
+                                                ng-class="{ 'auditoria-rojo': info.entradaMP == null}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <i ng-if="info.envasesFrascos == '1' && info.entradaEnvasesFrascos == null"
+                                                ng-class="{ 'auditoria-rojo': info.entradaEnvasesFrascos == null}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <i ng-if="info.productosDerivados == '1' && info.entradaProductosDerivados == null"
+                                                ng-class="{ 'auditoria-rojo': info.entradaProductosDerivados == null}"
+                                                class="fa fa-circle"></i>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <a class="btn btn-warning btn-xs"
+                                                ng-href="#/nvoCarga/{{info.idReporte}}/{{verTipoDeMiel}}"
+                                                title="Ver más">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

@@ -1,0 +1,120 @@
+<div class="box box-solid box-warning">
+    <div class="box-header" style="height: 50px;">
+        <h5 class="encabezadosTabla">
+            SALDOS INICIALES DE MIEL
+        </h5>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <button type="button" class="btn btn-success" title="Miel Nacional"
+                        ng-click="crearNuevoSaldo = !crearNuevoSaldo">
+                        <i class="fa fa-plus"></i> Nuevo saldo
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div ng-if="crearNuevoSaldo" class="nuevoSaldoInicialMiel">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>Seleccione de la cuenta de Miel Nacional y especifique los campos solicitados</p>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label for="">Movimiento (*)</label>
+                        <select chosen ng-model="nuevoSaldoInicialMiel.tipoMovimiento" class="form-control"
+                            ng-options="tm as tm.cuenta for tm in listaCuentasSeleccionadas"
+                            ng-change="cambioSeleccionCuenta()">
+                            <option disabled="disabled" value="">Tipo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label for="">Selecciona el concepto (*)</label>
+                        <select ng-model="nuevoSaldoInicialMiel.concepto" chosen class="form-control"
+                            ng-options="c as c.subcuenta for c in listaSubcuentasSeleccionadas"
+                            ng-change="obtenerSubsubcuentas(nuevoSaldoInicialMiel.concepto.idSubcuenta)">
+                            <option value="" disabled="disabled"> Conceptos </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label for="">Selecciona un subconcepto (*)</label>
+                        <select chosen ng-model="nuevoSaldoInicialMiel.subconcepto" class="form-control"
+                            ng-options="ss as ss.subSubcuenta for ss in listaSubSubcuentas"
+                            ng-disabled="!listaSubSubcuentas.length">
+                            <option disabled="disabled" value="">Subsubcuenta</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label for="">Cantidad (*)</label>
+                        <input type="text" class="form-control" placeholder="Cantidad existencia pasada"
+                            ng-model="nuevoSaldoInicialMiel.existenciaPasada">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label for="">Importe (*)</label>
+                        <input type="text" class="form-control" placeholder="Importe acumulado pasado"
+                            ng-model="nuevoSaldoInicialMiel.importePasado">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success" ng-click="guardarNuevoSaldoMiel()">
+                            <i class="fa fa-save"></i> Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p ng-if="!inventarios_miel.length" class="lead">Los conceptos aparecerán de acuerdo a los movimientos
+            de
+            productos derivados</p>
+        <div class="table-responsive" ng-if="inventarios_miel.length">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th clas="text-center"></th>
+                        <th clas="text-center">Producto</th>
+                        <th clas="text-center">Existencia pasada</th>
+                        <th clas="text-center">Importe pasado</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="inventario in inventarios_miel">
+                        <td class="text-center">{{$index+1}}</td>
+                        <td class="text-left">{{inventario.nombre}}</td>
+                        <td class="text-right">
+                            <input type="text" class="form-control" placeholder="Cantidad existencia pasada"
+                                ng-model="inventario.existenciaPasada">
+                        </td>
+                        <td class="text-right">
+                            <input type="text" class="form-control" placeholder="Importe acumulado pasado"
+                                ng-model="inventario.importePasado">
+                        </td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-success btn-sm" title="Guardar saldo"
+                                ng-click="guardarSaldosInventario_miel(inventario, $index);">
+                                <i class="fa fa-save"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div growl></div>

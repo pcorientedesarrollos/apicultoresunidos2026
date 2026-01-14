@@ -1,0 +1,374 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        LOTE EXPERIMENTAL
+                        <b ng-show="paramCosecha == 1"> MIEL 100% PURA DE ABEJA</b>
+                        <b ng-show="paramCosecha == 2"> MIEL 100% ORGÁNICA</b>
+                        <b ng-show="paramCosecha == 5"> MIEL 100% MANTEQUILLA</b>
+                        <b ng-show="paramCosecha == 6"> MIEL 100% ALTIPLANO</b>
+                        <b ng-show="paramCosecha == 7"> MIEL 100% NARANJO</b>
+                        <b ng-show="paramCosecha == 8"> MIEL 100% AGUACATE</b>
+                        <b ng-show="paramCosecha == 9"> MIEL 100% MEZQUITE</b>
+                        <a href="#/experimental" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-3 pull-right">
+                            <button title="ELIMINAR LOTE EXPERIMENTAL" ng-click="eliminarLoteExp()"
+                                class="btn btn-danger btn-sm">
+                                <i class="zmdi zmdi-delete"> ELIMINAR LOTE EXPERIMENTAL
+                                </i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-sm-6" ng-show="paramCosecha == 1">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Lote Experimental
+                                </label>
+                                EC-{{loteExperimental.idLoteExperimental}}
+                            </div>
+                            <div class="col-sm-6" ng-show="paramCosecha == 2">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Lote Experimental
+                                </label>
+                                EO-{{loteExperimental.idLoteExperimental}}
+                            </div>
+                            <div class="col-sm-6" ng-show="paramCosecha == 5">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Lote Experimental
+                                </label>
+                                EM-{{loteExperimental.idLoteExperimental}}
+                            </div>
+                            <div class="col-sm-6" ng-show="paramCosecha == 6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Lote Experimental
+                                </label>
+                                EA-{{loteExperimental.idLoteExperimental}}
+                            </div>
+                            <div class="col-sm-6" ng-show="paramCosecha == 7">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Lote Experimental
+                                </label>
+                                EN-{{loteExperimental.idLoteExperimental}}
+                            </div>
+                            <div class="col-sm-6" ng-show="paramCosecha == 8">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Lote Experimental
+                                </label>
+                                EG-{{loteExperimental.idLoteExperimental}}
+                            </div>
+                            <div class="col-sm-6" ng-show="paramCosecha == 9">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Lote Experimental
+                                </label>
+                                EZ-{{loteExperimental.idLoteExperimental}}
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Fecha
+                                </label>
+                                {{loteExperimental.fechaExperimental}}
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Humedad
+                                </label>
+                                {{loteExperimental.humedad}}
+                                <button class="btn btn-warning btn-xs" style="margin-left: 10px;" title="Editar humedad"
+                                    ng-click="editarHumedad()">
+                                    <i class="zmdi zmdi-edit"></i> Cambiar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Número de tambores
+                                </label>
+                                {{loteExperimental.numeroDeTambores}}
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Kilos Totales
+                                </label>
+                                {{loteExperimental.kilosTotales}}
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4" style="font-weight: bold;  color: black">
+                                    Contrato
+                                </label>
+                                {{loteExperimental.contrato}}
+                                <button class="btn btn-warning btn-xs" style="margin-left: 10px;"
+                                    title="Editar contrato" ng-click="editarContrato()">
+                                    <i class="zmdi zmdi-edit"></i>
+                                </button>
+                                <a ng-if="loteExperimental.existe != '3'" class="btn btn-success btn-xs"
+                                    ng-href="#/datosLoteContratado/{{paramCosecha}}/{{loteExperimental.numContrato}}"
+                                    title="Ver contrato" target="_blank">
+                                    <i class="zmdi zmdi-plus" style="text-align: right;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;" class="col-sm-2 text-darken-3">Resultado
+                                    laboratorio</label>
+                                <div class="col-sm-3">
+                                    <div class="fg-line">
+                                        <select chosen ng-model="resultadoExperimental" class="form-control"
+                                            ng-options="rl.id as rl.asignacion for rl in resultExperimental">
+                                            <option value="">Asignar resultado</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button ng-click="asignarResult(resultadoExperimental)"
+                                    class="btn btn-warning btn-xs btn-small">
+                                    Guardar resultado
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" ng-hide="loteExperimental.loteInterno == 1">
+                        <div class="col-sm-3 col-sm-offset-9">
+                            <a title="Agregar tambores"
+                                href="#/masMiel/{{loteExperimental.idLoteExperimental}}/{{paramCosecha}}"
+                                class="btn btn-success btn-xs">
+                                <i class="zmdi zmdi-plus "></i> Agregar miel
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table  table-bordered" id="tablaExperimental">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-transform: none">
+                                                Entrada
+                                            </th>
+                                            <th style="text-transform: none">Folio</th>
+                                            <th style="text-transform: none">Referencia</th>
+                                            <th style="text-transform: none; width: 35%">Proveedor</th>
+                                            <th style="text-transform: none">IDSagarpa</th>
+                                            <th style="text-transform: none">Localidad</th>
+                                            <th style="text-transform: none">Bruto</th>
+                                            <th style="text-transform: none">Tara</th>
+                                            <th style="text-transform: none">Neto</th>
+                                            <th>%H</th>
+                                            <th>Sf</th>
+                                            <th>St</th>
+                                            <th>C13</th>
+                                            <th>Hmf</th>
+                                            <th>Floración</th>
+                                            <th style="text-transform: none">Resultado Final</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="font-size: 12px;"
+                                            ng-repeat="lote in filtered = (informacionCalidad|filter:filterExpr) track by $index">
+
+                                            <td style="width: 15%">
+                                                {{lote.fecha | date:'dd-MM-yyyy'}}
+                                            </td>
+                                            <td>
+                                                <label style="color: red">
+                                                    {{lote.folioTambor}} {{lote.clasificacionMiel}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label style="color: red">
+                                                    {{lote.referencia}}
+                                                </label>
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.nombre}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.idSagarpa}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.localidad}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.bruto}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.tara}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.neto}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.porcentaje}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.sfDescripcion}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.stDescripcion}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.adulteracionDescripcion}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.hmf}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.floracion}}
+                                            </td>
+                                            <td style="width: 20%">
+                                                {{lote.resultado}}
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <button title="Eliminar Registro"
+                                                        ng-click="eliminarTamborExp(lote.folioTambor, lote.clasificacion, lote.tipo)"
+                                                        class="btn btn-danger btn-xs">
+                                                        <i class="zmdi zmdi-delete">
+                                                        </i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row"
+                            ng-hide="loteExperimental.loteInterno == 1 || loteExperimental.resultadoExperimental == 'Rechazado'">
+                            <div class="col-sm-3 col-sm-offset-9">
+                                <button style="margin-top: 15px; margin-right: 10px;"
+                                    class="btn btn-warning btn-xs pull-right" ng-click="modalLoteInterno()">Crear Lote
+                                    Interno
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="modalLoteInterno" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Conformación de Lote Interno</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>Marca Laboratorio</label>
+                            <input ng-model="loteInterno.loteCliente" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label>Observaciones</label>
+                            <textarea ng-model="loteInterno.observaciones" cols="80" class="form-control">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" ng-click="guardarLoteInterno()" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editarHumedad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar humedad</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <input ng-model="humedad" style="margin-top: 6px" type="text" class="form-control"
+                                placeholder="Escriba la humedad" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" ng-click="guardarHumedad()" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editarContrato" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar contrato</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="form-group">
+                            <select class="form-control" ng-model="edicionExp.contrato">
+                                <option value="" disabled>Selecciona una opción</option>
+                                <option value="1">Contratos convencionales</option>
+                                <option value="2">Contratos orgánicos</option>
+                                <option value="3">Sin contrato</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12" ng-show="edicionExp.contrato != 3">
+                        <div class="form-group">
+                            <select ng-model="edicionExp.numContrato" class="form-control"
+                                ng-options="num.idLoteContratado as num.contrato for num in listaContratos">
+                                <option disabled="disabled" value="">Seleccione una opción</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" ng-click="guardarEdicionContrato()" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl>
+
+</div>

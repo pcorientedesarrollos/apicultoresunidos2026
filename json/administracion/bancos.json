@@ -1,0 +1,18 @@
+{
+    "bancos": [{
+            "idBanco": "1",
+            "banco": "Bancomer 3698"
+        }, {
+            "idBanco": "2",
+            "banco": "Santander 7300"
+        }, {
+            "idBanco": "3",
+            "banco": "Santander 4849"
+        }, {
+            "idBanco": "4",
+            "banco": "Banorte 6425"
+        }, {
+            "idBanco": "5",
+            "banco": "Bajio 5947"
+        }]
+}

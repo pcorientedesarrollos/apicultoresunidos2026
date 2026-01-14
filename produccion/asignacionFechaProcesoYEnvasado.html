@@ -1,0 +1,147 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" ng-model="busquedaFechas" class="form-control input-sm pull-right"
+                        placeholder="Ingrese lo que desea buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-warning">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+                <div class="input-group" style="width: 150px;">
+                    <input type="text" ng-model="busquedaFechas" name="table_search"
+                        class="form-control input-sm pull-right" placeholder="Buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        ASIGNACION DE FECHAS
+                        <b ng-show="opcionCosechaFechas == 1"> MIEL 100% PURA DE ABEJA</b>
+                        <b ng-show="opcionCosechaFechas == 2"> MIEL 100% ORGÁNICA</b>
+                        <b ng-show="opcionCosechaFechas == 5">100% MANTEQUILLA</b>
+                        <b ng-show="opcionCosechaFechas == 6">100% ALTIPLANO</b>
+                        <b ng-show="opcionCosechaFechas == 7">100% NARANJO</b>
+                        <b ng-show="opcionCosechaFechas == 8">100% AGUACATE</b>
+                        <b ng-show="opcionCosechaFechas == 9">100% MEZQUITE</b>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <!-- <select chosen ng-model="opcionCosechaFechas" class="form-control">
+                                    <option value="1">Convencional</option>
+                                    <option value="2">Orgánica</option>
+                                    <option value="5">Mantequilla</option>
+                                    <option value="6">Altiplano</option>
+                                    <option value="7">Naranjo</option>
+                                    <option value="8">Aguacate</option>
+                                    <option value="9">Mezquite</option>
+                                </select> -->
+                                <div class="col-md-3">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="1" ng-model="opcionCosechaFechas">Convencional
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="2" ng-model="opcionCosechaFechas">Orgánica
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="5" ng-model="opcionCosechaFechas">Mantequilla
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="6" ng-model="opcionCosechaFechas">Altiplano
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="7" ng-model="opcionCosechaFechas">Naranjo
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="8" ng-model="opcionCosechaFechas">Aguacate
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="9" ng-model="opcionCosechaFechas">Mezquite
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">No.</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Lote interno
+                                    </th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Fecha proceso
+                                    </th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Fecha envasado
+                                    </th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Editar</th>
+                                </tr>
+                            </thead>
+                            <tr ng-repeat="mf in menuFechas| filter:busquedaFechas">
+                                <!--<td>{{$index + 1}}</td>-->
+                                <td>{{mf.idLoteInterno}}</td>
+                                <td ng-show="opcionCosechaFechas == 1">LC26-{{mf.idLoteInterno}}</td>
+                                <td ng-show="opcionCosechaFechas == 2">LO26-{{mf.idLoteInterno}}</td>
+                                <td ng-show="opcionCosechaFechas == 5">LM26-{{mf.idLoteInterno}}</td>
+                                <td ng-show="opcionCosechaFechas == 6">LT24-{{mf.idLoteInterno}}</td>
+                                <td ng-show="opcionCosechaFechas == 7">LN26-{{mf.idLoteInterno}}</td>
+                                <td ng-show="opcionCosechaFechas == 8">LA26-{{mf.idLoteInterno}}</td>
+                                <td ng-show="opcionCosechaFechas == 9">LZ26-{{mf.idLoteInterno}}</td>
+                                <td>{{mf.fechaProceso}}</td>
+                                <td>{{mf.fechaEnvasado}}</td>
+                                <td>
+                                    <a href="#/nvasFechs/{{mf.idLoteInterno}}/{{opcionCosechaFechas}}"
+                                        class="btn btn-warning btn-xs">
+                                        <i class="zmdi zmdi-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

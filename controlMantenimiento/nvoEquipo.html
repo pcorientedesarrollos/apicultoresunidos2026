@@ -1,0 +1,339 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        EQUIPO
+                        <a ng-if="equipoParam > 0" title="Regresar" href="#/verEquipos/{{areaEquipo}}" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                        <a ng-if="equipoParam == 0" title="Regresar" href="#/equipos" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                    <div class="input-group" style="float: right">
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" ng-if="equipoParam > 0">
+                                <div class="col-sm-3 pull-right">
+                                    <div class="form-group-sm">
+                                        <label style="font-weight: bold; color:red"  class="col-sm-4 control-label">Código: </label>
+                                        <div class="col-sm-8">
+                                            OAX-{{equipo.idEquipo}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="form-group-sm">
+                                        <label style="font-weight: bold; font-size: 12px"  class="col-sm-2 control-label">Equipo </label>
+                                        <div class="col-sm-10">
+                                            <input 
+                                                align="center"
+                                                type="text" 
+                                                class="form-control input-xs" 
+                                                placeholder="Nombre del equipo"
+                                                ng-model="equipo.nombre"
+                                                />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group-sm">
+                                        <label style="font-weight: bold; font-size: 12px"  class="col-sm-2 control-label">Marca </label>
+                                        <div class="col-sm-10">
+                                            <input 
+                                                align="center"
+                                                type="text" 
+                                                class="form-control input-xs" 
+                                                placeholder="Marca del equipo"
+                                                ng-model="equipo.marca"
+                                                />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group-sm">
+                                        <label style="font-weight: bold; font-size: 12px"  class="col-sm-2 control-label">Modelo </label>
+                                        <div class="col-sm-10">
+                                            <input 
+                                                align="center"
+                                                type="text" 
+                                                class="form-control input-xs" 
+                                                placeholder="Modelo"
+                                                ng-model="equipo.modelo"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group-sm">
+                                        <label style="font-weight: bold; font-size: 12px"  class="col-sm-2 control-label">Serie </label>
+                                        <div class="col-sm-10">
+                                            <input 
+                                                align="center"
+                                                type="text" 
+                                                class="form-control input-xs" 
+                                                placeholder="Número de serie"
+                                                ng-model="equipo.noSerie"
+                                                />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group-sm">
+                                        <label style="font-weight: bold; font-size: 12px"  class="col-sm-2 control-label">Caracteristicas </label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" 
+                                                      rows="3" 
+                                                      ng-model="equipo.caracteristicas" 
+                                                      placeholder="Características adicionales" 
+                                                      >
+                                            </textarea>   
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="font-weight: bold; font-size: 12px"  class="col-sm-2 control-label">Mantto </label>
+                                    <div class="form-group form-inline">
+                                        <div class="col-sm-5">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="0" ng-model="opcionMantto.opcion">Sí
+                                                <i class="input-helper"></i> 
+                                            </label> 
+                                            <select ng-if="opcionMantto.opcion == 0" 
+                                                    chosen
+                                                    ng-model="opcionMantto.periodicidad" 
+                                                    class="form-control" 
+                                                    ng-options="pm.idPeriodo as pm.periodicidad for pm in listaPeriodos"> 
+                                                <option value="">Periodicidad </option>   
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="1" ng-model="opcionMantto.opcion">No
+                                                <i class="input-helper"></i>    
+                                            </label> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--                                <div class="col-lg-3">
+                                                                    <div class="form-group-sm">
+                                                                        <label style="font-weight: bold; font-size: 12px"  class="col-sm-2 control-label">Código </label>
+                                                                        <div class="col-sm-10">
+                                                                            <input 
+                                                                                align="center"
+                                                                                type="text" 
+                                                                                class="form-control input-xs" 
+                                                                                placeholder="Código del equipo"
+                                                                                ng-model="equipo.codigo"
+                                                                                />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>-->
+                                <div class="col-lg-3" ng-if="equipoParam > 0">
+                                    <div class="form-group-sm">
+                                        <label style="font-weight: bold; font-size: 12px"  class="col-sm-2 control-label">Area </label>
+                                        <div class="col-sm-10">
+                                            {{equipo.area}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3" ng-if="equipoParam == 0">
+                                    <div class="form-group-sm">
+                                        <label style="font-weight: bold; font-size: 12px"  class="col-sm-2 control-label">Area </label>
+                                        <div class="col-sm-10">
+                                            <select 
+                                                chosen
+                                                ng-model="areaEquipo" 
+                                                class="form-control" 
+                                                ng-options="a.idArea as a.area for a in listaDeAreas"> 
+                                                <option value="">Area</option>   
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div style="text-align: right">
+                                <button class="btn btn-warning btn-xs"
+                                        ng-click="guardarEquipo()" >Guardar</button>
+                            </div>
+                            <hr>
+                            <div class="row" ng-if="equipoParam > 0">
+                                <div class="col-sm-2" style="text-align: center">
+                                    <button type="button" class="btn btn-soundcloud btn-xs" ng-click="moverEquipo()"> 
+                                        Cambiar área<br><i class="zmdi zmdi-swap zmdi-hc-2x"></i> </button>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="button" class="btn btn-soundcloud btn-xs" ng-click="verHistorial()">Ver historial   
+                                        <br><i class="zmdi zmdi-assignment zmdi-hc-2x"></i></button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-warning" ng-show="mostrarHistorial">
+                                        <div class="panel-heading" style="text-align: center; font-size: 15px; font-weight: 600">
+                                            Historial de cambios
+                                            <button type="button" class="close" 
+                                                    ng-click="cerrarCuadro()">
+                                                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                            </button>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Fecha del cambio</th>
+                                                            <th>Area actual</th>
+                                                            <th>Area anterior</th>
+                                                            <th>Autorizó</th>
+                                                            <th>Entregó</th>                                                                                                                    
+                                                            <th>Recibió</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="histo in historiales">
+                                                            <td>{{histo.fecha | date:'dd-MM-yyyy'}}</td>
+                                                            <td>{{histo.antes}}</td>
+                                                            <td>{{histo.despues}}</td>
+                                                            <td>{{histo.autorizo}}</td>
+                                                            <td>{{histo.entrego}}</td>
+                                                            <td>{{histo.recibio}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>
+<div class="modal fade" id="cambiarAreaEquipo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Mover equipo</h4>
+            </div>
+            <div class="modal-body">
+                <form ng-submit="guardarHistorial()">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-4">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold; font-size: 12px; color:red"  class="col-sm-5 control-label">Area actual</label>
+                                    <div class="col-sm-7">
+                                        {{equipo.area}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold; font-size: 12px"  class="col-sm-4 control-label">Mover a:</label>
+                                    <select 
+                                        ng-model="areaNueva" 
+                                        class="form-control" 
+                                        required="required"
+                                        ng-options="an.idArea as an.area for an in listaDeAreas"> 
+                                        <option value="">Area</option>   
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold; font-size: 12px"  class="col-sm-4 control-label">Autoriza: </label>
+                                    <select 
+                                        ng-model="autorizoMovimiento" 
+                                        class="form-control" 
+                                        required="required"
+                                        ng-options="am.idPersonalOM as am.nombre for am in listaPersonalOM"> 
+                                        <option value="">Autoriza movimiento</option>   
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-4">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold; font-size: 12px"  class="col-sm-4 control-label">Entrega: </label>
+                                    <select 
+                                        ng-model="entregoEquipo" 
+                                        class="form-control" 
+                                        required="required"
+                                        ng-options="ee.idPersonalOM as ee.nombre for ee in listaPersonalOM"> 
+                                        <option value="">Entrega equipo</option>   
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold; font-size: 12px"  class="col-sm-4 control-label">Recibe: </label>
+                                    <select 
+                                        ng-model="recibeEquipo" 
+                                        class="form-control" 
+                                        required="required"s
+                                        ng-options="re.idPersonalOM as re.nombre for re in listaPersonalOM"> 
+                                        <option value="">Recibe equipo</option>   
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold; font-size: 12px"  class="col-sm-4 control-label">Fecha: </label>
+                                    <br>
+                                    <div class="form-group">
+                                        <div class="input-group date" data-provide="datepicker">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                   type="text" class="form-control pull-right"
+                                                   id="datepicker" placeholder="Fecha"
+                                                   required="required"
+                                                   ng-model="historial.fecha">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary pull-right">Guardar</button>
+                    <br>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>

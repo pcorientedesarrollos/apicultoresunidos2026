@@ -1,0 +1,128 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        {{tituloPlantilla}}
+                        <a title="Regresar" href="#/proyeccion" class="btn btn-success btn-xs pull-right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <label>Tipo de miel</label>
+                            <select ng-disabled="tipoDeMiel && idProyeccion" class="form-control" ng-model="proyeccion.tipoDeMiel" required>
+                                <option value="1">Miel 100% pura de abeja</option>
+                                <option value="2">Miel 100% orgánica</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label>Nombre semana</label>
+                                <input type="text" class="form-control" placeholder="Semana"
+                                    ng-model="proyeccion.nombre">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label>Inicio semana</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input required autocomplete="off" type="text" class="form-control" id="datepicker"
+                                        placeholder="Inicio" ng-model="proyeccion.inicio">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label>Final semana</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input required autocomplete="off" type="text" class="form-control" id="datepicker"
+                                        placeholder="Final" ng-model="proyeccion.fin">
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- / row encabezado -->
+
+                    <div class="row">
+                        <!-- Para zonas -->
+                        <div class="col-xs-12">
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Zona</th>
+                                            <th>Referencia</th>
+                                            <th>Proyección (Tambores)</th>
+                                            <th>Kilogramos</th>
+                                            <th>Real (kg)</th>
+                                        </tr>
+                                        <tr ng-repeat="zona in proyeccion.listaZonas">
+                                            <td>{{zona.zona}}</td>
+                                            <td>{{zona.referencia}}</td>
+                                            <td>
+                                                <input type="number" ng-model="zona.proyeccion" class="form-control"
+                                                    ng-change="cambioCantidadProyeccion(zona.proyeccion, $index)">
+                                            </td>
+                                            <td>{{zona.kilogramos | number}}</td>
+                                            <td>
+                                                <input type="number" ng-model="zona.real" disabled class="form-control">
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-8">
+
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th colspan="3">
+                                            Totales (Kg)
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Proyección</td>
+                                        <td>{{proyeccion.totalProyeccion | number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Real</td>
+                                        <td>{{proyeccion.totalReal | number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Diferencia</td>
+                                        <td>{{proyeccion.diferencia | number}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <button type="button" class="btn btn-warning btn-block" ng-click="guardarInfoProyeccion()">
+                                Guardar proyección
+                            </button>
+                        </div>
+
+                    </div> <!-- / row totales-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

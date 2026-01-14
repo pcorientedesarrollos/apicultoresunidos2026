@@ -1,0 +1,96 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        PAGO A PROVEEDOR
+                        <a title="Regresar" href="#/menuManttosArea/{{nota.idArea}}" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-4 invoice-col">
+                            <p><strong>Oaxaca Miel S.A. de C.V.</strong><br>
+                                Compromiso de calidad, honestidad y servicio.<br>
+                                Carretera Mérida - Cancún Km 7.5 S/N. San Pedro Noh Pat.<br> C.P. 97370. Kanasín, Yucatán.<br>
+                                Contacto: {{gerente.correo}}<br>
+                                01 999 98 809 90</p>
+                        </div>
+                        <div class="col-sm-4 invoice-col">
+                            <p><strong>PROVEEDOR: </strong><br>
+                                {{nota.nombre}}<br>
+                                Contacto: {{nota.nombreContacto}}<br>
+                                Dirección: {{nota.domicilio}}<br>
+                                E-mail: {{nota.correo}}<bR>
+                                TEL: {{nota.telefono}}
+                            </p>
+                        </div>
+
+                    </div>
+                    <h2 class="page-header"></h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Area</th>
+                                    <th>Equipo</th>
+                                    <th>Código</th>
+                                    <th>Descripción</th>
+                                    <th>Observaciones</th>
+                                    <th>Realizó</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{nota.fechaReal}}</td>
+                                    <td>{{nota.area}}</td>
+                                    <td>{{nota.equipo}}</td>
+                                    <td>{{nota.codigo}}</td> 
+                                    <td>{{nota.descripcion}}</td>
+                                    <td>{{nota.observaciones}}</td>
+                                    <td>{{nota.nombreTecnico}}</td>
+                                </tr>   
+                            </tbody>
+                        </table>
+                    </div>
+                    <h2 class="page-header"></h2>
+                    <div class="row">
+
+                        <div class="col-xs-3 col-xs-offset-9">
+
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tr align="right">
+                                        <th style="background-color: #D50000; color:white">Total a pagar</th>
+                                        <td>
+                                            <label>
+                                                <input type="text" 
+                                                       class="text-right small"
+                                                       required="required"
+                                                       ng-model="totalPago">
+                                                <i class="input-helper"></i>    
+                                            </label> 
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <center>
+                            <br>
+                            <button class="btn btn-vimeo btn-sm"
+                                    ng-click="guardarTotalPago()">Aceptar</button>
+                        </center>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+    
+</div>

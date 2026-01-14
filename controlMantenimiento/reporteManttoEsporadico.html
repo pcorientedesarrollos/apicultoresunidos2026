@@ -1,0 +1,155 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        MANTENIMIENTO A ARTÍCULO
+                        <a title="Regresar" href="#/manttoEsporadico/{{controlMantto.idEquipo}}" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="box-header">
+                                    <div class="row" >
+                                        <div class="col-lg-12">
+                                            <div class="col-lg-3">
+                                                <label style="font-weight: bold;">Area </label>
+                                                <div class="form-group-sm">
+                                                    <input class="form-control" type="text" 
+                                                           disabled="true"
+                                                           ng-model="controlMantto.area"/>
+                                                </div>  
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label style="font-weight: bold;">Artículo </label>
+                                                <div class="form-group-sm">
+                                                    <input class="form-control" type="text" 
+                                                           disabled="true"
+                                                           ng-model="controlMantto.equipo"/>
+                                                </div>  
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label style="font-weight: bold;">Código </label>
+                                                <div class="form-group-sm">
+                                                    <input class="form-control" type="text" 
+                                                           disabled="true"
+                                                           ng-model="controlMantto.codigo"/>
+                                                </div>  
+                                            </div>
+                                            <div class="col-lg-3" ng-show="rutaProgramacion > 0">
+                                                <label style="font-weight: bold;">Fecha programada </label>
+                                                <div class="form-group-sm">
+                                                    <input class="form-control" type="text" 
+                                                           disabled="true"
+                                                           ng-model="controlMantto.fechaProgramada"/>
+                                                </div>  
+                                            </div>
+                                        </div>
+                                    </div>                                
+                                    <hr>
+                                </div> 
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label style="font-weight: bold;"  class="col-sm-4 text-primary">Fecha de Mantto</label>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                       type="text" class="form-control pull-right"
+                                                       id="datepicker" placeholder="Fecha" 
+                                                       ng-model="controlMantto.fechaReal">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <textarea class="form-control" 
+                                              rows="3" 
+                                              ng-model="controlMantto.descripcion" 
+                                              placeholder=" D e s c r i p c i ó n" 
+                                              >
+                                    </textarea>
+                                </div>
+                                <div class="col-lg-6">
+                                    <textarea class="form-control" 
+                                              rows="3" 
+                                              ng-model="controlMantto.observaciones" 
+                                              placeholder="O b s e r v a c i o n e s" 
+                                              >
+                                    </textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-inline">
+                                        <label style="font-weight: bold;"  class="col-sm-1 text-primary">Realizó </label>
+                                        <div class="col-sm-3">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="1" ng-model="opcionPersonal.opcion">Interno
+                                                <i class="input-helper"></i> 
+                                            </label> 
+                                            <select ng-if="opcionPersonal.opcion == 1"
+                                                    chosen
+                                                    ng-model="opcionPersonal.idPersonalOM" 
+                                                    class="form-control" 
+                                                    ng-options="pm.idPersonalOM as pm.nombre for pm in listaDeNombres"> 
+                                                <option value="">Nombre </option>   
+                                            </select>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="2" ng-model="opcionPersonal.opcion">Externo
+                                                <i class="input-helper"></i>    
+                                            </label> 
+                                            <select ng-if="opcionPersonal.opcion == 2"
+                                                    chosen
+                                                    ng-model="opcionPersonal.idPersonalOM" 
+                                                    class="form-control" 
+                                                    ng-options="re.idProveedorMantto as re.nombreProveedor for re in listaDeTecnicos"> 
+                                                <option value="">Nombre </option>   
+                                            </select>
+                                            <br>
+                                            <div ng-if="opcionPersonal.opcion == 2" class="col-lg-12">
+                                                <input 
+                                                    align="center"
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    placeholder="Nombre del técnico"
+                                                    ng-model="opcionPersonal.nombreTecnico"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <center>
+                            <div class="row" style="text-align: right">
+                                <br>
+                                <button type="submit" ng-click="guardarMantto();" 
+                                        class="btn btn-warning btn-sm">Guardar</button>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

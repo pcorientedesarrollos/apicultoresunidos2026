@@ -1,0 +1,51 @@
+<section class="content">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        CLASIFICACION
+                        <a title="Regresar" href="#/clasificaciones" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form ng-submit="guardarClasificacion()">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;"  class="col-sm-2 col-sm-offset-1 control-label"> Nombre </label>
+                                        <div class="col-sm-9">
+                                            <input 
+                                                align="center"
+                                                type="text" 
+                                                class="form-control input-xs" 
+                                                placeholder="Escriba la clasificación deseada"
+                                                required="required"
+                                                ng-model="detalleClasificacion.clasificacion"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="text-align: right">
+                                    <p class="right-align">
+                                        <button type="submit" class="btn btn-warning btn-xs right-align">
+                                            <i ></i> Guardar
+                                        </button>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>
+

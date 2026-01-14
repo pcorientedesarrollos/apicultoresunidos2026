@@ -1,0 +1,121 @@
+<section class="content">
+    <div class="row">
+        <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+            <div class="input-group" style="width: 300px;">
+                <input type="text" ng-model="filtroBusquedaEquipo" class="form-control input-sm pull-right"
+                    placeholder="Ingrese lo que desea buscar">
+                <div class="input-group-btn">
+                    <button class="btn btn-sm btn-warning">
+                        <i class="zmdi zmdi-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+            <div class="input-group" style="width: 150px;">
+                <input type="text" ng-model="filtroBusquedaEquipo" name="table_search"
+                    class="form-control input-sm pull-right" placeholder="Buscar">
+                <div class="input-group-btn">
+                    <button class="btn btn-sm btn-default">
+                        <i class="zmdi zmdi-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        ACTIVOS FIJOS
+                        <a title="Regresar" href="#/equipos" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body ">
+                    <div class="box-header" style="text-align: center">
+                        <h3 style="text-align: center">{{nombreArea}}
+                        </h3>
+                    </div>
+                    <div class="row" ng-if="menuEquipos.length > 0">
+                        <div class="col-xs-12 col-md-4 col-md-offset-8">
+                            <div class="form-group">
+
+                                <button type="button" class="btn btn-success btn-sm pull-right"
+                                    style="margin-left: 2px;" ng-click="descargarExcelActivos()">
+                                    <i class="fa fa-file-excel-o"></i> Descargar
+                                </button>
+
+                                <button style="margin-left: 2px;" class="btn btn-primary btn-sm pull-right"
+                                    title="Mandar a imprimir la etiqueta de todos los equipos ({{menuEquipos.length}})"
+                                    ng-click="mandarTodosEquipos()" ng-disabled="cargandoPrinter">
+
+                                    <span ng-show="!cargandoPrinter">
+                                        <i class="zmdi zmdi-print"></i> Etiquetas
+                                    </span>
+                                    <span ng-show="cargandoPrinter">
+                                        <i class="fa fa-spinner fa-spin fa-fw"></i> Enviando
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">N°</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Código</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Nombre</th>
+                                    <!-- <th class="bgm-blue" style="text-transform: none; font-weight: 600">Marca</th> -->
+                                    <!-- <th class="bgm-blue" style="text-transform: none; font-weight: 600">Modelo</th> -->
+                                    <!-- <th class="bgm-blue" style="text-transform: none; font-weight: 600">N° Serie</th> -->
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Descripción</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Costo</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Subárea</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600"></th>
+                                    <!-- <th class="bgm-blue" style="text-transform: none; font-weight: 600">Etiqueta</th> -->
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="mt in menuEquipos| filter:filtroBusquedaEquipo">
+                                    <td>{{$index + 1}}</td>
+                                    <td>AF-MID-{{mt.idEquipo}}</td>
+                                    <td>{{mt.nombre}}</td>
+                                    <!-- <td>{{mt.marca}}</td> -->
+                                    <!-- <td>{{mt.modelo}}</td> -->
+                                    <!-- <td>{{mt.serie}}</td> -->
+                                    <td style="height: 40px; overflow: hidden;" class="col-sm-3">
+                                        <p style="height:40px; overflow:hidden;">{{mt.caracteristicas}}</p>
+                                    </td>
+                                    <td>{{mt.costo}}</td>
+                                    <td>{{mt.zona}}</td>
+                                    <td style="text-align: center;">
+                                        <a href="#/nvoEquipo/{{mt.idEquipo}}" class="btn btn-warning btn-xs">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
+                                        <button class="btn btn-info btn-xs" title="Mandar a imprimir etiqueta"
+                                            ng-click="colaDeImpresion(mt.idEquipo)" ng-disabled="cargandoPrinter">
+                                            <i class="zmdi zmdi-print"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-xs" title="Eliminar registro"
+                                            ng-click="eliminarActivo(mt.idEquipo)">
+                                            <i class="zmdi zmdi-delete"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

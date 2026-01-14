@@ -1,0 +1,225 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CAPTURA ENTRADAS DE REACTIVOS
+                        <a title="Regresar" href="#/entradasReactivos" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <label style="font-weight: bold;">Fecha entrada*</label>
+                            <div class="form-group small">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input autocomplete="off" type="text" class="form-control pull-right"
+                                        id="datepicker" placeholder="Fecha" ng-model="entrada.fecha">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label for="">Proveedor:</label>
+                                <select chosen ng-model="entrada.proveedor" class="form-control"
+                                    ng-options="proveedores as proveedores.nombre for proveedores in listaProveedores track by proveedores.id">
+                                    <option value="" disabled>Nombre</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h4>Agrega conceptos</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label for="">Reactivo</label>
+                                <select chosen ng-model="nuevaEntrada.reactivo" class="form-control"
+                                    ng-options="reac as reac.reactivo for reac in listaReactivos">
+                                    <option disabled="disabled" value="">Elija una opción</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">
+                                    Cantidad*
+                                </label>
+                                <input type="number" class="form-control" ng-model="nuevaEntrada.cantidad"
+                                    ng-change="calcularimportePeso()">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">
+                                    Costo unitario*
+                                </label>
+                                <input type="number" class="form-control" ng-model="nuevaEntrada.costoUnitario"
+                                    ng-change="calcularimportePeso()">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">
+                                    Importe
+                                </label>
+                                <input type="text" class="form-control" ng-value="nuevaEntrada.importe | currency"
+                                    disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label for="">Movimiento</label>
+                                <select chosen ng-model="nuevaEntrada.cuenta" class="form-control"
+                                    ng-options="tm as tm.cuenta for tm in listaCuentasSeleccionadas"
+                                    ng-change="cambioSeleccionCuenta()">
+                                    <option disabled="disabled" value="">Tipo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label for="">Selecciona el catálogo*</label>
+                                <select ng-model="nuevaEntrada.subcuentaObj" chosen class="form-control"
+                                    ng-options="c as c.subcuenta for c in listaSubcuentasSeleccionadas"
+                                    ng-change="obtenerSubsubcuentas(nuevaEntrada.subcuentaObj.idSubcuenta)">
+                                    <option value="" disabled="disabled"> Conceptos </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4" ng-if="listaSubSubcuentas.length">
+                            <div class="form-group">
+                                <label for="">Selecciona un subconcepto (Opcional)</label>
+                                <select chosen ng-model="nuevaEntrada.producto" class="form-control"
+                                    ng-options="ss as ss.subSubcuenta for ss in listaSubSubcuentas"
+                                    ng-disabled="!listaSubSubcuentas.length" ng-change="calcularimportePeso()">
+                                    <option disabled="disabled" value="">Subsubcuenta</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div> -->
+
+                    <!-- / Nuevas cuentas -->
+
+                    <!-- <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">
+                                    Cantidad*
+                                </label>
+                                <input type="number" class="form-control" ng-model="nuevaEntrada.cantidad"
+                                    ng-change="calcularimportePeso()">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">
+                                    Costo unitario*
+                                </label>
+                                <input type="number" class="form-control" ng-model="nuevaEntrada.costoUnitario"
+                                    ng-change="calcularimportePeso()">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">
+                                    Importe
+                                </label>
+                                <input type="text" class="form-control" ng-value="nuevaEntrada.importe | currency"
+                                    disabled>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="row">
+
+
+                        <div class="col-xs-12">
+                            <p>
+                                <b>Nota: </b> Importe del concepto es igual al producto de 'Cantidad' por 'Costo
+                                unitario'
+                            </p>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <button class="btn btn-xs btn-success pull-right" ng-click="agregarConcepto()">
+                                    Agregar
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="font-size: 11px;"></th>
+                                    <th style="font-size: 11px;">Cantidad</th>
+                                    <th style="font-size: 11px;">Reactivo</th>
+                                    <!-- <th style="font-size: 11px;">Subcuenta</th>
+                                    <th style="font-size: 11px;">Subconcepto</th> -->
+                                    <th style="font-size: 11px;">Costo unitario</th>
+                                    <th style="font-size: 11px;">Importe</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="concepto in entrada.conceptos">
+                                    <td ng-bind="$index + 1"></td>
+                                    <td ng-bind="concepto.cantidad | number"></td>
+                                    <td ng-bind="concepto.reactivo | uppercase"></td>
+                                    <!-- <td ng-bind="concepto.movimiento | uppercase"></td> -->
+                                    <!-- <td ng-bind="concepto.subcuenta | uppercase"></td>
+                                    <td ng-bind="concepto.concepto | uppercase"></td> -->
+                                    <td ng-bind="concepto.costoUnitario | currency"></td>
+                                    <td ng-bind="concepto.importe | currency"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-xs btn-danger"
+                                            ng-click="eliminarConcepto($index)">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"></td>
+                                    <td>Total</td>
+                                    <td ng-bind="entrada.total | currency"></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <button class="btn btn-warning btn-xs pull-right" ng-click="guardarEntrada()"> Guardar
+                                    entrada
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div growl></div>

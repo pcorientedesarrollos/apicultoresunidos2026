@@ -1,0 +1,649 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        SALIDA DE MATERIA PRIMA
+                        <a title="Regresar" href="#/salidaPrima" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row" ng-show="salida > 0">
+                        <div class="col-xs-12 col-md-2">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">Fecha: </label>
+                                {{encabezadoSalida.fecha}}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-5">
+                            <div class="form-group-sm">
+                                <button class="btn btnMiel btn-sm " ng-click="modalAlta();" title="Nuevo proveedor">
+                                    <i style="color: #385428" class="zmdi zmdi-plus"></i>
+                                </button>
+                                <label style="font-weight: bold;">
+                                    Proveedor:
+                                </label>
+                                {{proveedor}}
+                            </div>
+                        </div>
+                        <!-- <div class="col-lg-3">
+                            <div class="form-group-sm">
+                                <button class="btn btnMiel btn-sm " ng-click="modalAlta();" title="Nuevo proveedor">
+                                    <i style="color: #385428" class="zmdi zmdi-plus"></i>
+                                </button>
+                            </div>
+                        </div> -->
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">
+                                    Motivo:
+                                </label>
+                                {{condicion}}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-1">
+                            <button class="btn btn-warning btn-xs" ng-click="editarEncabezadoSalida()">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </div>
+                        <!-- <div class="col-xs-12 col-md-2">
+                            <button type="button" class="btn btn-danger btn-sm pull-right" ng-click="eliminarReporteSalidaMP();">
+                                Eliminar reporte
+                            </button>
+                        </div> -->
+                    </div>
+                    <hr>
+                    <div class="row" ng-hide="salida > 0">
+                        <div class="col-sm-3">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">Fecha</label>
+                                <div class="form-group small">
+                                    <div class="input-group date" data-provide="datepicker">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input autocomplete="off" type="text" class="form-control pull-right"
+                                            id="datepicker" placeholder="Fecha" ng-model="encabezadoSalida.fecha">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group-sm">
+                                <button class="btn btnMiel btn-sm " ng-click="modalAlta();" title="Nuevo proveedor">
+                                    <i style="color: #385428" class="zmdi zmdi-plus"></i>
+                                </button>
+                                <div class="col-md-5">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="1" ng-model="encabezadoSalida.tipoCliente">
+                                        <b>Apicultor</b>
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-5">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="3" ng-model="encabezadoSalida.tipoCliente">
+                                        <b>Proveedor</b>
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <select ng-if="encabezadoSalida.tipoCliente == 1"
+                                    ng-model="encabezadoSalida.idProveedor" chosen class="form-control"
+                                    ng-options="p.idProveedor as p.nombre for p in listaProveedores">
+                                    <option disabled value="">Seleccione un nombre</option>
+                                </select>
+                                <select ng-if="encabezadoSalida.tipoCliente == 3"
+                                    ng-model="encabezadoSalida.idProveedor" chosen class="form-control"
+                                    ng-options="provee.idProveedorMantto as provee.nombreProveedor for provee in lstProveedores">
+                                    <option disabled value="">Seleccione un nombre</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">
+                                    Motivo
+                                </label>
+                                <select ng-model="encabezadoSalida.idMotivo" chosen class="form-control"
+                                    ng-options="d.idCondicionSalida as d.condicionSalida for d in condiciones">
+                                    <option disabled value="">Seleccione un motivo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nuevas cuentas -->
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label for="">Movimiento</label>
+                                <select chosen ng-model="detalleSalida.cuenta" class="form-control"
+                                    ng-options="tm as tm.cuenta for tm in listaCuentasSeleccionadas"
+                                    ng-change="cambioSeleccionCuenta()">
+                                    <option disabled="disabled" value="">Tipo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label for="">Selecciona el catálogo*</label>
+                                <select ng-model="detalleSalida.subcuentaObj" chosen class="form-control"
+                                    ng-options="c as c.subcuenta for c in listaSubcuentasSeleccionadas"
+                                    ng-change="obtenerSubsubcuentas(detalleSalida.subcuentaObj.idSubcuenta)">
+                                    <option value="" disabled="disabled"> Conceptos </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4" ng-if="listaSubSubcuentas.length">
+                            <div class="form-group">
+                                <label for="">Selecciona un subconcepto (Opcional)</label>
+                                <select chosen ng-model="detalleSalida.producto" class="form-control"
+                                    ng-options="ss as ss.subSubcuenta for ss in listaSubSubcuentas"
+                                    ng-disabled="!listaSubSubcuentas.length" ng-change="calcularimportePeso()">
+                                    <option disabled="disabled" value="">Subsubcuenta</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- / Nuevas cuentas -->
+
+                    <div class="row">
+                        <!-- <div class="col-lg-3">
+                            <label style="font-weight: bold;">
+                                Tipo
+                            </label>
+                            <select class="form-control form-group" ng-model="detalleSalida.tipo">
+                                <option value="" selected data-default disabled>Seleccione una opción</option>
+                                <option value="Exportación">Exportación</option>
+                                <option value="Campo">Campo</option>
+                                <option value="Chatarra">Chatarra</option>
+                            </select>
+                        </div> -->
+                        <div class="col-xs-12 col-md-2">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">Cantidad*</label>
+                                <input class="form-control" type="text" ng-model="detalleSalida.cantidad"
+                                    ng-change="calcularimportePeso()" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">Precio Unitario*
+                                    <span ng-show="detalleSalida.producto && detalleSalida.producto.nombreUnidad">
+                                        ({{detalleSalida.producto.nombreUnidad}})
+                                    </span></label>
+                                <input class="form-control" type="text" ng-model="detalleSalida.producto.precioUnitario"
+                                    ng-change="calcularimportePeso()" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">Importe</label>
+                                <input disabled class="form-control" type="text" ng-value="detalleSalida.importe" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-5">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">Observaciones</label>
+                                <input class="form-control" type="text" ng-model="detalleSalida.descripcion"
+                                    onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button ng-hide="encabezadoSalida.idSalidaMateria == nuevo"
+                        class="btn btn-success btn-xs pull-right" ng-click="agregarSalida()">
+                        Guardar
+                    </button>
+                    <button ng-show="encabezadoSalida.idSalidaMateria == nuevo"
+                        class="btn btn-success btn-xs pull-right" ng-click="agregarSalida()">
+                        Agregar
+                    </button>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="text-center">Movimiento</th>
+                                    <th class="text-center">Subcuenta</th>
+                                    <th class="text-center">Concepto</th>
+                                    <th class="text-center">Cantidad</th>
+                                    <th class="text-center">Precio Unitario</th>
+                                    <th class="text-center">Importe</th>
+                                    <th class="text-center">Observaciones</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="detalleSalida in salidasDetallePush">
+                                    <td class="text-center">{{$index+1}}</td>
+                                    <td class="text-left">{{detalleSalida.movimiento | uppercase}}</td>
+                                    <td class="text-left">{{detalleSalida.subcuenta | uppercase}}</td>
+                                    <td class="text-left">{{detalleSalida.concepto | uppercase}}</td>
+                                    <td class="text-right">{{detalleSalida.cantidad | number}}</td>
+                                    <td class="text-right">{{detalleSalida.precioUnitario | currency}}</td>
+                                    <td class="text-right">{{detalleSalida.importe | currency}}</td>
+                                    <td class="text-left">{{detalleSalida.descripcion | uppercase}}</td>
+                                    <td class="text-center">
+
+                                        <button ng-if="detalleSalida.idDetalleSalida > 0" title="Editar Registro"
+                                            ng-click="editarDetalleSalida(detalleSalida.idDetalleSalida)"
+                                            class="btn btn-xs btn-warning">
+                                            <i class="zmdi zmdi-edit">
+                                            </i>
+                                        </button>
+
+                                        <button ng-if="detalleSalida.idDetalleSalida == undefined"
+                                            title="Eliminar Registro" ng-click="eliminarSalida($index)"
+                                            class="btn btn-xs btn-danger">
+                                            <i class="zmdi zmdi-delete">
+                                            </i>
+                                        </button>
+
+                                        <button ng-if="detalleSalida.idDetalleSalida > 0" title="Eliminar Registro"
+                                            ng-click="eliminarSalidaBd(detalleSalida.idDetalleSalida)"
+                                            class="btn btn-xs btn-danger">
+                                            <i class="zmdi zmdi-delete">
+                                            </i>
+                                        </button>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="col-sm-4 col-sm-offset-8">
+                        <div class="table table-responsive">
+                            <table class=" table-condensed">
+                                <tbody>
+                                    <tr>
+                                        <td class="col-sm-6" style="color: #f4511e; font-weight: 500;">Cantidad total
+                                        </td>
+                                        <td class="col-sm-6" style="text-align: right">
+                                            {{encabezadoSalida.cantidadTotal}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-sm-6" style="color: #f4511e; font-weight: 500;">Importe total
+                                        </td>
+                                        <td class="col-sm-6" style="text-align: right">
+                                            {{encabezadoSalida.importeTotal|currency}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <center>
+                        <br>
+                        <button ng-show="encabezadoSalida.idSalidaMateria == nuevo" class="btn btn-warning btn-xs"
+                            ng-click="guardarSalida();">Guardar
+                        </button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>
+<div class="modal fade" id="mdlEditarSalida" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Modificar Encabezado</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="form-group small">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="datepicker"
+                                        placeholder="Fecha" ng-model="encabezadoSalida.fecha">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="1" ng-model="encabezadoSalida.tipoCliente">
+                                    <b>Apicultor</b>
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="3" ng-model="encabezadoSalida.tipoCliente">
+                                    <b>Proveedor</b>
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="6" ng-model="encabezadoSalida.tipoCliente">
+                                    <b>Cliente</b>
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                        </div>
+                        <br>
+                        <select ng-if="encabezadoSalida.tipoCliente == 1" ng-model="encabezadoSalida.idProveedor"
+                            class="form-control" ng-options="p.idProveedor as p.nombre for p in listaProveedores">
+                            <option disabled value="">Seleccione un nombre</option>
+                        </select>
+                        <select ng-if="encabezadoSalida.tipoCliente == 3" ng-model="encabezadoSalida.idProveedor"
+                            class="form-control"
+                            ng-options="provee.idProveedorMantto as provee.nombreProveedor for provee in lstProveedores">
+                            <option disabled value="">Seleccione un nombre</option>
+                        </select>
+                        <select ng-if="encabezadoSalida.tipoCliente == 6" ng-model="encabezadoSalida.idProveedor"
+                        class="form-control"
+                        ng-options="cliente.idCliente as cliente.nombre for cliente in lstProveedores">
+                        <option disabled value="">Seleccione un nombre</option>
+                    </select>
+                    </div>
+                    <div class="col-lg-12">
+                        <br>
+                        <div class="form-group">
+                            <select ng-model="encabezadoSalida.idMotivo" class="form-control"
+                                ng-options="d.idCondicionSalida as d.condicionSalida for d in condiciones">
+                                <option disabled value="">Seleccione un motivo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="modificarSalida();">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="altaNombres" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Alta rápida</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <select class="form-control" ng-model="nuevoProveedor.proveedorTipo">
+                                <option value="" disabled> Selecciona catálogo </option>
+                                <option value="1">Apicultores</option>
+                                <option value="3">Proveedores</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div ng-show="nuevoProveedor.proveedorTipo == 1">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Nombre*</label>
+                                    <input ng-model="nuevoProveedor.nombre" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Id Sagarpa*</label>
+                                    <input type="text" ng-model="nuevoProveedor.idSagarpa" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Dirección</label>
+                                    <input ng-model="nuevoProveedor.direccionCompleta" type="text"
+                                        class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Teléfono*</label>
+                                    <input ng-model="nuevoProveedor.telefono" type="text" class="form-control" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xs-12">
+                            <p><b>Tipo de producto*</b></p>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label class="radio radio-inline m-r-20">
+                                    <input type="radio" value="1" ng-model="nuevoProveedor.tipoDeMiel">Convencional
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label class="radio radio-inline m-r-20">
+                                    <input type="radio" value="2" ng-model="nuevoProveedor.tipoDeMiel">Orgánica.
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label class="radio radio-inline m-r-20">
+                                    <input type="radio" value="3" ng-model="nuevoProveedor.tipoDeMiel">Ambos.
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label class="radio radio-inline m-r-20">
+                                    <input type="radio" value="7" ng-model="nuevoProveedor.tipoDeMiel">Naranjo
+                                </label>
+                            </div>
+                        </div>
+                     
+                    </div>
+
+                </div>
+
+                <div ng-show="nuevoProveedor.proveedorTipo == 3">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Razón social o Nombre:</label>
+                                    <input ng-model="nuevoProveedor.nombreProveedor" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Contacto:</label>
+                                    <input type="text" ng-model="nuevoProveedor.nombreContacto" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Domicilio:</label>
+                                    <input ng-model="nuevoProveedor.domicilio" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Teléfono </label>
+                                    <input ng-model="nuevoProveedor.telefono" type="text" class="form-control" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarNombre(nuevoProveedor);">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdlEditarDetalleS" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Modificar detalle</h4>
+            </div>
+            <div class="modal-body">
+
+                <!-- Mostrar los nombres de las cuentas sin que se puedan editar -->
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group-sm">
+                            <label style="font-weight: bold;">Movimiento</label>
+                            <input disabled class="form-control" type="text"
+                                ng-model="detalleSalidaEdicion.movimiento" />
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group-sm">
+                            <label style="font-weight: bold;">Catálogo</label>
+                            <input disabled class="form-control" type="text"
+                                ng-model="detalleSalidaEdicion.subcuenta" />
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group-sm">
+                            <label style="font-weight: bold;">Subconcepto</label>
+                            <input disabled class="form-control" type="text" ng-model="detalleSalidaEdicion.concepto" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- <div class="col-lg-3">
+                        <label style="font-weight: bold;">
+                            Tipo
+                        </label>
+                        <select class="form-control form-group" ng-model="detalleSalidaEdicion.tipo">
+                            <option value="" selected data-default disabled>Seleccione una opción</option>
+                            <option value="Exportación">Exportación</option>
+                            <option value="Campo">Campo</option>
+                            <option value="Chatarra">Chatarra</option>
+                        </select>
+                    </div> -->
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group-sm">
+                            <label style="font-weight: bold;">Cantidad</label>
+                            <input class="form-control" type="text" ng-model="detalleSalidaEdicion.cantidad" />
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group-sm">
+                            <label style="font-weight: bold;">Precio Unitario</label>
+                            <input class="form-control" type="text" ng-model="detalleSalidaEdicion.precioUnitario" />
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group-sm">
+                            <label style="font-weight: bold;">Importe</label>
+                            <input disabled class="form-control" type="text"
+                                ng-value="detalleSalidaEdicion.importe = detalleSalidaEdicion.cantidad * detalleSalidaEdicion.precioUnitario" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group-sm">
+                            <label style="font-weight: bold;">Observaciones</label>
+                            <input class="form-control" type="text" ng-model="detalleSalidaEdicion.descripcion"
+                                onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <!-- Nuevas cuentas -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p class="lead">Seleccione si quiere cambiar la cuenta: </p>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <label for="">Movimiento</label>
+                            <select ng-model="detalleSalidaEdicion.nuevaCuenta" class="form-control"
+                                ng-options="tm as tm.cuenta for tm in listaCuentasSeleccionadas"
+                                ng-change="cambioSeleccionCuenta(detalleSalidaEdicion.nuevaCuenta.idCuentaConcepto)">
+                                <option disabled="disabled" value="">Tipo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <label for="">Selecciona el catálogo*</label>
+                            <select ng-model="detalleSalidaEdicion.nuevaSubcuentaObj" class="form-control"
+                                ng-options="c as c.subcuenta for c in listaSubcuentasSeleccionadas"
+                                ng-change="obtenerSubsubcuentas(detalleSalidaEdicion.nuevaSubcuentaObj.idSubcuenta)">
+                                <option value="" disabled="disabled"> Conceptos </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-4" ng-if="listaSubSubcuentas.length">
+                        <div class="form-group">
+                            <label for="">Selecciona un subconcepto (Opcional)</label>
+                            <select ng-model="detalleSalidaEdicion.nuevoProducto" class="form-control"
+                                ng-options="ss as ss.subSubcuenta for ss in listaSubSubcuentas"
+                                ng-disabled="!listaSubSubcuentas.length">
+                                <option disabled="disabled" value="">Subsubcuenta</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- / Nuevas cuentas -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" ng-click="modificarDetalleSalida();">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

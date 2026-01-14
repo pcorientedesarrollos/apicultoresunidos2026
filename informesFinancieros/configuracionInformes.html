@@ -1,0 +1,140 @@
+<div class="box box-solid box-warning">
+    <div class="box-header">
+        <h5 class="encabezadosTabla">
+            CONFIGURACION INFORMES FINANCIEROS
+        </h5>
+    </div>
+    <div class="box-body">
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="">Selecciona una opción</label>
+                    <select chosen class="form-control" ng-model="tipoInforme"
+                        ng-options="opcion.idInforme as opcion.informeFinanciero for opcion in informesFinancieros"
+                        ng-disabled="cargandoDatos" ng-change="traeCuentaPorReporte(tipoInforme)">
+                        <option value="" disabled>Selecciona una opción</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="cuentas.length == 0">
+            <div class="col-md-12">
+                <p>No existen cuentas registradas</p>
+            </div>
+        </div>
+
+        <div class="row" ng-if="cuentas && cuentas.length > 0">
+            <div class="col-lg-6 col-lg-offset-3">
+                <div class="table-responsive">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Cuenta</th>
+                                <th>Orden</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="cuenta in cuentas">
+                                <td>{{cuenta.cuenta}}</td>
+                                <td>
+                                    <input ng-model="cuenta.orden" type="text" class="form-control" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-9">
+                        <button class="btn btn-success btn-xs pull-right" style="margin-right: 10px"
+                            ng-disabled="habilitar" ng-click="guardarOrdenCuentas();">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- <div class="row">
+            <div class="col-xs-12 col-md-6 col-md-offset-6">
+                <div class="row">
+                    <div class="col-xs-8 col-md-11">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" ng-model="busquedaAcumulado" class="form-control input-sm pull-right"
+                                    placeholder="Buscar">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-md-1">
+                        <div class="form-group">
+                            <button ng-disabled="cargandoXls" type="button"
+                                ng-click="descargarXls(opcionMes, opcionMes1)"
+                                class="btn btn-success btn-sm pull-right">
+                                <i class="fa fa-file-excel-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+           
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="">Selecciona una opción</label>
+                    <select chosen class="form-control" ng-model="opcionTipoReporte" ng-disabled="cargandoDatos">
+                        <option value="" disabled>Selecciona una opción</option>
+                        <option value="1">ACUMULADO</option>
+                        <option value="2">POR MES</option>
+                        <option value="3">POR MESES</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <select chosen ng-model="opcionMes" class="form-control"
+                        ng-options="mes.idMes as mes.mes for mes in meses"
+                        ng-disabled="cargandoDatos || opcionTipoReporte == 1">
+                        <option value="" disabled>SELECCIONA MES</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <select chosen ng-model="opcionMes1" class="form-control"
+                        ng-options="mes.idMes as mes.mes for mes in meses"
+                        ng-disabled="cargandoDatos || opcionTipoReporte !=3">
+                        <option value="" disabled>SELECCIONA MES</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div ng-if="cargandoDatos">
+            <i class="fa fa-spinner fa-spin fa-fw"></i> Obteniendo datos...
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div ng-if="tipoInforme == 4 && informeFinancieroEstructura && !cargandoDatos">
+                    <button type="button" class="btn btn-success pull-right" ng-click="guardarValoresBalanceGeneral()">
+                        <i class="fa fa-save"></i> Guardar valores ingresados
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div ng-if="!cargandoDatos" ng-bind-html="informeFinancieroEstructura"></div> -->
+    </div>
+</div>
+<div growl></div>

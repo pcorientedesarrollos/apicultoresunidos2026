@@ -1,0 +1,222 @@
+<div class="box box-solid box-warning">
+    <div class="box-header">
+        <h5>
+            NUEVA PÓLIZA DE CHEQUE
+        </h5>
+    </div>
+    <div class="box-body">
+
+        <!-- Crear registro -->
+        <div class="row">
+            <!-- <div class="col-xs-12 col-md-3">
+                <div class="form-group">
+                    <label for="">Ingreso o Egreso</label>
+                    <select chosen ng-model="poliza.ingresoEgreso" class="form-control" ng-change="cambioTipoIngresoEgreso()">
+                        <option value="" disabled>Selecciona una opción</option>
+                        <option value="0">Ingreso</option>
+                        <option value="1">Egreso</option>
+                    </select>
+                </div>
+            </div> -->
+            <div class="col-xs-12 col-md-3">
+                <div class="form-group">
+                    <label for="">Seleccione el banco</label>
+                    <select chosen ng-model="banco" ng-change="traeCuentasBancarias(banco)" class="form-control"
+                        ng-options="b.idBanco as b.banco for b in listaDeBancos">
+                        <option disabled="disabled" value="">Banco</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="form-group">
+                    <label for="">Seleccione la cuenta</label>
+                    <select ng-model="cuentaNo" ng-change="traeSaldos(cuentaNo)" chosen class="form-control" ng-options="c.idCuenta as c.numDeCuenta for c in listaDeCuentas">
+                        <option disabled="disabled" value="">N° de cuenta</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="form-group">
+                    <label for="">Saldo de la cuenta seleccionada</label>
+                    <input type="text" class="form-control derecha" disabled="true" ng-value="ultimoSaldo | currency">
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <h4>
+            Datos del movimiento
+        </h4>
+
+        <div ng-init="controladorPolizaCheque()">
+            <div ng-if="!showPDF">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-3">
+                        <label style="font-weight: bold;">Fecha</label>
+                        <div class="form-group">
+                            <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group-addon ">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker" placeholder="Fecha"
+                                    ng-model="poliza.fecha">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3">
+                        <label style="font-weight: bold;">Hora</label>
+                        <div class="form-group">
+                            <input type="time" class="form-control" placeholder="Hora del movimiento" id="polizaHora"
+                                ng-model="poliza.hora">
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-6">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-true-value=true ng-false-value=false ng-init="poliza.aCajaChica = false"
+                                    ng-model="poliza.aCajaChica">Mandar a caja chica</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <label for="">Movimiento</label>
+                            <select chosen ng-model="poliza.tipoMovimiento" class="form-control" ng-options="tm as tm.cuenta for tm in listaCuentasSeleccionadas"
+                                ng-change="cambioSeleccionCuenta()">
+                                <option disabled="disabled" value="">Tipo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <label>Selecciona el concepto</label>
+                            <div class="input-group">
+                                <div style="background-color: gold" class="input-group-addon btn" ng-click="nuevosConceptos();"
+                                    title="Nuevo proveedor">
+                                    <i class="zmdi zmdi-plus"></i>
+                                </div>
+                                <select ng-model="poliza.concepto" chosen class="form-control" ng-options="c as c.subcuenta for c in listaSubcuentasSeleccionadas"
+                                    ng-change="obtenerSubsubcuentas(poliza.concepto.idSubcuenta)">
+                                    <option value="" disabled="disabled"> Conceptos </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4" ng-if="listaSubSubcuentas.length">
+                        <div class="form-group">
+                            <label for="">Selecciona un subconcepto (Opcional)</label>
+                            <select chosen ng-model="poliza.subconcepto" class="form-control" ng-options="ss as ss.subSubcuenta for ss in listaSubSubcuentas"
+                                ng-disabled="!listaSubSubcuentas.length">
+                                <option disabled="disabled" value="">Subsubcuenta</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <textarea rows="2" class="form-control" placeholder="Descripción" ng-model="poliza.descripcion"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <label style="font-weight: bold;">Pagar a </label>
+                        <div class="form-group">
+                            <label class="radio-inline">
+                                <input type="radio" name="pagar" value="1" ng-model="poliza.persona">Apicultor</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="pagar" value="3" ng-model="poliza.persona">Proveedor</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="pagar" value="4" ng-model="poliza.persona">Personal</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="pagar" value="6" ng-model="poliza.persona">Clientes</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label style="font-weight: bold;">Nombre </label>
+                        <div class="form-group">
+                            <select chosen ng-model="poliza.nombre" class="form-control" ng-options="persona.id as persona.nombre for persona in personas"></select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <label style="font-weight: bold;">Nombre 2 </label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" ng-model="poliza.nombre2" placeholder="Nombre de la segunda persona" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <label style="font-weight: bold;">Cantidad </label>
+                        <div class="form-group">
+                            <input type="number" class="form-control" ng-model="poliza.cantidad" ng-change="actualizarSaldoBanco(poliza.cantidad)" placeholder="Cantidad"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <label style="font-weight: bold;">Folio del cheque</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Folio del cheque" ng-model="poliza.folioCheque">
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <textarea rows="2" class="form-control" placeholder="Concepto" ng-model="poliza.concepto"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <textarea rows="2" class="form-control" placeholder="Descripción" ng-model="poliza.descripcion"></textarea>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        <label style="font-weight: bold;">Cantidad </label>
+                        <div class="form-group">
+                            <input type="number" class="form-control" ng-model="poliza.cantidad" ng-change="actualizarSaldoBanco(poliza.cantidad)"
+                                placeholder="Cantidad" />
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                        <label style="font-weight: bold;">Folio del cheque</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Folio del cheque" ng-model="poliza.folioCheque">
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div>
+                            <button type="button" class="btn btn-warning btn-sm pull-right" ng-click="verPoliza()">Hacer
+                                póliza
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pdf-viewer" ng-if="showPDF" style="height:500px;">
+                <object ng-attr-data="{{urlAPoliza}}" type="application/pdf" width="100%" height="100%">
+                    <p>Ir al archivo
+                        <a ng-attr-href="{{urlAPoliza}}"> PDF </a>
+                    </p>
+                </object>
+                <div>
+                    <button class="btn btn-danger" ng-click="cancelarPoliza()">Cancelar</button>
+                    <button class="btn btn-success" ng-click="AceptarPoliza()">Aceptar e imprimir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

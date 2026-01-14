@@ -1,0 +1,253 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        RECOLECCIÓN
+                        <a title="Regresar" href="#/recoleccion/{{idLocalidad}}"
+                            class="btn btn-success btn-xs pull-right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <h4>Información del encabezado. FOLIO: {{idRecoleccion}}</h4>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <p><b>Fecha</b></p>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input required autocomplete="off" type="text" class="form-control" id="datepicker"
+                                        placeholder="Fecha de recolección" ng-model="recoleccion.fecha">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-8">
+                            <div class="form-group">
+                                <p>&nbsp;</p>
+                                <button type="button" class="btn btn-danger pull-right" title="Ver en PDF"
+                                    ng-click="verPDFRecoleccion()">
+                                    <i class="fa fa-file-pdf-o"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label>Transportes</label>
+                                <select required class="form-control" chosen multiple allow-single-deselect="true"
+                                    placeholder="Lista de transportes" no-results-text="'Sin resultados para '"
+                                    ng-options="transporte.idTransporte as transporte.transporte for transporte in listaDeTransportes"
+                                    ng-model="recoleccion.transporte">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label>Operadores</label>
+                                <select required class="form-control" chosen multiple allow-single-deselect="true"
+                                    placeholder="Personal Oaxaca Miel" no-results-text="'Sin resultados para '"
+                                    ng-options="personal.idPersonalOM as personal.nombre for personal in listaPersonal"
+                                    ng-model="recoleccion.operadores">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <button class="btn btnMiel btn-sm" ng-click="nuevoPersonal();">
+                                    <b>Añadir personal de carga <i style="color: #385428"
+                                            class="zmdi zmdi-plus"></i></b>
+                                </button>
+                                <!-- <select required class="form-control" chosen multiple allow-single-deselect="true"
+                                    placeholder="Personal Oaxaca Miel" no-results-text="'Sin resultados para '"
+                                    ng-options="personal.idPersonalOM as personal.nombre for personal in listaPersonal"
+                                    ng-model="recoleccion.personal">
+                                </select> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- <div class="col-lg-12"> -->
+                            <div class="form-group-sm">
+                                <div ng-repeat="personal in recoleccion.personal">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <p>Personal</p>
+                                            <input type="text" class="form-control input-xs"
+                                                ng-model="personal.nombre" />
+                                        </div>
+                                    </div>
+                                    <!-- <div ng-show="personal.idpersonal == 0" class="col-lg-1">
+                                        <div class="form-group">
+                                            <p>&nbsp;</p>
+                                            <a ng-click="eliminarpersonal($index);" class="btn btn-danger btn-xs"
+                                                title="Eliminar personal">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </a>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        <!-- </div> -->
+                    </div>
+                    <hr>
+                    <h4>Agregar localidad</h4>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label>Selecciona la localidad</label>
+                                <select class="form-control" chosen placeholder="Localidades"
+                                    no-results-text="'Sin resultados para '"
+                                    ng-options="localidad as localidad.localidad for localidad in listaLocalidades"
+                                    ng-model="nuevaLocalidad.localidad">
+                                    <option disabled value="">Selecciona la localidad</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-md-4">
+                            <div class="form-group">
+                                <label>Anterior</label>
+                                <input type="number" class="form-control" ng-model="nuevaLocalidad.anterior"
+                                    ng-change="calcularTotalRecoleccion()">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <div class="form-group">
+                                <label>Nuevo</label>
+                                <input type="number" class="form-control" ng-model="nuevaLocalidad.nuevo"
+                                    ng-change="calcularTotalRecoleccion()">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <div class="form-group">
+                                <label><b>Recolección</b></label>
+                                <input max="{{nuevaLocalidad.anterior + nuevaLocalidad.nuevo}}" type="number"
+                                    class="form-control" ng-model="nuevaLocalidad.recoleccion"
+                                    ng-change="calcularTotalRecoleccion()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-md-4">
+                            <div class="form-group">
+                                <label><b>Pendiente por recolectar</b></label>
+                                <input disabled type="number" class="form-control" ng-model="nuevaLocalidad.total">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <div class="form-group">
+                                <label>Precio</label>
+                                <input type="number" class="form-control" ng-model="nuevaLocalidad.precio">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <div class="form-group">
+                                <label>Humedad</label>
+                                <input type="number" class="form-control" ng-model="nuevaLocalidad.humedad">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button type="button" class="btn btn-warning btn-sm pull-right"
+                                ng-click="agregarLocalidad()">
+                                Agregar localidad
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4>Información de las localidades</h4>
+                    <h5 ng-if="recoleccion.localidades && !recoleccion.localidades.length">No hay localidades
+                        registradas en esta recolección</h5>
+                    <div class="table-responsive" ng-if="recoleccion.localidades && recoleccion.localidades.length">
+                        <table class="table table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Localidad</th>
+                                    <th>Anterior</th>
+                                    <th>Nuevo</th>
+                                    <th>Recolección</th>
+                                    <th>Total</th>
+                                    <th>Precio</th>
+                                    <th>Humedad</th>
+                                    <th>Importe</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="localidad in recoleccion.localidades">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{localidad.localidad | uppercase}}</td>
+                                    <td>{{localidad.anterior | number}}</td>
+                                    <td>{{localidad.nuevo | number}}</td>
+                                    <td>{{localidad.recoleccion | number}}</td>
+                                    <td>{{localidad.total | number}}</td>
+                                    <td>{{localidad.precio | currency}}</td>
+                                    <td>{{localidad.humedad | number}}</td>
+                                    <td>{{localidad.importe | currency}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-xs" title="Eliminar registro"
+                                            ng-if="localidad.idRecoleccionDetalle"
+                                            ng-click="eliminarRecoleccionDetalle($index)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label><b>Observaciones</b></label>
+                                <textarea class="form-control" rows="4" ng-model="recoleccion.observaciones"
+                                    placeholder="Acerca de la recolección">
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-condensed">
+                                    <tr>
+                                        <th colspan="2"><b>Totales</b></th>
+                                    </tr>
+                                    <tr>
+                                        <td>Total de tambores</td>
+                                        <td>{{recoleccion.totalTambores | number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Importe total de la compra</td>
+                                        <td>{{recoleccion.totalImporteCompra | currency}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Precio promedio de la miel</td>
+                                        <td>{{recoleccion.totalPrecioPromedio | currency}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success pull-right" title="Guardar registro"
+                            ng-click="guardarRecoleccion()">
+                            <i class="fa fa-save"></i> Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

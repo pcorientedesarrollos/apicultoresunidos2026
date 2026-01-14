@@ -1,0 +1,73 @@
+<style>
+    .error {
+        background-color: #ffce6d;
+    }
+</style>
+
+<section class="content">
+    <div class="row">
+        <div class="col-lg-8 col-md-offset-2 texto">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CAPTURA DE EMPRESA EXTERNA
+                        <a title="Regresar" href="#/empresasExternas" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <br>
+                <div class="box-body">
+
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" name="nombre" id="nombre"
+                                    ng-model="nuevoExterno.nombre" ng-disabled="cargandoDatos">
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label for="domicilio">Localidad</label>
+                                <select chosen ng-model="nuevoExterno.idLocalidad" class="form-control"
+                                    ng-options="lo.idlocalidad as lo.localidad for lo in listaLocalidades">
+                                    <option value="">Localidad</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label for="contacto">Contacto</label>
+                                <input type="text" class="form-control" name="contacto" id="contacto"
+                                    ng-model="nuevoExterno.contacto" ng-disabled="cargandoDatos">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input type="text" class="form-control" name="telefono" id="telefono"
+                                    ng-model="nuevoExterno.telefono" ng-disabled="cargandoDatos">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button type="button" class="btn btn-success btn-sm pull-right"
+                                ng-click="guardarEmpresaExterna()" ng-disabled="cargandoDatos || guardandoDatos">
+                                <span ng-if="idExterno">Guardar cambios</span>
+                                <span ng-if="!idExterno">Guardar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

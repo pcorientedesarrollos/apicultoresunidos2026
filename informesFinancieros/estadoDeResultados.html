@@ -1,0 +1,138 @@
+<div class="box box-solid box-warning">
+    <div class="box-header">
+        <h5>
+            ESTADO DE RESULTADOS
+        </h5>
+    </div>
+    <div class="box-body">
+
+        <div class="row" ng-if="!estadoResultado">
+            <div class="col-xs-12">
+                <i class="fa fa-spinner fa-spin fa-fw"></i> CARGANDO INFORME...
+            </div>
+        </div>
+
+        <div ng-if="estadoResultado && estadoResultado.actividades_operacion">
+
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-md-offset-6">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success pull-right" title="Descargar informe" ng-click="descargarInformeestadoResultado()">
+                            <i class="fa fa-file-excel-o"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="table-responsive">
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th class="text-center"> Concepto </th>
+                            <th class="text-center" ng-repeat="mes in estadoResultado.meses track by mes.idMes"> {{mes.mes | uppercase}} </th>
+                            <th class="text-center"> Acumulado </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Cobranza a clientes -->
+                        <tr>
+                            <td class="text-center">
+                                <b> Cobranza a clientes </b>
+                            </td>
+                            <td class="text-right" ng-repeat="valor in estadoResultado.actividades_operacion.total_cobranza track by $index">
+                                <b>
+                                    {{valor | currency}}
+                                </b>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="cliente in estadoResultado.actividades_operacion.cobranza_clientes">
+                            <td class="text-left">{{cliente.nombre | uppercase}}</td>
+                            <td class="text-right" ng-class="{'font-weight-bold': $index+1 == cliente.totalesPorMes.length, 'negative-number':totalPorMes < 0}"
+                                ng-repeat="totalPorMes in cliente.totalesPorMes track by $index">
+                                {{totalPorMes | currency}}
+                            </td>
+                        </tr>
+
+                        <!-- Otros ingresos -->
+                        <tr>
+                            <td class="text-center">
+                                <b> Otros ingresos </b>
+                            </td>
+                            <td class="text-right" ng-repeat="valor in estadoResultado.actividades_operacion.total_otros_ingresos track by $index">
+                                <b>
+                                    {{valor | currency}}
+                                </b>
+                            </td>
+                        </tr>
+
+                        <tr ng-repeat="otro in estadoResultado.actividades_operacion.otros_ingresos">
+                            <td class="text-left">{{otro.concepto | uppercase}}</td>
+                            <td class="text-right" ng-class="{'font-weight-bold': $index+1 == otro.totalesPorMes.length, 'negative-number':totalPorMes < 0}"
+                                ng-repeat="totalPorMes in otro.totalesPorMes track by $index">
+                                {{totalPorMes | currency}}
+                            </td>
+                        </tr>
+
+                        <!-- Total Ingresos -->
+
+                        <tr>
+                            <td class="text-center">
+                                <b> **Total ingresos </b>
+                            </td>
+                            <td class="text-right" ng-repeat="t in estadoResultado.actividades_operacion.total_ingresos track by $index">
+                                <b>
+                                    {{t | currency}}
+                                </b>
+                            </td>
+                        </tr>
+
+                        <!-- Pago a proveedores Mat. Prima Directa -->
+                        <tr>
+                            <td class="text-center">
+                                <b> Pago a proveedores Mat. Prima Directa </b>
+                            </td>
+                        </tr>
+
+                        <tr ng-repeat="c in estadoResultado.pago_proveedores.conceptos">
+                            <td class="text-left">{{c.concepto | uppercase}}</td>
+                            <td class="text-right" ng-class="{'font-weight-bold': $index+1 == c.totalesPorMes.length, 'negative-number':totalPorMes < 0}"
+                                ng-repeat="totalPorMes in c.totalesPorMes track by $index">
+                                {{totalPorMes | currency}}
+                            </td>
+                        </tr>
+
+                        <!-- Total pago proveedores -->
+
+                        <tr>
+                            <td class="text-center">
+                                <b> Compras Netas Materia Prima </b>
+                            </td>
+                            <td class="text-right" ng-repeat="total in estadoResultado.pago_proveedores.total_pago_proveedores track by $index">
+                                <b>
+                                    {{total | currency}}
+                                </b>
+                            </td>
+                        </tr>
+
+                        <!-- Gastos de operación -->
+                        <tr>
+                            <td class="text-center">
+                                <b> Gastos de operación </b>
+                            </td>
+                        </tr>
+
+                        <tr ng-repeat="cuenta in estadoResultado.gastos_operacion.cuentas">
+                            <td class="text-left" ng-class="{'font-weight-bold': cuenta.esEncabezado}">
+                                {{cuenta.nombre | uppercase}}
+                            </td>
+                            <td class="text-right" ng-class="{'font-weight-bold': $index+1 == cuenta.totalesPorMes.length || cuenta.esEncabezado, 'negative-number':totalPorMes < 0}"
+                                ng-repeat="totalPorMes in cuenta.totalesPorMes track by $index">
+                                {{totalPorMes | currency}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

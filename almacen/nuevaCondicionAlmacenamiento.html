@@ -1,0 +1,122 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CONDICIONES DE ALMACENAMIENTO
+                        <a title="Regresar" href="#/condiciones" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-10 col-sm-6">
+                            <h4>
+                                <b>ALMACÉN: </b> {{ nombreAlmacen | uppercase }}
+                            </h4>
+                        </div>
+                        <div class="col-xs-2 col-sm-6" align="right">
+                            <button title="Ver PDF" class="pull-right btn btn-sm btn-danger" ng-click="mirarPDFCP()">
+                                <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-xs-offset-6" align="right">
+                            <b> Codigo:</b> RPR-RAD-01
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p>
+                                        <b>
+                                            <i class="zmdi zmdi-check-square zmdi-hc-lg" style="color: gold"></i> Cumplido
+                                            <br>
+                                            <i class="zmdi zmdi-square-o zmdi-hc-lg" style="color: gold"></i> No cumplido </b>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive no-padding">
+                                        <table class="table table-condensed table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Tema
+                                                    </th>
+                                                    <th>
+                                                        S1
+                                                    </th>
+                                                    <th>
+                                                        S2
+                                                    </th>
+                                                    <th>
+                                                        S3
+                                                    </th>
+                                                    <th>
+                                                        S4
+                                                    </th>
+                                                    <th>
+                                                        S5
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="c in condicion">
+                                                    <td>{{c.tema}}</td>
+                                                    <td>
+                                                        <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                            <input type="checkbox" ng-model="c.semana1" ng-true-value="'1'" ng-false-value="'0'" ng-change="cambiarCondicion(c.semana1, c.idCondicionAlmacenamiento, 1)">
+                                                            <i class="input-helper"></i>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                            <input type="checkbox" ng-model="c.semana2" ng-true-value="'1'" ng-false-value="'0'" ng-change="cambiarCondicion(c.semana2, c.idCondicionAlmacenamiento, 2)">
+                                                            <i class="input-helper"></i>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                            <input type="checkbox" ng-model="c.semana3" ng-true-value="'1'" ng-false-value="'0'" ng-change="cambiarCondicion(c.semana3, c.idCondicionAlmacenamiento, 3)">
+                                                            <i class="input-helper"></i>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                            <input type="checkbox" ng-model="c.semana4" ng-true-value="'1'" ng-false-value="'0'" ng-change="cambiarCondicion(c.semana4, c.idCondicionAlmacenamiento, 4)">
+                                                            <i class="input-helper"></i>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                            <input type="checkbox" ng-model="c.semana5" ng-true-value="'1'" ng-false-value="'0'" ng-change="cambiarCondicion(c.semana5, c.idCondicionAlmacenamiento, 5)">
+                                                            <i class="input-helper"></i>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+</div>

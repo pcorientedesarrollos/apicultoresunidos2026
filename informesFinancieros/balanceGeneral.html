@@ -1,0 +1,232 @@
+<div class="box box-solid box-warning">
+    <div class="box-header">
+        <h4>Posición financiera al {{balanceGeneral.fecha | date:'dd/MM/yyyy'}}</h4>
+    </div>
+    <div class="box body">
+
+        <div class="row">
+            <!-- Activos -->
+
+            <div class="col-xs-12 col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                            <tr>
+                                <th colspan="2" class="text-center">Activos</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center">Descripción</th>
+                                <th class="text-center">Saldo al final del mes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Circulante -->
+                            <tr>
+                                <td>
+                                    <p><b>CIRCULANTE</b></p>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr ng-repeat="circulante in balanceGeneral.resultado.activo.circulante.conceptos">
+                                <td>
+                                    <p>{{circulante.nombre | uppercase}}</p>
+                                </td>
+                                <td class="text-right">
+                                    <p>{{circulante.total | currency}}</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p><b>Total Activo CIRCULANTE</b></p>
+                                </td>
+                                <td class="text-right">
+                                    <p><b>{{balanceGeneral.resultado.activo.circulante.total | currency}}</b></p>
+                                </td>
+                            </tr>
+
+
+                            <!-- Fijo -->
+                            <tr>
+                                <td>
+                                    <p><b>FIJO</b></p>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr ng-repeat="clasificacion in balanceGeneral.resultado.activo.activos.clasificaciones">
+                                <td>
+                                    <p>{{clasificacion.nombre | uppercase}}</p>
+                                </td>
+                                <td class="text-right">
+                                    <p>{{clasificacion.total | currency}}</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p><b>Total Activo FIJO</b></p>
+                                </td>
+                                <td class="text-right">
+                                    <p><b>{{balanceGeneral.resultado.activo.activos.total | currency}}</b></p>
+                                </td>
+                            </tr>
+
+                            <!-- Diferido -->
+                            <tr>
+                                <td>
+                                    <p><b>DIFERIDO</b></p>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr ng-repeat="diferido in balanceGeneral.resultado.activo.diferido.conceptos">
+                                <td>
+                                    <p>{{diferido.nombre | uppercase}}</p>
+                                </td>
+                                <td class="text-right">
+                                    <p>{{diferido.total | currency}}</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p><b>Total Activo DIFERIDO</b></p>
+                                </td>
+                                <td class="text-right">
+                                    <p><b>{{balanceGeneral.resultado.activo.diferido.total | currency}}</b></p>
+                                </td>
+                            </tr>
+
+                            <!-- TOTAL ACTIVO -->
+                            <tr>
+                                <td>
+                                    <p><b>TOTAL ACTIVO</b></p>
+                                </td>
+                                <td class="text-right">
+                                    <p><b>{{balanceGeneral.resultado.activo.total_activo | currency}}</b></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- Pasivos -->
+
+            <div class="col-xs-12 col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                            <tr>
+                                <th colspan="2" class="text-center">Pasivos</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center">Descripción</th>
+                                <th class="text-center">Saldo al final del mes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- pasivo a corto plazo -->
+                            <tr>
+                                <td>
+                                    <p><b>Pasivo a corto plazo</b></p>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr ng-repeat="concepto in balanceGeneral.resultado.pasivo.corto_plazo.conceptos">
+                                <td>
+                                    <p>{{concepto.nombre | uppercase}}</p>
+                                </td>
+                                <td class="text-right">
+                                    <p>{{concepto.total | currency}}</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p><b>Total Pasivo a corto plazo</b></p>
+                                </td>
+                                <td class="text-right">
+                                    <p><b>{{balanceGeneral.resultado.pasivo.corto_plazo.total | currency}}</b></p>
+                                </td>
+                            </tr>
+
+                            <!-- pasivo a largo plazo -->
+                            <tr>
+                                <td>
+                                    <p><b>Pasivo a largo plazo</b></p>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr ng-repeat="concepto in balanceGeneral.resultado.pasivo.largo_plazo.conceptos">
+                                <td>
+                                    <p>{{concepto.nombre | uppercase}}</p>
+                                </td>
+                                <td class="text-right">
+                                    <p>{{concepto.total | currency}}</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p><b>Total Pasivo a largo plazo</b></p>
+                                </td>
+                                <td class="text-right">
+                                    <p><b>{{balanceGeneral.resultado.pasivo.largo_plazo.total | currency}}</b></p>
+                                </td>
+                            </tr>
+
+                            <!-- Total pasivo -->
+                            <tr>
+                                <td>
+                                    <p><b>TOTAL PASIVO</b></p>
+                                </td>
+                                <td class="text-right">
+                                    <p><b>{{balanceGeneral.resultado.pasivo.total_pasivo | currency}}</b></p>
+                                </td>
+                            </tr>
+
+
+                            <!-- capital contable -->
+                            <tr>
+                                <td>
+                                    <p><b>CAPITAL CONTABLE</b></p>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr ng-repeat="concepto in balanceGeneral.resultado.capital.conceptos">
+                                <td>
+                                    <p>{{concepto.nombre | uppercase}}</p>
+                                </td>
+                                <td class="text-right">
+                                    <p>{{concepto.total | currency}}</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p><b>Total CAPITAL CONTABLE</b></p>
+                                </td>
+                                <td class="text-right">
+                                    <p><b>{{balanceGeneral.resultado.capital.total_capital | currency}}</b></p>
+                                </td>
+                            </tr>
+
+                            <!-- TOTAL PASIVO + CAPITAL -->
+                            <tr>
+                                <td>
+                                    <p><b> TOTAL PASIVO + CAPITAL</b></p>
+                                </td>
+                                <td class="text-right">
+                                    <p><b>{{balanceGeneral.resultado.pasivo_capital | currency}}</b></p>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

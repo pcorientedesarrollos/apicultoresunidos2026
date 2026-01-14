@@ -1,0 +1,196 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CRONOGRAMA DE MANTENIMIENTO</h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-sm-offset-9">
+                            <b> Codigo:</b> RST-M-01
+
+                            <div class="col-sm-2 pull-right">
+                                <a style="margin-right: 10px"
+                                   title="Ver PDF"
+                                   class="pull-right btn btn-sm btn-danger"
+                                   ng-click="verPDF()">
+                                    <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>    
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-sm-2">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Area:</label>
+                                    <input class="form-control" type="text" 
+                                           ng-model="crono.area"
+                                           />
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Equipo:</label>
+                                    <input class="form-control" 
+                                           type="text" 
+                                           ng-model="crono.equipo"
+                                           ng-keyup="agregarCrono()"
+                                           />
+                                </div>
+                            </div> 
+                            <div class="col-sm-2">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Observaciones:</label>
+                                    <input class="form-control" type="text"
+                                           ng-model="crono.observaciones"
+                                           ng-keyup="agregarCrono()"/>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr style="border-color: black">
+                                    <th style="border: black 1px solid; text-transform: none; font-weight: 600; color:white; background-color: #e57373" rowspan="3">Area</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #f06292" rowspan="3">Equipo</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: black; background-color: #e0e0e0" rowspan="1" colspan="48">Meses</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #795548 " rowspan="3" colspan="2">Observaciones</th>
+                                </tr>
+                                <tr>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ba68c8" rowspan="1" colspan="4">Ene.</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #7986cb" rowspan="1" colspan="4">Feb.</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #64b5f6" rowspan="1" colspan="4">Mar.</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #b2dfdb" rowspan="1" colspan="4">Abr.</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #4db6ac" rowspan="1" colspan="4">Mayo</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #81c784" rowspan="1" colspan="4">Jun.</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #aed581" rowspan="1" colspan="4">Jul.</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #dce775" rowspan="1" colspan="4">Ago.</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffeb3b" rowspan="1" colspan="4">Sep.</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffb74d" rowspan="1" colspan="4">Oct.</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ff8a65" rowspan="1" colspan="4">Nov.</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #a1887f" rowspan="1" colspan="4">Dic.</th>
+                                </tr>
+                                <tr>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ba68c8" rowspan="1" >1</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ba68c8" rowspan="1" >2</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ba68c8" rowspan="1" >3</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ba68c8" rowspan="1" >4</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #7986cb" rowspan="1" >1</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #7986cb" rowspan="1" >2</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #7986cb" rowspan="1" >3</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #7986cb" rowspan="1" >4</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #64b5f6" rowspan="1" >1</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #64b5f6" rowspan="1" >2</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #64b5f6" rowspan="1" >3</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #64b5f6" rowspan="1" >4</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #b2dfdb" rowspan="1" >1</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #b2dfdb" rowspan="1" >2</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #b2dfdb" rowspan="1" >3</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #b2dfdb" rowspan="1" >4</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #4db6ac" rowspan="1" >1</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #4db6ac" rowspan="1" >2</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #4db6ac" rowspan="1" >3</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #4db6ac" rowspan="1" >4</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #81c784" rowspan="1" >1</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #81c784" rowspan="1" >2</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #81c784" rowspan="1" >3</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #81c784" rowspan="1" >4</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #aed581" rowspan="1" >1</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #aed581" rowspan="1" >2</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #aed581" rowspan="1" >3</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #aed581" rowspan="1" >4</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #dce775" rowspan="1" >1</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #dce775" rowspan="1" >2</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #dce775" rowspan="1" >3</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #dce775" rowspan="1" >4</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffeb3b" rowspan="1" >1</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffeb3b" rowspan="1" >2</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffeb3b" rowspan="1" >3</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffeb3b" rowspan="1" >4</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffb74d" rowspan="1" >1</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffb74d" rowspan="1" >2</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffb74d" rowspan="1" >3</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ffb74d" rowspan="1" >4</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ff8a65" rowspan="1" >1</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ff8a65" rowspan="1" >2</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ff8a65" rowspan="1" >3</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #ff8a65" rowspan="1" >4</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #a1887f" rowspan="1" >1</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #a1887f" rowspan="1" >2</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #a1887f" rowspan="1" >3</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: #a1887f" rowspan="1" >4</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="crono in cronograma">
+                                    <td>{{crono.area}}</td>
+                                    <td>{{crono.equipo}}</td>
+                                    <td></td>                                    
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{crono.observaciones}}</td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>

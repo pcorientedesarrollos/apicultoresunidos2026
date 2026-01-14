@@ -1,0 +1,1376 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CUESTIONARIO DE EVALUACION A PROVEEDOR
+                        <a title="Regresar" href="#/evaluacion" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-2 pull-right">
+                            <b>Codigo:</b>  RST-AI-04
+                        </div>
+                        <div class="col-sm-2 pull-right" ng-if="evaluacionId > 0">
+                            <a style="margin-right: 10px"
+                               title="Ver PDF"
+                               class="pull-right btn btn-sm btn-danger"
+                               ng-click="pdfEvaluacion()">
+                                <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="box-header">
+
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-10">
+                                        <p style="font-size: 15px;"> Con el objeto de llevar a cabo  la mejora  contínua, en  nuestros  productos  y servicios,
+                                            le solicitamos contestar <b>marcando la celda correspondiente</b>
+                                            los siguientes elementos que nos permitirán evaluar su sistema de calidad
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-4 col-lg-offset-4">
+                                        <div align="center">
+                                            <div class="table table-responsive">
+                                                <table class="table-responsive table-bordered table-condensed">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="4"> ESCALA DE CALIFICACION </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="text-align: center">0</td>
+                                                            <td>No cumple</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="text-align: center">1</td>
+                                                            <td>Cumple parcialmente</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="text-align: center">2</td>
+                                                            <td>Cumple satisfactoriamente</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="text-align: center">N/A</td>
+                                                            <td>No aplica</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="box-header">
+                                    <h5>
+                                        <b>DATOS GENERALES</b>
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-4">
+                                            <div class="fg-line">
+                                                <label style="font-weight: bold;"  class="col-sm-5 text-primary">Tipo de proveedor </label>
+                                                <div class="col-sm-6">
+                                                    <div class="fg-line">
+                                                        <select 
+                                                            chosen
+                                                            ng-model="tipoDeProveedor" 
+                                                            class="form-control" 
+                                                            ng-options="tp.idTipoProveedor as tp.tipoProveedor for tp in listaTiposProveedores"
+                                                            > 
+                                                            <option value="">Tipo Proveedor</option>   
+                                                        </select>
+                                                    </div>
+                                                    <!--                                                    <div class="fg-line">
+                                                                                                            <input type="text" 
+                                                                                                                   class="form-control input-sm" 
+                                                                                                                   ng-model="evaluacion.tipoProveedor"
+                                                                                                                   placeholder="Tipo"
+                                                                                                                   list="tipoProvee">
+                                                                                                            <datalist id="tipoProvee">
+                                                                                                                <option>Insumos</option>
+                                                                                                                <option>Servicios</option>
+                                                                                                                <option>Transportistas</option>
+                                                                                                            </datalist>
+                                                                                                        </div>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="fg-line">
+                                                <label style="font-weight: bold;" class="col-sm-3 text-primary">Proveedor</label>
+                                                <div class="col-sm-9">
+                                                    <div class="fg-line">
+                                                        <select 
+                                                            chosen
+                                                            ng-model="proveedorMantto" 
+                                                            class="form-control" 
+                                                            ng-options="ns.idProveedorMantto as ns.nombreProveedor for ns in listaTecnicos"
+                                                            ng-change="proveedorDatos(proveedorMantto)"> 
+                                                            <option value="">Proveedor</option>   
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="fg-line">
+                                                <label style="font-weight: bold;" class="col-sm-3 text-primary">Dirección</label>
+                                                <div class="col-sm-9">
+                                                    {{datosProveedor.domicilio}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-lg-4">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-3 text-primary">Teléfono</label>
+                                        <div class="col-sm-9">
+                                            {{datosProveedor.telefono}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-3 text-primary">Web</label>
+                                        <div class="col-sm-9">
+                                            {{datosProveedor.web}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-3 text-primary">E-mail</label>
+                                        <div class="col-sm-9">
+                                            {{datosProveedor.correo}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-lg-4">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-3 text-primary">Contacto</label>
+                                        <div class="col-sm-9">
+                                            {{datosProveedor.nombreContacto}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-5 text-primary">¿Cuenta con un sistema de calidad documentado?</label>
+                                        <div class="col-sm-7">
+                                            <div class="table table-responsive">
+                                                <table class="table table-responsive table-condensed table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>0</th>
+                                                            <th>1</th>
+                                                            <th>2</th>
+                                                            <th>N/A</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <input type="checkbox" 
+                                                                       ng-model="evaluacion.sistemaCalidad"
+                                                                       ng-true-value="'1'" 
+                                                                       ng-false-value="'9'">
+                                                                <i class="input-helper"></i>    
+                                                            </td>
+                                                            <td>
+                                                                <input type="checkbox" 
+                                                                       ng-model="evaluacion.sistemaCalidad"
+                                                                       ng-true-value="'2'" 
+                                                                       ng-false-value="'9'">
+                                                                <i class="input-helper"></i>    
+                                                            </td>
+                                                            <td>
+                                                                <input type="checkbox" 
+                                                                       ng-model="evaluacion.sistemaCalidad"
+                                                                       ng-true-value="'3'" 
+                                                                       ng-false-value="'9'">
+                                                                <i class="input-helper"></i>   
+                                                            </td>
+                                                            <td>
+                                                                <input type="checkbox" 
+                                                                       ng-model="evaluacion.sistemaCalidad"
+                                                                       ng-true-value="'4'" 
+                                                                       ng-false-value="'9'">
+                                                                <i class="input-helper"></i>   
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-3 text-primary">Certificacion</label>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" 
+                                                               value="1" ng-model="evaluacion.idCertificacion">ISO 9000:2000
+                                                        <i class="input-helper"></i>    
+                                                    </label> 
+                                                    <div ng-if="evaluacion.idCertificacion == 1">
+                                                        <input type="text" 
+                                                               ng-model="evaluacion.certificacion">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                        <input type="radio" 
+                                                               value="2" ng-model="evaluacion.idCertificacion">Otra
+                                                        <i class="input-helper"></i>    
+                                                    </label>
+                                                    <div ng-if="evaluacion.idCertificacion == 2" >
+                                                        <input type="text" 
+                                                               ng-model="evaluacion.certificacion">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-lg-10 col-lg-offset-1">
+                                    <div class="table table-responsive">
+                                        <table class="table table-bordered table-condensed table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th style="font-weight: 500">OBSERVACIONES</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        Si cuenta con el certificado ISO_9000, pasar a la sección III, IV y V de este cuestionario.
+                                                        Favor de envíar copia de su certificado anexa al mismo.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Si cuenta con el certificado de Calidad e Inocuidad, pasar a la sección IV y V de este cuestionario.
+                                                        Favor de envíar copia de su certificado anexa al mismo.
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="box-header">
+                                    <h5>
+                                        <b> II. ASEGURAMIENTO DE LA CALIDAD </b>
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="table-responsive no-padding">
+                                                <table class="table table-condensed table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                N° 
+                                                            </th>
+                                                            <th>
+                                                                Concepto
+                                                            </th>
+                                                            <th>
+                                                                0
+                                                            </th>
+                                                            <th>
+                                                                1
+                                                            </th>
+                                                            <th>
+                                                                2
+                                                            </th>
+                                                            <th>
+                                                                N/A
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>¿Cuenta con un manual de aseguramiento de calidad?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento1"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento1"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento1"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento1"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>¿Aplican buenas prácticas de manufactura en sus procesos?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento2"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento2"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento2"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento2"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>¿Elaboran certificados de calidad del producto final?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento3"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento3"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento3"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento3"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>4</td>
+                                                            <td>¿Cuentan con procedimientos documentados para la atención de quejas de clientes?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento4"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento4"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento4"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento4"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>5</td>
+                                                            <td>¿Existen procedimientos documentados para el manejo del producto terminado en tránsito y entrega al cliente?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento5"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento5"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento5"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento5"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>6</td>
+                                                            <td>¿Cuentan con procedimientos que permiten identificar y rastrear materias primas y productos?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento6"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento6"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento6"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento6"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>7</td>
+                                                            <td>¿Cuentan con procedimientos documentados para el manejo del producto no conforme?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento7"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento7"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento7"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento7"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>8</td>
+                                                            <td>¿Cuentan con especificaciones de cada una de sus materias primas y productos?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento8"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento8"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento8"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento8"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>9</td>
+                                                            <td>¿Cuentan con un programa de calibración de sus equipos?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento9"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento9"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento9"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento9"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>10</td>
+                                                            <td>¿Existe un programa de capacitación de su personal a todos los niveles?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento10"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento10"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento10"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.aseguramiento10"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>11</td>
+                                                            <td>Indique los temas en que ha sido capacitado su personal</td>
+                                                            <td colspan="4">
+                                                                <textarea 
+                                                                    style="font-size: 10px;"
+                                                                    class="form-control" 
+                                                                    rows="5" 
+                                                                    ng-model="cuestionario.aseguramiento11"
+                                                                    >
+                                                                </textarea>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="box-header">
+                                    <h5>
+                                        <b> DEFENSA DE PRODUCTO </b>
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="table-responsive no-padding">
+                                                <table class="table table-condensed table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                N° 
+                                                            </th>
+                                                            <th>
+                                                                Concepto
+                                                            </th>
+                                                            <th>
+                                                                0
+                                                            </th>
+                                                            <th>
+                                                                1
+                                                            </th>
+                                                            <th>
+                                                                2
+                                                            </th>
+                                                            <th>
+                                                                N/A
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>¿Existen programas para proteger y reforzar sus sistemas de cómputo y
+                                                                documentación crítica para la seguridad de los alimentos (Food defense)?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa1"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa1"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa1"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa1"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>¿Cuenta con medidas de seguridad para el monitoreo de los exteriores y techos de sus instalaciones
+                                                                (Circuitos cerrados de tv, iluminación adecuada, minimizar accesos inseguros, etc.)?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa2"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa2"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa2"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa2"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>¿Existe un programa para el control de acceso de personal y visitantes (Gafetes, identificación,
+                                                                áreas de tránsito restringidas, áreas designadas para que el personal guarde sus pertenencias, etc.)?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa3"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa3"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa3"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa3"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>4</td>
+                                                            <td>¿Manejan sellos de inviolabilidad en sus empaques y cuentan con un control de sus etiquetas?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa4"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa4"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa4"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa4"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>5</td>
+                                                            <td>¿Existe un programa de bioseguridad para el producto almacenado y durante la distribución
+                                                                (Separación adecuada de materias primas o sustancias químicas, verificación de medidas de seguridad
+                                                                en sus transportes, verificación de la identidad del chofer, etc.)?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa5"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa5"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa5"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.defensa5"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="box-header">
+                                    <h5>
+                                        <b> V. SERVICIO AL CLIENTE </b>
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="table-responsive no-padding">
+                                                <table class="table table-condensed table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                N° 
+                                                            </th>
+                                                            <th>
+                                                                Concepto
+                                                            </th>
+                                                            <th>
+                                                                0
+                                                            </th>
+                                                            <th>
+                                                                1
+                                                            </th>
+                                                            <th>
+                                                                2
+                                                            </th>
+                                                            <th>
+                                                                N/A
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>¿Existe un sistema que asegure que los pedidos se procesan a tiempo?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.servicio1"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.servicio1"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.servicio1"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.servicio1"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>Indique el tiempo de respuesta para surtir pedidos de los materiales o materia prima. Menor a 24 horas. </td>
+                                                            <td colspan="4">
+                                                                <textarea 
+                                                                    style="font-size: 10px;"
+                                                                    class="form-control" 
+                                                                    rows="2" 
+                                                                    ng-model="cuestionario.seguridad2"
+                                                                    >
+                                                                </textarea>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>¿Garantiza que la entrega de material solicitado corresponde con lo indicado en la orden de compra de sus clientes?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad3"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad3"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad3"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad3"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>4</td>
+                                                            <td>¿Cuentan con un sistema que permita avisar a los clientes sobre algún cambio imprevisto en la fecha de
+                                                                entrega de materiales?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad4"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad4"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad4"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad4"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>5</td>
+                                                            <td>Mencionar los términos de pago que otorgan generalmente a sus clientes. Crédito 15 días.</td>
+                                                            <td colspan="4">
+                                                                <textarea 
+                                                                    style="font-size: 10px;"
+                                                                    class="form-control" 
+                                                                    rows="2" 
+                                                                    ng-model="cuestionario.seguridad5"
+                                                                    >
+                                                                </textarea>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>6</td>
+                                                            <td>¿Estan dispuestos a negociar precios cuando así lo requiera el cliente?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad6"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad6"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad6"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad6"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>7</td>
+                                                            <td>¿Estan dispuestos a otorgar condiciones de crédito preferencial cuando así lo requiera el cliente?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad7"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad7"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad7"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td><td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad7"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>8</td>
+                                                            <td>¿Cuentan con la capacidad para atender pedidos de emergencia en caso de así requerirlo el cliente?</td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad8"
+                                                                           ng-true-value="'1'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad8"
+                                                                           ng-true-value="'2'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad8"
+                                                                           ng-true-value="'3'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                            <td>
+                                                                <label style="margin-bottom: 15px" class="checkbox checkbox-inline m-r-20">
+                                                                    <input type="checkbox" 
+                                                                           ng-model="cuestionario.seguridad8"
+                                                                           ng-true-value="'4'" 
+                                                                           ng-false-value="'9'">
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="box-header">
+                                    <h5><B>DATOS DE QUIEN RESPONDIO ESTE CUESTIONARIO</B></h5>
+                                    <hr></div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="fg-line">
+                                            <label style="font-weight: bold;"  class="col-sm-2 text-primary">Nombre</label>
+                                            <div class="col-sm-10">
+                                                <div class="fg-line">
+                                                    <input type="text" 
+                                                           class="form-control input-sm" 
+                                                           ng-model="evaluacion.nombre"
+                                                           placeholder="Nombre"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="fg-line">
+                                            <label style="font-weight: bold;"  class="col-sm-2 text-primary"> Cargo </label>
+                                            <div class="col-sm-10">
+                                                <div class="fg-line">
+                                                    <input type="text" 
+                                                           class="form-control input-sm" 
+                                                           ng-model="evaluacion.cargo"
+                                                           placeholder="Cargo"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="fg-line">
+                                            <label style="font-weight: bold;"  class="col-sm-2 text-primary"> Fecha </label>
+                                            <div class="col-sm-10">
+                                                <div class="form-group">
+                                                    <div class="input-group date" data-provide="datepicker">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </div>
+                                                        <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                               type="text" class="form-control pull-right"
+                                                               id="datepicker" placeholder="Fecha" 
+                                                               ng-model="evaluacion.fecha">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-1 col-lg-offset-10">
+                            <div class="row" >
+                                <br>
+                                <button type="submit" ng-click="guardarEvaluacion();" 
+                                        class="btn btn-warning btn-xs">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>

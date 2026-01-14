@@ -1,0 +1,66 @@
+<section class="content" ng-controller="empresasExternasCtrl">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        ARQUEO DE CAJA
+                        <a title="Nuevo arqueo" href="#/capturaArqueo/0" class="btn btn-success btn-xs pull-right">
+                            Nuevo arqueo
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-4">
+                            <div class="input-group">
+                                <input type="text" ng-model="arqueos" class="form-control input-sm pull-right"
+                                    placeholder="Buscar">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div ng-if="arqueosDeCaja && !arqueosDeCaja.length">
+                        No hay registros
+                    </div>
+                    <div ng-if="arqueosDeCaja && arqueosDeCaja.length">
+                        <div class="table-responsive no-padding">
+                            <table class="table table-striped table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th style="text-transform: none; font-weight: 600"></th>
+                                        <th style="text-transform: none; font-weight: 600">Nombre</th>
+                                        <th style="text-transform: none; font-weight: 600">Fecha inicial</th>
+                                        <th style="text-transform: none; font-weight: 600">Fecha final</th>
+                                        <th style="text-transform: none; font-weight: 600"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="arqueo in arqueosDeCaja|filter:arqueos">
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{arqueo.nombre}}</td>
+                                        <td>{{arqueo.fechaInicial | date: 'dd/MM/yyyy'}}</td>
+                                        <td>{{arqueo.fechaFinal | date: 'dd/MM/yyyy'}}</td>
+                                        <td>
+                                            <a class="btn btn-warning btn-xs"
+                                                ng-href="#/capturaArqueo/{{arqueo.idSemana}}" title="Añadir humedad">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<div growl></div>

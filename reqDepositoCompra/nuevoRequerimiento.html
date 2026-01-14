@@ -1,0 +1,251 @@
+<section class="content">
+    <div class="box box-solid box-warning">
+        <div class="box-header">
+            <h5 class="encabezadosTabla">
+                REQUERIMIENTO DE COMPRA
+                <a title="Regresar" href="#/requerimiento" class="btn btn-success btn-xs pull-right">
+                    <i class="zmdi zmdi-arrow-left"></i>
+                </a>
+            </h5>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group pull-right">
+                        <button title="Imprimir XLS" class="btn btn-success" ng-click="xlsRequerimiento()">
+                            <i class="fa fa-file-excel-o"></i>
+                        </button>
+                        <button title="Imprimir PDF" class="btn btn-danger" ng-click="pdfRequerimiento()">
+                            <i class="fa fa-file-pdf-o"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <p><b>Fecha</b></p>
+                        <div class="input-group date" data-provide="datepicker">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input autocomplete="off" type="text" class="form-control pull-right" id="datepicker"
+                                placeholder="Fecha" ng-model="encabezado.fechaRequisicion">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4" ng-hide="encabezado.idRequisicion == nuevo">
+                    <div class="form-group-sm">
+                        <p>&nbsp;</p>
+                        <button ng-disabled="!encabezado.puedeEditar" type="button" class="btn btn-warning"
+                            ng-click="guardarEdicionFecha()">Guardar
+                            fecha</button>
+                    </div>
+                </div>
+                <!-- <div class="col-xs-12 col-md-4">
+                    <div class="form-group-sm">
+                        <label><b>Fecha de Reporte</b></label>
+                        <input type="date" class="form-control input-xs" date="dd/MM/yyyy" name="date_control" required="required" ng-model="encabezado.fechaRequisicion"
+                        />
+                    </div>
+                </div> -->
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-2">
+                    <div class="form-group">
+                        <label>
+                            <b>Comprador:</b>
+                        </label>
+                        <select ng-model="selectComprador" chosen class="form-control"
+                            ng-change="obtenerProveedoresDelComprador(selectComprador.idcomprador);"
+                            ng-options="comprador as comprador.nombre for comprador in listaCompradores track by comprador.idcomprador">
+                            <option disabled="disabled" value="">Seleccione un Comprador</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <div class="form-group">
+                        <label>
+                            <b>Proveedor:</b>
+                        </label>
+                        <select ng-model="selectProvee" chosen class="form-control" ng-change="obtenerInfoLocalidad();"
+                            ng-options="pr as pr.nombre for pr in nomProveedor track by pr.idProveedor">
+                            <option disabled="disabled" value="">Seleccione un Proveedor</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <div class="form-group-sm">
+                        <label><b>Localidad:</b></label>
+                        <input class="form-control input-xs" type="text" disabled="true" ng-model="detalle.localidad" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <div class="form-group-sm">
+                        <label><b>Precio</b></label>
+                        <input class="form-control input-xs" type="text" ng-model="detalle.precio"
+                            ng-change="calcularImporteOPeso('precio')" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <div class="form-group-sm">
+                        <label><b>Peso</b></label>
+                        <input class="form-control input-xs" type="text" ng-model="detalle.peso"
+                            ng-change="calcularImporteOPeso('peso')" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <div class="form-group-sm">
+                        <label><b>Importe</b></label>
+                        <input class="form-control input-xs" type="text" ng-model="detalle.importe"
+                            ng-change="calcularImporteOPeso('importe')" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-2">
+                    <div class="form-group">
+                        <label>
+                            <b>Miel:</b>
+                        </label>
+                        <select ng-model="selectCosecha" chosen class="form-control"
+                            ng-options="prr as prr.tipoDeMiel for prr in lstMieles track by prr.idTipoDeMiel">
+                            <option disabled="disabled" value="">Seleccione un tipo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <div class="form-group-sm">
+                        <label><b>Banco</b></label>
+                        <input class="form-control input-xs" type="text" ng-model="detalle.banco" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <div class="form-group-sm">
+                        <label><b>Observaciones</b></label>
+                        <input class="form-control input-xs" type="text" ng-model="detalle.observaciones" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <div class="form-group-sm">
+                        <label><b>Saldo Actual</b></label>
+                        <input class="form-control input-xs text-right" type="text" disabled="true" ng-model="detalle.saldoDeudor | currency" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <button ng-disabled="!encabezado.puedeEditar" type="button"
+                            ng-hide="encabezado.idRequisicion == nuevo" class="btn btn-warning btn-sm pull-right"
+                            ng-click="agregarRequerimiento()">
+                            Guardar
+                        </button>
+                        <button type="button" ng-show="encabezado.idRequisicion == nuevo"
+                            class="btn btn-info btn-sm pull-right" ng-click="agregarRequerimiento()">
+                            Agregar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table  style="font-size: 9pt;" class="table table-striped table-condensed">
+                            <thead >
+                                <th >Comprador</th>
+                                <th>Proveedor</th>
+                                <th>Localidad</th>
+                                <th>Miel</th>
+                                <th>Saldo Actual</th>
+                                <th>Tambores</th>
+                                <th>Kg.</th>
+                                <th>Precio</th>
+                                <th>Importe</th>
+                                <th>Banco</th>
+                                <th>Observaciones</th>
+                                <th></th>
+                                <th ng-if="requerimiento > 0" >Cobrado</th>
+                                <!--   <th ng-show="idAlmacenista > 0"><center>Imprimir</center></th> -->
+                            </thead>
+                            <tr ng-repeat="detalle in requerimientosDetalle">
+                                <td>{{detalle.nombreComprador | uppercase}}</td>
+                                <td>{{detalle.nombre | uppercase}}</td>
+                                <td>{{detalle.localidad | uppercase}}</td>
+                                <td>{{detalle.tipoDeMiel | uppercase}}</td>
+                                <td class="text-right">{{detalle.saldoDeudor | currency}}</td>
+                                <!-- <td>{{detalle.noTambores = detalle.peso / 300 | number:0}}</td>   -->
+                                <td class="text-center">{{detalle.noTambores | number:0}}</td>
+                                <td>{{detalle.peso | number}}</td>
+                                <td>{{detalle.precio|currency}}</td>
+                                <td>{{detalle.importe|currency}}</td>
+                                <td>{{detalle.banco}}</td>
+                                <td>{{detalle.observaciones}}</td>
+                                <td class="text-center">
+                                    <button title="Descartar Registro" ng-click="eliminarRequerimientoDetalle($index)"
+                                        ng-if="!detalle.idDetalle" class="btn btn-danger btn-xs">
+                                        <i class="zmdi zmdi-delete">
+                                        </i>
+                                    </button>
+                                    <button title="Eliminar Registro" ng-if="detalle.idDetalle"
+                                        ng-disabled="detalle.cobrado == '1'"
+                                        ng-click="eliminarRequerimientoBd(detalle.idDetalle, detalle.cobrado)"
+                                        class="btn btn-xs btn-danger">
+                                        <i class="zmdi zmdi-delete">
+                                        </i>
+                                    </button>
+
+                                </td>
+                                <td class="text-center" >
+                                    <input ng-if="detalle.idDetalle > 0" type="checkbox" ng-true-value="'1'"
+                                        ng-false-value="'0'" ng-model="detalle.cobrado"
+                                        ng-disabled="detalle.idDetalle > 0">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-8">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td>Total de tambores</td>
+                                    <td>{{encabezado.totalTambores = (encabezado.totalKilos / 300) | number:0}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total del importe</td>
+                                    <td>{{encabezado.importeTotal | currency}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total de kilos</td>
+                                    <td>{{encabezado.totalKilos | number}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="text-center">
+                        <button ng-show="encabezado.idRequisicion == nuevo" class="btn btn-warning btn-xs"
+                            ng-click="guardarRequerimiento();">Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<div growl></div>

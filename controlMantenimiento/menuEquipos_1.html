@@ -1,0 +1,60 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        Seleccione un área para ver sus artículos
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-2 pull-right">
+                            <a href="#/nvoEquipo/0" class="btn btn-success btn-xs" style="float: right">
+                                <i class="zmdi zmdi-plus"></i> Agregar Artículo
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th style="text-transform: none; font-weight: 600; text-align: center" rowspan="2" colspan="1">Area</th>
+                                    <!--<th style="text-transform: none; font-weight: 600; text-align: right" rowspan="2" colspan="1">Cantidad</th>-->
+                                    <!--<th style="text-transform: none; font-weight: 600; text-align: center; background-color: yellowgreen" rowspan="1" colspan="2">Cantidad</th>-->
+                                    <th style="text-transform: none; font-weight: 600; text-align: center; background-color: " colspan="2">Requieren mantenimiento</th>
+                                </tr>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600; text-align: center; background-color: " rowspan="1" colspan="">Sí</th>
+                                    <!--<th class="bgm-blue" style="text-transform: none; font-weight: 600; background-color: yellowgreen" rowspan="1" colspan="">Cant.</th>-->
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600; text-align: center; background-color: " rowspan="1" colspan="">No</th>
+                                    <!--<th class="bgm-blue" style="text-transform: none; font-weight: 600; background-color: orange" rowspan="1" colspan="">Cant.</th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="mt in verAreas">
+                                    <td>{{mt.area}}</td>
+                                    <!--                                <td style="text-align: right">{{mt.totalArticulosC}}</td>
+                                                                    <td style="text-align: right">{{mt.totalArticulosS}}</td>-->
+                                    <td style="align-content: center">
+                                        <a href="#/verEquipos/1/{{mt.idArea}}" class="btn btn-warning btn-block" >
+                                            <b style="padding: 5px;">{{mt.totalArticulosC}} </b>
+                                            <!--                                       <i class="zmdi zmdi-plus"></i>-->
+                                        </a>  
+                                    </td>
+                                    <td style="align-content: center">
+                                        <a href="#/sinManttos/2/{{mt.idArea}}" class="btn btn-warning btn-block" >
+                                            <b style="padding: 5px;">{{mt.totalArticulosS}}</b>   <!--<i class="zmdi zmdi-plus"></i>-->  
+                                        </a> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

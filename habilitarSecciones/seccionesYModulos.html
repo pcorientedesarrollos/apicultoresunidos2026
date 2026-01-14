@@ -1,0 +1,100 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-5">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        SECCIONES Y MÓDULOS
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6 col-md-offset-6">
+                            <div class="input-group">
+                                <input type="text" ng-model="searchInput" class="form-control input-sm pull-right" placeholder="Buscar">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600"></th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">NOMBRE</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">VER</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="seccion in seccionesModulos | filter:searchInput">
+                                    <td ng-bind="$index+1"></td>
+                                    <td ng-bind="seccion.seccion | uppercase"></td>
+                                    <td>
+                                        <a href="#/secciones/{{seccion.idSeccion}}" class="btn btn-success btn-xs" title="Ver permisos">
+                                            <i class="fa fa-users"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-warning btn-xs" ng-click="mostrarModulosDeSeccion(seccion)" title="Ver módulos">
+                                            <i class="fa fa-list-ol"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-7">
+            <div ng-if="!seccion">
+                <p class="text-muted">Seleccione una sección para ver los módulos...</p>
+            </div>
+
+            <div class="box box-solid box-warning" ng-if="seccion">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        {{ seccion.seccion | uppercase }}
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive" ng-if="seccion.modulos.length > 0">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-align: center; text-transform: none; font-weight: 600"></th>
+                                    <th class="bgm-blue" style="text-align: left; text-transform: none; font-weight: 600">Módulo</th>
+                                    <th class="bgm-blue" style="text-align: center; text-transform: none; font-weight: 600">Ver</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="modulo in seccion.modulos">
+                                    <td style="text-align: center" ng-bind="$index+1"></td>
+                                    <td style="text-align: left"> {{modulo.modulo | uppercase}} </td>
+                                    <td style="text-align: center">
+                                        <a href="#/{{modulo.ruta}}" class="btn btn-info btn-xs" target="_blank">
+                                            <i class="fa fa-external-link"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div ng-if="seccion.modulos.length == 0">
+                        <p class="text-muted">No hay módulos.</p>
+                    </div>
+                    <div ng-if="!seccion.modulos">
+                        <p class="text-muted">
+                            <i class="fa fa-spinner fa-spin fa-fw"></i> Cargando...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div growl></div>

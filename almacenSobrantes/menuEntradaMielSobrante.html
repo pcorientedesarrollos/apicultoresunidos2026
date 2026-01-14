@@ -1,0 +1,202 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" ng-model="filtroBusquedaSobrantes" class="form-control input-sm pull-right"
+                        placeholder="Ingrese lo que desea buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-warning">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+                <div class="input-group" style="width: 150px;">
+                    <input type="text" ng-model="filtroBusquedaSobrantes" name="table_search"
+                        class="form-control input-sm pull-right" placeholder="Buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        ENTRADA DE MIEL SOBRANTE
+                        <b ng-show="tipoDeMiel == 1">100% PURA DE ABEJA</b>
+                        <b ng-show="tipoDeMiel == 2">100% ORGÁNICA</b>
+                        <b ng-show="tipoDeMiel == 5">100% MANTEQUILLA</b>
+                        <b ng-show="tipoDeMiel == 6">100% ALTIPLANO</b>
+                        <b ng-show="tipoDeMiel == 7">100% NARANJO</b>
+                        <b ng-show="tipoDeMiel == 8">100% AGUACATE</b>
+                        <b ng-show="tipoDeMiel == 9">100% MEZQUITE</b>
+                        <a href="#/mielSobrante/0" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-plus"></i>Agregar
+                        </a>
+                    </h5>
+                </div>
+
+
+                <div class="box-body">
+                    <div class="row">
+                            <div class="form-group">
+
+                                <div class="col-md-4">
+                                    <select chosen ng-model="tipoDeMiel" class="form-control">
+                                        <!-- <option value="Selecciona una opción"></option> -->
+                                        <option value="1">Convencional</option>
+                                        <option value="2">Orgánica</option>
+                                        <option value="5">Mantequilla</option>
+                                        <option value="6">Altiplano</option>
+                                        <option value="7">Naranjo</option>
+                                        <option value="8">Aguacate</option>
+                                        <option value="9">Mezquite</option>
+                                    </select>
+                                </div>
+                                <!-- <div class="col-md-4">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="1" ng-model="tipoDeMiel">Miel 100% pura de abeja
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="2" ng-model="tipoDeMiel">Miel 100% orgánica
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div> -->
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-info btn-xs"
+                                        ng-click="netoSobrantes(tipoDeMiel)">Totales</button>
+                                </div>
+                            </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <select chosen class="form-control" ng-model="mostrarMes"
+                                    ng-options="mes.idMes as mes.mes for mes in listaDeMeses"
+                                    ng-disabled="cargandoDatos">
+                                    <option value="">Todo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <select chosen class="form-control" ng-model="tipoSobrante"
+                                    ng-options="sobrante.idSobrante as sobrante.nombre for sobrante in listaSobrantes"
+                                    ng-disabled="cargandoDatos">
+                                    <option value="">Todo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="!sobrantes">
+                        <i class="fa fa-spinner fa-spin fa-fw"></i> Cargando...
+                    </div>
+                    <div>
+                        <div ng-if="sobrantes.length == 0">
+                            <p>No hay entradas de miel con los filtros seleccionados</p>
+                        </div>
+                        <div class="table-responsive no-padding" ng-if="sobrantes.length > 0">
+                            <table class="table table-striped table-responsive table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Entrada</th>
+                                        <th>Fecha</th>
+                                        <th>Tipo</th>
+                                        <th>Sobrante</th>
+                                        <th>N° de tambos</th>
+                                        <th>Neto</th>
+                                        <!-- <th>Zona</th> -->
+                                        <!-- <th style="text-align: right;">P. Bruto</th>
+                                        <th style="text-align: right;">P. Tara</th>
+                                        <th style="text-align: right;">P. Neto</th> -->
+                                        <th style="text-align: center;">Editar</th>
+                                        <!-- <th style="text-align: center;">Etiqueta</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="sobrante in sobrantes|filter: filtroBusquedaSobrantes">
+                                        <!-- <td>
+                                            <p>
+                                                <span ng-if="sobrante.codigo">{{sobrante.codigo}} - </span>
+                                                {{sobrante.consecutivo}}
+                                            </p>
+                                        </td> -->
+                                        <td>{{sobrante.idEncabezadoSobrante}}</td>
+                                        <td>{{sobrante.fecha | date:'dd-MM-yyyy'}}</td>
+                                        <td>{{sobrante.tipo}}</td>
+                                        <td>{{sobrante.sobrante|uppercase}}</td>
+                                        <!-- <td>{{sobrante.zona|uppercase}}</td> -->
+                                        <td style="text-align: center;">{{sobrante.tambos}}</td>
+                                        <td>{{sobrante.neto}} Kg.</td>
+                                        <!-- <td style="text-align: right;">{{sobrante.tara|number:2}}</td>
+                                        <td style="text-align: right;">{{sobrante.neto||number}}</td> -->
+                                        <td style="text-align: center">
+                                            <a class="btn btn-warning btn-xs"
+                                                ng-href="#/mielSobrante/{{sobrante.idEncabezadoSobrante}}">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </a>
+                                        </td>
+                                        <!-- <td style="text-align: center">
+                                            <button class="btn btn-warning btn-xs"
+                                                ng-click="mandarImprimirEtiquetaMielSobrante(sobrante.idEncabezadoSobrante)">
+                                                <i class="zmdi zmdi-print"></i>
+                                            </button>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<div growl></div>
+<div class="modal fade" id="modalSobrantes" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align: center">
+                    <b>{{miel}}</b>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table table-responsive">
+                            <table class="table table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Sobrante</th>
+                                        <th style="text-align: right;">Total Neto</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="total in totalesEnSobrantes">
+                                        <td>{{total.sobrante}}</td>
+                                        <td style="text-align: right;">{{total.totalNeto}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>

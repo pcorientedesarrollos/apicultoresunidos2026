@@ -1,0 +1,75 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        CATÁLOGO DE REACTIVOS
+                        <button title="Nuevo reactivo" class="btn btn-success btn-xs pull-right" ng-click="abrirModalNuevoReactivo()">
+                            <i class="fa fa-plus"></i> Nuevo
+                        </button>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue; text-align: center" style="text-transform: none; font-weight: 600"></th>
+                                    <th class="bgm-blue; text-align: left" style="text-transform: none; font-weight: 600">NOMBRE</th>
+                                    <th class="bgm-blue; text-align: center" style="text-transform: none; font-weight: 600"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="reactivo in reactivos">
+                                    <td style="text-align: center" ng-bind="$index+1"></td>
+                                    <td style="text-align: left" ng-bind="reactivo.reactivo | uppercase"></td>
+                                    <td style="text-align: center">
+                                        <button type="button" class="btn btn-warning btn-xs" ng-click="abrirModalNuevoReactivo($index)">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal para dar alta reactivos -->
+
+<div class="modal fade" id="modalNuevoReactivo" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span ng-show="!nuevoReactivo.idReactivo">
+                        Nuevo reactivo
+                    </span>
+                    <span ng-show="nuevoReactivo.idReactivo">
+                        Editar nombre del reactivo
+                    </span>
+
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nombre" ng-model="nuevoReactivo.reactivo" maxlength="120">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-sm" ng-click="guardarNuevoReactivo()">Guardar</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

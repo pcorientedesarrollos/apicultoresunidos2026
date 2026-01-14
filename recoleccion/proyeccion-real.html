@@ -1,0 +1,123 @@
+<!-- {{proyeccionesSemanales | json}} -->
+<section class="content">
+
+    <div class="box box-solid box-warning">
+        <div class="box-header">
+            <h5 class="encabezadosTabla">
+                PROYECCION SEMANAL
+                <a title="Nueva proyección" href="#/proyeccion/nueva" class="btn btn-success btn-xs pull-right">
+                    Nueva proyección
+                </a>
+            </h5>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="1" ng-model="tipoDeMiel">Miel 100% pura de abeja
+                                <i class="input-helper"></i>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="2" ng-model="tipoDeMiel">Miel 100% orgánica
+                                <i class="input-helper"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-12 col-md-5 table-responsive">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th colspan="2" class="text-center">TOTALES</th>
+                            </tr>
+                            <td></td>
+                            <td class="text-center"><b>Kg.</b></td>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Proyección</td>
+                                <td class="text-center">{{proyeccionesSemanales.totalProyeccion | number}}</td>
+                            </tr>
+                            <tr>
+                                <td>Real</td>
+                                <td class="text-center">{{proyeccionesSemanales.totalCompra | number}}</td>
+                            </tr>
+                            <tr>
+                                <td>Diferencia</td>
+                                <td class="text-center">{{proyeccionesSemanales.totalDiferencia | number}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-12 col-md-5 col-md-offset-1">
+                    <div class="input-group">
+                        <input type="text" ng-model="searchInput" class="form-control input-sm pull-right"
+                            placeholder="Buscar">
+                        <div class="input-group-btn">
+                            <button class="btn btn-sm btn-warning">
+                                <i class="zmdi zmdi-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <!-- <h4>Total de tambores recolectados: {{totalRecoleccion | number}}</h4> -->
+            <div class="table-responsive">
+                <table class="table table-condensed table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>NOMBRE</th>
+                            <th>INICIO</th>
+                            <th>FIN</th>
+                            <th class="text-center">PROYECCION KG</th>
+                            <th class="text-center">REAL KG</th>
+                            <th class="text-center">DIFERENCIA KG</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="proyeccion in proyeccionesSemanales.proyecciones | filter:searchInput">
+                            <td>{{$index+1}}</td>
+                            <td>{{proyeccion.nombre}}</td>
+                            <td>{{proyeccion.inicio | date:'dd/MM/yyyy'}}</td>
+                            <td>{{proyeccion.fin | date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{proyeccion.totalProyeccion | number}}</td>
+                            <td class="text-center">{{proyeccion.totalReal | number}}</td>
+                            <td class="text-center">
+                                <p class="text-success" ng-class="{'text-danger': proyeccion.diferencia < 0}">
+                                    <b>{{proyeccion.diferencia | number}}</b>
+                                </p>
+                            </td>
+                            <td>
+                                <a href="#/proyeccion/{{proyeccion.tipoDeMiel}}/{{proyeccion.idProyeccion}}" class="btn btn-warning btn-xs"
+                                    title="Proyección" aria-label="Ver detalle de la proyección">
+                                    <i class="fa fa-list"></i>
+                                </a>
+                                <button type="button" class="btn btn-danger btn-xs" title="Eliminar"
+                                    ng-click="eliminarProyeccion(proyeccion.idProyeccion)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <button type="button" class="btn btn-success btn-xs" title="Descargar"
+                                    ng-click="descargarExcel(proyeccion.idProyeccion)">
+                                    <i class="fa fa-file-excel-o"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<div growl></div>

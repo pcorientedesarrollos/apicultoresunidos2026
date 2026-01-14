@@ -1,0 +1,71 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header " style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        ASIGNAR FECHAS
+                        <a title="Regresar" href="#/fechas" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Fecha proceso</label>
+                                <!--                                <input ng-model="fechaInterno.fechaProceso" 
+                                                                       style="margin-top: 6px" 
+                                                                       type="date" 
+                                                                       date="dd/MM/yyyy" 
+                                                                       class="form-control"/>-->
+                                <div class="form-group small">
+                                    <div class="input-group date" data-provide="datepicker">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                               type="text" class="form-control pull-right"
+                                               id="datepicker" placeholder="Fecha" 
+                                               ng-model="fechaInterno.fechaProceso">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Fecha envasado</label>
+                                <!--                                <input ng-model="fechaInterno.fechaEnvasado" 
+                                                                       style="margin-top: 6px" 
+                                                                       type="date" 
+                                                                       date="dd/MM/yyyy" 
+                                                                       class="form-control"/>-->
+                                <div class="form-group small">
+                                    <div class="input-group date" data-provide="datepicker">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                               type="text" class="form-control pull-right"
+                                               id="datepicker" placeholder="Fecha" 
+                                               ng-model="fechaInterno.fechaEnvasado">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" ng-click="guardarFechasLoteInterno()" class="btn btn-warning">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div growl>
+
+</div>
+
+

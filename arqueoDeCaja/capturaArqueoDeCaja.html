@@ -1,0 +1,155 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        CAPTURA ARQUEO DE CAJA
+                        <a title="Regresar" href="#/arqueoDeCaja" class="btn btn-success btn-xs pull-right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label>Nombre semana</label>
+                                <input type="text" class="form-control" placeholder="Semana"
+                                    ng-model="encabezadoArqueo.nombre">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label>Inicio semana</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input required autocomplete="off" type="text" class="form-control" id="datepicker"
+                                        placeholder="Inicio" ng-model="encabezadoArqueo.fechaInicial">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label>Final semana</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input required autocomplete="off" type="text" class="form-control" id="datepicker"
+                                        placeholder="Final" ng-model="encabezadoArqueo.fechaFinal">
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- / row encabezado -->
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group-sm">
+                                <button class="btn btnMiel btn-block" ng-click="nuevoGasto();">
+                                    <b>Añadir gasto por comprobar <i style="color: #385428"
+                                            class="zmdi zmdi-plus"></i></b>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" ng-show="arregloGastos.length > 0">
+                        <div class="col-lg-8"><label>Nombre, concepto o descripción</label></div>
+                        <div class="col-lg-4"><label>Cantidad</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group-sm">
+                                <div ng-repeat="gasto in arregloGastos" class="row">
+                                    <div class="col-lg-8">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control input-xs"
+                                                ng-model="gasto.concepto" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <div class="form-group form-group-sm">
+                                                <input type="text" class="form-control input-xs"
+                                                    ng-model="gasto.cantidad" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-show="gasto.idGasto == 0" class="col-lg-1">
+                                        <div class="form-group">
+                                            <a ng-click="eliminarGasto($index);" class="btn btn-danger btn-xs"
+                                                title="Eliminar gasto">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group-sm">
+                                <button class="btn btnMiel btn-block" ng-click="nuevoBillete();">
+                                    <b>Añadir billetes <i style="color: #385428" class="zmdi zmdi-plus"></i></b>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" ng-show="arregloBilletes.length > 0">
+                        <div class="col-lg-4"><label>Billetes o monedas</label></div>
+                        <div class="col-lg-4"><label>Número de billetes o monedas</label></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group-sm">
+                                <div ng-repeat="billete in arregloBilletes" class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <input placeholder="Ejemplo: 500, 200, 100, 10, 5, 2" type="text"
+                                                class="form-control input-xs" ng-model="billete.billeteMoneda" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <div class="form-group form-group-sm">
+                                                <input type="text" class="form-control input-xs"
+                                                    ng-model="billete.numero" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <div class="form-group form-group-sm">
+                                                <input disabled="disabled" type="text" class="form-control input-xs text-right"
+                                                    ng-model="billete.total" ng-value="billete.total = billete.billeteMoneda * billete.numero"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-show="billete.idBillete == 0" class="col-lg-1">
+                                        <div class="form-group">
+                                            <a ng-click="eliminarBillete($index);" class="btn btn-danger btn-xs"
+                                                title="Eliminar billete">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row"> -->
+                        <div style="text-align: right">
+                            <button class="btn btn-warning" ng-click="guardarCapturaArqueo()">Guardar</button>
+                        </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

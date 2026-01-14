@@ -1,0 +1,47 @@
+{
+    "floraciones": [{
+            "idFloracion": "1",
+            "floracion": "Campanita"
+        }, {
+            "idFloracion": "2",
+            "floracion": "Citrico"
+        }, {
+            "idFloracion": "3",
+            "floracion": "Dzizilche"
+        }, {
+            "idFloracion": "4",
+            "floracion": "Enredaderas"
+        }, {
+            "idFloracion": "5",
+            "floracion": "Mantequilla"
+        }, {
+            "idFloracion": "6",
+            "floracion": "Multiflora"
+        }, {
+            "idFloracion": "7",
+            "floracion": "Multiflora Acatzingo"
+        }, {
+            "idFloracion": "8",
+            "floracion": "Multiflora Alamo"
+        }, {
+            "idFloracion": "9",
+            "floracion": "Multiflora Ixcapa"
+        }, {
+            "idFloracion": "10",
+            "floracion": "Multiflora Oaxaca"
+        }, {
+            "idFloracion": "11",
+            "floracion": "Multiflora Veracruz"
+        }, {
+            "idFloracion": "12",
+            "floracion": "Multiflora Yucatan"
+        }, {
+            "idFloracion": "13",
+            "floracion": "Tajonal"
+        }, {
+            "idFloracion": "14",
+            "floracion": "Multiflora Chiapas"
+        }]
+
+
+}

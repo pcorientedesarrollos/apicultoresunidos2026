@@ -1,0 +1,371 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CAPTURA CONFORMACION DE HOMOGENEO
+                        <a title="Regresar" href="#/salidasReactivos" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <label style="font-weight: bold;">Fecha*</label>
+                            <div class="form-group small">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input ng-disabled="idSalida > 0" autocomplete="off" type="text"
+                                        class="form-control pull-right" id="datepicker" placeholder="Fecha"
+                                        ng-model="nuevaSalida.fecha">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label for="">Tipo de miel*</label>
+                                <select ng-disabled="idSalida > 0" chosen class="form-control"
+                                    ng-model="nuevaSalida.tipoMiel">
+                                    <option value="" disabled selected>Elija una opción</option>
+                                    <option value="1">Miel 100% pura de abeja</option>
+                                    <option value="2">Miel 100% orgánica</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label for="">Tipo de análisis*</label>
+                                <select ng-disabled="idSalida > 0" chosen class="form-control"
+                                    ng-model="nuevaSalida.tipoAnalisis">
+                                    <option value="" disabled selected>Elija una opción</option>
+                                    <option value="1">Homogéneo</option>
+                                    <option value="2">Reclasificado</option>
+                                    <option value="4">Experimental</option>
+                                    <option value="3">Lote terminado</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                            <label style="font-weight: bold;">Marca interna</label>
+                            <div class="form-group small">
+                                <input ng-disabled="idSalida > 0" autocomplete="off" type="text"
+                                    class="form-control pull-right" ng-model="nuevaSalida.experimental">
+                            </div>
+                        </div>
+                        <div class="col-lg-1 pull-right" ng-hide="idSalida == 0">
+                            <label>&nbsp;</label>
+                            <div class="form-group from-group-sm">
+                                <button class="btn btn-danger btn-sm" title="Imprimir" ng-click="pdfDescarga(idSalida)">
+                                    <i class="fa fa-file-pdf-o"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" ng-if="idSalida == 0">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label for="">Almacén*</label>
+                                <select ng-disabled="idSalida > 0" chosen class="form-control"
+                                    ng-model="nuevaSalida.almacen">
+                                    <option value="" disabled selected>Elija una opción</option>
+                                    <option value="1">Miel</option>
+                                    <option value="2">Miel sobrante</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label for="">Clasificación</label>
+                                <select ng-disabled="!habilitarOpciones" ng-model="nuevaSalida.sobrante" chosen
+                                    class="form-control"
+                                    ng-options="sobrante.idSobrante as sobrante.nombre for sobrante in listaSobrantes">
+                                    <option disabled="disabled" value="">Seleccione un tipo de sobrante</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <select chosen ng-model="nuevaSalida.opcionBusqueda" class="form-control">
+                                    <option selected disabled value="">Elija una opción</option>
+                                    <option value="1">Un folio</option>
+                                    <option value="2">Rango de folios</option>
+                                    <option value="3">Sin folio</option>
+                                    <option value="4">Folios Experimental</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div ng-if="nuevaSalida.opcionBusqueda == 2" class="col-xs-12 col-md-3">
+                            <div class="form-group col-sm-6">
+                                <label>&nbsp;</label>
+                                <input type="text" ng-model="nuevaSalida.folioUno" ng-keyup="validarFolios()"
+                                    class="form-control" />
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label>&nbsp;</label>
+                                <input type="text" ng-model="nuevaSalida.folioDos" ng-keyup="validarFolios()"
+                                    class="form-control" />
+                            </div>
+                        </div>
+                        <div ng-if="nuevaSalida.opcionBusqueda == 1" class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <input type="text" ng-model="nuevaSalida.folio" ng-keyup="validarFolio()"
+                                    class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-12" ng-if="nuevaSalida.opcionBusqueda == 3">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">N° de muestras</label>
+                                <div class="input-group">
+                                    <input type="number" class="col-md-4 form-control"
+                                        data-ng-model="nuevaSalida.muestras">
+                                    <div style="background-color: gold" class="input-group-addon btn"
+                                        ng-click="updateModel()" title="Añadir">
+                                        <i class="zmdi zmdi-plus"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-12" ng-if="nuevaSalida.opcionBusqueda == 4">
+                            <div class="form-group">
+                                <label for="">Lote Experimental</label>
+                                <select ng-change="traeExperimental(nuevaSalida.tipoMiel, nuevaSalida.loteExperimental)"
+                                    ng-model="nuevaSalida.loteExperimental" chosen class="form-control"
+                                    ng-options="exp.idLoteExperimental as exp.experimental for exp in listaExp">
+                                    <option disabled="disabled" value="">Seleccione un tipo de sobrante</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div ng-if="nuevaSalida.opcionBusqueda < 3" class="row">
+                        <div class="table-responsive col-md-10 col-md-offset-1">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="font-size: 11px;"></th>
+                                        <th style="font-size: 11px;">Folio</th>
+                                        <th style="font-size: 11px;">Proveedor</th>
+                                        <th style="font-size: 11px;">Localidad</th>
+                                        <th ng-if="idSalida == 0"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="concepto in listaFolios">
+                                        <td ng-bind="$index + 1"></td>
+                                        <td ng-bind="concepto.folio"></td>
+                                        <td ng-bind="concepto.nombre"></td>
+                                        <td ng-bind="concepto.localidad | uppercase"></td>
+                                        <td ng-if="idSalida == 0">
+                                            <button type="button" class="btn btn-xs btn-danger"
+                                                ng-click="eliminarConcepto($index)">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-if="nuevaSalida.opcionBusqueda == 3" class="row">
+                        <div class="table-responsive col-md-10 col-md-offset-1">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="font-size: 11px;"></th>
+                                        <th style="font-size: 11px;">Folio</th>
+                                        <th style="font-size: 11px;">Proveedor</th>
+                                        <th style="font-size: 11px;">Localidad</th>
+                                        <th ng-if="idSalida == 0"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="concepto in listaFolios">
+                                        <td ng-bind="$index + 1"></td>
+                                        <td>
+                                            <input class="form-control input-sm" type="text" ng-model="concepto.folio">
+                                        </td>
+                                        <td>
+                                            <input class="form-control input-sm" type="text" ng-model="concepto.nombre">
+                                        </td>
+                                        <td>
+                                            <input class="form-control input-sm" type="text"
+                                                ng-model="concepto.localidad">
+                                        </td>
+                                        <td ng-if="idSalida == 0">
+                                            <button type="button" class="btn btn-xs btn-danger"
+                                                ng-click="eliminarConcepto($index)">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-if="nuevaSalida.opcionBusqueda == 4" class="row">
+                        <div class="table-responsive col-md-10 col-md-offset-1">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="font-size: 11px;"></th>
+                                        <th style="font-size: 11px;">Folio</th>
+                                        <th style="font-size: 11px;">Proveedor</th>
+                                        <th style="font-size: 11px;">Localidad</th>
+                                        <th ng-if="idSalida == 0"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="concepto in listaFolios">
+                                        <td ng-bind="$index + 1"></td>
+                                        <td ng-bind="concepto.folio"></td>
+                                        <td ng-bind="concepto.nombre"></td>
+                                        <td ng-bind="concepto.localidad | uppercase"></td>
+                                        <td ng-if="idSalida == 0">
+                                            <button type="button" class="btn btn-xs btn-danger"
+                                                ng-click="eliminarConcepto($index)">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-if="idSalida > 0" class="row">
+                        <div class="table-responsive col-md-10 col-md-offset-1">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="font-size: 11px;"></th>
+                                        <th style="font-size: 11px;">Folio</th>
+                                        <th style="font-size: 11px;">Proveedor</th>
+                                        <th style="font-size: 11px;">Localidad</th>
+                                        <th ng-if="idSalida == 0"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="concepto in listaFolios">
+                                        <td ng-bind="$index + 1"></td>
+                                        <td ng-bind="concepto.folio"></td>
+                                        <td ng-bind="concepto.nombre"></td>
+                                        <td ng-bind="concepto.localidad | uppercase"></td>
+                                        <td ng-if="idSalida == 0">
+                                            <button type="button" class="btn btn-xs btn-danger"
+                                                ng-click="eliminarConcepto($index)">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-2" ng-if="idSalida == 0">
+                            <div class="form-group">
+                                <label for="">Reactivo</label>
+                                <select chosen ng-model="nuevaSalida.reactivo" class="form-control"
+                                    ng-options="reac as reac.reactivo for reac in listaReactivos">
+                                    <option disabled="disabled" value="">Elija una opción</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2" ng-if="idSalida == 0">
+                            <div class="form-group">
+                                <label for="">Resultado</label>
+                                <select chosen ng-model="nuevaSalida.resultadoReactivo" class="form-control">
+                                    <option disabled="disabled" value="">Elija una opción</option>
+                                    <option value="Aprobado">Calidad A</option>
+                                    <option value="Rechazado">Calidad B</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-1" ng-if="idSalida == 0">
+                            <div class="form-group">
+                                <label for="">Cant.</label>
+                                <input class="form-control" type="text" ng-model="nuevaSalida.cantidad">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-1" ng-if="idSalida == 0">
+                            <p>&nbsp;</p>
+                            <button class="btn btn-sm btnMiel" type="button"
+                                ng-click="anadirReactivo(nuevaSalida.reactivo, nuevaSalida.resultadoReactivo, nuevaSalida.cantidad)">Añadir</button>
+                        </div>
+                        <div class="col-md-6" ng-if="idSalida > 0">
+                            <label>Reactivos</label>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-xs-12 col-md-2">
+                            <div class="form-group">
+                                <label for="">Resultado</label>
+                                <select chosen ng-model="nuevaSalida.resultado" class="form-control">
+                                    <option disabled="disabled" value="">Elija una opción</option>
+                                    <option value="1">Calidad A</option>
+                                    <option value="4">Calidad B</option>
+                                    <option value="6">Al 20% SF</option>
+                                    <option value="7">Al 20% ST</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label for="">Analizado por</label>
+                                <select chosen ng-model="nuevaSalida.personal" class="form-control"
+                                    ng-options="lab.idPersonalOM as lab.nombre for lab in personalLaboratorio">
+                                    <option disabled="disabled" value="">Elija una opción</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-condensed">
+                                <tbody>
+                                    <tr ng-repeat="r in reactivos">
+                                        <td>{{r.nombre}}</td>
+                                        <td>{{r.cantidad}}</td>
+                                        <td>{{r.resultadoReactivo}}</td>
+                                        <td ng-if="idSalida == 0">
+                                            <button type="button" class="btn btn-xs btn-danger"
+                                                ng-click="eliminarReactivo($index)">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <button ng-if="idSalida > 0" class="btn btn-warning btn-xs pull-right"
+                                    ng-click="guardarSalida(1)">
+                                    Guardar
+                                </button>
+                                <button ng-if="idSalida == 0" class="btn btn-warning btn-xs pull-right"
+                                    ng-click="guardarSalida()">
+                                    Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<div growl></div>

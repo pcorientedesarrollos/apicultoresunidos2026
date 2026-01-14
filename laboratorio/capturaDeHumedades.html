@@ -1,0 +1,116 @@
+<style>
+    .error {
+        background-color: #ffce6d;
+    }
+</style>
+
+<section class="content">
+    <div class="row">
+        <div class="col-lg-6 col-md-offset-3 texto">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CAPTURA DE HUMEDADES
+                        <a title="Regresar" href="#/humedadesAlmacen" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <br>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-sm-8">
+                                <label style="font-weight: bold; color: black">
+                                    Proveedor:
+                                </label>
+                                {{detalleLab.proveedor}}
+                                <br>
+                                <label style="font-weight: bold;  color: black">
+                                    Localidad:
+                                </label>
+                                {{detalleLab.localidad}}
+                                <br>
+                                <label style="font-weight: bold;  color: black">
+                                    ID Sagarpa:
+                                </label>
+                                {{detalleLab.idSagarpa}}
+                                <br>
+                                <label style="font-weight: bold;  color: black">
+                                    Tipo de Miel:
+                                </label>
+                                {{detalleLab.tipoDeMiel}}
+                            </div>
+                            <div class="col-sm-3 col-sm-offset-1">
+                                <h5 style="font-weight: bold; color: black ; margin-top: 0px"> No. Entrada :
+                                    <span style="color: red"> {{detalleLab.entrada}}</span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group form-control-sm">
+                                <label class="col-sm-4 control-label">Asignar mismo valor: </label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control input-sm" placeholder="Humedad"
+                                        ng-change="ponerMismoValor(1);" ng-model="por">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Folio</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Peso neto</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Humedad de almacén</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Porcentaje</center>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="info in informacionLab">
+                                            <td class="text-center">
+                                                <label style="color: red">{{info.idAlmacen}}</label>
+                                            </td>
+                                            <td class="text-center">{{info.neto}}</td>
+                                            <td class="text-center">{{info.humedad}}</td>
+                                            <td>
+                                                <input id="{{$index}}txtPorcentaje" style="margin-top: 4px"
+                                                    ng-change="verificarRango(1, info.porcentaje, $index, 'txtPorcentaje', 0);"
+                                                    ng-keyup="verificarRango(1, info.porcentaje, $index, 'txtPorcentaje', 0);"
+                                                    ng-model="info.porcentaje" type="text" class="form-control input-sm"
+                                                    tabindex="10" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="btn btn-success btn-xs pull-right" style="margin-right: 10px"
+                                ng-disabled="habilitar" ng-click="guardarLaboratorio();">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>

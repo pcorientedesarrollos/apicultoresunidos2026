@@ -1,0 +1,337 @@
+<section class="content" ng-init="cajaChicaEncabezado.tipo=0">
+    <div class="box box-solid box-warning">
+        <div class="box-header" style="height: 50px;">
+            <h5 class="encabezadosTabla">
+                {{cajaChicaEncabezado.tipoLg}} CON FOLIO {{cajaChicaEncabezado.idCajaChica}}
+                <a title="Regresar" href="#/nvaCajaChica/{{cajaChicaEncabezado.idMes}}" class="btn btn-success btn-xs"
+                    style="float: right">
+                    <i class="zmdi zmdi-arrow-left"></i>
+                </a>
+            </h5>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label style="font-weight: bold;">Fecha</label>
+                    <div class="form-group small">
+                        <div class="input-group date" data-provide="datepicker">
+                            <div class="input-group-addon ">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text" class="form-control pull-right"
+                                id="datepicker" placeholder="Fecha" ng-model="cajaChicaEncabezado.fecha" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label style="font-weight: bold;">Nombre </label>
+                    <div class="form-group">
+                        <input type="text" class="small form-control" ng-value="cajaChicaEncabezado.nombre | uppercase"
+                            placeholder="Nombre" onblur="this.value = this.value.toUpperCase()" disabled />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;">Comprobante </label>
+                    <div class="form-group">
+                        <a title="Imprimir PDF" class=" btn btn-danger btn-sm" ng-click="pdfCmprobante()" target="_blank">
+                            <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label style="font-weight: bold;">Editar </label>
+                    <div class="form-group">
+                        <button title="Editar datos del movimiento" class=" btn btn-info btn-sm" ng-click="editarMovimiento()">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <!-- <pre>
+                {{datosCajaChica | json}}
+            </pre> -->
+            <div class="table-responsive">
+                <table class="table table-responsive table-bordered table-hover">
+                    <thead style="text-align: center;">
+                        <tr>
+                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="2">Movimiento</th>
+                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="2">Concepto</th>
+                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="2">Subconcepto</th>
+                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="2">Descripción</th>
+                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="1" colspan="1">En
+                                caso de bancos</th>
+                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="1" colspan="3"
+                                ng-if="cajaChicaEncabezado.tipo == false">En caso de ventas</th>
+                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="2" ng-if="cajaChicaEncabezado.tipo == true">Cantidad</th>
+                            <th rowspan="2"></th>
+                        </tr>
+                        <tr>
+                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="1">Banco y
+                                N° de cuenta</th>
+                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="1" ng-if="cajaChicaEncabezado.tipo == false">Kgs</th>
+                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="1" ng-if="cajaChicaEncabezado.tipo == false">Precio</th>
+                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="1" ng-if="cajaChicaEncabezado.tipo == false">Importe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="dato in datosCajaChica" style="font-size: 12px;">
+                            <td ng-bind="dato.movimiento"></td>
+                            <td ng-bind="dato.concepto"></td>
+                            <td ng-bind="dato.subconcepto"></td>
+                            <td ng-bind="dato.descripcion"></td>
+                            <td>{{dato.banco}} {{dato.numDeCuenta}}</td>
+                            <td ng-bind="dato.kg" ng-if="cajaChicaEncabezado.tipo == false"></td>
+                            <td ng-bind="dato.precio | currency" align="right" ng-if="cajaChicaEncabezado.tipo == false"></td>
+                            <td ng-bind="dato.importe | currency" align="right" ng-if="cajaChicaEncabezado.tipo == false"></td>
+                            <td align="right" ng-bind="dato.cantidad | currency" ng-if="cajaChicaEncabezado.tipo == true"></td>
+                            <td>
+                                <button title="Editar" class=" btn btn-info btn-sm" ng-click="editarDetalleDelMovimiento($index)"
+                                    ng-disabled="cargandoModalEdicion">
+                                    <i class="fa fa-pencil" ng-if="!cargandoModalEdicion || indexDetalleEditando != $index"></i>
+                                    <i class="fa fa-spinner fa-spin" ng-if="cargandoModalEdicion && indexDetalleEditando == $index"></i>
+                                </button>
+                                <button title="Eliminar" class=" btn btn-danger btn-sm" ng-click="eliminarDetalleDelMovimiento(dato.idDetalle, dato.idMovimiento, $index)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-3 col-md-offset-9">
+                    <table class="table">
+                        <tr align="right">
+                            <td>
+                                <b>Total</b>
+                            </td>
+                            <td>
+                                <b ng-bind="cajaChicaEncabezado.total | currency"></b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>
+
+<!-- Modales para editar movimiento -->
+
+<div class="modal fade" id="modalEditarMovimientoCajaChica" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">EDITAR MOVIMIENTO</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text" class="form-control pull-right"
+                                        id="datepicker" placeholder="Fecha" ng-model="editar_EncabezadoCajaChica.fecha">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Hora del movimiento" ng-model="editar_EncabezadoCajaChica.hora">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label style="font-weight: bold;">Nombre </label>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4">
+                                <select name="selectTipoDePersona" id="selectTipoDePersona" class="form-control"
+                                    ng-model="editar_EncabezadoCajaChica.tipoDeCliente">
+                                    <option value="" disabled>A nombre de</option>
+                                    <option value="1">Apicultores y acopiadores</option>
+                                    <option value="3">Proveedores</option>
+                                    <option value="4">Personal</option>
+                                    <option value="6">Clientes</option>
+                                    <option value="2">Venta al público</option>
+                                    <option value="8">Propios</option>
+                                    <option value="9">Acreedores</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-8" ng-if="editar_EncabezadoCajaChica.tipoDeCliente > 0">
+                                <select ng-model="editar_EncabezadoCajaChica.idNombre" class="form-control" ng-options="nombre.id as nombre.nombre for nombre in personas">
+                                    <option disabled="disabled" value="">Nombre</option>
+                                </select>
+                            </div>
+
+                            <!-- <div class="col-xs-12 col-sm-3" ng-if="editar_EncabezadoCajaChica.tipoDeCliente == 1">
+                                <div class="input-group">
+                                    <select chosen ng-model="editar_EncabezadoCajaChica.idNombre" class="form-control" ng-options="cliente.idProveedor as cliente.nombre for cliente in clientes">
+                                        <option value="" disabled>Nombre</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-3" ng-if="editar_EncabezadoCajaChica.tipoDeCliente == 3">
+                                <div class="input-group">
+                                    <select chosen ng-model="editar_EncabezadoCajaChica.idNombre" class="form-control" ng-options="proveedor.idProveedorMantto as proveedor.nombreProveedor for proveedor in catalogoTablaProveedoresMantto">
+                                        <option value="" disabled>Nombre</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4" ng-if="editar_EncabezadoCajaChica.tipoDeCliente == 4">
+                                <select chosen ng-model="editar_EncabezadoCajaChica.idNombre" class="form-control" ng-options="client.idPersonalOM as client.nombre for client in lstOMPersonal">
+                                    <option value="">Nombre</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-3" ng-if="editar_EncabezadoCajaChica.tipoDeCliente == 6">
+                                <div class="input-group">
+                                    <select chosen ng-model="editar_EncabezadoCajaChica.idNombre" class="form-control" ng-options="cliente.idCliente as cliente.nombre for cliente in catalogoTablaClientes">
+                                        <option value="" disabled>Nombre</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarEdicionEncabezadoCajaChica()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEditarDetalleCajaChica" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">EDITAR DETALLE</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <label for="">Cuenta</label>
+                            <select ng-model="editar_detalleCajaChica.idMovimiento" class="form-control" ng-options="tm.idCuentaConcepto as tm.cuenta for tm in listaCuentasSeleccionadas"
+                                ng-change="cambioSeleccionCuenta(editar_detalleCajaChica.idMovimiento)">
+                                <option disabled="disabled" value="">Tipo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="input-group">
+                            <label for="">Subcuenta</label>
+                            <select ng-model="editar_detalleCajaChica.idConcepto" class="form-control" ng-options="c.idSubcuenta as c.subcuenta for c in listaSubcuentasSeleccionadas"
+                                ng-change="obtenerSubsubcuentas(editar_detalleCajaChica.idConcepto)">
+                                <option value="" disabled="disabled"> Conceptos </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="input-group">
+                            <label for="">Subsubcuenta (Opcional)</label>
+                            <select ng-model="editar_detalleCajaChica.idSubConcepto" class="form-control" ng-options="ss.idSubSubcuenta as ss.subSubcuenta for ss in listaSubSubcuentas">
+                                <option disabled="disabled" value="">Subsubcuenta</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Descripción</label>
+                            <textarea rows="1" class="form-control" ng-model="editar_detalleCajaChica.descripcion"
+                                placeholder="Descripción" onblur="this.value = this.value.toUpperCase()"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="cajaChicaEncabezado.tipo == 0">
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="form-group">
+                            <label style="font-weight: bold">Cantidad </label>
+                            <input type="text" class="form-control" ng-model="editar_detalleCajaChica.kg" ng-change="calcularImporte(true)">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="form-group">
+                            <label style="font-weight: bold">Precio </label>
+                            <input type="text" class="form-control" ng-model="editar_detalleCajaChica.precio" ng-change="calcularImporte(true)">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="form-group">
+                            <label style="font-weight: bold">Importe </label>
+                            <input type="text" class="form-control" ng-model="editar_detalleCajaChica.importe">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="cajaChicaEncabezado.tipo == 1">
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="form-group">
+                            <label style="font-weight: bold">Cantidad </label>
+                            <input type="text" class="form-control" ng-model="editar_detalleCajaChica.cantidad">
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row" ng-if="cajaChicaEncabezado.tipo == 1">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Selecciona movimiento</label>
+                            <br>
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="2" ng-model="editar_detalleCajaChica.idMovimiento">Compras
+                            </label>
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="3" ng-model="editar_detalleCajaChica.idMovimiento">Diversos
+                            </label>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="row" ng-if="lstConceptosIngreso.length > 0">
+                    <div ng-if="editar_detalleCajaChica.idMovimiento == 2">
+                        <div class="col-xs-12 col-sm-3">
+                            <div class="form-group">
+                                <label style="font-weight: bold">Concepto </label>
+                                <select ng-model="editar_detalleCajaChica.idConcepto" class="form-control" ng-options="c.idConceptoCC as c.concepto for c in lstConceptosIngreso">
+                                    <option value="" disabled> Conceptos </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3" ng-if="lstSubconceptosCC.length > 0">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label style="font-weight: bold">Subconcepto </label>
+                                    <select ng-model="editar_detalleCajaChica.idSubconcepto" class="form-control" ng-options="cs.idSubconceptoCC as cs.subconceptoCC for cs in lstSubconceptosCC">
+                                        <option value="" disabled> Subconceptos </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="editar_detalleCajaChica.idMovimiento == 3">
+                        <div class="col-xs-12 col-sm-3">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">Concepto </label>
+                                <select ng-model="editar_detalleCajaChica.idConcepto" class="form-control" ng-options="c.idSubcuenta as c.subcuenta for c in listaDeConceptos">
+                                    <option value="" disabled="disabled">Conceptos</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarEdicionDetalleCajaChica()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>

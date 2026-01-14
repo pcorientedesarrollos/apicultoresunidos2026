@@ -1,0 +1,113 @@
+<section class="content">
+    <div class="row">
+        <div class="box box-solid box-warning">
+            <div class="box-header" style="height: 50px;">
+                <h5 class="encabezadosTabla">
+                    INVENTARIO DE PRODUCTOS APÍCOLAS
+                </h5>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <div class="form-group">
+                            <label for="">Selecciona una opción</label>
+                            <select chosen class="form-control" ng-model="opcionMes.opcion">
+                                <option value="" disabled>Selecciona una opción</option>
+                                <option value="1">Acumulado</option>
+                                <option value="2">Por mes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3" ng-if="opcionMes.opcion == 2">
+                        <div class="form-group">
+                            <label for="">Selecciona un mes</label>
+                            <select chosen ng-model="opcionMes.mes" class="form-control" ng-options="mes.idMes as mes.mes for mes in meses">
+                                <option value="" disabled>SELECCIONA MES</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <div class="form-group">
+                            <br>
+                            <button ng-disabled="cargandoDatos" type="button" ng-click="verMes(opcionMes);" class="btn btn-success btn-sm">Ver resultados</button>
+                            <button ng-disabled="cargandoDatos" type="button" ng-click="imprimirAlmacen(opcionMes)" class="btn btn-success btn-sm">
+                                <i class="fa fa-file-excel-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <div class="form-group">
+                            <br>
+                            <input type="text" class="form-control" placeholder="Buscar" ng-model="inputBusqueda">
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div ng-repeat="inventario in inventarioDeProductosApicola | filter: inputBusqueda">
+                    <div class="table-responsive" ng-if="inventario.registros">
+                        <p class="lead">{{inventario.subconceptoCC}}</p>
+                        <table class="table table-bordered table-condensed" style="font-size: 10px">
+                            <thead>
+                                <tr>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="1">Fecha</th>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="1">Nombre</th>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="1">Concepto/Descripción</th>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="1">Entrada</th>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="1">Salida</th>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="1">Costo unitario</th>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="1">Importe entrada</th>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="1">Importe salida</th>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="1">Importe actual</th>
+                                    <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="1">Existencia</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: left; font-size: 12px;">Inicial</td>
+                                    <td style="text-align: left; font-size: 12px;"></td>
+                                    <td style="text-align: left; font-size: 12px;"></td>
+                                    <td style="text-align: right; font-size: 12px;">{{inventario.existenciaPasada | number}}</td>
+                                    <td style="text-align: left; font-size: 12px;"></td>
+                                    <td style="text-align: right; font-size: 12px;"></td>
+                                    <td style="text-align: right; font-size: 12px;">{{inventario.importePasado | currency}}</td>
+                                    <td style="text-align: right; font-size: 12px;"></td>
+                                    <td style="text-align: right; font-size: 12px;">{{inventario.importePasado | currency}}</td>
+                                    <td style="text-align: right; font-size: 12px;">{{inventario.existenciaPasada | number}}</td>
+                                    
+                                </tr>
+                                <tr ng-repeat="registro in inventario.registros">
+                                    <td style="text-align: left; font-size: 12px;" ng-bind="registro.fecha | date:'dd-MM-yyyy'"></td>
+                                    <td style="text-align: left; font-size: 12px;" ng-bind="registro.nombre | uppercase"></td>
+                                    <td style="text-align: left; font-size: 12px;" ng-bind="registro.descripcion | uppercase"></td>
+                                    <td style="text-align: right; font-size: 12px;" ng-bind="registro.entrada | number"></td>
+                                    <td style="text-align: right; font-size: 12px;" ng-bind="registro.salida | number"></td>
+                                    <td style="text-align: right; font-size: 12px;" ng-bind="registro.costoUnitario | currency"></td>
+                                    <td style="text-align: right; font-size: 12px;" ng-bind="registro.importeEntrada | currency"></td>
+                                    <td style="text-align: right; font-size: 12px;" ng-bind="registro.importeSalida | currency"></td>
+                                    <td style="text-align: right; font-size: 12px;" ng-bind="registro.acumulado | currency"></td>
+                                    <td style="text-align: right; font-size: 12px;" ng-bind="registro.existencia | number"></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left; font-size: 12px;"></td>
+                                    <td style="text-align: right; font-size: 12px;">Total</td>
+                                    <td style="text-align: left; font-size: 12px;"></td>
+                                    <td style="text-align: right; font-size: 12px;">{{inventario.entradas | number}}</td>
+                                    <td style="text-align: right; font-size: 12px;">{{inventario.salidas | number}}</td>
+                                    <td style="text-align: right; font-size: 12px;">{{inventario.precioPromedio | currency}}</td>
+                                    <td style="text-align: right; font-size: 12px;">{{inventario.importeEntrada | currency}}</td>
+                                    <td style="text-align: right; font-size: 12px;">{{inventario.importeSalida | currency}}</td>
+                                    <td style="text-align: right; font-size: 12px;">{{inventario.importeAcumulado | currency}}</td>
+                                    <td style="text-align: right; font-size: 12px;">{{inventario.acumulado | number}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div growl></div>

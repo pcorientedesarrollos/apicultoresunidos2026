@@ -1,0 +1,17 @@
+{
+    "periodos":
+            [{
+                    "idPeriodo": "1",
+                    "periodicidad": "Mensual"
+                }, {
+                    "idPeriodo": "2",
+                    "periodicidad": "Trimestral"
+                }, {
+                    "idPeriodo": "3",
+                    "periodicidad": "Semestral"
+                }, {
+                    "idPeriodo": "4",
+                    "periodicidad": "Anual"
+                }]
+
+}

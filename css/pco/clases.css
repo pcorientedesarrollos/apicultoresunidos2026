@@ -1,0 +1,120 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+
+/* 
+    Created on : 27/03/2017, 02:37:23 PM
+    Author     : Ana
+*/
+
+.encabezadosTabla {
+    font-family: 'Didact Gothic', sans-serif;
+    font-weight: 500;
+}
+
+th {
+    background-color: #ffe558
+}
+
+a {
+    text-decoration: none;
+}
+
+.btnMiel {
+    background-color: #ffe558;
+}
+
+/* .inputEnter {} */
+
+.corte {
+    height: 60px;
+    /*width: 40px;*/
+    overflow: hidden;
+    text-align: justify;
+}
+
+.dropdown-menu {
+    z-index: 9999;
+}
+
+.ingreso-green {
+    background: #ccff99;
+    background-color: #ccff99;
+}
+
+.egreso-red {
+    /* Esta clase se usa TAMBIEN para remarcar las zonas que no fueron escaneadas durante la auditoría */
+    background: #ffcccc;
+    background-color: #ffcccc;
+}
+
+.derecha {
+    text-align: right;
+}
+
+.anioDeBD p {
+    font-weight: bold;
+    padding: 0px;
+    margin: 10px;
+}
+
+/* Clases para los resultados de la auditoría */
+
+.auditoria-verde {
+    color: #27ae60;
+}
+
+.auditoria-rojo {
+    color: #e74c3c;
+}
+
+.auditoria-naranja {
+    color: #e67e22;
+}
+
+/* Clase display-block para el menu lateral */
+
+.display-block {
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
+
+.activo {
+    background-color: mediumturquoise;
+    color: black;
+}
+
+.inactivo {
+    background-color: #d4d4d1;
+    color: black;
+}
+
+.remarcar_fila_auditoria {
+    /* Esta clase es para los tambores que entraron despues de iniciada la auditoria */
+    background: #ecf0f1;
+    background-color: #ecf0f1;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.negative-number {
+    color: red;
+}
+
+td.editables {
+    background: lightgreen;
+}
+
+.nuevoSaldoInicialApicola {
+    border-radius: 10px;
+    border: 3px solid #27ae60;
+    padding: 20px;
+    margin:15px;
+}

@@ -1,0 +1,135 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        DETALLE DE PRÉSTAMO
+                        <a title="Regresar" href="#/controlPrestamos/personal/{{prestamo.encabezado.tipoDePersona}}/{{prestamo.encabezado.idNombre}}"
+                            class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">NOMBRE</label>
+                                <b>
+                                    <input class="form-control" type="text" disabled="true" ng-model="prestamo.encabezado.nombre" />
+                                </b>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">FECHA</label>
+                                <b>
+                                    <input class="form-control" type="text" disabled="true" ng-value="prestamo.encabezado.fecha | date:'dd / MM / yyyy'" />
+                                </b>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">CANTIDAD</label>
+                                <b>
+                                    <input class="form-control derecha" type="text" disabled="true" ng-value="prestamo.encabezado.cantidad | currency" />
+                                </b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">SALDO</label>
+                                <b>
+                                    <input class="form-control" type="text" disabled="true" ng-value="prestamo.restante | currency" />
+                                </b>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label style="font-weight: bold;">LIQUIDADO</label>
+                                <b>
+                                    <input class="form-control" type="text" disabled="true" ng-value="prestamo.encabezado.fechaLiquidacion | date:'dd / MM / yyyy'" />
+                                </b>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label style="font-weight: bold;">ACCIONES</label>
+                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default" ng-click="hacerNuevoAbono()" title="Hacer un abono al préstamo" ng-disabled="prestamo.restante == 0">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Abono
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="table-responsive">
+                            <table class="table table-responsive table-bordered table-condensed">
+                                <thead style="text-align: center;">
+                                    <tr>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Fecha</th>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Hora</th>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Abono</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="detalle in prestamo.detalle" style=" font-size: 12px;">
+                                        <td style="text-align:center;" ng-bind="detalle.fecha | date:'dd / MM / yyyy'"></td>
+                                        <td style="text-align:center;" ng-bind="detalle.hora"></td>
+                                        <td style="text-align:right;" ng-bind="detalle.cantidad | currency"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center;" colspan="2">TOTAL</td>
+                                        <td style="text-align:right;" ng-bind="prestamo.totalAbono | currency"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalNuevoAbono">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Nuevo abono</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label>Fecha</label>
+                        <div class="input-group date" data-provide="datepicker">
+                            <div class="input-group-addon ">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right" id="datepicker" placeholder="Fecha" ng-model="abono.fecha">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label>Cantidad</label>
+                            <input type="number" class="form-control" placeholder="Cantidad de abono" ng-model="abono.cantidad" ng-change="prevenirMayorAbono(abono.cantidad)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" ng-click="aceptarNuevoAbono(abono)">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

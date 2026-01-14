@@ -1,0 +1,169 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        ACUMULADO DE GASTOS
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="">Selecciona una opción</label>
+                                <select chosen class="form-control" ng-model="opcionTipoReporte" ng-disabled="cargandoDatos">
+                                    <option value="" disabled>Selecciona una opción</option>
+                                    <option value="1">ACUMULADO</option>
+                                    <option value="2">POR MES</option>
+                                    <option value="3">POR MESES</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <select chosen ng-model="opcionMes" class="form-control" ng-options="mes.idMes as mes.mes for mes in meses" ng-disabled="cargandoDatos || opcionTipoReporte == 1">
+                                    <option value="" disabled>SELECCIONA MES</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <select chosen ng-model="opcionMes1" class="form-control" ng-options="mes.idMes as mes.mes for mes in meses" ng-disabled="cargandoDatos || opcionTipoReporte !=3">
+                                    <option value="" disabled>SELECCIONA MES</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="col-xs-8 col-md-8">
+                                <label>&nbsp;</label>
+                                <div class="input-group">
+                                    <input type="text" ng-model="busquedaAcumulado" class="form-control input-sm pull-right" placeholder="Buscar">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-warning">
+                                            <i class="zmdi zmdi-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-md-4">
+                                <div class="form-group col-lg-6">
+                                    <br>
+                                    <button ng-disabled="cargandoDatos" type="button" ng-click="abrirAcumuladoXls()" class="btn btn-success btn-sm pull-right">
+                                        <i class="fa fa-file-excel-o"></i>
+                                    </button>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <br>
+                                    <button ng-disabled="cargandoDatos" type="button" ng-click="abrirAcumuladoPdf()" class="btn btn-danger btn-sm pull-right">
+                                        <i class="fa fa-file-pdf-o"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div ng-if="cargandoDatos">
+                                <i class="fa fa-spinner fa-spin fa-fw"></i> Cargando...
+                            </div>
+                            <div class="table-responsive no-padding" ng-if="gastosAup.cuentas">
+                                <table class="table table-bordered table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 25em; text-transform: none; font-weight: 600; text-align: center; background-color: khaki; color:BLACK"
+                                                rowspan="2">TOTAL COSTOS INCURRIDOS EN EL EJERCICIO</th>
+                                            <th rowspan="1" ng-repeat="mes in gastosAup.meses track by mes.idMes">{{mes.mes | uppercase}}</th>
+                                            <th rowspan="1">ACUMULADO</th>
+                                        </tr>
+                                        <tr>
+                                            <th rowspan="1" style="text-align: right; background-color: white" ng-repeat="suma in gastosAup.sumaTotal track by $index">{{suma | currency}}</th>
+                                            <td style="text-align: right; background-color: white">
+                                                <b>{{gastosAup.totalAcumulado|currency}}</b>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <br>
+                            <div class="table-responsive no-padding" ng-if="gastosAup.cuentas">
+                                <table class="table table-bordered table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-transform: none; font-weight: 600; text-align: center; font-size: 15px; background-color: khaki; color:BLACK"
+                                                colspan="14">DESGLOSE DE GASTOS AUP</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 25em;">Concepto</th>
+                                            <th ng-repeat="mes in gastosAup.meses track by mes.idMes">{{mes.mes | uppercase}}</th>
+                                            <th> ACUMULADO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="cuenta in gastosAup.cuentas| filter: busquedaAcumulado">
+                                            <td style="width: 25em;">{{cuenta.cuenta | uppercase}}</td>
+                                            <td style="text-align: right;" ng-repeat="sumaCuenta in cuenta.sumaPorMes track by $index">{{sumaCuenta| currency}}</td>
+                                            <td style="text-align: right;">{{cuenta.acumuladoPorCuenta|currency}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: right; width: 25em">
+                                                <B>TOTAL</B>
+                                            </td>
+                                            <th rowspan="1" style="text-align: right; background-color: white" ng-repeat="totalMes in gastosAup.sumaTotal track by $index">{{totalMes | currency}}</th>
+                                            <td style="text-align: right; background-color: white">
+                                                <b>{{gastosAup.totalAcumulado|currency}}</b>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <hr>
+                            <h4 style="text-align: center">
+                                <b>INTEGRACIÓN DETALLADA DE LOS COSTOS INCURRIDOS EN EL EJERCICIO</b>
+                            </h4>
+                            <br>
+                            <div class="table-responsive" ng-repeat="cuenta in gastosAup.cuentas | filter: busquedaAcumulado" style="width: 100%">
+                                <table class="table table-bordered table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th style=" text-transform: none; text-align: center; font-weight: 600; font-size: 15px; background-color: khaki; color:BLACK"
+                                                colspan="14">{{cuenta.cuenta|uppercase}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 25em">CONCEPTO</th>
+                                            <th ng-repeat="mes in gastosAup.meses track by mes.idMes">{{mes.mes | uppercase}}</th>
+                                            <th> ACUMULADO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="subcuenta in cuenta.gastosAup| filter: busquedaAcumulado">
+                                            <td style="width: 25em">{{subcuenta.nombre | uppercase}}</td>
+                                            <td style="text-align: right; " ng-repeat="totalPorMes in subcuenta.totales track by $index">{{totalPorMes| currency}}</td>
+                                            <td style="text-align: right; ">{{subcuenta.total|currency}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: right; width: 25em">
+                                                <B>TOTAL</B>
+                                            </td>
+                                            <td style="text-align: right; " ng-repeat="totalSubcuenta in cuenta.sumaPorMes track by $index">
+                                                <b>{{totalSubcuenta| currency}}</b>
+                                            </td>
+                                            <td style="text-align: right;">
+                                                <b>{{cuenta.acumuladoPorCuenta | currency}}</b>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

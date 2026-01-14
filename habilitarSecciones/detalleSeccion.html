@@ -1,0 +1,45 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        PERFILES Y USUARIOS DE
+                        <span ng-show="!seccion">
+                            LA SECCIÓN
+                        </span>
+                        <span ng-show="seccion">
+                            "{{seccion.seccion | uppercase}}"
+                        </span>
+                        <a href="#/secciones" title="Regresar" class="btn btn-success btn-xs pull-right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: center; font-weight: 600"></th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: left; font-weight: 600">PERFIL</th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: center; font-weight: 600">USUARIOS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="permiso in seccion.permisos">
+                                    <td style="text-align: center" ng-bind="$index+1"></td>
+                                    <td style="text-align: left">
+                                        <a href="#/perfilesSistema/{{permiso.idPerfil}}" target="_blank">{{permiso.perfil | uppercase}}</a>
+                                    </td>
+                                    <td style="text-align: center" ng-bind="permiso.usuarios | number"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

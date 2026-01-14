@@ -1,0 +1,551 @@
+<section class="content" ng-init="inicializarEgreso()">
+    <div class="box box-solid box-warning">
+        <div class="box-header" style="height: 50px;">
+            <h5 class="encabezadosTabla">
+                EGRESO
+                <a title="Regresar" href="#cajaChica" class="btn btn-success btn-xs" style="float: right">
+                    <i class="zmdi zmdi-arrow-left"></i>
+                </a>
+            </h5>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3">
+                    <label style="font-weight: bold;">Fecha</label>
+                    <div class="form-group small">
+                        <div class="input-group date" data-provide="datepicker">
+                            <div class="input-group-addon ">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input autocomplete="off" title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text"
+                                class="form-control pull-right" id="datepicker" placeholder="Fecha" ng-model="cajaChicaEncabezado.fecha"
+                                ng-change="calcularSaldoDeMes()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-3">
+                    <div class="form-group">
+                        <label style="font-weight: bold;">Hora</label>
+                        <input type="time" class="form-control" placeholder="Hora" ng-model="cajaChicaEncabezado.hora"
+                            id="encabezadoHora">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6">
+                    <div class="form-group">
+                        <label style="font-weight: bold;">Saldo de caja chica. </label>
+                        <small ng-if="!cajaChicaEncabezado.fecha">Selecciona una fecha de movimiento</small>
+                        <input type="text" class="small form-control" disabled="disabled" ng-value="saldo | currency" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+
+                        <p><b>Catálogo nombres</b></p>
+
+                        <select chosen class="form-control" ng-model="cajaChicaEncabezado.tipoDeCliente">
+                            <option value="" disabled>A nombre de</option>
+                            <option value="1"> Apicultores </option>
+                            <option value="3"> Proveedores </option>
+                            <option value="4"> Personal OM </option>
+                            <option value="6"> Clientes </option>
+                            <option value="8">Propios</option>
+                            <option value="9">Acreedores</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <p><b>A nombre de</b></p>
+                        <select chosen ng-model="cajaChicaEncabezado.nombre" class="form-control" ng-options="nombre.id as nombre.nombre for nombre in personas">
+                            <option disabled="disabled" value="">Nombre</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-2">
+                    <p>&nbsp;</p>
+                    <button style="background-color: gold" class="btn btn-xs" ng-click="altaRapidaDesdeCajaChica();"
+                        title="Nuevo proveedor">
+                        <i class="zmdi zmdi-plus"></i> Nuevo
+                    </button>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label for="">Movimiento</label>
+                        <select chosen ng-model="cajaChica.seleccionMovimiento" class="form-control" ng-options="tm as tm.cuenta for tm in listaCuentasSeleccionadas"
+                            ng-change="cambioSeleccionCuenta()">
+                            <option disabled="disabled" value="">Tipo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label for="">Selecciona el concepto</label>
+                        <select ng-model="cajaChica.seleccionSubcuenta" chosen class="form-control" ng-options="c as c.subcuenta for c in listaSubcuentasSeleccionadas"
+                            ng-change="obtenerSubsubcuentas(cajaChica.seleccionSubcuenta.idSubcuenta)">
+                            <option value="" disabled="disabled"> Conceptos </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-4" ng-if="listaSubSubcuentas.length">
+                    <div class="form-group">
+                        <label for="">Selecciona un subconcepto (Opcional)</label>
+                        <select chosen ng-model="cajaChica.seleccionSubSubcuenta" class="form-control" ng-options="ss as ss.subSubcuenta for ss in listaSubSubcuentas"
+                            ng-disabled="!listaSubSubcuentas.length">
+                            <option disabled="disabled" value="">Subsubcuenta</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Selecciona movimiento</label>
+                            <br>
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="2" ng-model="cajaChica.idMovimiento">Compras
+                            </label>
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="8" ng-model="cajaChica.idMovimiento">Depósitos - Inter/Otras
+                                ctas.
+                            </label>
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="3" ng-model="cajaChica.idMovimiento">Diversos
+                            </label>
+                        </div>
+                    </div>
+                </div> -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                    <div class="form-group">
+                        <label style="font-weight: bold;">Descripción</label>
+                        <textarea name="descripcion" rows="1" class="small form-control" ng-model="cajaChica.descripcion"
+                            placeholder="Descripción">    </textarea>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <div class="form-group">
+                        <label style="font-weight: bold;">Cantidad $MXN </label>
+                        <input type="number" class="small form-control" ng-model="cajaChica.cantidad" placeholder="Cantidad"
+                            ng-change="prevCajaChica(cajaChica.cantidad)" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="row" ng-if="!esDiversos">
+                <div class="col-xs-12 col-sm-3">
+                    <div class="form-group">
+                        <label style="font-weight: bold">Concepto </label>
+                        <div class="input-group">
+                            <div style="background-color: gold" class="input-group-addon btn" ng-click="nuevoConceptoCajaChica();"
+                                title="Nuevo concepto">
+                                <i class="zmdi zmdi-plus"></i>
+                            </div>
+                            <select ng-model="cajaChica.concepto" chosen class="form-control" ng-options="c as c.concepto for c in lstConceptosIngreso">
+                                <option value="" disabled>Concepto</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3" ng-if="lstSubconceptosCC.length > 0">
+                    <div class="form-group">
+                        <label style="font-weight: bold">Subconcepto </label>
+                        <div class="input-group">
+                           
+                            <select ng-model="cajaChica.subconcepto" chosen class="form-control" ng-options="cs as cs.subconceptoCC for cs in lstSubconceptosCC">
+                                <option value="" disabled>Subconceptos</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div> -->
+            <!-- <div class="row" ng-if="cajaChica.idMovimiento == 8">
+                    <div class=" col-xs-12 col-sm-4">
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Banco:</label>
+                            <select chosen ng-model="cajaChica.bancoIngreso" ng-change="traeLasCuentasDelBanco(cajaChica.bancoIngreso)"
+                                class="form-control" ng-options="b.idBanco as b.banco for b in lstBancos">
+                                <option value="">Banco</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="form-group">
+                            <label style="font-weight: bold;">N° de cuenta:</label>
+                            <select chosen ng-model="cajaChica.bancoCuenta" ng-change="traeSaldoBancoSel(cajaChica.bancoCuenta)"
+                                class="form-control" ng-options="cx.idCuenta as cx.numDeCuenta for cx in lstQentas">
+                                <option value="">N° de cuenta</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Saldo Bancario</label>
+                            <input type="text" class="small form-control" disabled="true" ng-value="cajaChica.totalEnCuenta | currency">
+                        </div>
+                    </div>
+                </div> -->
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div style="text-align: right">
+                        <button class="btn btn-xs btn-success pull-right" ng-click="agregarMovimiento()"> Agregar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center"></th>
+                            <th class="text-left">Movimiento</th>
+                            <th class="text-left">Concepto</th>
+                            <th class="text-left">Subconcepto</th>
+                            <th class="text-left">Descripción</th>
+                            <th class="text-right">Cantidad</th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="dato in datosCajaChica">
+                            <td class="text-center">{{$index+1}}</td>
+                            <td class="text-left" ng-bind="dato.movimiento"></td>
+                            <td class="text-left" ng-bind="dato.concepto"></td>
+                            <td class="text-left" ng-bind="dato.subconcepto"></td>
+                            <td class="text-left" ng-bind="dato.descripcion"></td>
+                            <td class="text-right" ng-bind="dato.cantidad | currency"></td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-xs" ng-click="datosCajaChica.splice($index, 1)">&times;</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="text-right">
+                                <b>Total</b>
+                            </td>
+                            <td class="text-right">
+                                <b ng-bind="cajaChicaEncabezado.total | currency"></b>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div style="text-align: right">
+                        <button type="button" ng-click="guardarCajaChica();" class="btn btn-warning btn-sm">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>
+
+<div class="modal fade" id="modalParaConceptos" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Altas a Conceptos</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Cuenta:</label>
+                                <select ng-model="nuevoConcepto.idCuentaConcepto" class="form-control" ng-options="c.idCuentaConcepto as c.cuenta for c in conceptosGrandes">
+                                    <option value="" disabled="disabled"> Cuentas </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Subcuenta:</label>
+                                <input type="text" ng-model="nuevoConcepto.subcuenta" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarNuevoConcepto(nuevoConcepto);">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalNuevoConceptoCajaChica" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Nuevo concepto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label>Concepto</label>
+                            <small>Escribe el nombre del nuevo concepto</small>
+                            <select class="form-control" ng-model="v_nuevoConceptoCajaChica.concepto" placeholder="Nombre del concepto"
+                                ng-options="c as c.concepto for c in lstConceptosIngreso">
+                                <option value="" disabled>Selecciona una opción</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-xs" style="background-color:gold" ng-click="f_nuevoSubconceptoCajaChica()">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            <label style="font-weight: bold">Subconceptos </label>
+                            <div class="form-group" ng-repeat="subconcepto in v_nuevoConceptoCajaChica.subconceptos">
+                                <input type="text" class="form-control" ng-model="subconcepto.nombreSc">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarNuevoConceptoCajaChica(v_nuevoConceptoCajaChica);">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDeProveedor" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Alta rápida</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <select class="form-control" ng-model="altas.proveedorTipo">
+                                <option value="" disabled> Selecciona catálogo </option>
+                                <option value="1">Apicultores</option>
+                                <option value="3">Proveedores</option>
+                                <option value="4">Personal</option>
+                                <option value="6">Clientes</option>
+                                <option value="8">Propios</option>
+                                <option value="9">Acreedores</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div ng-show="altas.proveedorTipo == 1">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Nombre*</label>
+                                    <input ng-model="altas.nombre" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Id Sagarpa*</label>
+                                    <input type="text" ng-model="altas.idSagarpa" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Dirección</label>
+                                    <input ng-model="altas.direccionCompleta" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Teléfono*</label>
+                                    <input ng-model="altas.telefono" type="text" class="form-control" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-xs-12">
+                            <p><b>Tipo de producto*</b></p>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label class="radio radio-inline m-r-20">
+                                    <input type="radio" value="1" ng-model="altas.tipoDeMiel">Miel 100% pura de abeja.
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label class="radio radio-inline m-r-20">
+                                    <input type="radio" value="2" ng-model="altas.tipoDeMiel">Miel 100% orgánica.
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <label class="radio radio-inline m-r-20">
+                                    <input type="radio" value="3" ng-model="altas.tipoDeMiel">Ambos.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="altas.proveedorTipo == 3">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Razón social o Nombre:</label>
+                                    <input ng-model="altas.nombreProveedor" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Contacto:</label>
+                                    <input type="text" ng-model="altas.nombreContacto" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Domicilio:</label>
+                                    <input ng-model="altas.domicilio" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Teléfono </label>
+                                    <input ng-model="altas.telefono" type="text" class="form-control" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="altas.proveedorTipo == 4">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Área</label>
+                                    <select ng-model="altas.idArea" class="form-control" ng-options="a.idArea as a.area for a in listaAreas">
+                                        <option value="">Area</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Clave:</label>
+                                    <input type="text" ng-model="altas.clave" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Nombre:</label>
+                                    <input ng-model="altas.nombre" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Puesto: </label>
+                                    <select ng-model="altas.idPuesto" class="form-control" ng-options="p.idPuesto as p.puesto for p in listaPuestos">
+                                        <option value="">Puesto</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="altas.proveedorTipo == 6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Nombre:</label>
+                                    <input ng-model="altas.nombreProveedor" type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Domicilio:</label>
+                                    <input ng-model="altas.domicilio" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Teléfono </label>
+                                    <input ng-model="altas.telefono" type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="altas.proveedorTipo == 8 || altas.proveedorTipo == 9">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Nombre:</label>
+                                    <input ng-model="altas.nombre" type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarNuevoProveedorB(altas);">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>

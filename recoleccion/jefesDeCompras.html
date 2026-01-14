@@ -1,0 +1,125 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                       COMPRAS ACUMULADAS
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-3 pull-right">
+                            <button type="button" class="btn btn-success btn-sm pull-right" title="Descargar"
+                                ng-click="descargarReporteExcel()">
+                                Descargar <i class="fa fa-file-excel-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <select chosen ng-model="tipoDeMiel" class="form-control">
+                                <option value="">Seleccione una opción</option>
+                                <option value="1">Miel 100% pura de abeja</option>
+                                <option value="2">Miel 100% orgánica</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-3">
+                            <select ng-disabled="!tipoDeMiel" chosen ng-model="opcionVista" class="form-control">
+                                <option value="">Seleccione una opción</option>
+                                <option value="1">Por período</option>
+                                <option value="2">Acumulado</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input ng-disabled="opcionVista != 1" type="text" class="form-control pull-right"
+                                    id="datepicker" placeholder="Fecha inicio" ng-model="fecha1" required>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input ng-disabled="opcionVista != 1" type="text" class="form-control pull-right"
+                                    id="datepicker" placeholder="Fecha final" ng-model="fecha2" required>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div ng-if="!jefesCompras.compradores">
+                        No se encuentran datos
+                    </div>
+                    <div class="row" ng-if="jefesCompras.compradores">
+                        <!-- Para jefes -->
+                        <div class="col-xs-5">
+                            <div class="table-responsive" ng-repeat="jefe in jefesCompras.compradores;">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">{{jefe.nombre}}</th>
+                                            <th class="text-center">Compra total (kg)</th>
+                                        </tr>
+
+                                        <tr ng-repeat="zona in jefe.zonas">
+                                            <td style="width: 25%">{{zona.zona}}</td>
+                                            <td style="width: 25%">{{zona.referencia}}</td>
+                                            <td style="width: 50%" class="text-center">
+                                                {{zona.real | number}}
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xs-7">
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" class="text-center">Resumen de compras (Totales)
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td class="text-center"><b>Kilogramos</b></td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="jefe in jefesCompras.compradores;">
+                                                    <td>{{jefe.nombre}}</td>
+                                                    <td class="text-center">{{jefe.totalReal | number}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Total de kilos</b></td>
+                                                    <td class="text-center">
+                                                        <b>{{jefesCompras.sumaKgsCompraReal | number}}</b>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

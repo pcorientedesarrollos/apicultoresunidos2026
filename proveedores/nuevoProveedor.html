@@ -1,0 +1,544 @@
+<section class="content">
+
+    <div class="box box-solid box-warning">
+        <div class="box-header">
+            <h5 class="encabezadosTabla">
+                PROVEEDORES
+                <a title="Regresar" href="#/proveedores" class="btn btn-success btn-xs pull-right">
+                    <i class="zmdi zmdi-arrow-left"></i>
+                </a>
+            </h5>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5> DATOS DEL PROVEEDOR </h5>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label class="control-label">
+                                <input type="checkbox" ng-model="proveedor.empresa" ng-true-value="'1'"
+                                    ng-false-value="'0'">
+                                <b>Seleccionar este campo únicamente en el caso de que corresponda a una empresa del
+                                    corporativo.</b>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4">
+                    <span class="pull-right">
+                        <a href="http://sistemas.senasica.gob.mx/rastreabilidadMielFX/" target="_blank"
+                            class="btn btn-xs btnMiel" title="Obtener ID Sagarpa" style="color: #385428">
+                            Obtener ID
+                        </a>
+                    </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"><b>Nombre*</b></label>
+                        <input type="text" class="form-control input-sm"
+                            placeholder="Nombre | Apellido paterno | Apellido materno" ng-model="proveedor.nombre">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"><b>Tipo de proveedor*</b></label>
+                        <input type="text" class="form-control input-sm" ng-model="proveedor.tipo" placeholder="Tipo"
+                            list="listaTipos">
+                        <datalist id="listaTipos">
+                            <option>Apicultor</option>
+                            <option>Acopiador</option>
+                        </datalist>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <label class="control-label"><b>Tipo de producto*</b></label>
+                    <select chosen ng-model="tipoCosecha" class="form-control"
+                        ng-options="lo.idTipoDeMiel as lo.tipoDeMiel for lo in comboTipoMiel">
+                        <option disabled="disabled" value="">Miel</option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <label class="control-label"><b>ID SAGARPA</b></label>
+                    <input type="text" class="form-control input-sm" ng-model="proveedor.idSagarpa"
+                        placeholder="Id Sagarpa" mask="99-99999-A">
+
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-xs-12 col-md-6">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <button class="btn btn-sm btnMiel" ng-click="agregarTelefono()" title="Agregar teléfono">
+                                <i style="color: #385428" class="zmdi zmdi-phone"></i> Teléfono
+                            </button>
+                        </div>
+                        <div class="col-xs-12 col-md-9">
+                            <div ng-repeat="tel in telefonos" class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Contacto"
+                                        ng-model="tel.telefono">
+                                    <span class="input-group-btn">
+                                        <button ng-click="eliminarTelefono($index);" class="btn btn-danger"
+                                            title="Eliminar Telefono">
+                                            <i class="zmdi zmdi-delete"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <button class="btn btn-sm btnMiel" title="Agregar correo" ng-click="nuevoCorreo();">
+                                <i style="color: #385428" class="zmdi zmdi-email"></i> Correo
+                            </button>
+                        </div>
+                        <div class="col-xs-12 col-md-9">
+                            <div class="form-group" ng-repeat="correo in correos">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="micorreo@correo.com"
+                                        ng-model="correo.email">
+                                    <span class="input-group-btn">
+                                        <button ng-click="eliminarCorreo($index);" class="btn btn-danger"
+                                            title="Eliminar Contacto">
+                                            <i class="zmdi zmdi-delete"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5> DIRECCIÓN </h5>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"><b>Calle*</b></label>
+                        <input type="text" class="form-control input-sm" ng-model="proveedor.direccionCompleta"
+                            placeholder="Calle | Núm. Ext. | Núm. Int. | Cruzamientos">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"><b>Colonia*</b></label>
+                        <input type="text" class="form-control input-sm" placeholder="Colonia"
+                            ng-model="proveedor.colonia">
+                    </div>
+                </div>
+            </div>
+
+            <!-- comprador, Localidad, estado y código postal -->
+
+            <div class="row">
+
+                <div class="col-xs-12 col-md-3">
+                    <div class="form-group">
+                        <label class=""><b>Comprador*</b></label>
+                        <select chosen ng-model="seleccionComprador" class="form-control"
+                            ng-change="traeLocalidades(seleccionComprador)"
+                            ng-options="comprador.idcomprador as comprador.nombre for comprador in listaCompradores">
+                            <option selected value="">Comprador</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-3">
+                    <!-- <div class="row"> -->
+                    <!-- <div class="col-xs-10"> -->
+                    <div class="form-group">
+                        <label><b>Localidad*</b></label>
+                        <select chosen ng-model="seleccionZonas" class="form-control"
+                            ng-options="lo.idlocalidad as lo.localidad for lo in localidadC"
+                            ng-change="traeEstados(seleccionZonas)">
+                            <option selected value="">Localidad</option>
+                        </select>
+                    </div>
+                    <!-- </div> -->
+                    <!-- <div class="col-xs-2">
+                            <div class="form-group">
+                                <p>&nbsp;</p>
+                                <button class="btn btnMiel btn-sm" ng-click="nuevaLocalidad()" title="Nueva localidad">
+                                    <i style="color: #385428" class="zmdi zmdi-plus"></i>
+                                </button>
+                            </div>
+                        </div> -->
+                    <!-- </div> -->
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"><b>Estado</b></label>
+                        <select chosen ng-model="seleccionEstado" class="form-control"
+                            ng-options="e.idEstado as e.estado for e in estadosMexico" disabled>
+                            <option value="">Estado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"><b>Código Postal*</b></label>
+                        <input type="text" class="form-control input-sm" placeholder="Código Postal"
+                            ng-model="proveedor.cp">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-md-6">
+                            <h5><b>*Escribir el formato de coordenadas correcto, de lo contrario no se
+                                    guardará.*</b></h5>
+                        </div>
+                    </div>
+                </div>
+                <form>
+                    <div class="col-xs-12 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label"><b>Latitud</b></label>
+                            <input formnovalidate type="text" class="form-control input-sm" pattern="-?\d{1,3}\.\d+"
+                                ng-model="proveedor.latitud">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <div class="form-group">
+                            <label class="control-label"><b>Longitud</b></label>
+                            <input formnovalidate type="text" class="form-control input-sm" pattern="-?\d{1,3}\.\d+"
+                                ng-model="proveedor.longitud">
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5> INFORMACION FISCAL </h5>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label"><b>Razon Social</b></label>
+                        <input type="text" class="form-control input-sm" placeholder="Razon social"
+                            ng-model="proveedor.razonSocial">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label"><b>RFC</b></label>
+                        <input type="text" class="form-control input-sm" ng-model="proveedor.rfc" placeholder="Rfc">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label class="control-label"><b>Curp</b></label>
+                        <input type="text" class="form-control input-sm" placeholder="Curp" required="true"
+                            ng-model="proveedor.curp">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5> CONTACTOS </h5>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-2">
+                    <button title="Agregar contacto(s)" class="btn btnMiel btn-sm" ng-click="nuevoContacto();">
+                        <i style="color: #385428" class="zmdi zmdi-plus"></i> Agregar contacto
+                    </button>
+                </div>
+                <div class="col-xs-10">
+                    <div ng-repeat="contacto in contactos" class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Nombre del contacto"
+                                ng-model="contacto.nombre">
+                            <span class="input-group-btn">
+                                <button ng-click="eliminarContacto($index);" class="btn btn-danger"
+                                    title="Eliminar Contacto">
+                                    <i class="zmdi zmdi-delete"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <button type="submit" ng-click="guardarP();" class="btn btn-warning pull-right">Guardar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<div growl></div>
+
+<div class="modal  fade" id="modalTelefonos" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Telefonos</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="input-telefono"><b>Teléfono</b></label>
+                            <input id="input-telefono" type="text" class="form-control" ng-model="addTelefono"
+                                placeholder="Número de teléfono">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button type="button" ng-click="agregarTelefono();" class="btn btn-success">Guardar
+                            Telefono</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal  fade" id="modalContactos" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Contacto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputEmail3" class="col-sm-2 control-label">Telefono</label>
+                    <div class="col-sm-10">
+                        <div class="fg-line">
+                            <input type="text" class="form-control input-sm" ng-model="addContacto"
+                                placeholder="Telefono">
+                        </div>
+                    </div>
+                </div>
+                <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper. Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla. Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.</p>-->
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button type="button" ng-click="agregarTelefono();" class="btn btn-success">Guardar Telefono</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="modal  fade" id="modalInstalacion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bgm-miel">
+                <h4 class="modal-title" style="color: white">REVISION DE INSTALACIONES</h4>
+            </div>
+            <BR>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <h5>Subir archivo PDF o JPG/PNG</h5>
+                    <hr>
+                    <div class="form-group">
+                        <input type="file" name="file" uploader-model="file" required="required" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button style="float: right" value="enviar" class="btn btn-info" ng-click="guardarInstalacion()">
+                    Guardar
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-1" ng-repeat="di in docInstalacion.images">
+                    <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;"
+                        ng-src="proveedores/{{di.archivoInstalacion}}" />
+                    <button class="btn btn-danger botn" ng-click="eliminarDocInstalacion(di.idInstalacion)">
+                        <i class="zmdi zmdi-delete"></i>
+                    </button><br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="modal  fade" id="modalContrato" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bgm-miel">
+                <h4 class="modal-title" style="color: white">CONTRATO MERCANTIL</h4>
+            </div>
+            <BR>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <h5>Subir archivo PDF o JPG/PNG</h5>
+                    <hr>
+                    <div class="form-group">
+                        <input type="file" name="file" uploader-model="file" required="required" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button style="float: right" value="enviar" class="btn btn-info" ng-click="guardarContrato()"> Guardar
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-1" ng-repeat="dc in docContrato.images">
+                    <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;"
+                        ng-src="proveedores/{{dc.archivoContrato}}" />
+                    <button class="btn btn-danger botn" ng-click="eliminarDocContrato(dc.idContrato)">
+                        <i class="zmdi zmdi-delete"></i>
+                    </button><br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="modal  fade" id="modalCarta" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bgm-miel">
+                <h4 class="modal-title" style="color: white">CARTA RESPONSIVA</h4>
+            </div>
+            <BR>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <h5>Subir archivo PDF o JPG/PNG</h5>
+                    <hr>
+                    <div class="form-group">
+                        <input type="file" name="file" uploader-model="file" required="required" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button style="float: right" value="enviar" class="btn btn-info" ng-click="guardarCarta()"> Guardar
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-1" ng-repeat="img in docCarta.images">
+                    <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;"
+                        ng-src="proveedores/{{img.archivoCarta}}" />
+                    <button class="btn btn-danger botn" ng-click="eliminarDocCarta(img.idCarta)">
+                        <i class="zmdi zmdi-delete"></i>
+                    </button><br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="modal  fade" id="modalApiario" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bgm-miel">
+                <h4 class="modal-title" style="color: white">REVISION DE APIARIO</h4>
+            </div>
+            <BR>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <h5>Subir archivo PDF o JPG/PNG</h5>
+                    <hr>
+                    <div class="form-group">
+                        <input type="file" name="file" uploader-model="file" required="required" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button style="float: right" value="enviar" class="btn btn-info" ng-click="guardarApiario()"> Guardar
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-1" ng-repeat="da in docApiario.images">
+                    <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;"
+                        ng-src="proveedores/{{da.archivoApiario}}" />
+                    <button class="btn btn-danger botn" ng-click="eliminarDocApiario(da.idApiario)">
+                        <i class="zmdi zmdi-delete"></i>
+                    </button><br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="modal  fade" id="modalLocalidad" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar Localidad</h4>
+            </div>
+            <BR>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label style="font-weight: bold;" class="col-sm-2 col-sm-offset-1 control-label"> Zona: </label>
+                    <div class="col-sm-9">
+
+                        <select ng-model="eligeZona" class="form-control"
+                            ng-options="z.idzona as z.zona for z in nomZonas">
+                            <option value="">Selecciona una Zona</option>
+                        </select>
+
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="form-group">
+                    <label style="font-weight: bold;" class="col-sm-2 col-sm-offset-1 control-label">Localidad: </label>
+                    <div class="col-sm-9">
+                        <input align="center" type="text" class="form-control input-xs"
+                            placeholder="Escriba una Localidad" required="required" ng-model="municipio.localidad" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button style="float: right" value="enviar" class="btn btn-info" ng-click="guardarLocalidad()"> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

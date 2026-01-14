@@ -1,0 +1,160 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" ng-model="busquedaCalidad" class="form-control input-sm pull-right"
+                        placeholder="Ingrese lo que desea buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-warning">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+                <div class="input-group" style="width: 150px;">
+                    <input type="text" ng-model="busquedaCalidad" name="table_search"
+                        class="form-control input-sm pull-right" placeholder="Buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CREACION DE LOTES EXPERIMENTALES
+                        <b ng-show="opcionCosechaEx == 1"> MIEL 100% PURA DE ABEJA</b>
+                        <b ng-show="opcionCosechaEx == 2"> MIEL 100% ORGÁNICA</b>
+                        <b ng-show="opcionCosechaEx == 5"> MIEL 100% MANTEQUILLA</b>
+                        <b ng-show="opcionCosechaEx == 6"> MIEL 100% ALTIPLANO</b>
+                        <b ng-show="opcionCosechaEx == 7"> MIEL 100% NARANJO</b>
+                        <b ng-show="opcionCosechaEx == 8"> MIEL 100% AGUACATE</b>
+                        <b ng-show="opcionCosechaEx == 9"> MIEL 100% MEZQUITE</b>
+                        <!--                        <a href="#/nvaCalidad" class="btn btn-success btn-xs" style="float: right; ">
+                                                    <i class="zmdi zmdi-plus"></i> Filtrar
+                                                </a>-->
+                        <a href="#/nvaCalidadSF" class="btn btn-success btn-xs"
+                            style="float: right; margin-right: 20px;">
+                            <i class="zmdi zmdi-plus"></i> Agregar
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="1" ng-model="opcionCosechaEx">Convencional
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="2" ng-model="opcionCosechaEx">Orgánica
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="5" ng-model="opcionCosechaEx">Mantequilla
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="6" ng-model="opcionCosechaEx">Altiplano
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="7" ng-model="opcionCosechaEx">Naranjo
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="8" ng-model="opcionCosechaEx">Aguacate
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="9" ng-model="opcionCosechaEx">Mezquite
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr>
+                                    <th style="text-transform: none; font-weight: 600">Fecha</th>
+                                    <th style="text-transform: none; font-weight: 600">Lote Exp.</th>
+                                    <th style="text-transform: none; font-weight: 600; text-align: right">Humedad</th>
+                                    <th style="text-transform: none; font-weight: 600; text-align: right">#Tambores
+                                        Entrada</th>
+                                    <th style="text-transform: none; font-weight: 600; text-align: right">Kg. Entrada
+                                    </th>
+                                    <th style="text-transform: none; font-weight: 600; text-align: right">Contrato</th>
+                                    <th style="text-transform: none; font-weight: 600; text-align: right">Resultado</th>
+                                    <th style="text-transform: none; font-weight: 600"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="cal in menuLoteExperimental| filter:busquedaCalidad">
+                                    <td>{{cal.fecha | date:'dd-MM-yyyy'}}</td>
+                                    <td ng-show="opcionCosechaEx == 1">EC-{{cal.idLoteExperimental}}</td>
+                                    <td ng-show="opcionCosechaEx == 2">EO-{{cal.idLoteExperimental}}</td>
+                                    <td ng-show="opcionCosechaEx == 5">EM-{{cal.idLoteExperimental}}</td>
+                                    <td ng-show="opcionCosechaEx == 6">EA-{{cal.idLoteExperimental}}</td>
+                                    <td ng-show="opcionCosechaEx == 7">EN-{{cal.idLoteExperimental}}</td>
+                                    <td ng-show="opcionCosechaEx == 8">EG-{{cal.idLoteExperimental}}</td>
+                                    <td ng-show="opcionCosechaEx == 9">EZ-{{cal.idLoteExperimental}}</td>
+                                    <td style="text-align: right">{{cal.humedad|uppercase}}</td>
+                                    <td style="text-align: right">{{cal.numeroDeTambores}}</td>
+                                    <td style="text-align: right">{{cal.kilosTotales}}</td>
+                                    <td style="text-align: right">{{cal.contrato}}</td>
+                                    <td style="text-align: right">{{cal.resultadoLaboratorio}}</td>
+                                    <td>
+                                        <a class="btn btn-warning btn-xs"
+                                            ng-href="#/ediCalidad/{{cal.idLoteExperimental}}/{{opcionCosechaEx}}"
+                                            title="Agregar precios">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
+                                        <a style="margin-right: 10px" title="Imprimir XLS"
+                                            class="btn btn-success btn-xs"
+                                            ng-click="xlsExperimental(cal.idLoteExperimental, opcionCosechaEx)">
+                                            <i class="zmdi zmdi-storage zmdi-hc-lg"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>

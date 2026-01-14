@@ -1,0 +1,143 @@
+<div class="box box-solid box-warning">
+    <div class="box-header" style="height: 50px;">
+        <h5 class="encabezadosTabla">
+            SALDOS INICIALES DE LOS INVENTARIOS
+        </h5>
+    </div>
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th clas="text-center"></th>
+                        <th clas="text-center">Inventario</th>
+                        <th clas="text-center">Existencia pasada</th>
+                        <th clas="text-center">Importe acumulado pasado</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="inventario in inventarios">
+                        <td class="text-center">{{$index+1}}</td>
+                        <td class="text-left">{{inventario.nombre}}</td>
+                        <td class="text-right">
+                            <input type="text" class="form-control" placeholder="Kg existencia pasada" ng-model="inventario.existenciaPasada">
+                        </td>
+                        <td class="text-right">
+                            <input type="text" class="form-control" placeholder="Importe acumulado pasado" ng-model="inventario.importeAcumuladoPasado">
+                        </td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-success btn-sm" title="Guardar saldo" ng-click="guardarSaldosInventario(inventario, $index);">
+                                <i class="fa fa-save"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="lead">De los productos apícolas:</p>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <button type="button" class="btn btn-success" title="Productos apícolas" ng-click="crearNuevoSaldo = !crearNuevoSaldo">
+                        <i class="fa fa-plus"></i> Nuevo saldo
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div ng-if="crearNuevoSaldo" class="nuevoSaldoInicialApicola">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>Seleccione de la cuenta de productos apícolas y especifique los campos solicitados</p>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label for="">Movimiento (*)</label>
+                        <select chosen ng-model="nuevoSaldoInicialApicola.tipoMovimiento" class="form-control"
+                            ng-options="tm as tm.cuenta for tm in listaCuentasSeleccionadas" ng-change="cambioSeleccionCuenta()">
+                            <option disabled="disabled" value="">Tipo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label for="">Selecciona el concepto (*)</label>
+                        <select ng-model="nuevoSaldoInicialApicola.concepto" chosen class="form-control" ng-options="c as c.subcuenta for c in listaSubcuentasSeleccionadas"
+                            ng-change="obtenerSubsubcuentas(nuevoSaldoInicialApicola.concepto.idSubcuenta)">
+                            <option value="" disabled="disabled"> Conceptos </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label for="">Selecciona un subconcepto (*)</label>
+                        <select chosen ng-model="nuevoSaldoInicialApicola.subconcepto" class="form-control" ng-options="ss as ss.subSubcuenta for ss in listaSubSubcuentas"
+                            ng-disabled="!listaSubSubcuentas.length">
+                            <option disabled="disabled" value="">Subsubcuenta</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label for="">Cantidad (*)</label>
+                        <input type="text" class="form-control" placeholder="Cantidad existencia pasada" ng-model="nuevoSaldoInicialApicola.existenciaPasada">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label for="">Importe (*)</label>
+                        <input type="text" class="form-control" placeholder="Importe acumulado pasado" ng-model="nuevoSaldoInicialApicola.importePasado">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success" ng-click="guardarNuevoSaldoApicola()">
+                            <i class="fa fa-save"></i> Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p ng-if="!inventarios_apicola.length" class="lead">Los conceptos aparecerán de acuerdo a los movimientos
+            de
+            productos apícolas</p>
+        <div class="table-responsive" ng-if="inventarios_apicola.length">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th clas="text-center"></th>
+                        <th clas="text-center">Producto</th>
+                        <th clas="text-center">Existencia pasada</th>
+                        <th clas="text-center">Importe pasado</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="inventario in inventarios_apicola">
+                        <td class="text-center">{{$index+1}}</td>
+                        <td class="text-left">{{inventario.nombre}}</td>
+                        <td class="text-right">
+                            <input type="text" class="form-control" placeholder="Cantidad existencia pasada" ng-model="inventario.existenciaPasada">
+                        </td>
+                        <td class="text-right">
+                            <input type="text" class="form-control" placeholder="Importe acumulado pasado" ng-model="inventario.importePasado">
+                        </td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-success btn-sm" title="Guardar saldo" ng-click="guardarSaldosInventario_apicola(inventario, $index);">
+                                <i class="fa fa-save"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div growl></div>

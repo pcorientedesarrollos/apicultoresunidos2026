@@ -1,0 +1,127 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CAPTURA FACTURACION
+                        <a title="Regresar" href="#/facturacion" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <br>
+                <div class="box-body">
+                    <div class="row" ng-if="idTamborPeso > 0">
+                        <div class="col-sm-1  pull-right">
+                            <label for="">&nbsp;</label>
+                            <button title="Imprimir PDF" class="btn btn-danger" ng-click="imprimirPrefactura()">
+                                <i class="fa fa-file-pdf-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label>Fecha</label>
+                            <div class="form-group form-group-sm">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input disabled required type="text" class="form-control pull-right" id="datepicker"
+                                        ng-model="detalleFactura.fecha">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Tipo de Miel</label>
+                            <div class="form-group form-group-sm">
+                                <input disabled type="text" class="form-control" ng-model="detalleFactura.tipoDeMiel">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Lote</label>
+                            <div class="form-group form-group-sm">
+                                <input disabled type="text" class="form-control" ng-model="detalleFactura.lote">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Destino</label>
+                            <div class="form-group form-group-sm">
+                                <input disabled type="text" class="form-control" ng-model="detalleFactura.destino">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Cliente</label>
+                            <div class="form-group form-group-sm">
+                                <input disabled type="text" class="form-control" ng-model="detalleFactura.cliente">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Peso Neto</label>
+                            <div class="form-group form-group-sm">
+                                <input disabled type="text" class="form-control" ng-model="detalleFactura.totalNeto">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Cantidad de tambores</label>
+                            <div class="form-group form-group-sm">
+                                <input disabled type="text" class="form-control"
+                                    ng-model="detalleFactura.cantidadTambores">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <label>Fecha de factura</label>
+                            <div class="form-group form-group-sm">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input required type="text" class="form-control pull-right" id="datepicker"
+                                        ng-model="detalleFactura.fechaFactura">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <label style="font-weight: bold;">Precio por kg.*</label>
+                            <input type="text" class="form-control" ng-model="detalleFactura.precio">
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <label style="font-weight: bold;">Importe</label>
+                            <input ng-value="detalleFactura.importe = detalleFactura.totalNeto*detalleFactura.precio"
+                                type="text" class="form-control" ng-model="detalleFactura.importe" disabled="disabled">
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                            <label style="font-weight: bold;">Condiciones de pago*</label>
+                            <select class="form-control" ng-model="detalleFactura.condicionPago">
+                                <option disabled selected value=""></option>
+                                <option value="1">Crédito</option>
+                                <option value="2">Contado</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-md-2" ng-if="detalleFactura.condicionPago == 1">
+                            <label style="font-weight: bold;">Días de pago*</label>
+                            <input type="text" class="form-control" ng-model="detalleFactura.tiempoPago">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3 col-md-offset-9">
+                            <p>&nbsp;</p>
+                            <button class="btn btn-success btn-xs pull-right" style="margin-right: 10px"
+                                ng-click="guardarPrecioLote()">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>

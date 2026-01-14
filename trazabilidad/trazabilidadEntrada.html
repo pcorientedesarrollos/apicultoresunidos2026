@@ -1,0 +1,180 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        TRAZABILIDAD ENTRADA
+                        <b ng-show="opcionCosechaC == 1"> 100% PURA DE ABEJA</b>
+                        <b ng-show="opcionCosechaC == 2"> 100% ORGÁNICA</b>
+                        <b ng-show="opcionCosechaC == 5"> 100% MANTEQUILLA</b>
+                        <b ng-show="opcionCosechaC == 6"> 100% ALTIPLANO</b>
+                        <b ng-show="opcionCosechaC == 7"> 100% NARANJO</b>
+                        <b ng-show="opcionCosechaC == 8"> 100% AGUACATE</b>
+                        <b ng-show="opcionCosechaC == 9"> 100% MEZQUITE</b>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-sm-offset-9">
+                            <a style="margin-right: 10px" title="Imprimir XLS" class="pull-right btn btn-success btn-sm"
+                                ng-click="xlsTranzabilidadEntrada()">
+                                <i class="zmdi zmdi-storage zmdi-hc-lg"></i>
+                            </a>
+                            <a style="margin-right: 10px" title="Imprimir PDF" class="pull-right btn btn-danger btn-sm"
+                                ng-click="pdfTramzabilidadEntrada()" target="_blank">
+                                <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="1" ng-model="opcionCosechaC">Convencional
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="2" ng-model="opcionCosechaC">Orgánica
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="5" ng-model="opcionCosechaC">Mantequilla
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="6" ng-model="opcionCosechaC">Altiplano
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="7" ng-model="opcionCosechaC">Naranjo
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="8" ng-model="opcionCosechaC">Aguacate
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="9" ng-model="opcionCosechaC">Mezquite
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;" class="col-sm-3">Número de lote</label>
+                                        <div class="col-sm-4">
+                                            <select chosen ng-change="concentradoEntrada()" ng-model="comboEntrada"
+                                                class="form-control"
+                                                ng-options="rp.idLoteInterno as rp.idLoteInterno for rp in listaLotes">
+                                                <option value="">Lote</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <br>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-12">Seleccione el número de lote</label>
+                                        <div class="col-sm-2">
+                                            <select chosen ng-change="concentradoEntrada()" ng-model="comboEntrada" class="form-control" ng-options="rp.idLoteInterno as rp.idLoteInterno for rp in listaLotes">
+                                                <option value="">Lote</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <hr>
+                            <br>
+                            <div class="col-lg-12">
+                                <div class="table-responsive no-padding">
+                                    <table class="table table-bordered table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px; background-color: gold"
+                                                    colspan="6">Trazabilidad de entrada</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="text-transform: none; font-weight: 600; background: none">
+                                                    Fecha de recepción</th>
+                                                <th style="text-transform: none; font-weight: 600; background: none">N°
+                                                    de lote</th>
+                                                <th
+                                                    style="text-align: right; text-transform: none; font-weight: 600; background: none">
+                                                    ID Proveedor</th>
+                                                <th
+                                                    style="text-align: right; text-transform: none; font-weight: 600; background: none">
+                                                    Dirección del Proveedor</th>
+                                                <th
+                                                    style="text-align: right; text-transform: none; font-weight: 600; background: none">
+                                                    Volumen Kg.</th>
+                                                <th
+                                                    style="text-align: right; text-transform: none; font-weight: 600; background: none">
+                                                    N° de muestra</th>
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="tEntrada in trazabilidadEntrada">
+                                            <td>{{tEntrada.fecha | date:'dd-MM-yyyy'}} </td>
+                                            <td>{{tEntrada.marcaFinalCliente}}</td>
+
+                                            <!--<td contentEditable="true">{{tEntrada.lote}}</td>-->
+                                            <!--                                            <td>
+                                                                                            <input
+                                                                                                ng-model="tEntrada.lote"
+                                                                                                type="text" 
+                                                                                                class="small"/>
+                                                                                        </td>-->
+                                            <td style="text-align: right">{{tEntrada.idSagarpa}}</td>
+                                            <td style="text-align: right">{{tEntrada.domicilio}}</td>
+                                            <td style="text-align: right">{{tEntrada.kilosP}}</td>
+                                            <td style="text-align: right"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="comboEntrada > 0">
+                                <div class="col-lg-3 pull-right">
+                                    <center>
+                                        <label>
+                                            <strong class="text-red">Miel usada por apicultores</strong>
+                                        </label>
+                                        <br>
+                                        <strong>{{totalEntrada}} kg. </strong>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

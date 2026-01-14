@@ -1,0 +1,145 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" ng-model="busquedaListaPesos" class="form-control input-sm pull-right"
+                        placeholder="Ingrese lo que desea buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-warning">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+                <div class="input-group" style="width: 150px;">
+                    <input type="text" ng-model="busquedaListaPesos" name="table_search"
+                        class="form-control input-sm pull-right" placeholder="Buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        MARCACIONES FINALES
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="1" ng-model="tipoDeMiel">Convencional
+                                <i class="input-helper"></i>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="2" ng-model="tipoDeMiel">Orgánica
+                                <i class="input-helper"></i>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="5" ng-model="tipoDeMiel">Mantequilla
+                                <i class="input-helper"></i>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="6" ng-model="tipoDeMiel">Altiplano
+                                <i class="input-helper"></i>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="7" ng-model="tipoDeMiel">Naranjo
+                                <i class="input-helper"></i>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="8" ng-model="tipoDeMiel">Aguacate
+                                <i class="input-helper"></i>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                <input type="radio" value="9" ng-model="tipoDeMiel">Mezquite
+                                <i class="input-helper"></i>
+                            </label>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div ng-if="marcaciones && !marcaciones.length">
+                        No hay registros
+                    </div>
+                    <div ng-if="marcaciones && marcaciones.length">
+                        <div class="table-responsive no-padding">
+                            <table class="table table-striped table-responsive">
+                                <thead>
+                                    <tr style="height: 35px">
+                                        <th class="bgm-blue" style="text-transform: none; font-weight: 600">Fecha</th>
+                                        <th class="bgm-blue" style="text-transform: none; font-weight: 600">Marcación
+                                            final
+                                        </th>
+                                        <th class="bgm-blue" style="text-transform: none; font-weight: 600">Lote</th>
+                                        <th class="bgm-blue" style="text-transform: none; font-weight: 600">Editar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="rp in marcaciones| filter:busquedaListaPesos">
+                                        <td>{{rp.fechaImpresion | date:'dd/MM/yyyy'}}</td>
+                                        <td>{{rp.lote}}</td>
+                                        <td>{{rp.idLoteInterno}}</td>
+                                        <td>
+                                            <a style="text-align: right"
+                                                ng-click="modalCorreccion(rp.idReporte, $index)" class="btn btn-xs">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>
+<div class="modal fade" id="correccionMarca" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Marcación final</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control input-sm" ng-model="correccion.lote">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-info" ng-click="guardarMarca(correccion);">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

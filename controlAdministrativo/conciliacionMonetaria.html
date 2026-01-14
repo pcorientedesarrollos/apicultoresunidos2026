@@ -1,0 +1,96 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CONCILIACIÓN MONETARIA
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-8 col-sm-6">
+                            <div class="form-group">
+                                <select chosen ng-model="mes" class="form-control" ng-options="mes.idMes as mes.mes for mes in mesesLst">
+                                    <option value="" disabled>SELECCIONA MES</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-6 pull-right">
+                            <button type="button" ng-click="verMes(mes);" class="btn btn-facebook btn-sm waves-effect">Ver </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="table-responsive no-padding">
+                            <table class="table table-bordered table-condensed" style="font-size: 10px">
+                                <thead>
+                                    <tr>
+                                        <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="2">Fecha</th>
+                                        <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="2">Folio Interno</th>
+                                        <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="2">Control</th>
+                                        <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="2">N°</th>
+                                        <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="2">Nombre del apicultor</th>
+                                        <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="1" colspan="2">Kilogramos</th>
+                                        <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="2">Existencia (kg.)</th>
+                                        <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="2">Precio por kg.</th>
+                                        <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="1" colspan="2">Importe</th>
+                                        <th style="text-transform: none; font-weight: 700; text-align: center; font-size: 15px;" rowspan="2">Importe acumulado</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-transform: none; font-weight: 600;">Entradas</th>
+                                        <th style="text-transform: none; font-weight: 600;">Salidas</th>
+                                        <th style="text-transform: none; font-weight: 600;">Entradas</th>
+                                        <th style="text-transform: none; font-weight: 600;">Salidas</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="text-align: right">{{existenciaPasada}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="text-align: right">{{importeAcumuladoPasado}}</td>
+                                </tr>
+                                <tr ng-repeat="inventario in inventarioDeMiel">
+                                    <td style="text-align: right">{{inventario.fecha | date:'dd-MM-yyyy'}}</td>
+                                    <td style="text-align: right">Folio Interno</td>
+                                    <td style="text-align: right">Control</td>
+                                    <td style="text-align: right">#</td>
+                                    <td style="text-align: right">{{inventario.nombre}}</td>
+                                    <td style="text-align: right">{{inventario.entrada}}</td>
+                                    <td style="text-align: right">{{inventario.salida}}</td>
+                                    <td style="text-align: right">{{inventario.existencia}}</td>
+                                    <td style="text-align: right">{{inventario.precio}}</td>
+                                    <td style="text-align: right">{{inventario.totalImporte}}</td>
+                                    <td style="text-align: right"></td>
+                                    <td style="text-align: right">{{inventario.importeAcumulado}}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="text-align: right">{{totalEntradas}}</td>
+                                    <td style="text-align: right">{{totalSalidas}}</td>
+                                    <td style="text-align: right">{{totalInventario}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="text-align: right">{{totalImportesAcumulados}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

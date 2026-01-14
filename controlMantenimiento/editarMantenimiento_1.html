@@ -1,0 +1,130 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CONTROL DE MANTENIMIENTO A EQUIPOS
+                        <a title="Regresar" href="#/verEquipos/{{infoEquipo.idArea}}" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+
+                <div class="box-body">
+                    <!--                    <div class="row">
+                                            <div class="col-sm-3 col-sm-offset-9">
+                                                <a style="margin-right: 10px"
+                                                   title="Imprimir XLS"
+                                                   class="pull-right btn btn-success btn-sm"
+                                                   ng-click="xlsEnvasado()">
+                                                    <i class="fa fa-file-excel-o"></i>
+                                                </a>
+                    
+                                                <a style="margin-right: 10px"
+                                                   title="Imprimir PDF"
+                                                   class="pull-right btn btn-danger btn-sm"
+                                                   ng-click="pdfEnvasado()"
+                                                   target="_blank">
+                                                    <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                                                </a>
+                                            </div>
+                                        </div>-->
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="box-header">
+                                <div class="row" >
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-3">
+                                            <label style="font-weight: bold;">Area </label>
+                                            <div class="form-group-sm">
+                                                <input class="form-control" type="text" 
+                                                       disabled="true"
+                                                       ng-model="infoEquipo.area"/>
+                                            </div>  
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label style="font-weight: bold;">Equipo </label>
+                                            <div class="form-group-sm">
+                                                <input class="form-control" type="text" 
+                                                       disabled="true"
+                                                       ng-model="infoEquipo.equipo"/>
+                                            </div>  
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label style="font-weight: bold;">Código </label>
+                                            <div class="form-group-sm">
+                                                <input class="form-control" type="text" 
+                                                       disabled="true"
+                                                       ng-model="infoEquipo.codigo"/>
+                                            </div>  
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label style="font-weight: bold;">Periodicidad </label>
+                                            <div class="form-group-sm">
+                                                <input class="form-control" type="text" 
+                                                       disabled="true"
+                                                       ng-model="infoEquipo.periodicidad"/>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </div>                                
+                                <hr>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2 pull-right" align="right">
+                                    <a href="#/manttoExtra/0" class="btn btn-pinterest" align="right">
+                                        <i class="zmdi zmdi-assignment-o"></i> Reporte Extraordinario
+                                    </a>
+                                </div>
+
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table table-responsive">
+                                        <table class="table table-responsive table-condensed table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Mes</th>
+                                                    <th class="col-lg-1"> Programada</th>
+                                                    <th > Real</th>
+                                                    <th >Descripcion</th>
+                                                    <th >Observaciones</th>
+                                                    <th >Realizó</th>
+                                                    <th>Reporte</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="manttos in mantenimientos">
+                                                    <td>{{manttos.mes}}</td>
+                                                    <td>{{manttos.fechaProgramada}}</td>
+                                                    <td>{{manttos.fechaReal}}</td>
+                                                    <td>{{manttos.descripcion}}</td>
+                                                    <td>{{manttos.observaciones}}</td>
+                                                    <td>{{manttos.nombre}}</td>
+                                                    <td style="text-align: center">
+                                                        <!--                                                        <a class="btn btn-warning btn-xs" ng-click="editarMantto(manttos.idMantenimiento)" title="Editar">
+                                                                                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                                                                                </a>-->
+                                                        <a class="btn btn-warning btn-xs" href="#/nvoMantto/{{manttos.idProgramacion}}" title="Editar">
+                                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</section>

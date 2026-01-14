@@ -1,0 +1,12 @@
+{
+    "valores": [
+        {
+            "id": "1",
+            "descripcion": "Ausencia"
+        },
+        {
+            "id": "2",
+            "descripcion": "Presencia"
+        }
+    ]
+}

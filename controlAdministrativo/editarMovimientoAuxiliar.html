@@ -1,0 +1,623 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        EDITAR MOVIMIENTO EN AUXILIAR DE BANCOS
+                        <!-- <a title="Regresar" href="#/auxBancos/{{nvoAuxBancoIdMes}}" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a> -->
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div>
+                        <div class="row">
+                            <div class="box-header">
+                                <h5>
+                                    <B>MOVIMIENTO</B>
+                                </h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <select chosen ng-model="correccionBancos.tipoMovimiento" class="form-control" ng-options="tm.idMovimiento as tm.movimiento for tm in tiposDeMovimientos">
+                                                <option disabled="disabled" value="">Tipo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div ng-if="correccionBancos.tipoMovimiento != 7">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text" class="form-control pull-right" id="datepicker"
+                                                        placeholder="Fecha" ng-model="correccionBancos.fecha">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Hora" ng-model="correccionBancos.hora">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="correccionBancos.tipoMovimiento != 7">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" ng-model="correccionBancos.referencia" placeholder="Referencia" onblur="this.value = this.value.toUpperCase()"
+                                                    list="lstRef">
+                                                <datalist id="lstRef">
+                                                    <option>TRANSFERENCIA</option>
+                                                    <option>CHEQUE</option>
+                                                </datalist>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <select chosen ng-model="correccionBancos.tipoDePersona" class="form-control">
+                                                    <option value="" disabled="disabled"> A nombre de </option>
+                                                    <option value="1">Apicultores</option>
+                                                    <option value="3">Proveedores</option>
+                                                    <option value="4">Personal</option>
+                                                    <option value="6">Clientes</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-1">
+                                            <button type="button" class="btn" style="background-color: gold" ng-click="proveedorDesdeBancos();" title="Agregar">
+                                                <i class="zmdi zmdi-plus"></i> Nuevo</button>
+                                        </div>
+                                        <div class="col-lg-4" ng-if="correccionBancos.tipoDePersona == 1">
+                                            <select chosen ng-model="correccionBancos.nombreDe" class="form-control" ng-options="cliente.idProveedor as cliente.nombre for cliente in clientes">
+                                                <option disabled="disabled" value="">Nombre</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4" ng-if="correccionBancos.tipoDePersona == 3">
+                                            <select chosen ng-model="correccionBancos.nombreDe" class="form-control" ng-options="clinte.idProveedorMantto as clinte.nombreProveedor for clinte in lstTenicosP">
+                                                <option disabled="disabled" value="">Nombre</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4" ng-if="correccionBancos.tipoDePersona == 4">
+                                            <select chosen ng-model="correccionBancos.nombreDe" class="form-control" ng-options="client.idPersonalOM as client.nombre for client in lstOMPersonal">
+                                                <option disabled="disabled" value="">Nombre</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4" ng-if="correccionBancos.tipoDePersona == 6">
+                                            <select chosen ng-model="correccionBancos.nombreDe" class="form-control" ng-options="cliente.idCliente as cliente.nombre for cliente in catalogoTablaClientes">
+                                                <option disabled="disabled" value="">Nombre</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-lg-4" ng-if="correccionBancos.tipoMovimiento == 3">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div style="background-color: gold" class="input-group-addon btn" ng-click="nuevosConceptos();" title="Nuevo proveedor">
+                                                    <i class="zmdi zmdi-plus"></i>
+                                                </div>
+                                                <select ng-model="correccionBancos.concepto" chosen class="form-control" ng-options="c.idSubcuenta as c.subcuenta for c in listaDeConceptos">
+                                                    <option value="" disabled="disabled"> Conceptos </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4" ng-if="correccionBancos.tipoMovimiento == 2">
+                                        <div class="form-group">
+                                            <select ng-model="correccionBancos.concepto" chosen class="form-control" ng-options="com.idConceptoCC as com.concepto for com in listaDeCompras">
+                                                <option disabled="disabled" value=""> Conceptos </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4" ng-hide="correccionBancos.tipoMovimiento == 3 || correccionBancos.tipoMovimiento == 2 || correccionBancos.tipoMovimiento == 4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Concepto" ng-model="correccionBancos.concepto">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8" ng-hide="correccionBancos.tipoMovimiento == 4">
+                                        <div class="form-group">
+                                            <textarea rows="1" class="form-control" ng-model="correccionBancos.descripcion" placeholder="¿Qué es?   \   ¿Para qué es?  \   "
+                                                onblur="this.value = this.value.toUpperCase()"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="correccionBancos.tipoMovimiento == 4">
+                            <div class="box-header">
+                                <h5>
+                                    <B>TRANSFERIR A </B>
+                                </h5>
+                                <hr>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-3">
+                                    <label>&nbsp;</label>
+                                    <div class="form-group">
+                                        <select chosen ng-model="bancoTrans" ng-change="traeNumerosDeCuentas(bancoTrans)" class="form-control" ng-options="b.idBanco as b.banco for b in listaDeBancos">
+                                            <option disabled="disabled" value="">Banco</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>&nbsp;</label>
+                                    <div class="form-group">
+                                        <select ng-model="numeroCuenta" ng-change="traeSaldoTrans(numeroCuenta)" chosen class="form-control" ng-options="cx.idCuenta as cx.numDeCuenta for cx in listaCuentas">
+                                            <option disabled="disabled" value="">N° de cuenta</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-lg-3">
+                                    <label style="font-weight: bold;">Saldo bancario</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control derecha" disabled="true" ng-value="saldoDeposito|currency">
+                                    </div>
+                                </div> -->
+                                <div class="col-lg-3" ng-show="correccionBancos.tipoMovimiento == 4">
+                                    <label>&nbsp;</label>
+                                    <div class="form-group">
+                                        <input type="number" class="form-control derecha" ng-change="calcularSaldoDeposito()" ng-model="correccionBancos.cantidadDeposito"
+                                            placeholder="Cantidad" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4" ng-if="correccionBancos.tipoMovimiento == 1">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" ng-model="correccionBancos.tipoDepositoCompra" placeholder="Tipo de depósito" onblur="this.value = this.value.toUpperCase()"
+                                        list="listaDepositos">
+                                    <datalist id="listaDepositos">
+                                        <option>OMI</option>
+                                        <option>OTROS</option>
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="col-lg-4" ng-if="correccionBancos.tipoMovimiento == 2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" ng-model="correccionBancos.tipoDepositoCompra" onblur="this.value = this.value.toUpperCase()"
+                                        placeholder="Tipo de compra" list="listaCompras">
+                                    <datalist id="listaCompras">
+                                        <option>ANTICIPO</option>
+                                        <option>MES PASADO</option>
+                                        <option>MES ACTUAL</option>
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="col-lg-4" ng-show="correccionBancos.tipoMovimiento == 6">
+                                <div class="form-group">
+                                    <label style="font-weight: bold;">Saldo Caja Chica:</label>
+                                    <div class="form-group">
+                                        <input ng-value="saldoCajaChica|currency" type="text" class="form-control derecha" disabled="true" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="correccionBancos.tipoMovimiento != 7" class="col-lg-4" ng-hide="correccionBancos.tipoMovimiento == 4">
+                                <label ng-show="correccionBancos.tipoMovimiento == 6">&nbsp;</label>
+                                <div class="form-group">
+                                    <input type="number" class="form-control derecha" ng-change="calcularElSaldo()" ng-model="correccionBancos.cantidad" placeholder="Cantidad"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div ng-if="correccionBancos.tipoMovimiento != 7">
+                            <div class="row" style="margin-right: 1%; text-align: right">
+                                <button ng-click="agregarcorreccionBancos();" class="btn btn-success btn-sm">Agregar</button>
+                            </div>
+                        </div> -->
+                    </div>
+                    <!-- Si no es póliza de cheque -->
+                    <!-- </div> -->
+                    <br>
+                    <!-- Si estamos creando movimiento -->
+
+                    <hr>
+
+                    <div ng-if="correccionBancos.tipoMovimiento == 7" ng-init="controladorPolizaCheque()">
+                        <div ng-if="!showPDF">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-4 col-md-3">
+                                    <label style="font-weight: bold;">Fecha</label>
+                                    <div class="form-group">
+                                        <div class="input-group date" data-provide="datepicker">
+                                            <div class="input-group-addon ">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control pull-right" id="datepicker" placeholder="Fecha" ng-model="poliza.fecha">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-3">
+                                    <label style="font-weight: bold;">Hora</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Hora del movimiento" ng-model="poliza.hora">
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-6">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-true-value=true ng-false-value=false ng-init="poliza.aCajaChica = false" ng-model="poliza.aCajaChica">Mandar a caja chica</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <label style="font-weight: bold;">Pagar a </label>
+                                    <div class="form-group">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="pagar" value="1" ng-model="poliza.persona">Apicultor</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="pagar" value="3" ng-model="poliza.persona">Proveedor</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="pagar" value="4" ng-model="poliza.persona">Personal</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="pagar" value="6" ng-model="poliza.persona">Clientes</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <label style="font-weight: bold;">Nombre </label>
+                                    <div class="form-group">
+                                        <select chosen ng-model="poliza.nombre" class="form-control" ng-options="persona.id as persona.nombre for persona in personas"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <label style="font-weight: bold;">Cantidad </label>
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" ng-model="poliza.cantidad" ng-change="actualizarSaldoBanco(poliza.cantidad)" placeholder="Cantidad"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <label style="font-weight: bold;">Folio del cheque</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Folio del cheque" ng-model="poliza.folioCheque">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-8">
+                                    <!-- <label style="font-weight: bold;">Concepto</label> -->
+                                    <div class="form-group">
+                                        <textarea rows="2" class="form-control" placeholder="Concepto" ng-model="poliza.concepto"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div style="text-align: right">
+                                        <button type="button" class="btn btn-warning btn-sm" ng-click="verPoliza()">Hacer póliza</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pdf-viewer" ng-if="showPDF" style="height:500px;">
+                            <object ng-attr-data="{{urlAPoliza}}" type="application/pdf" width="100%" height="100%">
+                                <p>Ir al archivo
+                                    <a ng-attr-href="{{urlAPoliza}}"> PDF </a>
+                                </p>
+                            </object>
+                            <div>
+                                <button class="btn btn-danger" ng-click="cancelarPoliza()">Cancelar</button>
+                                <button class="btn btn-success" ng-click="AceptarPoliza()">Aceptar e imprimir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+
+</section>
+
+<div growl></div>
+<div class="modal fade" id="modalDeProveedor" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Altas a proveedores</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <select name="seleccionaCatalogo" id="seleccionaCatalogo" ng-model="altas.proveedorTipo" class="form-control">
+                                <option value="" disabled> Selecciona catálogo </option>
+                                <option value="1">Apicultores y acopiadores</option>
+                                <option value="2">Proveedores</option>
+                                <option value="3">Personal</option>
+                                <option value="4">Clientes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row" ng-show="altas.proveedorTipo == 1">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Nombre:</label>
+                                <input ng-model="altas.nombre" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Id Sagarpa:</label>
+                                <input type="text" ng-model="altas.idSagarpa" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="altas.proveedorTipo == 1">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Dirección</label>
+                                <input ng-model="altas.direccionCompleta" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Teléfono </label>
+                                <input ng-model="altas.telefono" type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" ng-show="altas.proveedorTipo == 2">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Razón social o Nombre:</label>
+                                <input ng-model="altas.nombreProveedor" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Contacto:</label>
+                                <input type="text" ng-model="altas.nombreContacto" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="altas.proveedorTipo == 2">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Domicilio:</label>
+                                <input ng-model="altas.domicilio" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Teléfono </label>
+                                <input ng-model="altas.telefono" type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" ng-show="altas.proveedorTipo == 3">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Área</label>
+                                <select ng-model="altas.idArea" class="form-control" ng-options="a.idArea as a.area for a in listaAreas">
+                                    <option value="">Area</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Clave:</label>
+                                <input type="text" ng-model="altas.clave" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="altas.proveedorTipo == 3">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Nombre:</label>
+                                <input ng-model="altas.nombre" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Puesto: </label>
+                                <select ng-model="altas.idPuesto" class="form-control" ng-options="p.idPuesto as p.puesto for p in listaPuestos">
+                                    <option value="">Puesto</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div ng-show="altas.proveedorTipo == 4">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Nombre:</label>
+                                    <input ng-model="altas.nombreProveedor" type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Domicilio:</label>
+                                    <input ng-model="altas.domicilio" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Teléfono </label>
+                                    <input ng-model="altas.telefono" type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarNuevoProveedorB(altas);">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalParaConceptos" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Altas a Conceptos</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Cuenta:</label>
+                                <select ng-model="nuevoConcepto.idCuentaConcepto" class="form-control" ng-options="c.idCuentaConcepto as c.cuenta for c in conceptosGrandes">
+                                    <option value="" disabled="disabled"> Cuentas </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Subcuenta:</label>
+                                <input type="text" ng-model="nuevoConcepto.subcuenta" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarNuevoConcepto(nuevoConcepto);">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalEditarMovimiento" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">EDITAR MOVIMIENTO</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text" class="form-control pull-right" id="datepicker"
+                                        placeholder="Fecha" ng-model="correccionBancos.fecha">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Hora del movimiento" ng-model="correccionBancos.hora">
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control derecha" ng-model="correccionBancos.cantidad" placeholder="Cantidad" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <textarea rows="2" class="form-control" ng-model="correccionBancos.descripcion" placeholder="¿Qué es?   \   ¿Para qué es?  \   "
+                                    onblur="this.value = this.value.toUpperCase()"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="col-lg-2">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="1" ng-model="correccionBancos.tipoDePersona" />Apicultores
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-lg-4" ng-if="correccionBancos.tipoDePersona == 1">
+                                <select chosen ng-model="correccionBancos.nombreDe" class="form-control" ng-options="cliente.idProveedor as cliente.nombre for cliente in clientes">
+                                    <option value="">Nombre</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="3" ng-model="correccionBancos.tipoDePersona">Proveedores
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-lg-4" ng-if="correccionBancos.tipoDePersona == 3">
+                                <select chosen ng-model="correccionBancos.nombreDe" class="form-control" ng-options="clinte.idProveedorMantto as clinte.nombreProveedor for clinte in lstTenicosP">
+                                    <option value="">Nombre</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="4" ng-model="correccionBancos.tipoDePersona">Personal
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-lg-4" ng-if="correccionBancos.tipoDePersona == 4">
+                                <select chosen ng-model="correccionBancos.nombreDe" class="form-control" ng-options="client.idPersonalOM as client.nombre for client in lstOMPersonal">
+                                    <option value="">Nombre</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarEdicionMovimiento(correccionBancos);">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>

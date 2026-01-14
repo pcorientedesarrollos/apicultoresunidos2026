@@ -1,0 +1,447 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CLIENTE EXPORTADOR
+                        <a title="Regresar" href="#/exportadores" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                    <div class="input-group" style="float: right">
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <form ng-submit="guardarClienteExportador()">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h5>
+                                            <b>DATOS DEL CLIENTE</b>
+                                        </h5>
+                                        <hr>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Razón Social o Nombre</p>
+                                        <div class="form-group form-group-sm">
+                                            <input type="text" ng-model="datosCliente.nombre" class="form-control input-xs" autocomplete="off" uib-typeahead="cliente as cliente.nombre for cliente in listaClientesExportadores | filter:{nombre:$viewValue}"
+                                                typeahead-on-select="" typeahead-show-hint="false" typeahead-min-length="1">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Número del establecimiento</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.establecimiento" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Calle</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.calle" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Número exterior</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.numeroExterior" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Número interior</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.numeroInterior" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Código postal</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.codigoPostal" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Tipo de asentamiento </p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" placeholder="(Colonia, Privada, Condominio, Hacienda, Otros)"
+                                                ng-model="datosCliente.asentamiento" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Localidad</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.localidad" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Municipio o Delegación</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.municipio" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Estado</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.estado" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Entre que calles</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.entreCalles" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Calle posterior</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.callePosterior" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group form-group-sm form-inline">
+                                            <p style="margin-top: 5px; font-size:12px; font-weight: 600">Seleccione un medio: </p>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="1" ng-model="datosCliente.medio" ng-click="limpiarMedio()"> Carretera
+                                                <i class="input-helper"></i>
+                                            </label>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="2" ng-model="datosCliente.medio" ng-click="limpiarMedio()"> Camino
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4" ng-if="datosCliente.medio == 1">
+                                        <p style="font-size:12px; font-weight: 600">Tipo de administración</p>
+                                        <div class="form-group form-group-sm">
+                                            <select required ng-model="datosCliente.tipoAdministracion" class="form-control">
+                                                <option value="1">Federal</option>
+                                                <option value="2">Estatal</option>
+                                                <option value="3">Municipal</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4" ng-if="datosCliente.medio == 1">
+                                        <p style="font-size:12px; font-weight: 600">Derecho de tránsito</p>
+                                        <div class="form-group form-group-sm">
+                                            <select required ng-model="datosCliente.derechoTransito" class="form-control">
+                                                <option value="1">Libre</option>
+                                                <option value="2">Cuota</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8" ng-if="datosCliente.medio == 2">
+                                        <div class="form-group form-group-sm form-inline">
+                                            <p style="margin-top: 5px; font-size:12px; font-weight: 600">Término genérico: </p>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="1" ng-model="datosCliente.terminoGenerico"> Brecha
+                                                <i class="input-helper"></i>
+                                            </label>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="2" ng-model="datosCliente.terminoGenerico"> Camino
+                                                <i class="input-helper"></i>
+                                            </label>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="3" ng-model="datosCliente.terminoGenerico"> Terracería
+                                                <i class="input-helper"></i>
+                                            </label>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="4" ng-model="datosCliente.terminoGenerico"> Vereda
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row" ng-if="datosCliente.medio == 1">
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Código de la carretera</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.codigoCarretera" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Tramo de la carretera</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.tramoCarretera" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Cadenamiento o kilómetro</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.kilometroCarretera" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-if="datosCliente.medio == 2">
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Tramo del camino</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.tramoCamino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Margen</p>
+                                        <div class="form-group form-group-sm">
+                                            <select required ng-model="datosCliente.margen" class="form-control">
+                                                <option value="1">Derecho</option>
+                                                <option value="2">Izquierdo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Cadenamiento o kilómetro</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosCliente.kilometroCamino" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h5>
+                                            <b>DATOS DEL DESTINATARIO O ESTABLECIMIENTO DE DESTINO</b>
+                                        </h5>
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <button type="button" class="btn btn-info btn-sm" ng-model="copia" ng-click="copiarDatos(datosCliente)">
+                                            Mismos datos
+                                        </button>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Razón Social o Nombre del destinatario</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.nombreDestino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Número del establecimiento</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.numeroEstablecimiento" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Calle</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.calleDestino" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Número exterior</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.numeroExteriorDestino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Número interior</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.numeroInteriorDestino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Código postal</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.codigoPostalDestino" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Tipo de asentamiento</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" placeholder="(Colonia, Privada, Condominio, Hacienda, Otros.)"
+                                                ng-model="datosDestino.asentamientoDestino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Localidad</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.localidadDestino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Municipio o Delegación</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.municipioDestino" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Estado</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.estadoDestino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Entre que calles</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.entreCallesDestino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Calle posterior</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.callePosteriorDestino" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Lada</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.ladaDestino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Teléfono fijo</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.telefonoDestino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Correo electrónico</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="email" class="form-control input-xs" ng-model="datosDestino.correoDestino" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group form-group-sm form-inline">
+                                            <p style="margin-top: 5px; font-size:12px; font-weight: 600">Seleccione un medio: </p>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="1" ng-model="datosDestino.medioDestino" ng-click="limpiarMedioDestino()"> Carretera
+                                                <i class="input-helper"></i>
+                                            </label>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="2" ng-model="datosDestino.medioDestino" ng-click="limpiarMedioDestino()"> Camino
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4" ng-if="datosDestino.medioDestino == 1">
+                                        <p style="font-size:12px; font-weight: 600">Tipo de administración</p>
+                                        <div class="form-group form-group-sm">
+                                            <select required ng-model="datosDestino.administracionDestino" class="form-control">
+                                                <option value="1">Federal</option>
+                                                <option value="2">Estatal</option>
+                                                <option value="3">Municipal</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4" ng-if="datosDestino.medioDestino == 1">
+                                        <p style="font-size:12px; font-weight: 600">Derecho de tránsito</p>
+                                        <div class="form-group form-group-sm">
+                                            <select required ng-model="datosDestino.transitoDestino" class="form-control">
+                                                <option value="1">Libre</option>
+                                                <option value="2">Cuota</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8" ng-if="datosDestino.medioDestino == 2">
+                                        <div class="form-group form-group-sm form-inline">
+                                            <p style="margin-top: 5px; font-size:12px; font-weight: 600">Término genérico: </p>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="1" ng-model="datosDestino.terminoGenericoDestino"> Brecha
+                                                <i class="input-helper"></i>
+                                            </label>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="2" ng-model="datosDestino.terminoGenericoDestino"> Camino
+                                                <i class="input-helper"></i>
+                                            </label>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="3" ng-model="datosDestino.terminoGenericoDestino"> Terracería
+                                                <i class="input-helper"></i>
+                                            </label>
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="4" ng-model="datosDestino.terminoGenericoDestino"> Vereda
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row" ng-if="datosDestino.medioDestino == 1">
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Código de la carretera</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.codigoCarreteraDestino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Tramo de la carretera</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.tramoCarreteraDestino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Cadenamiento o kilómetro</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.kilometroCarreteraDestino"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-if="datosDestino.medioDestino == 2">
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Tramo del camino</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.tramoCaminoDestino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Margen</p>
+                                        <div class="form-group form-group-sm">
+                                            <select required ng-model="datosDestino.margenDestino" class="form-control">
+                                                <option value="1">Derecho</option>
+                                                <option value="2">Izquierdo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p style="font-size:12px; font-weight: 600">Cadenamiento o kilómetro</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" ng-model="datosDestino.kilometroCaminoDestino" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="text-align: right">
+                                    <button class="btn btn-warning btn-xs" type="submit">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>

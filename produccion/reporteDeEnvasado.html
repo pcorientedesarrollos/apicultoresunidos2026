@@ -1,0 +1,504 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        REPORTE ENVASADO DE LOTES
+                        <a title="Regresar" href="#/envasado" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3 ng-if="idTipoDeMiel == 1">MIEL 100% PURA DE ABEJA</h3>
+                            <h3 ng-if="idTipoDeMiel == 2">MIEL 100% ORGÁNICA</h3>
+                            <h3 ng-if="idTipoDeMiel == 5">MIEL 100% MANTEQUILLA</h3>
+                            <h3 ng-if="idTipoDeMiel == 6">MIEL 100% ALTIPLANO</h3>
+                            <h3 ng-if="idTipoDeMiel == 7">MIEL 100% NARANJO</h3>
+                            <h3 ng-if="idTipoDeMiel == 8">MIEL 100% AGUACATE</h3>
+                            <h3 ng-if="idTipoDeMiel == 9">MIEL 100% MEZQUITE</h3>
+                        </div>
+                        <div class="col-sm-3 col-sm-offset-9">
+
+                            <a style="margin-right: 10px" title="Imprimir XLS" class="pull-right btn btn-success btn-sm" ng-click="xlsEnvasado()">
+                                <i class="zmdi zmdi-storage zmdi-hc-lg"></i>
+                            </a>
+
+                            <a style="margin-right: 10px" title="Imprimir PDF" class="pull-right btn btn-danger btn-sm" ng-click="pdfEnvasado()" target="_blank">
+                                <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="box-header">
+                            <h5>
+                                DATOS DE PROCESO
+                            </h5>
+                            <hr>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-4 text-primary">Lote interno </label>
+                                        <div class="col-sm-6">
+                                            <select chosen ng-model="loteEnvasado" class="form-control" ng-options="rp.idLoteInterno as rp.idLoteInterno for rp in listaLotes">
+                                                <option value="">Lote</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-3 text-primary">Fecha envasado</label>
+                                        <div class="col-sm-7">
+                                            <!--                                            <input ng-model="reporteEnvasado.fechaEnvasado" 
+                                                                                               type="date" 
+                                                                                               date="dd/MM/yyyy"
+                                                                                               disabled="true"
+                                                                                               class="form-control"/>-->
+                                            {{reporteEnvasado.fechaEnvasado}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-5 text-primary">Tanque utilizado </label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control input-sm" placeholder="Número Tanque" ng-model="reporteEnvasado.numeroTanque">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label style="font-weight: bold;" class="col-sm-4 text-primary">Hora de inicio </label>
+                                    <div class="col-sm-6">
+                                        <div class="fg-line">
+                                            <input type="text" mask="99:99" class="form-control input-sm" placeholder="Hora Inicio" ng-model="reporteEnvasado.horaInicio">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label style="font-weight: bold;" class="col-sm-4 text-primary">Hora Final </label>
+                                    <div class="col-sm-6">
+                                        <div class="fg-line">
+                                            <input type="text" mask="99:99" class="form-control input-sm" placeholder="Hora Final" ng-model="reporteEnvasado.horaFinal">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label style="font-weight: bold;" class="col-sm-4 text-primary">Tiempo </label>
+                                    <div class="col-sm-6">
+                                        <div class="fg-line">
+                                            <input type="text" mask="99:99" class="form-control input-sm" disabled="true" ng-model="reporteEnvasado.tiempo">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="card-header">
+                                        <h5>
+                                            PERSONAL OPERATIVO
+                                        </h5>
+                                        <hr>
+                                    </div>
+                                    <div class="col-lg-8 col-lg-offset-2">
+                                        <div class="row">
+                                            <span style="color: red">ESPECIFICACIONES: Envasar el tambo dejando unos 80cm de espacio en la tapa ,
+                                                poner la tara correcta del tambo.</span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+
+                                    <div class="col-lg-12" ng-show="ctrlEnvasado > 0">
+                                        <div class="col-lg-4">
+                                            <div class="col-lg-12">
+                                                <button class="btn btnMiel" ng-click="agregarPersonalEnvasado()" title="Agregar nombre">
+                                                    <i style="color: #385428" class="zmdi zmdi-account-add"></i> Envasado
+                                                </button>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="col-lg-12">
+                                                <div ng-repeat="pEnvasado in personalEnvasado" class="input-group">
+                                                    <div>
+                                                        <input type="text" class="form-control" placeholder="Personal Envasado" disabled="true" ng-model="pEnvasado.nombre">
+                                                    </div>
+                                                    <span class="input-group-addon">
+                                                        <a ng-click="eliminarEnvasado(pEnvasado.idEnvasado, $index);" class="btn btn-danger btn-xs" title="Eliminar nombre">
+                                                            <i style="color: white" class="zmdi zmdi-delete  pull-right"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="col-lg-12">
+                                                <button class="btn btnMiel" ng-click="agregarAyudanteInterno()" title="Agregar nombre">
+                                                    <i style="color: #385428" class="zmdi zmdi-account-add"></i> Ayudante interno
+                                                </button>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="col-lg-12">
+                                                <div ng-repeat="pInterno in personalAyudanteInterno" class="input-group">
+                                                    <div>
+                                                        <input type="text" class="form-control" placeholder="Personal ayudante interno" disabled="true" ng-model="pInterno.nombre">
+                                                    </div>
+                                                    <span class="input-group-addon">
+                                                        <a ng-click="eliminarInterno(pInterno.idAyudanteInterno, $index);" class="btn btn-danger btn-xs" title="Eliminar nombre">
+                                                            <i style="color: white" class="zmdi zmdi-delete  pull-right"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="col-lg-12">
+                                                <button class="btn btnMiel" ng-click="agregarAyudanteExterno()" title="Agregar nombre">
+                                                    <i style="color: #385428" class="zmdi zmdi-account-add"></i> Ayudante externo
+                                                </button>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="col-lg-12">
+                                                <div ng-repeat="pExterno in personalAyudanteExterno" class="input-group">
+                                                    <div>
+                                                        <input type="text" class="form-control" placeholder="Personal ayudante externo" disabled="true" ng-model="pExterno.nombre">
+                                                    </div>
+                                                    <span class="input-group-addon">
+                                                        <a ng-click="eliminarExterno(pExterno.idAyudanteExterno, $index);" class="btn btn-danger btn-xs" title="Eliminar nombre">
+                                                            <i style="color: white" class="zmdi zmdi-delete  pull-right"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12" ng-hide="ctrlEnvasado > 0">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label>Envasado</label>
+                                                <select class="form-control" chosen multiple allow-single-deselect="true" data-placeholder="Personal Oaxaca Miel" no-results-text="'Tough luck'"
+                                                    ng-options="dS.idPersonalOM as dS.nombre for dS in listaPersonal" ng-model="personalEnvasado">
+                                                    <option value=""> Seleccione los nombres</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label>Ayudante interno</label>
+                                                <select class="form-control" chosen multiple allow-single-deselect="true" data-placeholder="Personal Oaxaca Miel" no-results-text="'Tough luck'"
+                                                    ng-options="dS.idPersonalOM as dS.nombre for dS in listaPersonal" ng-model="personalAyudanteInterno">
+                                                    <option value=""> Seleccione los nombres</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label>Ayudante externo</label>
+                                                <select class="form-control" chosen multiple allow-single-deselect="true" data-placeholder="Personal Oaxaca Miel" no-results-text="'Tough luck'"
+                                                    ng-options="dS.idPersonalOM as dS.nombre for dS in listaPersonal" ng-model="personalAyudanteExterno
+                                                    ">
+                                                    <option value=""> Seleccione los nombres</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="card-header">
+                                        <h5>
+                                            TAMBORES
+                                        </h5>
+                                        <hr>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p ng-show="ctrlEnvasado > 0">Agregar nuevo tambor</p>
+                                            <div ng-show="ctrlEnvasado == 0">
+                                                <div class="col-sm-2">
+                                                    <div class="form-group-sm">
+                                                        <label style="font-weight: bold;">N° de tambos</label>
+                                                        <input class="form-control" type="number" data-ng-model="counter" data-ng-change="updateModel2()" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group-sm">
+                                                            <label>Mismo P. Bruto</label>
+                                                            <input ng-change="ponerValoresIguales(1);" ng-model="pesBruto" type="text" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group-sm">
+                                                            <label>Misma Tara</label>
+                                                            <input ng-change="ponerValoresIguales(2);" ng-model="pesTara" type="text" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group-sm">
+                                                    <label style="font-weight: bold;">Bruto:</label>
+                                                    <input class="form-control" type="text" ng-model="envasado.bruto" mask="9" repeat="10" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <div class="form-group-sm">
+                                                    <label style="font-weight: bold;">Tara:</label>
+                                                    <input class="form-control" type="text" ng-model="envasado.tara" mask="9" repeat="10" ng-keyup="agregarTambo()" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group-sm">
+                                                    <label style="font-weight: bold;">Neto:</label>
+                                                    <input class="form-control" type="text" disabled="true" ng-keyup="totalNetos()" ng-model="envasado.neto" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="table-responsive">
+                                        <table class="table table-responsive table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-transform: none">Número</th>
+                                                    <th style="text-transform: none">Peso Bruto</th>
+                                                    <th style="text-transform: none">Tara</th>
+                                                    <th style="text-transform: none">Peso Neto</th>
+                                                    <th style="text-transform: none">Eliminar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="envasado in filtered = (envasados|filter:filterExpr) track by $index">
+
+                                                    <td style="width: 20%; font-size: 12px;">
+                                                        {{envasado.folio = $index + 1}}
+                                                    </td>
+                                                    <td style="width: 20%; font-size: 12px;">
+                                                        <input type="text" ng-model="envasado.bruto" />
+                                                        <!--{{envasado.bruto}}-->
+                                                    </td>
+                                                    <td style="width: 20%; font-size: 12px;">
+                                                        <input type="text" ng-model="envasado.tara" />
+                                                        <!--{{envasado.tara}}-->
+                                                    </td>
+                                                    <td style="width: 20%; font-size: 12px;">
+                                                        <input disabled="true" type="text" ng-value="envasado.neto = envasado.bruto - envasado.tara" />
+                                                        <!--                                                        {{envasado.neto}}-->
+                                                    </td>
+
+                                                    <td style="width: 10%">
+                                                        <button type="button" class="btn btn-danger btn-xs" title="Eliminar registro" ng-click="borrarTambo($index)">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 pull-right">
+                                    <div class="form-group">
+                                        <div class="col-sm-9">
+                                            <div class="fg-line">
+                                                <p class="text-right control-label text-primary" style="margin-right: 8%">
+                                                    <b>
+                                                        <strong>Total de Tambores</strong> =
+                                                        <span style="color:red;">{{reporteEnvasado.totalDeTambores = filtered.length}}</span>
+                                                    </b>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="box-header">
+                                    <h5>
+                                        OBSERVACIONES
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-9">
+                                    <textarea class="form-control" rows="3" ng-model="reporteEnvasado.observaciones" placeholder="Observaciones">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="box-header">
+                                    <h5>
+                                        CONCILIACION DE MERCANCIA
+                                    </h5>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-8 col-lg-offset-2">
+                                            <div class="table">
+                                                <table class="table table-responsive table-condensed table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="col-lg-4">Condición</th>
+                                                            <th class="col-lg-4">Cantidad</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Kilogramos realmente procesados</td>
+                                                            <td>
+                                                                <input type="text" class="form-control input-sm" disabled="true" ng-model="reporteEnvasado.kilosProcesados">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Kilogramos Netos Envasados</td>
+                                                            <td>
+                                                                <input type="text" class="form-control input-sm" disabled="true" ng-model="reporteEnvasado.netosEnvasados">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Merma Física</td>
+                                                            <td>
+                                                                <input type="text" class="form-control input-sm" placeholder="Cantidad" ng-model="reporteEnvasado.merma">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Faltante o Sobrante del Envasado</td>
+                                                            <td>
+                                                                <input type="text" class="form-control input-sm" disabled="true" ng-model="reporteEnvasado.faltante">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-8 col-lg-offset-2">
+                                            <textarea class="form-control" rows="3" ng-model="reporteEnvasado.observacionesDePesos" placeholder="Escriba las observaciones con respecto a la cantidad de miel y/o pesos.">
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <center>
+                            <div class="row" style="text-align: right">
+                                <br>
+                                <button type="submit" ng-click="guardarReporteEnvasado();" class="btn btn-warning btn-sm" ng-disabled="guardando_reporte">
+                                    <span ng-show="!guardando_reporte">Guardar</span>
+                                    <span ng-show="guardando_reporte">
+                                        <i class="fa fa-spinner fa-spin fa-fw"></i> Guardando
+                                    </span>
+                                </button>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal  fade" id="agregarPersonalEnvasado" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Personal envasado</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <div class="fg-line">
+                            <select ng-model="envasador" class="form-control" ng-options="des.idPersonalOM as des.nombre for des in listaPersonal">
+                                <option value="">Personal</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button type="button" ng-click="guardarEnvasador();" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal  fade" id="agregarAyudanteInterno" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Personal ayudante interno</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <div class="fg-line">
+                            <select ng-model="ayudanteInterno" class="form-control" ng-options="pro.idPersonalOM as pro.nombre for pro in listaPersonal">
+                                <option value="">Personal</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button type="button" ng-click="guardarAyudanteInterno();" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal  fade" id="agregarAyudanteExterno" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Personal ayudante externo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <div class="fg-line">
+                            <select ng-model="ayudanteExterno" class="form-control" ng-options="b.idPersonalOM as b.nombre for b in listaPersonal">
+                                <option value="">Personal</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button type="button" ng-click="guardarAyudanteExterno();" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div growl>
+
+</div>

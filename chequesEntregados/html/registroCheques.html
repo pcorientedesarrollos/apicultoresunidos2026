@@ -1,0 +1,218 @@
+<section class="content">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        REGISTRO DE CHEQUES ENTREGADOS
+                        <a title="Regresar" href="#/chequesEntregados" class="btn btn-success btn-xs pull-right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right" ng-show="encabezado.idEncabezado > 0">
+                                <button ng-show="encabezado.puedeEditar" class="btn btn-sm"
+                                    ng-click="editarEncabezado()">Editar encabezado</button>
+                                <a class="btn btn-danger btn-sm" style="margin-left: 5px"
+                                    ng-click="imprimirPDF(encabezado.idEncabezado)" title="Imprimir PDF">
+                                    <i class="fa fa-file-pdf-o"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label>Fecha</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text"
+                                        class="form-control form-control-sm pull-right" id="datepicker"
+                                        placeholder="Fecha" ng-model="encabezado.fechaEntrega"
+                                        ng-disabled="encabezado.idEncabezado > 0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label>Banco</label>
+                                <select chosen ng-model="encabezado.idBanco" class="form-control"
+                                    ng-options="b.idBanco as b.banco for b in listaDeBancos"
+                                    ng-disabled="encabezado.idEncabezado > 0">
+                                    <option disabled="disabled" value="">Elija un banco</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label>Catálogo</label>
+                                <select ng-disabled="encabezado.idEncabezado > 0" chosen
+                                    ng-model="encabezado.tipoCatalogo" class="form-control">
+                                    <option value="" disabled="disabled"> Elija una opción</option>
+                                    <option value="1">Apicultores</option>
+                                    <option value="3">Proveedores</option>
+                                    <option value="4">Personal</option>
+                                    <option value="6">Clientes</option>
+                                    <option value="8">Propios</option>
+                                    <option value="9">Acreedores</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label>Nombre de quien recibe:</label>
+                                <select ng-disabled="encabezado.idEncabezado > 0" chosen
+                                    ng-model="encabezado.nombreRecibe" class="form-control"
+                                    ng-options="nombre.id as nombre.nombre for nombre in lstPersonas">
+                                    <option disabled="disabled" value="">Elija una opción</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <div class="row" ng-if="encabezado.puedeEditar || registro == 'nuevo'">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label>Folio</label>
+                                    <input type="text" class="form-control" ng-model="detalle.folioCheque">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <p>&nbsp;</p>
+                                <button ng-hide="encabezado.idEncabezado" ng-click="agregarFolio();"
+                                    class="btn btn-success btn-sm pull-right">Agregar</button>
+                                <button ng-show="encabezado.idEncabezado" ng-click="agregarFolio();"
+                                    class="btn btn-success btn-sm pull-right">Guardar</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Folio</th>
+                                                <th ng-if="registro > 0">Beneficiario</th>
+                                                <th class="text-right" ng-if="registro > 0">Importe</th>
+                                                <th class="text-center" ng-if="registro > 0">Fecha cobro</th>
+                                                <th class="text-center">Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="detalle in listaDetalle">
+                                                <td>{{detalle.folioCheque}}</td>
+                                                <td>{{detalle.beneficiario}}</td>
+                                                <td class="text-right">{{detalle.importe|currency}}</td>
+                                                <td class="text-center" ng-if="registro > 0">{{detalle.fechaCobro}}</td>
+                                                <td class="text-center">
+                                                    <button title="Descartar Registro"
+                                                        ng-click="descartarEntrega($index)" ng-if="!detalle.idEntrega"
+                                                        class="btn btn-danger btn-xs">
+                                                        <i class="zmdi zmdi-delete">
+                                                        </i>
+                                                    </button>
+                                                    <button title="Eliminar Registro" ng-if="detalle.idEntrega"
+                                                        ng-disabled="!encabezado.puedeEditar"
+                                                        ng-click="eliminarEntrega(detalle.idEntrega, encabezado.puedeEditar)"
+                                                        class="btn btn-xs btn-danger">
+                                                        <i class="zmdi zmdi-delete">
+                                                        </i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row" style="text-align: right">
+                                <button ng-hide="encabezado.idEncabezado" type="submit" ng-click="guardarRegistros();"
+                                    class="btn btn-warning btn-sm">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="mdlEditarEncabezado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Editar encabezado</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Fecha</label>
+                            <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text"
+                                    class="form-control form-control-sm pull-right" id="datepicker" placeholder="Fecha"
+                                    ng-model="encabezado.fechaEntrega">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Banco</label>
+                            <select ng-model="encabezado.idBanco" class="form-control"
+                                ng-options="b.idBanco as b.banco for b in listaDeBancos">
+                                <option disabled="disabled" value="">Elija un banco</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <label>Entregado a : </label>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <select ng-model="encabezado.tipoCatalogo" class="form-control">
+                                <option value="" disabled="disabled"> Elija una opción</option>
+                                <option value="1">Apicultores</option>
+                                <option value="3">Proveedores</option>
+                                <option value="4">Personal</option>
+                                <option value="6">Clientes</option>
+                                <option value="8">Propios</option>
+                                <option value="9">Acreedores</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <select ng-model="encabezado.nombreRecibe" class="form-control"
+                                ng-options="nombre.id as nombre.nombre for nombre in lstPersonas">
+                                <option disabled="disabled" value="">Elija una opción</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" ng-click="guardarEdicionEncabezado()" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

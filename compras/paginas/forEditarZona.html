@@ -1,0 +1,126 @@
+<!--<div class="col-md-6 col-md-offset-3">
+    <div class="card">
+        <div class="card-header bgm-miel">
+            <h2 style="font-family: 'Didact Gothic', sans-serif; text-transform: uppercase">ZONA</h2>
+            <a title="Regresar" class="btn bgm-red btn-float waves-effect"
+               href="#/zonas">
+                <i class="zmdi red zmdi-undo"></i>
+            </a>
+        </div>
+        <div class="card-body card-padding">
+            <div class="row">
+                <div class="card-header">
+                    <h4 class="page-header">
+                        Agregar
+                    </h4>
+                </div>
+                <div class="col-md-12">
+                    <br>
+                    <form ng-submit="">
+                        <div class="row">
+                            <div class="form-group">
+                                <label style="font-weight: bold;"  class="col-sm-2 col-sm-offset-1 control-label">Comprador: </label>
+                                <div class="col-sm-9">
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label style="font-weight: bold;"  class="col-sm-2 col-sm-offset-1 control-label">Zona:</label>
+                                <div class="col-sm-9">
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div style="text-align: right">
+                            <p class="right-align">
+                                <button type="submit" class="btn btn-primary right-align">
+                                    <i ></i> Guardar
+                                </button>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+-->
+<section class="content">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        ZONA
+                        <a title="Regresar" href="#/zonas" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form ng-submit="guardarZ()">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;"  class="col-sm-2 col-sm-offset-1 control-label"> Comprador: </label>
+                                        <div class="col-sm-9">
+                                            <select  
+                                                ng-model="compradorSel" 
+                                                class="form-control" 
+                                                ng-options="co.idcomprador as co.nombre for co in nomComprador"> 
+                                                <option value="">Comprador</option>   
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;"  class="col-sm-2 col-sm-offset-1 control-label">Zona: </label>
+                                        <div class="col-sm-9">
+                                            <input 
+                                                type="text" 
+                                                class="form-control" 
+                                                placeholder="zona"
+                                                required="required"
+                                                ng-model="zonaComp.zona"
+                                                list="listaZonas"/>
+                                            <datalist id="listaZonas">
+                                                <option>{{sector.sector}}</option>
+                                            </datalist>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="text-align: right">
+                                    <p class="right-align">
+                                        <button type="submit" class="btn btn-warning btn-xs right-align">
+                                            <i ></i> Guardar
+                                        </button>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>
+

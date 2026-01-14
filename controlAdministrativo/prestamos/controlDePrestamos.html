@@ -1,0 +1,119 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CONTROL DE PRÉSTAMOS
+                        <a class="btn btn-success btn-xs" style="float: right" ng-click="nuevoPrestamo()">
+                            <i class="zmdi zmdi-plus"></i> Nuevo
+                        </a>
+                    </h5>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-4 col-md-offset-8">
+                        <div class="form-group">
+                            <label for="">&nbsp;</label>
+                            <div class="input-group">
+                                <input type="text" ng-model="inputBusqueda" class="form-control input-sm pull-right" placeholder="Buscar">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th style="text-transform: none; font-weight: 600">Nombre </th>
+                                <th style="text-transform: none; font-weight: 600">Préstamos </th>
+                                <th style="text-transform: none; font-weight: 600">Estado </th>
+                                <th style="text-align: right; text-transform: none; font-weight: 600">Ver</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="persona in listaDePrestamosPorPersonal | filter:inputBusqueda">
+                                <td ng-bind="persona.nombre | uppercase"></td>
+                                <td ng-bind="persona.RecordsPerGroup"></td>
+                                <td></td>
+                                <td style="text-align: right">
+                                    <a class="btn btn-warning btn-xs" ng-href="#/controlPrestamos/personal/{{persona.tipoDePersona}}/{{persona.idNombre}}" title="Ver más">
+                                        <i class="fa fa-hand-pointer-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>
+
+
+<!-- Modal para nuevo préstamo -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modalNuevoPrestamo">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Nuevo préstamo</h4>
+            </div>
+            <div class="modal-body">
+                Todos los datos son requeridos
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label for="datepicker">Fecha</label>
+                            <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group-addon ">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker" placeholder="Fecha" ng-model="prestamo.fecha">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label for="hora">Hora</label>
+                            <small>(24Hrs.)</small>
+                            <input type="text" class="form-control" id="hora" ng-model="prestamo.hora">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label for="nombreDelPersonal">Nombre del personal</label>
+                            <input type="text" ng-model="prestamo.nombre" placeholder="Nombre del personal" class="form-control" autocomplete="off" name="nombreDelPersonal"
+                                uib-typeahead="personal as personal.nombre for personal in listaDelPersonal | filter:{nombre:$viewValue}"
+                                typeahead-on-select="" typeahead-show-hint="false" typeahead-min-length="1">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label for="cantidad">Cantidad de préstamo</label>
+                            <input type="number" class="form-control" id="cantidad" ng-model="prestamo.cantidad">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" ng-click="aceptarNuevoPrestamo(prestamo)" ng-disabled="guardandoNuevoPrestamo">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

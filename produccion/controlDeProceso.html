@@ -1,0 +1,123 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" ng-model="busquedaReporteCtrl" class="form-control input-sm pull-right"
+                        placeholder="Ingrese lo que desea buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-warning">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+                <div class="input-group" style="width: 150px;">
+                    <input type="text" ng-model="busquedaReporteCtrl" name="table_search"
+                        class="form-control input-sm pull-right" placeholder="Buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CONTROL DE PROCESO
+                        <b ng-show="opcionCosechaProceso == 1"> MIEL 100% PURA DE ABEJA</b>
+                        <b ng-show="opcionCosechaProceso == 2"> MIEL 100% ORGÁNICA</b>
+                        <b ng-show="opcionCosechaProceso == 5"> MIEL 100% MANTEQUILLA</b>
+                        <b ng-show="opcionCosechaProceso == 6"> MIEL 100% ALTIPLANO</b>
+                        <b ng-show="opcionCosechaProceso == 7"> MIEL 100% NARANJO</b>
+                        <b ng-show="opcionCosechaProceso == 8"> MIEL 100% AGUACATE</b>
+                        <b ng-show="opcionCosechaProceso == 9"> MIEL 100% MEZQUITE</b>
+                        <!-- <a href="#/nvoProceso/0/0" class="btn btn-success btn-xs" style="float: right"> -->
+                        <a ng-click="nuevoProceso(opcionCosechaProceso)" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-plus"></i> Agregar
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-control" ng-model="opcionCosechaProceso">
+                                <option value="" disabled selected>Tipo de miel</option>
+                                <option value="1">Convencional</option>
+                                <option value="2">Orgánica</option>
+                                <option value="5">Mantequilla</option>
+                                <option value="6">Altiplano</option>
+                                <option value="7">Naranjo</option>
+                                <option value="8">Aguacate</option>
+                                <option value="9">Mezquite</option>
+                            </select>
+                        </div>
+                        <!-- <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="1" ng-model="opcionCosechaProceso">Miel 100% pura de abeja
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                        <input type="radio" value="2" ng-model="opcionCosechaProceso">Miel 100% orgánica
+                                        <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <br>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">No.</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Fecha Proceso
+                                    </th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Lote interno
+                                    </th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Tambores</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Kilos</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="rp in menuProceso| filter:busquedaReporteCtrl">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{rp.fechaProceso}}</td>
+                                    <!-- <td>17-{{rp.idLoteInterno}}</td> -->
+                                    <td ng-show="opcionCosechaProceso == 1">LC26-{{rp.idLoteInterno}}</td>
+                                    <td ng-show="opcionCosechaProceso == 2">LO26-{{rp.idLoteInterno}}</td>
+                                    <td ng-show="opcionCosechaProceso == 5">LM26-{{rp.idLoteInterno}}</td>
+                                    <td ng-show="opcionCosechaProceso == 6">LA26-{{rp.idLoteInterno}}</td>
+                                    <td ng-show="opcionCosechaProceso == 7">LN26-{{rp.idLoteInterno}}</td>
+                                    <td ng-show="opcionCosechaProceso == 8">LG25-{{rp.idLoteInterno}}</td>
+                                    <td ng-show="opcionCosechaProceso == 9">LZ26-{{rp.idLoteInterno}}</td>
+                                    <td>{{rp.numeroDeTambores}}</td>
+                                    <td>{{rp.kilosTotales}}</td>
+                                    <td>
+                                        <a href="#/nvoProceso/{{rp.idReporteProceso}}/{{opcionCosechaProceso}}"
+                                            class="btn btn-warning btn-xs">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

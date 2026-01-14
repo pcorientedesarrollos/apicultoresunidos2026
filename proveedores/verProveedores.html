@@ -1,0 +1,74 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" 
+                           ng-model="filtroBusquedaProveedor" 
+                           class="form-control input-sm pull-right" placeholder="Ingrese lo que desea buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-warning"><i class="zmdi zmdi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+                <div class="input-group" style="width: 150px;">
+                    <input type="text" 
+                           ng-model="filtroBusquedaProveedor" name="table_search" class="form-control input-sm pull-right" placeholder="Buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default"><i class="zmdi zmdi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+            <br><br><br>
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla" >
+                        PROVEEDORES DE MIEL    
+                    </h5>
+                </div>
+                <br>
+
+                <div class="box-body">
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">No.</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Nombre </th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Procedencia</th>                               
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">ID Sagarpa</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Contrato</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">INE</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Instalaciones</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Apiarios</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Carta</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Pagaré</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Documentación</th>
+                                </tr>
+                            </thead>
+                            <tr ng-repeat="prov in infoProveedor|filter:filtroBusquedaProveedor">
+                                <td>{{$index + 1}}</td> 
+                                <td>{{prov.nombre|uppercase}}</td>
+                                <td>{{prov.procedencia|uppercase}}</td>
+                                <td>{{prov.sagarpa|uppercase}}</td>
+                                <td>{{prov.idContrato|trusted}}</td>
+                                <td>{{prov.idIne|trusted}}</td>
+                                <td>{{prov.idInstalacion|trusted}}</td>
+                                <td>{{prov.idApiario|trusted}}</td>
+                                <td>{{prov.idCarta|trusted}}</td>
+                                <td>{{prov.idPagare|trusted}}</td>
+                                <td style="text-align: center">
+                                    <a href="#/upDoc/{{prov.id}}" class="btn btn-foursquare btn-xs">
+                                        <i class="zmdi zmdi-folder-person"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

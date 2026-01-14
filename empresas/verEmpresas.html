@@ -1,0 +1,78 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        EMPRESAS
+                        <button title="Nuevo usuario" class="btn btn-success btn-xs pull-right" ng-click="modalNuevaEmpresa()">
+                            <i class="fa fa-plus"></i> Nuevo
+                        </button>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-5 col-md-offset-7">
+                            <div class="input-group">
+                                <input type="text" ng-model="searchInput" class="form-control input-sm pull-right"
+                                    placeholder="Buscar">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: center; font-weight: 600"></th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: left; font-weight: 600">NOMBRE</th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: center; font-weight: 600"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="empresa in empresas | filter:searchInput">
+                                    <td style="text-align: center" ng-bind="$index+1"></td>
+                                    <td style="text-align: left" ng-bind="empresa.nombre | uppercase"></td>
+                                    <td style="text-align: center">
+                                        <button title="Ver/Editar" type="button" class="btn btn-warning btn-xs"
+                                            ng-click="modalNuevaEmpresa(empresa)">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modal para dar de alta nuevos usuarios en el sistema -->
+<div class="modal fade" id="modalNuevaEmpresa">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Empresa</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label for="">Nombre*</label>
+                        <input type="text" class="form-control" placeholder="Nombre de la Empresa" ng-model="nuevaEmpresa.nombre">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success btn-sm" ng-click="guardarNuevaEmpresa();">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div growl></div>

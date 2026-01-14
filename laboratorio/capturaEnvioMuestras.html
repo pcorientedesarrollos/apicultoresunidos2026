@@ -1,0 +1,319 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        ENVIO DE MUESTRAS
+                        <a title="Regresar" href="#/envioMuestras" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <div class="form-group">
+                                    <label style="font-weight: bold;">Tipo de miel</label>
+                                    <!-- <select ng-disabled="envioMuestra.idEnvio > 0" chosen class="form-control"
+                                        ng-model="envioMuestra.tipoDeMiel">
+                                        <option value="" selected disabled>elige una opción</option>
+                                        <option value="1">Miel convencional</option>
+                                        <option value="2">Miel orgánica</option>
+                                    </select> -->
+                                    <select ng-disabled="envioMuestra.idEnvio > 0" ng-model="envioMuestra.tipoDeMiel"
+                                        chosen class="form-control"
+                                        ng-options="tm.idTipoDeMiel as tm.tipoDeMiel for tm in listaCosecha">
+                                        <option disabled="disabled" value="">Selecciona una opción</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <div class="form-group">
+                                    <label style="font-weight: bold;">Contrato</label>
+                                    <select ng-disabled="envioMuestra.idEnvio > 0" chosen class="form-control"
+                                        ng-model="envioMuestra.contrato">
+                                        <option value="" disabled>Selecciona una opción</option>
+                                        <option value="1">Contratos convencionales</option>
+                                        <option value="2">Contratos orgánicos</option>
+                                        <option value="3">Sin contrato</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3" ng-if="idEnvio > 0">
+                                <div class="form-group">
+                                    <label style="font-weight: bold;">Número de contrato</label>
+                                    <p>{{envioMuestra.numDeContrato}}
+                                        <button class="btn btn-warning btn-xs" style="margin-left: 10px;"
+                                            title="Editar contrato" ng-click="editarContrato()">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </button>
+                                        <a ng-if="envioMuestra.contrato != 3" class="btn btn-success btn-xs"
+                                            ng-href="#/datosLoteContratado/{{envioMuestra.tipoDeMiel}}/{{envioMuestra.idLoteContratado}}"
+                                            title="Ver contrato" target="_blank">
+                                            <i class="zmdi zmdi-plus" style="text-align: right;"></i>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3" ng-if="envioMuestra.contrato != 3 && idEnvio == 0">
+                                <label style="font-weight: bold;"> </label>
+                                <div class="form-group">
+                                    <select chosen ng-model="envioMuestra.numContrato" class="form-control"
+                                        ng-options="num.idLoteContratado as num.contrato for num in listaContratos">
+                                        <option disabled="disabled" value="">Seleccione una opción</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Lote interno</label>
+                                <select chosen ng-model="envioMuestra.loteInterno" class="form-control"
+                                    ng-options="rp.idLoteInterno as rp.idLoteInterno for rp in listaLotes">
+                                    <option disabled="disabled" value="">Seleccione una opción</option>
+                                </select>
+                                <!-- <input type="text" class="form-control input-sm" ng-model="envioMuestra.loteInterno"> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Marca laboratorio</label>
+                                <input type="text" class="form-control input-sm"
+                                    ng-model="envioMuestra.marcaLaboratorio">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Marcación del cliente</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.marcaCliente">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Número de guía</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.guia">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Mensajería</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.mensajeria">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Laboratorio Externo</label>
+                                <!-- <input type="text" class="form-control input-sm"
+                                        ng-model="envioMuestra.laboratorioExterno">
+                                     -->
+                                <select chosen ng-model="envioMuestra.laboratorioExterno" class="form-control"
+                                    ng-options="laboratorios.idLaboratorio as laboratorios.nombre for laboratorios in listaLaboratorios">
+                                    <option value="" disabled>Nombre</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Cliente</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.cliente">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Fecha de envío</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="datepicker"
+                                        ng-model="envioMuestra.fechaEnvio" required>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Lugar de envío</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.lugarEnvio">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Observaciones</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.observaciones">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Sulfa</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.sulfa">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Estrepto</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.estrepto">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Tetra</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.tetra">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Cloran</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.cloran">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Nitro</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.nitro">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Coumap</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.coumap">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Enrofla</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.enrofla">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">C13</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.c13">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">NMR</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.nmr">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">HMF</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.hmf">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Glucosa</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.glucosa">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">F/G</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.fg">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">H%</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.humedad">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Glifosato</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.glifosato">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Remol</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.remol">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">OGM´s</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.ogms">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">PA´s</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.pas">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label style="font-weight: bold;">Resultados de laboratorio</label>
+                                <input type="text" class="form-control input-sm" ng-model="envioMuestra.resultados">
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-sm btn-block btn-success" ng-click="guardarEnvio();">
+                                    Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<div class="modal fade" id="modalAltaRapida" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Alta rápida a clientes nacionales</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Nombre:</label>
+                                <input ng-model="altasCC.nombreProveedor" type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Domicilio:</label>
+                                <input ng-model="altasCC.domicilio" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Teléfono </label>
+                                <input ng-model="altasCC.telefono" type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success"
+                    ng-click="guardarNuevoProveedorCC(altasCC);">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editarContrato" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar contrato</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="form-group">
+                            <select class="form-control" ng-model="edicionContrato.contrato">
+                                <option value="" disabled>Selecciona una opción</option>
+                                <option value="1">Contratos convencionales</option>
+                                <option value="2">Contratos orgánicos</option>
+                                <option value="3">Sin contrato</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12" ng-show="edicionContrato.contrato != 3">
+                        <div class="form-group">
+                            <select ng-model="edicionContrato.numContrato" class="form-control"
+                                ng-options="num.idLoteContratado as num.contrato for num in listaContratos">
+                                <option disabled="disabled" value="">Seleccione una opción</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" ng-click="guardarEdicionContrato()" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

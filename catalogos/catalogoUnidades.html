@@ -1,0 +1,77 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CATÁLOGO DE UNIDADES DE MEDIDA
+                        <button title="Nueva unidad de medida" class="btn btn-success btn-xs pull-right" ng-click="abrirModalNuevaUnidad()">
+                            <i class="fa fa-plus"></i> Nueva
+                        </button>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600"></th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">CLAVE</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">NOMRBE</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">DESCRIPCIÓN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="unidad in unidades">
+                                    <td ng-bind="$index+1"></td>
+                                    <td ng-bind="unidad.clave | uppercase"></td>
+                                    <td ng-bind="unidad.nombre | uppercase"></td>
+                                    <td ng-bind="unidad.descripcion | uppercase"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal para dar alta unidades de medida -->
+
+<div class="modal fade" id="modalNuevaUnidad">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Nueva unidad de medida</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Clave" ng-model="nuevaUnidad.clave">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nombre" ng-model="nuevaUnidad.nombre">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <textarea rows="5" class="form-control" placeholder="Descripción" ng-model="nuevaUnidad.descripcion"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarNuevaUnidad()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

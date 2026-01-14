@@ -1,0 +1,69 @@
+<section class="content">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px">
+                    <h5 class="encabezadosTabla">
+                        LOCALIDAD
+                        <a title="Regresar" href="#/localidades" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form ng-submit="guardarLoc()">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;"  class="col-sm-2 col-sm-offset-1 control-label"> Zona: </label>
+                                        <div class="col-sm-9">
+                                            <select 
+                                                ng-model="zonasSel" 
+                                                class="form-control" 
+                                                ng-options="zn.idzona as zn.zona for zn in nomZonas"> 
+                                                <option value="">Selecciona una Zona</option>   
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;"  class="col-sm-2 col-sm-offset-1 control-label">Localidad: </label>
+                                        <div class="col-sm-9">
+
+
+                                            <input 
+                                                align="center"
+                                                type="text" 
+                                                class="form-control input-xs" 
+                                                placeholder="Escriba una Localidad"
+                                                required="required"
+                                                ng-model="ciudades.localidad"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="text-align: right">
+                                    <p class="right-align">
+                                        <button type="submit" class="btn btn-warning btn-xs right-align">
+                                            <i ></i> Guardar
+                                        </button>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>
+

@@ -1,0 +1,46 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        ÁREAS OAXACA MIEL
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-2 pull-right">
+                            <a href="#/nvaArea/0" class="btn btn-success btn-xs" style="float: right">
+                                <i class="zmdi zmdi-plus"></i> Agregar Área
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th style="text-transform: none; font-weight: 600; text-align: center">N°</th>
+                                    <th style="text-transform: none; font-weight: 600; text-align: center">Área</th>
+                                    <th style="text-transform: none; font-weight: 600; text-align: center">Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="ar in arrayDeAreas">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{ar.area}}</td>
+                                    <td style="align-content: center">
+                                        <a href="#/nvaArea/{{ar.idArea}}" class="btn btn-warning btn-xs">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

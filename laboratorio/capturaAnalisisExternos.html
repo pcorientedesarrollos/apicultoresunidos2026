@@ -1,0 +1,313 @@
+<style>
+    .error {
+        background-color: #ffce6d;
+    }
+</style>
+
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12 texto">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CAPTURA DE ANALISIS EXTERNOS
+                        <a title="Regresar" href="#/analisisExternos" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <br>
+                <div class="box-body">
+                    <div class="row" ng-if="idAnalisis > 0">
+                        <div class="col-sm-1  pull-right">
+                            <label for="">&nbsp;</label>
+                            <button title="Imprimir PDF" class="btn btn-danger" ng-click="imprimirReporteAnalisis()">
+                                <i class="fa fa-file-pdf-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <label style="font-weight: bold;">Fecha entrada*</label>
+                            <div class="form-group small">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input autocomplete="off" type="text" class="form-control pull-right"
+                                        id="datepicker" placeholder="Fecha" ng-model="analisis.fecha">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <label style="font-weight: bold;">Empresa*</label>
+                            <select ng-model="analisis.idExterno" chosen class="form-control"
+                                ng-options="empresa.idExterno as empresa.nombre for empresa in externos">
+                                <option disabled value="">Seleccione un nombre</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <label style="font-weight: bold;">Tipo de miel*</label>
+                            <select ng-model="analisis.tipoMiel" chosen class="form-control">
+                                <option disabled value="">Seleccione una opción</option>
+                                <option value="1">Miel 100% pura de abeja</option>
+                                <option value="2">Miel 100% orgánica</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <label style="font-weight: bold;">Floración*</label>
+                            <select chosen class="form-control" ng-model="analisis.idFloracion"
+                                ng-options="floraciones.idFloracion as floraciones.floracion for floraciones in listaFloracion">
+                                <option value="" disabled>Seleccione una opción</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <label style="font-weight: bold;">Empaque*</label>
+                            <input type="text" class="form-control" ng-model="analisis.empaque">
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label for="">Tipo de análisis*</label>
+                                <select chosen class="form-control" ng-model="analisis.tipoAnalisis">
+                                    <option value="" disabled selected>Elija una opción</option>
+                                    <option value="1">Homogéneo</option>
+                                    <option value="4">Experimental</option>
+                                    <option value="2">Reclasificado</option>
+                                    <option value="3">Lote terminado</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3" ng-show="idAnalisis == 0">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">N° de muestras</label>
+                                <div class="input-group">
+                                    <input type="number" class="col-md-4 form-control" data-ng-model="counter">
+
+                                    <div style="background-color: gold" class="input-group-addon btn"
+                                        ng-click="updateModel()" title="Añadir">
+                                        <i class="zmdi zmdi-plus"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div ng-show="idAnalisis == 0" class="col-xs-12 col-md-2">
+                            <label>N° de muestras</label>
+                            <input type="number" class="col-md-4 form-control" data-ng-model="counter">
+                        </div> -->
+                        <!-- <div ng-show="idAnalisis == 0" class="col-xs-12 col-md-1">
+                            <span class="input-group-btn">
+                                <p><b>&nbsp;</b></p>
+                                <button class="btn btn-default" type="button" ng-click="updateModel()">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </span>
+                        </div> -->
+                        <div class="col-xs-12 col-md-3">
+                            <label style="font-weight: bold;">Marque los análisis requeridos*</label>
+                            <table class="table table-condensed">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox"
+                                                ng-model="analisis.porcentaje" ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.porcentaje, 'porcentaje')">
+                                            <i class="input-helper"></i> HUMEDAD
+                                        </td>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox" ng-model="analisis.sf"
+                                                ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.sf, 'sf')">
+                                            <i class="input-helper"></i> SF
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox" ng-model="analisis.st"
+                                                ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.st, 'st')">
+                                            <i class="input-helper"></i> ST
+                                        </td>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox" ng-model="analisis.c13"
+                                                ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.c13, 'c13')">
+                                            <i class="input-helper"></i> C13
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox" ng-model="analisis.hmf"
+                                                ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.hmf, 'hmf')">
+                                            <i class="input-helper"></i> HMF
+                                        </td>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox"
+                                                ng-model="analisis.color" ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.color, 'color')">
+                                            <i class="input-helper"></i> COLOR
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox" ng-model="analisis.tt"
+                                                ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.tt, 'tt')">
+                                            <i class="input-helper"></i> TT
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <label style="font-weight: bold;">Marque los análisis requeridos*</label>
+                            <table class="table table-condensed">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox"
+                                                ng-model="analisis.porcentaje" ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.porcentaje, 'porcentaje')">
+                                            <i class="input-helper"></i> HUMEDAD
+                                        </td>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox" ng-model="analisis.sf"
+                                                ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.sf, 'sf')">
+                                            <i class="input-helper"></i> SF
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox" ng-model="analisis.st"
+                                                ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.st, 'st')">
+                                            <i class="input-helper"></i> ST
+                                        </td>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox" ng-model="analisis.c13"
+                                                ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.c13, 'c13')">
+                                            <i class="input-helper"></i> C13
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox" ng-model="analisis.hmf"
+                                                ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.hmf, 'hmf')">
+                                            <i class="input-helper"></i> HMF
+                                        </td>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox"
+                                                ng-model="analisis.color" ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.color, 'color')">
+                                            <i class="input-helper"></i> COLOR
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input ng-disabled="idAnalisis > 0" type="checkbox" ng-model="analisis.tt"
+                                                ng-true-value="'1'" ng-false-value="'0'"
+                                                ng-change="mostrarColumna(analisis.tt, 'tt')">
+                                            <i class="input-helper"></i> TT
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> -->
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Marca empresa</th>
+                                            <th ng-if="idAnalisis > 0">Marca interna</th>
+                                            <th ng-if="mostrarPorcentaje || analisis.porcentaje == '1'">HUMEDAD</th>
+                                            <th ng-if="mostrarSf || analisis.sf == '1'">SF</th>
+                                            <th ng-if="mostrarSt || analisis.st == '1'">ST</th>
+                                            <th ng-if="mostrarC13 || analisis.c13 == '1'">C13</th>
+                                            <th ng-if="mostrarHmf || analisis.hmf == '1'">HMF</th>
+                                            <th ng-if="mostrarColor || analisis.color == '1'">COLOR</th>
+                                            <th ng-if="mostrarTt || analisis.tt == '1'">TT</th>
+                                            <th>Resultado</th>
+                                            <th ng-if="idAnalisis == 0"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="muestra in muestras track by $index">
+                                        <tr>
+                                            <td>
+                                                <input class="form-control" type="text" ng-model="muestra.marcaEmpresa">
+                                            </td>
+                                            <td ng-if="idAnalisis > 0">
+                                                <input class="form-control" type="text" ng-model="muestra.marcaAup">
+                                            </td>
+                                            <td ng-if="mostrarPorcentaje || analisis.porcentaje == '1'">
+                                                <input ng-model="muestra.porcentaje" type="text" class="form-control" />
+                                            </td>
+                                            <td ng-if="mostrarSf || analisis.sf == '1'">
+                                                <input ng-model="muestra.sf" type="text" class="form-control" />
+                                            </td>
+                                            <td ng-if="mostrarSt || analisis.st == '1'">
+                                                <input ng-model="muestra.st" type="text" class="form-control" />
+                                            </td>
+                                            <td ng-if="mostrarC13 || analisis.c13 == '1'">
+                                                <input ng-model=" muestra.c13" type="text" class="form-control" />
+                                            </td>
+                                            <td ng-if="mostrarHmf || analisis.hmf == '1'">
+                                                <input ng-model="muestra.hmf" type="text" class="form-control" />
+                                            </td>
+                                            <td ng-if="mostrarColor || analisis.color == '1'">
+                                                <input ng-model="muestra.color" type="text" class="form-control" />
+                                            </td>
+                                            <td ng-if="mostrarTt || analisis.tt == '1'">
+                                                <input ng-model="muestra.tt" type="text" class="form-control" />
+                                            </td>
+                                            <td>
+                                                <select class="form-control" ng-model="muestra.resultado">
+                                                    <option value="" selected disabled>Elija</option>
+                                                    <option value="1">Calidad A</option>
+                                                    <option value="2">Calidad B</option>
+                                                </select>
+                                            </td>
+                                            <td ng-if="idAnalisis == 0">
+                                                <button type="button" class="btn btn-xs btn-danger"
+                                                    ng-click="eliminarRegistro($index)">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label>Interpretación</label>
+                            <textarea class="form-control" rows="4" ng-model="analisis.interpretacion">
+                            </textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <button class="btn btn-success btn-xs pull-right" style="margin-right: 10px" ng-disabled="habilitar"
+                        ng-click="guardaaar();">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>

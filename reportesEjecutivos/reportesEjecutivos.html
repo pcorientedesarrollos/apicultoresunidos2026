@@ -1,0 +1,157 @@
+<div class="row">
+    <div class="col-xs-12 col-md-7 col-md-offset-2">
+        <div class="box box-solid box-warning">
+            <div class="box-header" style="height: 50px;">
+                <h5 class="encabezadosTabla">
+                    LISTA DE REPORTES
+                </h5>
+            </div>
+            <br>
+
+            <div class="box-body">
+                <div class="table-responsive no-padding">
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th class="bgm-blue" style="text-transform: none; font-weight: 600"></th>
+                                <th class="bgm-blue" style="text-transform: none; font-weight: 600">Reporte </th>
+                                <th class="bgm-blue text-center" style="text-transform: none; font-weight: 600">
+                                    Imprimir/Descargar
+                                </th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>1</td>
+                            <td>Informe Ejecutivo</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-danger btn-sm" ng-click="informeEjecutivo()">
+                                    <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Arqueo de caja</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-danger btn-sm" ng-click="arqueoDeCaja()">
+                                    <i class="zmdi zmdi-font zmdi-hc-lg"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- <tr>
+                            <td>2</td>
+                            <td>Nombre del reporte</td>
+                            <td>
+                                Formatos disponibles
+                            </td>
+                        </tr>... -->
+
+
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalImprimirReporteMensual" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Imprimir el Informe ejecutivo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="radio-inline">
+                                <input type="radio" name="optImprimirReporteMensual"
+                                    ng-model="optImprimirReporteMensual.tipo" value="1"> Por período
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optImprimirReporteMensual"
+                                    ng-model="optImprimirReporteMensual.tipo" value="2"> Todo el mes
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="optImprimirReporteMensual.tipo == 1">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Fecha inicial</label>
+                            <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker"
+                                    placeholder="Fecha inicial" ng-model="optImprimirReporteMensual.fechaInicial">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Fecha final</label>
+                            <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker"
+                                    placeholder="Fecha final" ng-model="optImprimirReporteMensual.fechaFinal">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="optImprimirReporteMensual.tipo == 2">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Selecciona el mes</label>
+                            <select name="mes" id="mes" ng-options="mes.idMes as mes.mes for mes in meses"
+                                ng-model="idMes" class="form-control">
+                                <option value="">Selecciona un mes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success"
+                    ng-click="imprimirInformeEjecutivo(optImprimirReporteMensual)">Imprimir</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalImprimirArqueo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Imprimir arqueo de caja chica</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <select ng-model="semanaArqueo" class="form-control"
+                                ng-options="s.idSemana as s.nombre for s in listaArqueos">
+                                <option disabled="disabled" value="">Elija una opción</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success"
+                    ng-click="imprimirArqueoCaja(semanaArqueo)">Imprimir</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

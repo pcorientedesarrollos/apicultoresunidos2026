@@ -1,0 +1,96 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        PERFILES DE LOS USUARIOS
+                        <button title="Nuevo perfil" class="btn btn-success btn-xs pull-right" ng-click="modalNuevoPerfil()">
+                            <i class="fa fa-plus"></i> Nuevo
+                        </button>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-5 col-md-offset-7">
+                            <div class="input-group">
+                                <input type="text" ng-model="searchInput" class="form-control input-sm pull-right" placeholder="Buscar">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: center; font-weight: 600"></th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: left; font-weight: 600">NOMBRE DEL PERFIL</th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: right; font-weight: 600">USUARIOS</th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: center; font-weight: 600"></th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: center; font-weight: 600"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="perfil in perfiles | filter:searchInput">
+                                    <td style="text-align: center" ng-bind="$index+1"></td>
+                                    <td style="text-align: left" ng-bind="perfil.perfil | uppercase"></td>
+                                    <td style="text-align: right" ng-bind="perfil.usuarios | uppercase"></td>
+                                    <td style="text-align: center">
+                                        <button type="button" class="btn btn-warning btn-xs" ng-click="verPerfil(perfil.idPerfil)" title="Ver">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-xs" ng-click="eliminarPerfil(perfil)" title="Eliminar">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modal para dar de alta un nuevo perfil -->
+<div class="modal fade" id="modalNuevoPerfil" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    NUEVO PERFIL
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="">Nombre del perfil</label>
+                            <input type="text" class="form-control" placeholder="P_GERENCIA" ng-model="nuevoPerfil" maxlength="30">
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="">&nbsp;</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" ng-model="copia" ng-true-value="'1'" ng-false-value="'0'">
+                            </span>
+                            <input ng-disabled="copia == '0'" type="text" ng-model="perfilCopia" class="form-control input-xs" autocomplete="off" uib-typeahead="perfil as perfil.perfil for perfil in perfiles | filter:{perfil:$viewValue}"
+                                typeahead-on-select="" typeahead-show-hint="false" typeahead-min-length="1" placeholder="Copiar perfil">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success btn-sm" ng-click="guardarNuevoPerfil()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div growl></div>

@@ -1,0 +1,259 @@
+<style>
+    .error {
+        background-color: #ffce6d;
+    }
+</style>
+
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12 texto">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        ANALISIS A MIEL SOBRANTE
+                        <a title="Regresar" href="#/analisisSobrante" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <br>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-sm-4">
+                                <label style="font-weight: bold;  color: black">
+                                    Clasificación:
+                                </label>
+                                {{detalleLab.nombre}}
+                                <br>
+                                <label style="font-weight: bold;  color: black">
+                                    Tipo de Miel:
+                                </label>
+                                {{detalleLab.tipoDeMiel}}
+                            </div>
+                            <div class="col-sm-3 col-sm-offset-5">
+                                <h5 style="font-weight: bold; color: black ; margin-top: 0px"> No. Entrada :
+                                    <span style="color: red"> {{detalleLab.entrada}}</span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-offset-1 col-lg-2">
+                            <div class="form-group-sm">
+                                <label>%:</label>
+                                <input ng-change="ponerMismoValor(1);" ng-model="por" type="text"
+                                    class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label>Sf:</label>
+                                <input ng-change="ponerMismoValor(2);" ng-model="sf" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label>St:</label>
+                                <input ng-change="ponerMismoValor(3);" ng-model="st" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label>C13:</label>
+                                <input ng-change="ponerMismoValor(4);" ng-model="c13" type="text"
+                                    class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label>Hmf:</label>
+                                <input ng-change="ponerMismoValor(5);" ng-model="hmf" type="text"
+                                    class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-offset-1 col-lg-2">
+                            <div class="form-group-sm">
+                                <label>Color:</label>
+                                <input ng-change="ponerMismoValor(6);" ng-model="color" type="text"
+                                    class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label>TT:</label>
+                                <input ng-change="ponerMismoValor(7);" ng-model="tt" type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label>Microbiología</label>
+                                <select chosen style="margin-top: 4px" class="form-control" ng-model="rstMicro"
+                                    ng-options="mb.id as mb.descripcion for mb  in listaMicrobiologia"
+                                    ng-change="seleccionarValorMicrobiologia()">
+                                    <option value="">Micro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label>Floracion</label>
+                                <select chosen style="margin-top: 4px" class="form-control" ng-model="rstFloracion"
+                                    ng-options="fl.idFloracion as fl.floracion for fl in floracion"
+                                    ng-change="seleccionarValorFloracion()">
+                                    <option value="">Floración</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label>Resultado final</label>
+                                <select chosen style="margin-top: 4px" class="form-control" ng-model="rstFinal"
+                                    ng-options="rf.id as rf.descrip for rf  in listaResultadoFinal"
+                                    ng-change="seleccionarValor();">
+                                    <option value="">Resultado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Folio</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Tipo</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Neto</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Porcentaje</center>
+                                            </th>
+                                            <th style="font-weight: 600">
+                                                <center>Sf</center>
+                                            </th>
+                                            <th style="font-weight: 600">
+                                                <center>St</center>
+                                            </th>
+                                            <th style="font-weight: 600">
+                                                <center>c13</center>
+                                            </th>
+                                            <th style="font-weight: 600">
+                                                <center>hmf</center>
+                                            </th>
+                                            <th style="font-weight: 600">
+                                                <center>Color</center>
+                                            </th>
+                                            <th style="font-weight: 600">
+                                                <center>tt</center>
+                                            </th>
+                                            <th style="font-weight: 600">
+                                                <center>Micro</center>
+                                            </th>
+                                            <th style="font-weight: 600">
+                                                <center>Floración</center>
+                                            </th>
+                                            <th style="text-transform: none; font-weight: 600">
+                                                <center>Resultado Final</center>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="detalle in detalleSobrantes">
+                                            <td>
+                                                <label style="color: red">{{detalle.idAlmacen}}</label>
+                                            </td>
+                                            <td>{{detalleLab.tipo}}</td>
+                                            <td>{{detalle.neto}}</td>
+                                            <td>
+                                                <input id="{{$index}}txtPorcentaje" style="margin-top: 4px"
+                                                    ng-change="verificarRango(1, detalle.porcentaje, $index, 'txtPorcentaje', 0);"
+                                                    ng-keyup="verificarRango(1, detalle.porcentaje, $index, 'txtPorcentaje', 0);"
+                                                    ng-model="detalle.porcentaje" type="text"
+                                                    class="form-control input-sm" tabindex="10" />
+                                            </td>
+                                            <td>
+                                                <input id="{{$index}}txtSf" tabindex="9"
+                                                    ng-keyup="verificarRango(2, detalle.sf, $index, 'txtSf', 1);"
+                                                    style="margin-top: 4px" ng-model="detalle.sf" type="text"
+                                                    class="form-control input-sm" />
+                                            </td>
+                                            <td>
+                                                <input id="{{$index}}txtSt" tabindex="8"
+                                                    ng-keyup="verificarRango(3, detalle.st, $index, 'txtSt', 2);"
+                                                    style="margin-top: 4px" ng-model="detalle.st" type="text"
+                                                    class="form-control input-sm" />
+                                            </td>
+                                            <td>
+                                                <input tabindex="7" id="{{$index}}c13"
+                                                    ng-keyup="verificarRango(4, detalle.c13, $index, 'c13', 0);"
+                                                    style="margin-top: 4px" ng-model="detalle.c13" type="text"
+                                                    class="form-control input-sm" />
+                                            </td>
+                                            <td>
+                                                <input id="{{$index}}txtHmf" tabindex="6"
+                                                    ng-keyup="verificarRango(5, detalle.hmf, $index, 'txtHmf', 0);"
+                                                    style="margin-top: 4px" ng-model="detalle.hmf" type="text"
+                                                    class="form-control input-sm" />
+                                            </td>
+                                            <td>
+                                                <input id="{{$index}}txtColor" tabindex="5"
+                                                    ng-keyup="verificarRango(6, detalle.color, $index, 'txtColor', 0);"
+                                                    style="margin-top: 4px" ng-model="detalle.color" type="text"
+                                                    class="form-control input-sm" />
+                                            </td>
+                                            <td>
+                                                <input tabindex="4" id="{{$index}}txtTt"
+                                                    ng-keyup="verificarRango(7, detalle.tt, $index, 'txtTt', 0);"
+                                                    style="margin-top: 4px" ng-model="detalle.tt" type="text"
+                                                    class="form-control input-sm" />
+                                            </td>
+                                            <td>
+                                                <select style="margin-top: 4px" class="small" ng-model="detalle.micro"
+                                                    ng-options="mb.id as mb.descripcion for mb  in listaMicrobiologia">
+                                                    <option value="">Microbiologia</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select style="margin-top: 4px" class="small"
+                                                    ng-model="detalle.idFloracion"
+                                                    ng-options="lf.idFloracion as lf.floracion for lf in floracion">
+                                                    <option value="">Floración</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select style="margin-top: 4px" class="small"
+                                                    ng-model="detalle.resultadoFinal"
+                                                    ng-options="rf.id as rf.descrip for rf  in listaResultadoFinal">
+                                                    <option value="">Resultado</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="btn btn-success btn-xs pull-right" style="margin-right: 10px"
+                                ng-disabled="habilitar" ng-click="guardarLabSobrante();">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

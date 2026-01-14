@@ -1,0 +1,72 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CONCILIACION DE TAMBORES POR TIPO</h5>
+                </div>
+                <div class="box-body">
+                    <br>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr style="border-color: black">
+                                    <th style="border: black 1px solid; text-transform: none; font-weight: 600; color:white; background-color: #ff3d00">Movimientos</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: limegreen" >Verdes</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: dodgerblue">Azules</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: lightslategray">Grises</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; color: white; background-color: sienna" >Cafés</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; background-color: white">Blancos</th>
+                                    <th style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; background-color: #ffeb3b">De campo</th>
+                                    <th class="" style="border: black 1px solid; text-align: center; text-transform: none; font-weight: 600; background-color: #FF0080; color: white;">Totales</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style=" border: black 1px solid; text-transform: none; font-weight: 600; background-color: linen;"> Entrada</td>
+                                    <td style=" border: black 1px solid; border-color: black; text-align: right">{{tamboresEntrada.totalVerdes}}</td>
+                                    <td style=" border: black 1px solid; border-color: black; text-align: right">{{tamboresEntrada.totalAzules}}</td>
+                                    <td style=" border: black 1px solid; border-color: black; text-align: right">{{tamboresEntrada.totalGrises}}</td>
+                                    <td style=" border: black 1px solid; border-color: black; text-align: right">{{tamboresEntrada.totalCafes}}</td>
+                                    <td style=" border: black 1px solid; border-color: black; text-align: right">{{tamboresEntrada.totalBlancos}}</td>
+                                    <td style="border: black 1px solid; border-color: black; text-align: right">{{tamboresEntrada.totalCampo}}</td>
+                                    <td style="border: black 1px solid; text-align: right">{{tamboresEntrada.totalEntradas}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: black 1px solid; text-transform: none; font-weight: 600; background-color: linen;"> Salida</td>  
+                                    <td style="border: black 1px solid; text-align: right">{{tamboresSalida.totalDeVerdes}}</td>
+                                    <td style="border: black 1px solid; text-align: right">{{tamboresSalida.totalDeAzules}}</td>
+                                    <td style="border: black 1px solid; text-align: right">{{tamboresSalida.totalDeGrises}}</td>
+                                    <td style="border: black 1px solid; text-align: right">{{tamboresSalida.totalDeCafes}}</td>
+                                    <td style="border: black 1px solid; text-align: right">{{tamboresSalida.totalDeBlancos}}</td>
+                                    <td style="border: black 1px solid; text-align: right">{{tamboresSalida.totalDeCampo}}</td>                                    
+                                    <td style="border: black 1px solid; text-align: right">{{tamboresSalida.totalSalidas}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: black 1px solid; text-transform: none; font-weight: 600;background-color: linen;"> Conciliación</td>
+                                    <td style="border: black 1px solid; text-align: right">{{conciliacionVerdes = tamboresEntrada.totalVerdes - tamboresSalida.totalDeVerdes}}</td>
+                                    <td style="border: black 1px solid; text-align: right">{{conciliacionAzules = tamboresEntrada.totalAzules - tamboresSalida.totalDeAzules}}</td>
+                                    <td style="border: black 1px solid; text-align: right">{{conciliacionGrises = tamboresEntrada.totalGrises - tamboresSalida.totalDeGrises}}</td>
+                                    <td style="border: black 1px solid; text-align: right">{{conciliacionCafes = tamboresEntrada.totalCafes - tamboresSalida.totalDeCafes}}</td>
+                                    <td style="border: black 1px solid; text-align: right">{{conciliacionBlancos = tamboresEntrada.totalBlancos - tamboresSalida.totalDeBlancos}}</td>
+                                    <td style="border: black 1px solid; text-align: right">{{conciliacionCampo = tamboresEntrada.totalCampo - tamboresSalida.totalDeCampo}}</td>
+                                    <td style="border: black 1px solid; text-align: right">{{conciliacionTotales = tamboresEntrada.totalEntradas - tamboresSalida.totalSalidas}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: black 1px solid; text-transform: none; font-weight: 600; background-color: linen;"> Existencia</td>  
+                                    <td colspan="7" style="border: black 1px solid; text-align: center; font-size: 15px;"><b>{{tamboresExistencia = conciliacionVerdes + conciliacionAzules + conciliacionGrises + conciliacionCafes + conciliacionBlancos + conciliacionCampo}}</b></td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>

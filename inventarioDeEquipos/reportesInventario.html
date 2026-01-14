@@ -1,0 +1,141 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        REPORTES
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="box-header">
+                                <h5 style="text-align: center">
+                                    Seleccione una opción
+                                </h5>
+                                <hr>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-inline">
+                                        <div class="col-sm-6">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="1" 
+                                                       ng-model="opcionInventario.option"/>
+                                                Balance contable <i class="input-helper"></i> 
+                                            </label> 
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="2" 
+                                                       ng-model="opcionInventario.option"/>
+                                                Inventario <i class="input-helper"></i> 
+                                            </label> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col-lg-12">
+                                <hr>
+                            </div>
+                            <div class="row" ng-if="opcionInventario.option == 1">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-inline">
+                                        <div class="col-sm-4">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="3" ng-model="opcionInventario.idOpcion">Concentrado
+                                                <i class="input-helper"></i>    
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="4" ng-model="opcionInventario.idOpcion">Por clasificación
+                                                <i class="input-helper"></i> 
+                                            </label> 
+                                            <br>
+                                            <select ng-if="opcionInventario.idOpcion == 4"
+                                                    chosen
+                                                    ng-model="opcionInventario.tipoClasificacion" 
+                                                    class="form-control" 
+                                                    ng-options="c.idClasificacion as c.clasificacion for c in lstClasificaciones"> 
+                                                <option value="">Clasificación</option>   
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="5" ng-model="opcionInventario.idOpcion">Por área
+                                                <i class="input-helper"></i> 
+                                            </label> 
+                                            <select ng-if="opcionInventario.idOpcion == 5"
+                                                    chosen
+                                                    ng-model="opcionInventario.areaInventario" 
+                                                    class="form-control" 
+                                                    ng-options="a.idArea as a.area for a in lstAreas"> 
+                                                <option value="">Area</option>   
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-if="opcionInventario.option == 2">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-inline">
+                                        <div class="col-sm-4">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="6" ng-model="opcionInventario.idOpcion">Un área
+                                                <i class="input-helper"></i>    
+                                            </label>
+                                            <select ng-if="opcionInventario.idOpcion == 6"
+                                                    chosen
+                                                    ng-model="opcionInventario.areaInventario" 
+                                                    class="form-control" 
+                                                    ng-options="a.idArea as a.area for a in lstAreas"> 
+                                                <option value="">Area</option>   
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="7" ng-model="opcionInventario.idOpcion">Por clasificación
+                                                <i class="input-helper"></i> 
+                                            </label> 
+                                            <br>
+                                            <select ng-if="opcionInventario.idOpcion == 7"
+                                                    chosen
+                                                    ng-model="opcionInventario.tipoClasificacion" 
+                                                    class="form-control" 
+                                                    ng-options="c.idClasificacion as c.clasificacion for c in lstClasificaciones"> 
+                                                <option value="">Clasificación</option>   
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" 
+                                                       value="8" ng-model="opcionInventario.idOpcion">Todas las áreas
+                                                <i class="input-helper"></i> 
+                                            </label> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div style="text-align: right">
+                                <a href="#/verReporte/{{opcionInventario.idOpcion}}">
+                                    <button class="btn btn-warning btn-xs" ng-click="enviarInventario(opcionInventario.option, opcionInventario.idOpcion, opcionInventario.areaInventario, opcionInventario.tipoClasificacion)">Aceptar</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,116 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        USUARIOS DEL SISTEMA OAXACA MIEL
+                        <button title="Nuevo usuario" class="btn btn-success btn-xs pull-right" ng-click="modalNuevoUsuario()">
+                            <i class="fa fa-plus"></i> Nuevo
+                        </button>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-5 col-md-offset-7">
+                            <div class="input-group">
+                                <input type="text" ng-model="searchInput" class="form-control input-sm pull-right" placeholder="Buscar">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: center; font-weight: 600"></th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: left; font-weight: 600">USUARIO</th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: left; font-weight: 600">PERFIL</th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: left; font-weight: 600">ENCARGADO</th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: center; font-weight: 600"></th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: center; font-weight: 600"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="usuario in usuarios | filter:searchInput">
+                                    <td style="text-align: center" ng-bind="$index+1"></td>
+                                    <td style="text-align: left" ng-bind="usuario.usuario | uppercase"></td>
+                                    <td style="text-align: left" ng-bind="usuario.perfil | uppercase"></td>
+                                    <td style="text-align: left" ng-bind="usuario.nombre | uppercase"></td>
+                                    <td style="text-align: center">
+                                        <i class="fa fa-mobile" ng-if="usuario.app == '1'" title="Aplicación de inventarios"></i>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <button type="button" class="btn btn-warning btn-xs" ng-click="verUsuario(usuario.idUsuario)">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modal para dar de alta nuevos usuarios en el sistema -->
+<div class="modal fade" id="modalNuevoUsuario">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Crear nuevo usuario</h4>
+            </div>
+            <div class="modal-body">
+                <p>Al crear un nuevo usuario, este tendrá acceso al sistema y a todas las secciones asignadas al perfil en caso
+                    de seleccionarlo
+                </p>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label for="">Usuario*</label>
+                        <input type="text" class="form-control" placeholder="Gerencia" ng-model="nuevoUsuario.usuario" maxlength="15">
+                    </div>
+                    <div class="col-xs-12">
+                        <label for="">Personal encargado</label>
+                        <select class="form-control" ng-model="nuevoUsuario.idPersonalOM" ng-options="personal.id as personal.nombre for personal in personalOaxaca"></select>
+                    </div>
+                    <div class="col-xs-12">
+                        <label for="">Perfil del usuario</label>
+                        <select class="form-control" ng-model="nuevoUsuario.idPerfil" ng-options="perfil.idPerfil as perfil.perfil for perfil in perfiles"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label for="">Contraseña*</label>
+                        <input type="password" class="form-control" ng-model="nuevoUsuario.password" maxlength="32">
+                    </div>
+                    <div class="col-xs-12">
+                        <label for="">Confirmar contraseña*</label>
+                        <input type="password" class="form-control" ng-model="nuevoUsuario.passwordConfirm" maxlength="32">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="nuevoUsuario.app"> Acceso a la aplicación de inventarios.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success btn-sm" ng-click="guardarNuevoUsuario();">Guardar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div growl></div>

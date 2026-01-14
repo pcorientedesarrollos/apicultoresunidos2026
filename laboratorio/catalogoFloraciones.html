@@ -1,0 +1,85 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        CATÁLOGO DE FLORACIONES
+                        <button title="Nueva floración" class="btn btn-success btn-xs pull-right"
+                            ng-click="abrirModalNuevaFloracion()">
+                            <i class="fa fa-plus"></i> Nueva
+                        </button>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue; text-align: center"
+                                        style="text-transform: none; font-weight: 600"></th>
+                                    <th class="bgm-blue; text-align: left"
+                                        style="text-transform: none; font-weight: 600">Nombre</th>
+                                    <!-- <th class="bgm-blue; text-align: left" style="text-transform: none; font-weight: 600">CÓDIGO</th> -->
+                                    <th class="bgm-blue; text-align: center"
+                                        style="text-transform: none; font-weight: 600">Editar</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="floracion in floraciones">
+                                    <td style="text-align: center" ng-bind="$index+1"></td>
+                                    <td style="text-align: left" ng-bind="floracion.floracion | uppercase"></td>
+                                    <!-- <td style="text-align: left" ng-bind="floracion.codigo | uppercase"></td> -->
+                                    <td style="text-align: center">
+                                        <button type="button" class="btn btn-warning btn-xs"
+                                            ng-click="abrirModalNuevaFloracion($index)">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal para dar alta FLORACIONES -->
+
+<div class="modal fade" id="modalNuevaFloracion" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span ng-show="!nuevaFloracion.idFloracion">
+                        Nueva floración
+                    </span>
+                    <span ng-show="nuevaFloracion.idFloracion">
+                        Editar nombre de floración
+                    </span>
+
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nombre"
+                                ng-model="nuevaFloracion.floracion">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-sm"
+                    ng-click="guardarFloracion()">Guardar</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

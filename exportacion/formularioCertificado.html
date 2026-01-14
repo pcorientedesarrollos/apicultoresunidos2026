@@ -1,0 +1,366 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        SOLICITUD DE CERTIFICADO ZOOSANITARIO PARA EXPORTACIÓN
+                        <a title="Regresar" href="#/solicitudCertificado" class="btn btn-success btn-xs"
+                            style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                    <div class="input-group" style="float: right">
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <form ng-submit="guardarSolicitudCertificado()">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <center>
+                                            <h4>
+                                                <b>DATOS GENERALES DE LA MERCANCÍA FITOSANITARIA A EXPORTAR</b>
+                                            </h4>
+                                            <hr>
+                                        </center>
+                                    </div>
+                                </div>
+                                <!-- listaClientesExportadores -->
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Fecha de solicitud del trámite</p>
+                                        <div class="form-group form-group-sm">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input required type="text" class="form-control pull-right"
+                                                    id="datepicker" ng-model="fechaSolicitud">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Cliente exportador</p>
+                                        <div class="form-group form-group-sm">
+                                            <select chosen ng-model="exportadorCliente" class="form-control"
+                                                ng-options="cliente.idClienteExportador as cliente.nombre for cliente in listaClientesExportadores">
+                                                <option value="" disabled>Selecciona un Cliente</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-lg-1 pull-right" ng-if="solicitudCertificado > 0">
+                                        <label>&nbsp;</label>
+                                        <div class="form-group from-group-sm">
+                                            <button class="btn btn-danger btn-sm" title="Imprimir solicitud" ng-click="imprimirSolicitudCertificado()">
+                                                <i class="fa fa-file-pdf-o"></i>
+                                            </button>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h5>
+                                            <b>PRODUCTOS O SUBPRODUCTOS</b>
+                                        </h5>
+                                        <hr>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">País de destino</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosProducto.paisDestino" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Código del País de destino</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosProducto.codigoDestino" />
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-lg-3">
+                                        <p style="font-size:12px">País y Estado de origen del producto</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" placeholder="(En caso de reexportación)*" ng-model="datosProducto.paisOrigen"
+                                            />
+                                        </div>
+                                    </div>
+                                 <div class="col-lg-3">
+                                        <p style="font-size:12px">País y Estado de procedencia</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs" placeholder="(En caso de reexportación)*" ng-model="datosProducto.paisProcedencia"
+                                            />
+                                        </div>
+                                    </div>-->
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">País de origen de la materia prima</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosProducto.origenMP" list="lstPaisOrigen" />
+                                            <datalist id="lstPaisOrigen">
+                                                <option>México</option>
+                                                <option>N/A</option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Código del País de origen</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosProducto.codigoOrigen" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Finalidad u objetivo de la mercancía</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosProducto.finalidadMercancia" list="lstFinalidad" />
+                                            <datalist id="lstFinalidad">
+                                                <option>Consumo humano</option>
+                                                <option>Venta</option>
+                                                <option>N/A</option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Producto o subproducto</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosProducto.producto" list="lstProducto" />
+                                            <datalist id="lstProducto">
+                                                <option>Miel 100% pura de abeja</option>
+                                                <option>Miel 100% orgánica</option>
+                                                <option>Miel 100% Mantequilla</option>
+                                                <option>Miel 100% Altiplano</option>
+                                                <option>Miel 100% Aguacate</option>
+                                                <option>Miel 100% Naranjo</option>
+                                                <option>Miel 100% Mezquite</option>
+                                                <option>Natural bee's honey</option>
+                                                <option>N/A</option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Especie (nombre científico)</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosProducto.especie" list="lstEspecie" />
+                                            <datalist id="lstEspecie">
+                                                <option>Apis</option>
+                                                <option>N/A</option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Presentación</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosProducto.presentacion" list="lstPresentacion" />
+                                            <datalist id="lstPresentacion">
+                                                <option>Tambores</option>
+                                                <option>Metal drums</option>
+                                                <option>N/A</option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Cantidad</p>
+                                        <div class="form-group form-group-sm">
+                                            <input ng-disabled="!solicitudSinLote" align="center" type="text"
+                                                class="form-control input-xs" ng-model="datosProducto.cantidad" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Unidad de medida</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosProducto.unidadMedida" list="lstMedida" />
+                                            <datalist id="lstMedida">
+                                                <option>Kg.</option>
+                                                <option>Tons.</option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="col-md-6">
+                                            <p style="font-size:12px">Peso bruto*</p>
+                                            <div class="form-group form-group-sm">
+                                                <input ng-disabled="!solicitudSinLote" align="center" type="text"
+                                                    class="form-control input-xs" ng-model="datosProducto.pesoBruto" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p style="font-size:12px">Peso neto*</p>
+                                            <div class="form-group form-group-sm">
+                                                <input ng-disabled="!solicitudSinLote" align="center" type="text"
+                                                    class="form-control input-xs" ng-model="datosProducto.pesoNeto" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Tratamiento / proceso*</p>
+                                        <div class="form-group form-group-sm">
+                                            <select required ng-model="datosProducto.tratamientoProceso"
+                                                class="form-control">
+                                                <option value="" disabled>Elija una opción</option>
+                                                <option value="Homogeneizada">Homogeneizada</option>
+                                                <option value="Homogenized">Homogenized</option>
+                                                <option value="No Homogeneizada">No Homogeneizada</option>
+                                                <option value="Not homogenized">Not homogenized</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Marca distintiva</p>
+                                        <div class="form-group form-group-sm">
+                                            <input ng-disabled="!solicitudSinLote" align="center" type="text"
+                                                class="form-control input-xs"
+                                                ng-model="datosProducto.marcaDistintiva" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Número de dictamen de verificación</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-value="datosProducto.marcaDistintiva"
+                                                ng-model="datosProducto.numeroVerificacion" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Unidad expedidora donde realizará el trámite</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                placeholder="(Oficina y Estado)"
+                                                ng-model="datosProducto.lugarTramite" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:10px">
+                                            <b>*En caso de reexportación* </b> País y Edo de origen</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosProducto.paisOrigen" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h5>
+                                            <b>INFORMACIÓN DEL TRANSPORTE</b>
+                                        </h5>
+                                        <hr>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Medio de transporte</p>
+                                        <div class="form-group form-group-sm">
+                                            <!-- <input required align="center" type="text" class="form-control input-xs" ng-model="datosTransporte.medioTransporte" /> -->
+                                            <select class="form-control" chosen
+                                                ng-model="datosTransporte.medioTransporte" required>
+                                                <option value="" selected disabled>elige una opción</option>
+                                                <option value="1">Aéreo</option>
+                                                <option value="2">Marítimo</option>
+                                                <option value="3">Terrestre</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Nombre del transporte</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosTransporte.identificacionTransporte" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Número de contenedor</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosTransporte.numeroContenedor" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Sello</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosTransporte.numeroFleje" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Régimen</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosTransporte.regimen" list="lstRegimen" />
+                                            <datalist id="lstRegimen">
+                                                <option>Temporal</option>
+                                                <option>Definitiva</option>
+                                                <option>Tránsito</option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Fecha de embarque</p>
+                                        <div class="form-group">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input required type="text" class="form-control pull-right"
+                                                    id="datepicker" ng-model="datosTransporte.fechaEmbarque">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Lugar de embarque</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                placeholder="(Aduana de salida)"
+                                                ng-model="datosTransporte.lugarEmbarque" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Marcas de embarque</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosTransporte.marcasEmbarque" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <p style="font-size:12px">Punto de ingreso al país de destino</p>
+                                        <div class="form-group form-group-sm">
+                                            <input required align="center" type="text" class="form-control input-xs"
+                                                ng-model="datosTransporte.puntoIngreso" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div style="text-align: right">
+                                    <button class="btn btn-warning btn-xs" type="submit">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>

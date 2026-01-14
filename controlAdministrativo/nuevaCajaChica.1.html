@@ -1,0 +1,354 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CAJA CHICA
+                        <a title="Regresar" href="#/cajaChica" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="fg-line">
+                                            <label style="font-weight: bold;" class="col-sm-3">Fecha</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-group small">
+                                                    <div class="input-group date" data-provide="datepicker">
+                                                        <div class="input-group-addon ">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </div>
+                                                        <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text" class="form-control pull-right" id="datepicker"
+                                                            placeholder="Fecha" ng-model="cajaChica.fecha">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="fg-line">
+                                            <label style="font-weight: bold;" class="col-sm-2">Nombre </label>
+                                            <div class="col-sm-10">
+                                                <input ng-model="cajaChica.nombre" type="text" class="small col-lg-12 col-md-12 col-sm-12" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="fg-line">
+                                            <label style="font-weight: bold;" class="col-sm-2">Concepto </label>
+                                            <div class="col-sm-10">
+                                                <input ng-model="cajaChica.concepto" type="text" class="small col-lg-12 col-md-12 col-sm-12" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="fg-line">
+                                            <label style="font-weight: bold;" class="col-sm-2">Descripción </label>
+                                            <div class="col-sm-10">
+                                                <input ng-model="cajaChica.descripcion" type="text" class="small col-lg-12 col-md-12 col-sm-12 col-xs-12" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
+                                        <div class="form-group form-inline">
+                                            <div class="col-sm-6">
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="1" name="Ingreso" ng-model="cajaChica.tipo">Ingreso
+                                                    <i class="input-helper"></i> 
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="2" name="Egreso" ng-model="cajaChica.tipo">Egreso
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row" ng-if="cajaChica.tipo == 1">
+                                        <div class="form-group">
+                                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="1" ng-model="cajaChica.movimiento">Bancos
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="2" ng-model="cajaChica.movimiento">Venta miel
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="3" ng-model="cajaChica.movimiento">Maquila de cera
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="4" ng-model="cajaChica.movimiento">Venta cera
+                                                    <i class="input-helper"></i>    
+                                                </label> <label style="margin-top: 5px"
+                                                    class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="5" ng-model="cajaChica.movimiento">Venta cajas de cera
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="6" ng-model="cajaChica.movimiento">Venta polen
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="7" ng-model="cajaChica.movimiento">Venta chatarra
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="8" ng-model="cajaChica.movimiento">Venta jalea real
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="9" ng-model="cajaChica.movimiento">Otros
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="10" ng-model="cajaChica.movimiento">Total varios
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row" ng-if="cajaChica.tipo == 2">
+                                        <div class="form-group">
+                                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="11" ng-model="cajaChica.movimiento">Anticipos
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="12" ng-model="cajaChica.movimiento">Compras miel
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="13" ng-model="cajaChica.movimiento">Compras de cera
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="16" ng-model="cajaChica.movimiento">Depósitos - Inter/Otras ctas.
+                                                    <i class="input-helper"></i>    
+                                                </label> <label style="margin-top: 5px"
+                                                    class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="14" ng-model="cajaChica.movimiento">Deducible
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="15" ng-model="cajaChica.movimiento">No deducible
+                                                    <i class="input-helper"></i>    
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-show="cajaChica.tipo == 1">
+                                    <div class="modal-body" ng-if="cajaChica.movimiento == 1">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <label style="font-weight: bold;" class="col-sm-2">Banco:</label>
+                                                <div class="col-sm-10">
+                                                    <select chosen ng-model="bancoIngreso" ng-change="traeLasCuentasDelBanco(bancoIngreso)" class="form-control" ng-options="b.idBanco as b.banco for b in lstBancos"> 
+                                                        <option value="">Banco</option>   
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <select ng-model="bancoCuenta" ng-change="traeSaldoBancoSel(bancoCuenta)" chosen class="form-inline" ng-options="cx.idCuenta as cx.numDeCuenta for cx in lstQentas"> 
+                                                    <option value="">N° de cuenta</option>   
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label style="font-weight: bold;" class="col-sm-3">Saldo Bancario</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="small" disabled="true" ng-model="totalEnCuenta">
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-lg-2">
+                                                <label style="font-weight: bold;" class="col-sm-3">Cant.  </label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="small" ng-change="totalDeOperaciones()" ng-model="cajaChica.cantidad" placeholder="Cantidad"
+                                                    />
+                                                </div>
+                                            </div> -->
+
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-lg-3" ng-show="cajaChica.movimiento > 8">
+                                        <div class="fg-line">
+                                            <label style="font-weight: bold;" class="col-sm-3">Cantidad </label>
+                                            <div class="col-sm-9">
+                                                <input ng-model="cajaChica.cantidad" ng-change="totalDeOperaciones()" type="number" class="small" />
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+                                    <div ng-show="cajaChica.movimiento > 1 && cajaChica.movimiento < 9">
+                                        <div class="col-lg-3">
+                                            <div class="fg-line">
+                                                <label style="font-weight: bold;" class="col-sm-3">Kg. </label>
+                                                <div class="col-sm-9">
+                                                    <input ng-model="cajaChica.kg" type="text" class="small" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="fg-line">
+                                                <label style="font-weight: bold;" class="col-sm-3">Precio </label>
+                                                <div class="col-sm-9">
+                                                    <input ng-model="cajaChica.precio" type="text" class="small" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="fg-line">
+                                                <label style="font-weight: bold;" class="col-sm-3">Importe </label>
+                                                <div class="col-sm-9">
+                                                    <input ng-model="cajaChica.importe" type="number" ng-change="totalDeOperaciones()" class="small" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-show="cajaChica.tipo == 2">
+                                    <div class="modal-body" ng-if="cajaChica.movimiento == 16">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <label style="font-weight: bold;" class="col-sm-2">Banco:</label>
+                                                <div class="col-sm-10">
+                                                    <select chosen ng-model="bancoIngreso" ng-change="traeLasCuentasDelBanco(bancoIngreso)" class="form-control" ng-options="b.idBanco as b.banco for b in lstBancos"> 
+                                                                <option value="">Banco</option>   
+                                                            </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <select ng-model="bancoCuenta" ng-change="traeSaldoBancoSel(bancoCuenta)" chosen class="form-inline" ng-options="cx.idCuenta as cx.numDeCuenta for cx in lstQentas"> 
+                                                            <option value="">N° de cuenta</option>   
+                                                        </select>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label style="font-weight: bold;" class="col-sm-3">Saldo Bancario</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="small" disabled="true" ng-model="totalEnCuenta">
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-lg-2">
+                                                <label style="font-weight: bold;" class="col-sm-3">Cant.  </label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="small" ng-change="calculaElTotal()" ng-model="cajaChica.cantidad" placeholder="Cantidad"
+                                                    />
+                                                </div>
+                                            </div> -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3" ng-hide="cajaChica.movimiento > 1 && cajaChica.movimiento < 9">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-3">Cantidad </label>
+                                        <div class="col-sm-9">
+                                            <input ng-model="cajaChica.cantidad" type="number" ng-change="totalDeOperaciones()" class="small" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="fg-line">
+                                        <label style="font-weight: bold;" class="col-sm-3">Saldo </label>
+                                        <div class="col-sm-9">
+                                            <input disabled="disabled" ng-model="saldo" type="text" class="small" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-right: 25%">
+                                    <button class="btn btn-xs btn-success pull-right" ng-click="agregarCajaChica()"> Agregar
+                                    </button>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="table-responsive">
+                                <table class="table table-responsive table-bordered table-hover">
+                                    <thead style="text-align: center;">
+                                        <tr>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="2">Fecha</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="2">Nombre</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="2">Concepto</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="2">Descripción</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="2">Tipo</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="2">Movimiento</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="1" colspan="1">En caso de Bancos</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="1" colspan="3">En caso de Ventas</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="2">Cantidad</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="2">Saldo</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="1" colspan="1">Banco y N° de cuenta</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="1" colspan="1">Kg.</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="1" colspan="1">Precio</th>
+                                            <th style="text-transform: none; text-align: center; font-size: 12px;" rowspan="1" colspan="1">Importe</th>
+                                        </tr>
+                                    </thead>
+                                    <tbod y>
+                                        <tr ng-repeat="cajaChica in datosCajaChica">
+                                            <td>{{cajaChica.fecha|date:'dd-MM-yyyy'}}</td>
+                                            <td>{{cajaChica.nombre|uppercase}}</td>
+                                            <td>{{cajaChica.concepto|uppercase}}</td>
+                                            <td>{{cajaChica.descripcion|uppercase}}</td>
+                                            <td>{{cajaChica.tipo|uppercase}}</td>
+                                            <td>{{cajaChica.movimiento|uppercase}} </td>
+                                            <td>{{cajaChica.banco|uppercase}} {{cajaChica.cuenta}}</td>
+                                            <td>{{cajaChica.kg}}</td>
+                                            <td>{{cajaChica.precio}}</td>
+                                            <td>{{cajaChica.importe}}</td>
+                                            <td>{{cajaChica.cantidad}}</td>
+                                            <td>{{cajaChica.saldo}}</td>
+                                        </tr>
+                                        </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-12">
+                                <center>
+                                    <div class="row" style="text-align: right">
+                                        <br>
+                                        <button type="submit" ng-click="guardarCajaChica();" class="btn btn-warning btn-sm" ng-show="paramCaja == 0">Guardar</button>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

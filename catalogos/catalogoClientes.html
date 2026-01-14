@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-xs-12 col-md-9 col-md-offset-1">
+        <div class="box box-solid box-warning">
+            <div class="box-header">
+                <h5>
+                    CLIENTES
+                    <button title="Nuevo cliente" class="btn btn-success btn-xs pull-right" ng-click="verCliente(cliente.idCliente)">
+                        <i class="fa fa-plus"></i> Nuevo
+                    </button>
+                </h5>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6 col-md-offset-6">
+                        <input type="text" class="form-control" placeholder="Buscar" ng-model="inputBusqueda">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <label class="radio radio-inline m-r-20">
+                            <input type="radio" value="1" ng-model="opcionVerCliente" ng-disabled="cargandoDatos">Clientes
+                            activos
+                        </label>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <label class="radio radio-inline m-r-20">
+                            <input type="radio" value="0" ng-model="opcionVerCliente" ng-disabled="cargandoDatos">De
+                            baja
+                        </label>
+                    </div>
+                </div>
+                <br>
+                <div ng-if="!clientes">
+                    <p>Cargando...</p>
+                </div>
+                <div ng-if="clientes && !clientes.length">
+                    <p>No hay clientes registrados</p>
+                </div>
+                <div class="table-responsive" ng-if="clientes && clientes.length">
+                    <table class="table table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center"></th>
+                                <th class="text-left">NOMBRE</th>
+                                <th class="text-center">TELÉFONO</th>
+                                <th class="text-center">REGISTRO</th>
+                                <th class="text-center">FLUJO EFECTIVO</th>
+                                <th class="text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="cliente in clientes | filter:inputBusqueda">
+                                <td class="text-center">{{$index+1}}</td>
+                                <td class="text-left">{{cliente.nombre}}</td>
+                                <td class="text-center">{{cliente.telefono}}</td>
+                                <td class="text-center">{{cliente.fechaRegistro | date:'dd/MM/yyyy'}}</td>
+                                <td class="text-center">
+                                    <i class="fa fa-check text-success" ng-if="cliente.flujoEfectivo == 1"></i>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-warning btn-xs" ng-click="verCliente(cliente.idCliente)">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div growl></div>

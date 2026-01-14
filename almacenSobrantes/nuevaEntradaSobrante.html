@@ -1,0 +1,285 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        ENTRADA DE MIEL SOBRANTE
+                        <a title="Regresar" href="#/menuSobrantes" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <!-- <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-4 pull-right">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="col-sm-1" ng-model="capturaInventario"
+                                            ng-true-value="'1'" ng-false-value="'0'"
+                                            ng-change="mostrarCaptura(capturaInventario)">
+                                        <b>Capturar inventario anterior</b>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label>Fecha</label>
+                                    <div class="input-group date" data-provide="datepicker">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" class="form-control pull-right" id="datepicker"
+                                            placeholder="Fecha" ng-model="almacenSobrante.fecha">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Tipo de Miel</label>
+                                    <select ng-model="almacenSobrante.tipoDeMiel" chosen class="form-control"
+                                        ng-options="tm.idTipoDeMiel as tm.tipoDeMiel for tm in listaCosecha">
+                                        <option disabled="disabled" value="">Elija una opción</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Sobrante</label>
+                                    <div class="input-group">
+                                        <div style="background-color: gold" class="input-group-addon btn"
+                                            ng-click="abrirModalNuevaClasificacion();" title="Nueva clasificacion">
+                                            <i class="zmdi zmdi-plus"></i>
+                                        </div>
+                                        <select ng-model="almacenSobrante.sobrante" chosen class="form-control"
+                                            ng-options="sobrante.idSobrante as sobrante.nombre for sobrante in listaSobrantes">
+                                            <option disabled="disabled" value="">Elija una opción</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Tipo</label>
+                                    <select ng-model="almacenSobrante.tipo" chosen class="form-control">
+                                        <option disabled="disabled" value="">Elija una opción</option>
+                                        <option value="1">Nacional</option>
+                                        <option value="2">Exportación</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div ng-show="entradaSobrante == 0" class="form-group col-lg-2">
+                                <label>N° de tambos</label>
+                                <div class="input-group">
+                                    <input type="number" class="col-md-4 form-control" data-ng-model="counter">
+                                    <div class="input-group-addon">
+                                        <button class="btn btnMiel btn-xs" type="button" ng-click="updateModel()">
+                                            <i class="zmdi zmdi-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div  class="col-xs-12 col-md-2">
+                                <label>N° de tambos</label>
+                                <input type="number" class="col-md-4 form-control" data-ng-model="counter">
+                            </div>
+                            <div class="col-xs-12 col-md-1">
+                                <label>Añadir</label>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" ng-click="updateModel()">
+                                        <i class="zmdi zmdi-plus"></i>
+                                    </button>
+                                </span>
+                            </div> -->
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-2 pull-right" ng-show="entradaSobrante > 0">
+                            <button class="btn btn-info btn-xs" ng-click="mandarImprimirTodo();">Mandar a imprimir
+                                todo</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th ng-if="entradaSobrante > 0">Código</th>
+                                            <th>Folio anterior</th>
+                                            <th>Lote</th>
+                                            <th>Zona</th>
+                                            <th>Bruto</th>
+                                            <th>Tara</th>
+                                            <th>Neto</th>
+                                            <th>Observación</th>
+                                            <th ng-if="entradaSobrante == 0"></th>
+                                            <th ng-if="entradaSobrante > 0"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="tambo in tambos track by $index">
+                                        <tr>
+                                            <td ng-if="entradaSobrante > 0">{{tambo.codigo}}-{{tambo.consecutivo}}</td>
+                                            <!-- <td ng-if="entradaSobrante > 0">{{tambo.codigo}}-{{tambo.idEntradaSobrante}} -->
+                                            </td>
+                                            <td>
+                                                <input ng-model="tambo.referencia" type="text"
+                                                    class="form-control input-sm">
+                                            </td>
+                                            <td>
+                                                <select chosen ng-model="tambo.lote" class="form-control"
+                                                    ng-options="rp.idLoteInterno as rp.idLoteInterno for rp in listaLotesCarga">
+                                                    <option value="">No aplica</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select chosen ng-model="tambo.zona" class="form-control input-sm"
+                                                    ng-options="zona.idZonaTambor as zona.nombre for zona in listaZonas">
+                                                    <option disabled="disabled" value="">Seleccione una zona</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input ng-model="tambo.bruto" type="text"
+                                                    class="form-control input-sm" />
+                                            </td>
+                                            <td>
+                                                <input ng-model="tambo.tara" type="text"
+                                                    class="form-control input-sm" />
+                                            </td>
+                                            <td>
+                                                <input ng-model=" tambo.neto" type="text" disabled="true"
+                                                    class="form-control input-sm"
+                                                    ng-value="tambo.neto = tambo.bruto-tambo.tara" />
+                                            </td>
+                                            <td>
+                                                <input ng-model="tambo.observaciones" type="text"
+                                                    class="form-control input-sm">
+                                            </td>
+                                            <td ng-if="entradaSobrante == 0">
+                                                <button type="button" class="btn btn-xs btn-danger"
+                                                    ng-click="eliminarRegistro($index)">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </td>
+                                            <td ng-if="entradaSobrante > 0">
+                                                <button class="btn btn-warning btn-xs"
+                                                    ng-click="mandarImprimirEtiquetaMielSobrante(tambo.idEntradaSobrante)">
+                                                    <i class="zmdi zmdi-print"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row" ng-show="!mostrarTable">
+                        <div class="col-lg-12">
+                            <div class="col-sm-4">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Bruto</label>
+                                    <input class="form-control" type="text" ng-model="almacenSobrante.bruto"
+                                        ng-keyup="calcularNeto();" mask="9" repeat="10" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Tara</label>
+                                    <input class="form-control" type="text" ng-model="almacenSobrante.tara"
+                                        ng-keyup="calcularNeto();" mask="9" repeat="10" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Neto</label>
+                                    <input class="form-control" type="text" disabled="true"
+                                        ng-model="almacenSobrante.neto" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" ng-show="!mostrarTable">
+                        <div class="col-lg-12">
+                            <div class="col-sm-4">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Zona</label>
+                                    <select ng-model="almacenSobrante.zona" chosen class="form-control"
+                                        ng-options="zona.idZonaTambor as zona.nombre for zona in listaZonas">
+                                        <option disabled="disabled" value="">Seleccione una zona</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Lote</label>
+                                    <select chosen ng-model="almacenSobrante.lote" class="form-control"
+                                        ng-options="rp.idLoteInterno as rp.idLoteInterno for rp in listaLotesCarga">
+                                        <option value="">No aplica</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group-sm">
+                                    <label style="font-weight: bold;">Observaciones</label>
+                                    <textarea style="font-size: 12px;" class="form-control" rows="3"
+                                        ng-model="almacenSobrante.observaciones"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <br>
+                    <div class="row ">
+                        <div class="col-sm-12">
+                            <button class="btn btn-warning btn-xs pull-right" ng-disabled="bloquearGuardar"
+                                ng-click="guardarSobrante();">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>
+<!-- Modal para dar alta CLASIFICACIONES DE MIEL SOBRANTE -->
+
+<div class="modal fade" id="modalNuevaClasificacion">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Nueva clasificacion de miel sobrante</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nombre"
+                                ng-model="nuevaClasificacion.nombre">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <input maxlength="3" type="text" class="form-control" placeholder="Código"
+                                ng-model="nuevaClasificacion.codigo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-sm"
+                    ng-click="guardarNuevaClasificacion()">Guardar</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

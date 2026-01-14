@@ -1,0 +1,37 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4">
+
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        CONCILIACIÓN MONETARIA
+                    </h5>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th style="text-transform: none; font-weight: 600">Mes </th>
+                                <th style="text-align: right; text-transform: none; font-weight: 600">Ver</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="menuCM in menuConciliacion | orderBy:'idMes'">
+                                <td ng-bind="menuCM.mes"></td>
+                                <td style="text-align: right">
+                                    <a class="btn btn-warning btn-xs" ng-href="#/nvaConciliacion/{{menuCM.idMes}}" title="Ver más">
+                                        <i class="zmdi zmdi-edit" ></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>

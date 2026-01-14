@@ -1,0 +1,28 @@
+{
+    "resultadoFinal": [
+        {
+            "id": "1",
+            "descrip": "APROBADO"
+        },
+        {
+            "id": "4",
+            "descrip": "RECHAZADO"
+        },
+        {
+            "id": "5",
+            "descrip": "Analisis"
+        },
+        {
+            "id": "6",
+            "descrip": "20% SF"
+        },
+        {
+            "id": "7",
+            "descrip": "20% ST"
+        },
+        {
+            "id": "8",
+            "descrip": "Reclasificado"
+        }
+    ]
+}

@@ -1,0 +1,163 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        BUSCADOR DE FOLIOS
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label for="">Producto</label>
+                                <select chosen ng-model="producto" class="form-control">
+                                    <option value="Selecciona una opción"></option>
+                                    <option value="1">Miel</option>
+                                    <option value="2">Miel sobrante</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3" ng-show="producto == '1'">
+                            <div class="form-group">
+                                <label for="">Recipiente</label>
+                                <select ng-model="recipiente" class="form-control">
+                                    <option value="1">Tambores</option>
+                                    <option value="2">Cubetas</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3" ng-show="producto == '2'">
+                            <div class="form-group">
+                                <label for="">Tipo de sobrante</label>
+                                <select ng-model="sobrantemd" class="form-control"
+                                    ng-options="sobrante.idSobrante as sobrante.nombre for sobrante in listaSobrantes">
+                                    <option disabled="disabled" value="">Seleccione un tipo de sobrante</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label for="">Tipo de miel</label>
+                                <select chosen ng-model="idTipoDeMiel" class="form-control">
+                                    <option value="Selecciona una opción"></option>
+                                    <option value="1">Convencional</option>
+                                    <option value="2">Orgánica</option>
+                                    <option value="5">Mantequilla</option>
+                                    <option value="6">Altiplano</option>
+                                    <option value="7">Naranjo</option>
+                                    <option value="8">Aguacate</option>
+                                    <option value="9">Mezquite</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="opcionBusqueda.idBusqueda" value="1"> Un folio
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="opcionBusqueda.idBusqueda" value="2"> Rango de folios
+                            </label>
+                        </div>
+                        <div ng-if="opcionBusqueda.idBusqueda == 1" class="col-xs-12 col-md-3">
+                            <input type="text" ng-model="opcionBusqueda.tamboNo" placeholder="Folio"
+                                ng-keyup="buscarTambo()" class="form-control" />
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input ng-if="opcionBusqueda.idBusqueda == 2" type="text"
+                                        ng-model="opcionBusqueda.tambo1" placeholder="Folio 1" class="form-control" />
+                                </div>
+                                <div class="col-lg-6">
+                                    <input ng-if="opcionBusqueda.idBusqueda == 2" type="text"
+                                        ng-model="opcionBusqueda.tambo2" placeholder="Folio 2"
+                                        ng-keyup="buscarTambores()" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="informacionTambor && informacionTambor.length > 0" class="col-md-3 col-md-offset-3">
+                            <button class="btn btn-info btn-xs pull-right" ng-click="imprimirTodo();">Mandar a imprimir
+                                todo</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="text-transform: none">Folio</th>
+                                    <th style="text-transform: none">Entrada</th>
+                                    <th style="text-transform: none">Fecha</th>
+                                    <th style="text-transform: none; width: 35%">Proveedor</th>
+                                    <th style="text-transform: none">IDSagarpa</th>
+                                    <th style="text-transform: none">Localidad</th>
+                                    <th style="text-transform: none">Zona</th>
+                                    <th style="text-transform: none">Bruto</th>
+                                    <th style="text-transform: none">Tara</th>
+                                    <th style="text-transform: none">Neto</th>
+                                    <th style="text-transform: none">Lote experimental</th>
+                                    <th style="text-transform: none">Lote interno</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="tambo in informacionTambor">
+                                    <td class="col-sm-2">
+                                        <label style="color: red; font-size: 12px;">
+                                            {{tambo.Folio}}
+                                        </label>
+                                    </td>
+                                    <td style="width: 20%; font-size: 12px;">
+                                        {{tambo.Entrada}}
+                                    </td>
+                                    <td style="width: 20%; font-size: 12px;">
+                                        {{tambo.Fecha | date:'dd-MM-yyyy'}}
+                                    </td>
+                                    <td style="width: 20%; font-size: 12px;">
+                                        {{tambo.Proveedor}}
+                                    </td>
+                                    <td style="width: 20%; font-size: 12px;">
+                                        {{tambo.idSagarpa}}
+                                    </td>
+                                    <td style="width: 15%; font-size: 12px;">
+                                        {{tambo.Localidad}}
+                                    </td>
+                                    <td style="width: 15%; font-size: 12px;">
+                                        {{tambo.zona}}
+                                    </td>
+                                    <td style="width: 20%; font-size: 12px;">
+                                        {{tambo.Bruto}}
+                                    </td>
+                                    <td style="width: 20%; font-size: 12px;">
+                                        {{tambo.Tara}}
+                                    </td>
+                                    <td style="width: 20%; font-size: 12px;">
+                                        {{tambo.Neto}}
+                                    </td>
+                                    <td style="width: 20%; font-size: 12px;">
+                                        {{tambo.LExperimental}}
+                                    </td>
+                                    <td style="width: 20%; font-size: 12px;">
+                                        {{tambo.LInterno}}
+                                    </td>
+                                    <td style="text-align: center">
+                                        <button class="btn btn-warning btn-xs" ng-click="imprimirEtiqueta(tambo)">
+                                            <i class="zmdi zmdi-print"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="btn btn-danger btn-xs pull-right" ng-click="eliminarTambo()">Limpiar
+                        busqueda</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

@@ -1,0 +1,105 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        PROGRAMAR FECHAS
+                        <a title="Regresar" href="#/equipos" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i> 
+                        </a>
+                    </h5>
+                    <div class="input-group" style="float: right">
+
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group-sm">
+                                        <label style="font-weight: bold;"  class="col-sm-2 control-label">Area </label>
+                                        <div class="col-sm-10">
+                                            <select 
+                                                chosen
+                                                ng-model="areaProgramacion" 
+                                                class="form-control" 
+                                                ng-options="a.idArea as a.area for a in listAreas"> 
+                                                <option value="">Area</option>   
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group-sm">
+                                        <label style="font-weight: bold;"  class="col-sm-2 control-label">Equipo </label>
+                                        <div class="col-sm-10">
+                                            <select 
+                                                chosen
+                                                ng-model="equipoProgramacion" 
+                                                ng-change="infoPeriodicidad(equipoProgramacion)"
+                                                class="form-control" 
+                                                ng-options="e.idEquipo as e.nombre for e in lstEquipos"> 
+                                                <option value="">Equipo</option>   
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label style="font-weight: bold;" class="col-sm-3 control-label">Periodicidad</label>
+                                    <div class="col-sm-9">
+                                        <p>{{informacionPeriodo.periodicidad}}</p>
+                                    </div> 
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-2">
+                                        <button class="btn btnMiel" title="Agregar fecha" ng-click="nuevaFecha();">
+                                            <i style="color: #385428" class="zmdi zmdi-calendar-note zmdi-hc-2x"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div ng-repeat="dat in dates" class="input-group">
+                                            <div class="form-group">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" 
+                                                           type="text" class="form-control pull-right"
+                                                           id="datepicker" placeholder="Fecha" 
+                                                           ng-model="dat.fechaProgramada">
+                                                </div>
+                                            </div>
+                                            <span class="input-group-addon">
+
+                                                <a  ng-click="eliminarFechaP($index);"
+                                                    class="btn btn-danger btn-xs"
+                                                    title="Eliminar Fecha">
+                                                    <i class="zmdi zmdi-delete  pull-right"></i>
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div style="text-align: right">
+                                <button class="btn btn-warning btn-xs"
+                                        ng-click="guardarProgramacion()" >Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl>
+
+</div>
+

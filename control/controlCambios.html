@@ -1,0 +1,71 @@
+<div class="col-lg-12">
+    <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+        <div class="input-group" style="width: 300px;">
+            <input type="text" ng-model="busquedaCambios" class="form-control input-sm pull-right" placeholder="Ingrese lo que desea buscar">
+            <div class="input-group-btn">
+                <button class="btn btn-sm btn-primary"><i class="zmdi zmdi-search"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+        <div class="input-group" style="width: 150px;">
+            <input type="text" ng-model="busquedaCambios" name="table_search" class="form-control input-sm pull-right" placeholder="Buscar">
+            <div class="input-group-btn">
+                <button class="btn btn-sm btn-default"><i class="zmdi zmdi-search"></i></button>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <div class="card col s12 m12 lg-12">
+        <div class="card-header bgm-miel">
+            <h2 style="font-family: 'Didact Gothic', sans-serif; text-transform: uppercase">Control de cambios</h2>
+            <a class="btn bgm-blue btn-float waves-effect"
+               href="#/nvoCtrl/0">
+                <i class="zmdi zmdi-plus"></i>
+            </a>
+        </div>
+        <div class="card-body card-padding">
+            <div role="tabpanel">
+                <div class="tab-content">
+                    <!--<div ng-switch-when="a">-->
+                    <div class="table-responsive">
+                        <table class="table table-responsive table-striped">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue col-sm-2" style="text-transform: none; font-weight: 600">Fecha</th>
+                                    <th class="bgm-blue col-sm-2" style="text-transform: none; font-weight: 600">Area</th>                                
+                                    <th class="bgm-blue col-sm-3" style="text-transform: none; font-weight: 600">Responsable </th>
+                                    <th class="bgm-blue col-sm-5" style="text-transform: none; font-weight: 600">Cambios</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Editar</th>
+                                    <!--      <th class="bgm-blue">ELIMNAR</th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="cc in controlDeCambios| filter:busquedaCambios">
+                                    <td>{{cc.fecha | date:'dd-MM-yyyy'}}</td>
+                                    <td>{{cc.area|uppercase}}</td>
+                                    <td>{{cc.nombre|uppercase}}</td>
+                                    <td style="line-height: normal">{{cc.observaciones}}</td>
+                                    <td>
+                                        <a href="#/nvoCtrl/{{cc.idControl}}" class="btn btn-warning">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
+                                    </td>
+                                    <!--    <td>
+                                            <a ng-click="eliminarLoc(lcl.idlocalidad)" class="btn btn-danger">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </a>
+                                        </td>-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

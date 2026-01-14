@@ -1,0 +1,788 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        AUXILIAR DE BANCOS
+                        <a ng-if="idParam == 0" title="Regresar" href="#/menuAuxBancos" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                        <a ng-if="idParam > 0" title="Regresar" href="#/auxBancos/{{nvoAuxBancoIdMes}}" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row" ng-show="idParam > 0">
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">BANCO</label>
+                                <b>
+                                    <input class="form-control" type="text" disabled="true" ng-model="baco" />
+                                </b>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">N° DE CUENTA</label>
+                                <b>
+                                    <input class="form-control" type="text" disabled="true" ng-model="noCuenta" />
+                                </b>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">SALDO INICIAL DEL MES</label>
+                                <b>
+                                    <input class="form-control derecha" type="text" disabled="true" ng-value="saldoInicial|currency:'$':6" />
+                                </b>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">INGRESOS</label>
+                                <b>
+                                    <input class="form-control derecha" type="text" disabled="true" ng-value="bonos|currency"/>
+                                </b>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">EGRESOS</label>
+                                <b>
+                                    <input class="form-control derecha" type="text" disabled="true" ng-value="salidas|currency" />
+                                </b>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group-sm">
+                                <label style="font-weight: bold;">SALDO ACTUAL</label>
+                                <b>
+                                    <input class="form-control derecha" type="text" disabled="true" ng-value="saldoActual|currency:'$':6" />
+                                </b>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="idParam == 0">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <label style="font-weight: bold;">Elige un banco </label>
+                                <div class="form-group">
+                                    <select chosen ng-model="banco" ng-change="traeCuentasBancarias(banco)" class="form-control" ng-options="b.idBanco as b.banco for b in listaDeBancos">
+                                        <option value="">Banco</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <label style="font-weight: bold;"> N° de cuenta</label>
+                                <div class="form-group">
+                                    <select ng-model="cuentaNo" ng-change="traeSaldos(cuentaNo)" chosen class="form-control" ng-options="c.idCuenta as c.numDeCuenta for c in listaDeCuentas">
+                                        <option value="">N° de cuenta</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <label style="font-weight: bold;">Saldo </label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control derecha" disabled="true" ng-value="ultimoSaldo|currency:'$':6">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-true-value=true ng-false-value=false ng-init="hacerPolizaCheque = false" ng-model="hacerPolizaCheque"
+                                            ng-change="mostrarFormPolizaCheque(hacerPolizaCheque)">Hacer una póliza de cheque</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="!hacerPolizaCheque">
+                            <div class="row">
+                                <label style="font-weight: bold;" class="col-sm-12">
+                                    <center>Elige un movimiento: </center>
+                                </label>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-lg-2">
+                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                            <input type="radio" value="1" ng-model="auxiliar.movimiento">Depósitos
+                                            <i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                            <input type="radio" value="2" ng-model="auxiliar.movimiento">Compras
+                                            <i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                            <input type="radio" value="3" ng-model="auxiliar.movimiento">Diversos
+                                            <i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                            <input type="radio" value="4" ng-model="auxiliar.movimiento">Entre cuentas
+                                            <i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                            <input type="radio" value="5" ng-model="auxiliar.movimiento">Depositos RSS Otros
+                                            <i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                            <input type="radio" value="6" ng-model="auxiliar.movimiento">Control caja chica
+                                            <i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-lg-4">
+                                        <!-- <label style="font-weight: bold;">Fecha </label> -->
+                                        <div class="form-group">
+                                            <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text" class="form-control pull-right" id="datepicker"
+                                                    placeholder="Fecha" ng-model="auxiliar.fecha">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <!-- <label style="font-weight: bold;" class="control-label">Hora de inicio: </label> -->
+                                            <input type="text" class="form-control" placeholder="Hora del movimiento" ng-model="auxiliar.hora">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <!-- <label style="font-weight: bold;">Referencia </label> -->
+                                        <div class="form-group">
+                                            <input ng-model="auxiliar.referencia" type="text" class="form-control" onblur="this.value = this.value.toUpperCase()" placeholder="Referencia"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <center>
+                                        <div class="form-group">
+
+                                            <label style="font-weight: bold;">A nombre de: </label>
+                                            <center>
+                                                <div style="background-color: gold" class="btn btn-sm" ng-click="proveedorDesdeBancos();" title="Nuevo proveedor">
+                                                    <i class="zmdi zmdi-plus"></i> Nuevo
+                                                </div>
+                                            </center>
+                                        </div>
+                                    </center>
+                                </div>
+                            </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-lg-2">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="1" ng-model="auxiliar.tipoDePersona" />Apicultores
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-4" ng-if="auxiliar.tipoDePersona == 1">
+                                            <select chosen ng-model="auxiliar.nombreDe" class="form-control" ng-options="cliente.idProveedor as cliente.nombre for cliente in clientes">
+                                                <option value="">Nombre</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="3" ng-model="auxiliar.tipoDePersona">Proveedores
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-4" ng-if="auxiliar.tipoDePersona == 3">
+                                            <select chosen ng-model="auxiliar.nombreDe" class="form-control" ng-options="clinte.idProveedorMantto as clinte.nombreProveedor for clinte in lstTenicosP">
+                                                <option value="">Nombre</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                <input type="radio" value="4" ng-model="auxiliar.tipoDePersona">Personal
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-4" ng-if="auxiliar.tipoDePersona == 4">
+                                            <select chosen ng-model="auxiliar.nombreDe" class="form-control" ng-options="client.idPersonalOM as client.nombre for client in lstOMPersonal">
+                                                <option value="">Nombre</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-lg-3" ng-if="auxiliar.movimiento == 3">
+                                        <!-- <label style="font-weight: bold;">Selecciona concepto </label> -->
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div style="background-color: gold" class="input-group-addon btn" ng-click="nuevosConceptos();" title="Nuevo proveedor">
+                                                    <i class="zmdi zmdi-plus"></i>
+                                                </div>
+                                                <select ng-model="auxiliar.concepto" chosen class="form-control" ng-options="c.idSubcuenta as c.subcuenta for c in listaDeConceptos">
+                                                    <option value="" disabled="disabled"> Conceptos </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3" ng-if="auxiliar.movimiento == 2">
+                                        <!-- <label style="font-weight: bold;">Selecciona concepto </label> -->
+                                        <div class="form-group">
+                                            <select ng-model="auxiliar.concepto" chosen class="form-control" ng-options="com.idConceptoCC as com.concepto for com in listaDeCompras">
+                                                <option value=""> Conceptos </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3" ng-hide="auxiliar.movimiento == 3 || auxiliar.movimiento == 2 || auxiliar.movimiento == 4">
+                                        <!-- <label style="font-weight: bold;">Concepto </label> -->
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Concepto" ng-model="auxiliar.concepto">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9" ng-hide="auxiliar.movimiento == 4">
+                                        <!-- <label style="font-weight: bold;">Descripción</label> -->
+                                        <div class="form-group">
+                                            <textarea rows="1" class="form-control" ng-model="auxiliar.descripcion" placeholder="¿Qué es?   \   ¿Para qué es?  \   "
+                                                onblur="this.value = this.value.toUpperCase()"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row" ng-if="auxiliar.movimiento == 4">
+                                <div class="form-group">
+                                    <div class="col-lg-3">
+                                        <label style="font-weight: bold;">Transferir a:</label>
+                                        <div class="form-group">
+                                            <select chosen ng-model="bancoTrans" ng-change="traeNumerosDeCuentas(bancoTrans)" class="form-control" ng-options="b.idBanco as b.banco for b in listaDeBancos">
+                                                <option value="">Banco</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label style="font-weight: bold;">Cuenta:</label>
+                                        <div class="form-group">
+                                            <select ng-model="numeroCuenta" ng-change="traeSaldoTrans(numeroCuenta)" chosen class="form-control" ng-options="cx.idCuenta as cx.numDeCuenta for cx in listaCuentas">
+                                                <option value="">N° de cuenta</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label style="font-weight: bold;">Saldo </label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control derecha" disabled="true" ng-value="saldoDeposito|currency">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3" ng-show="auxiliar.movimiento == 4">
+                                        <label style="font-weight: bold;">Cant. </label>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control derecha" ng-change="calcularSaldoDeposito()" ng-model="auxiliar.cantidadDeposito"
+                                                placeholder="Cantidad" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3" ng-if="auxiliar.movimiento == 1">
+                                    <label style="font-weight: bold;">Tipo de Depósito </label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="auxiliar.tipoDepositoCompra" placeholder="Tipo de depósito" onblur="this.value = this.value.toUpperCase()"
+                                            list="listaDepositos">
+                                        <datalist id="listaDepositos">
+                                            <option>OMI</option>
+                                            <option>OTROS</option>
+                                        </datalist>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3" ng-if="auxiliar.movimiento == 2">
+                                    <!-- <label style="font-weight: bold;">Tipo de Compras </label> -->
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="auxiliar.tipoDepositoCompra" onblur="this.value = this.value.toUpperCase()"
+                                            placeholder="Tipo de compra" list="listaCompras">
+                                        <datalist id="listaCompras">
+                                            <option>ANTICIPO</option>
+                                            <option>MES PASADO</option>
+                                            <option>MES ACTUAL</option>
+                                        </datalist>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3" ng-show="auxiliar.movimiento == 6">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold;">Saldo Caja Chica:</label>
+                                        <div class="form-group">
+                                            <input ng-value="saldoCajaChica|currency" type="text" class="form-control derecha" disabled="true" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3" ng-hide="auxiliar.movimiento == 4">
+                                    <!-- <label style="font-weight: bold;">Cantidad:  </label> -->
+                                    <div class="form-group">
+                                        <input type="number" class="form-control derecha" ng-change="calcularElSaldo()" ng-model="auxiliar.cantidad" placeholder="Cantidad"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row" style="margin-right: 1%; text-align: right">
+                                <button ng-click="agregarAuxiliar();" class="btn btn-success btn-sm">Agregar</button>
+                            </div>
+                        </div>
+                        <!-- Si no es póliza de cheque -->
+                        <!-- </div> -->
+                        <br>
+                        <!-- Si estamos creando movimiento -->
+                    </div>
+                    <hr/>
+                    <div ng-if="!hacerPolizaCheque">
+                        <div class="table-responsive">
+                            <table class="table table-responsive table-bordered">
+                                <thead style="text-align: center;">
+                                    <tr>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Fecha</th>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Hora</th>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Movimiento</th>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Concepto</th>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Descripción</th>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Ref</th>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">A nombre de</th>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Tipo
+                                            <br>(En caso de depósitos y compras )</th>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Ingreso</th>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Egreso</th>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Saldo</th>
+                                        <th style="text-transform: none; text-align: center; font-size: 12px;">Póliza</th>
+                                        <th ng-show="idParam > 0" style="text-transform: none; text-align: center; font-size: 12px;">Editar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-class="auxiliar.tipo ? 'ingreso-green' : 'egreso-red'" ng-repeat="auxiliar in auxiliarDeBancos" style=" font-size: 12px;">
+                                        <td>{{auxiliar.fecha|date:'dd-MM-yyyy'}}</td>
+                                        <td>{{auxiliar.hora}}</td>
+                                        <td>{{auxiliar.movimiento|uppercase}}</td>
+                                        <td>{{auxiliar.concepto|uppercase}}</td>
+                                        <td>{{auxiliar.descripcion|uppercase}}</td>
+                                        <td>{{auxiliar.referencia|uppercase}}</td>
+                                        <td>{{auxiliar.miNombre|uppercase}}</td>
+                                        <td>{{auxiliar.tipoDepositoCompra|uppercase}}</td>
+                                        <td class="derecha">{{auxiliar.ingreso|currency}}</td>
+                                        <td class="derecha">{{auxiliar.egreso|currency}} </td>
+                                        <td class="derecha">{{auxiliar.saldo|currency}}</td>
+                                        <td class="derecha">
+                                            <div ng-if="auxiliar.idPolizaCheque != 0 && auxiliar.idPolizaCheque">
+                                                <button type="button" class="btn btn-xs btn-success" ng-click="imprimirPoliza(auxiliar.idPolizaCheque)">
+                                                    <i class="fa fa-print"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-xs btn-danger" ng-click="eliminarPoliza(auxiliar.idPolizaCheque)">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td ng-show="idParam > 0">
+                                            <button type="button" class="btn btn-xs btn-warning" ng-click="editarMovimientoBanco(auxiliar.idAuxiliar)">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-12">
+                            <center>
+                                <div class="row" style="text-align: right">
+                                    <br>
+                                    <button type="submit" ng-click="guardarAuxiliar();" class="btn btn-warning btn-sm" ng-show="idParam == 0">Guardar</button>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+
+                    <div ng-if="hacerPolizaCheque">
+                        <div ng-if="!showPDF">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-4 col-md-3">
+                                    <label style="font-weight: bold;">Fecha</label>
+                                    <div class="form-group">
+                                        <div class="input-group date" data-provide="datepicker">
+                                            <div class="input-group-addon ">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control pull-right" id="datepicker" placeholder="Fecha" ng-model="poliza.fecha">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-3">
+                                    <label style="font-weight: bold;">Hora</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Hora del movimiento" ng-model="poliza.hora">
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-6">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-true-value=true ng-false-value=false ng-init="poliza.aCajaChica = false" ng-model="poliza.aCajaChica">Mandar a caja chica</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <label style="font-weight: bold;">Pagar a </label>
+                                    <div class="form-group">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="pagar" value="1" ng-model="poliza.persona">Apicultor</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="pagar" value="3" ng-model="poliza.persona">Proveedor</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="pagar" value="4" ng-model="poliza.persona">Personal</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <label style="font-weight: bold;">Nombre </label>
+                                    <div class="form-group">
+                                        <select chosen ng-model="poliza.nombre" class="form-control" ng-options="persona.id as persona.nombre for persona in personas"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <label style="font-weight: bold;">Cantidad </label>
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" ng-model="poliza.cantidad" ng-change="actualizarSaldoBanco(poliza.cantidad)" placeholder="Cantidad"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <label style="font-weight: bold;">Folio del cheque</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Folio del cheque" ng-model="poliza.folioCheque">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-8">
+                                    <!-- <label style="font-weight: bold;">Concepto</label> -->
+                                    <div class="form-group">
+                                        <textarea rows="2" class="form-control" placeholder="Concepto" ng-model="poliza.concepto"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div style="text-align: right">
+                                        <button type="button" class="btn btn-warning btn-sm" ng-click="verPoliza()">Hacer póliza</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+
+                        <div class="pdf-viewer" ng-if="showPDF" style="height:500px;">
+                            <object ng-attr-data="{{urlAPoliza}}" type="application/pdf" width="100%" height="100%">
+                                <p>Ir al archivo
+                                    <a ng-attr-href="{{urlAPoliza}}"> PDF </a>
+                                </p>
+                            </object>
+                            <div>
+                                <button class="btn btn-danger" ng-click="cancelarPoliza()">Cancelar</button>
+                                <button class="btn btn-success" ng-click="AceptarPoliza()">Aceptar e imprimir</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<div growl></div>
+<div class="modal fade" id="modalDeProveedor" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Altas a proveedores</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-lg-12  col-sm-12 col-md-12 col-xs-12">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="1" ng-model="altas.proveedorTipo">Apicultores
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-lg-4">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="2" ng-model="altas.proveedorTipo">Proveedores
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-lg-4">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="3" ng-model="altas.proveedorTipo">Personal
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row" ng-show="altas.proveedorTipo == 1">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Nombre:</label>
+                                <input ng-model="altas.nombre" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Id Sagarpa:</label>
+                                <input type="text" ng-model="altas.idSagarpa" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="altas.proveedorTipo == 1">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Dirección</label>
+                                <input ng-model="altas.direccionCompleta" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Teléfono </label>
+                                <input ng-model="altas.telefono" type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" ng-show="altas.proveedorTipo == 2">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Razón social o Nombre:</label>
+                                <input ng-model="altas.nombreProveedor" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Contacto:</label>
+                                <input type="text" ng-model="altas.nombreContacto" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="altas.proveedorTipo == 2">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Domicilio:</label>
+                                <input ng-model="altas.domicilio" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Teléfono </label>
+                                <input ng-model="altas.telefono" type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" ng-show="altas.proveedorTipo == 3">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Área</label>
+                                <select ng-model="altas.idArea" class="form-control" ng-options="a.idArea as a.area for a in listaAreas">
+                                    <option value="">Area</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Clave:</label>
+                                <input type="text" ng-model="altas.clave" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="altas.proveedorTipo == 3">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Nombre:</label>
+                                <input ng-model="altas.nombre" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Puesto: </label>
+                                <select ng-model="altas.idPuesto" class="form-control" ng-options="p.idPuesto as p.puesto for p in listaPuestos">
+                                    <option value="">Puesto</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarNuevoProveedorB(altas);">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalParaConceptos" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Altas a Conceptos</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Cuenta:</label>
+                                <select ng-model="nuevoConcepto.idCuentaConcepto" class="form-control" ng-options="c.idCuentaConcepto as c.cuenta for c in conceptosGrandes">
+                                    <option value="" disabled="disabled"> Cuentas </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Subcuenta:</label>
+                                <input type="text" ng-model="nuevoConcepto.subcuenta" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarNuevoConcepto(nuevoConcepto);">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalEditarMovimiento" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">EDITAR MOVIMIENTO</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input title="Presiona [ENTER] para seleccionar la fecha de hoy" type="text" class="form-control pull-right" id="datepicker"
+                                        placeholder="Fecha" ng-model="correccionBancos.fecha">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Hora del movimiento" ng-model="correccionBancos.hora">
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control derecha" ng-model="correccionBancos.cantidad" placeholder="Cantidad" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <textarea rows="2" class="form-control" ng-model="correccionBancos.descripcion" placeholder="¿Qué es?   \   ¿Para qué es?  \   "
+                                    onblur="this.value = this.value.toUpperCase()"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="col-lg-2">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="1" ng-model="correccionBancos.tipoDePersona" />Apicultores
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-lg-4" ng-if="correccionBancos.tipoDePersona == 1">
+                                <select chosen ng-model="correccionBancos.nombreDe" class="form-control" ng-options="cliente.idProveedor as cliente.nombre for cliente in clientes">
+                                    <option value="">Nombre</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="3" ng-model="correccionBancos.tipoDePersona">Proveedores
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-lg-4" ng-if="correccionBancos.tipoDePersona == 3">
+                                <select chosen ng-model="correccionBancos.nombreDe" class="form-control" ng-options="clinte.idProveedorMantto as clinte.nombreProveedor for clinte in lstTenicosP">
+                                    <option value="">Nombre</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="4" ng-model="correccionBancos.tipoDePersona">Personal
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-lg-4" ng-if="correccionBancos.tipoDePersona == 4">
+                                <select chosen ng-model="correccionBancos.nombreDe" class="form-control" ng-options="client.idPersonalOM as client.nombre for client in lstOMPersonal">
+                                    <option value="">Nombre</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="guardarEdicionMovimiento(correccionBancos);">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>

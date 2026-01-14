@@ -1,0 +1,187 @@
+<section class="content">
+    <div class="box box-solid box-warning">
+        <div class="box-header">
+            <h5 class="encabezadosTabla">
+                PERSONAL OAXACA MIEL
+                <a title="Regresar" href="#/personal" class="btn btn-success btn-xs pull-right">
+                    <i class="zmdi zmdi-arrow-left"></i>
+                </a>
+            </h5>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5> DATOS DEL EMPLEADO </h5>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"><b>Nombre (s)</b></label>
+                        <input type="text" class="form-control input-sm" ng-model="personalOaxaca.nombres">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"><b>Apellido paterno</b></label>
+                        <input type="text" class="form-control input-sm" ng-model="personalOaxaca.apellido_paterno">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"><b>Apellido materno</b></label>
+                        <input type="text" class="form-control input-sm" ng-model="personalOaxaca.apellido_materno">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"><b>Clave</b></label>
+                        <input type="text" class="form-control input-sm" ng-model="personalOaxaca.clave">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-3">
+                    <div class="form-group">
+                        <label class="control-label"><b>Correo electrónico</b></label>
+                        <input type="text" class="form-control input-sm" ng-model="personalOaxaca.correo">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <label class="control-label"><b>Área</b></label>
+                    <select chosen ng-model="selectArea" class="form-control"
+                        ng-options="a.idArea as a.area for a in listaAreas">
+                        <option disabled="disabled" value="">Selecciona una opción</option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <label class="control-label"><b>Puesto</b></label>
+                    <div class="input-group">
+                        <div style="background-color: gold" class="input-group-addon btn" ng-click="modalPuesto();"
+                            title="Nuevo puesto">
+                            <i class="zmdi zmdi-plus"></i>
+                        </div>
+                        <select chosen ng-model="selectPuesto" class="form-control"
+                            ng-options="p.idPuesto as p.puesto for p in listaPuestos">
+                            <option disabled="disabled" value="">Selecciona una opción</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5> CONTRATOS</h5>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button title="Agregar contacto(s)" class="btn btnMiel btn-sm" ng-click="nuevoPeriodo();">
+                        <i style="color: #385428" class="zmdi zmdi-plus"></i> Agregar periodo
+                    </button>
+                </div>
+                <div class="col-md-12">
+                    <div ng-repeat="periodo in periodos" class="form-group">
+                        <div class="input-group">
+                            <div class="col-md-4">
+                                <label for="">Fecha alta</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="datepicker"
+                                        ng-model="periodo.fechaUno">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="">Fecha baja</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="datepicker"
+                                        ng-model="periodo.fechaDos">
+                                </div>
+                            </div>
+                            <div class="col-md-4" ng-show="periodo.idPeriodo == 0">
+                                <span class="input-group-btn">
+                                    <p>&nbsp;</p>
+                                    <button ng-click="eliminarPeriodo($index);" class="btn btn-danger"
+                                        title="Eliminar periodo">
+                                        <i class="zmdi zmdi-delete"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <button type="submit" ng-click="guardarPersonal();"
+                            class="btn btn-warning pull-right">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div growl></div>
+<div class="modal  fade" id="modalArea" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label style="font-weight: bold;" class="col-sm-3 control-label">Area </label>
+                            <div class="col-sm-9">
+                                <input align="center" type="text" class="form-control input-xs" placeholder="Area"
+                                    ng-model="espacio" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button type="button" ng-click="guardarArea();" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal  fade" id="modalPuesto" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label style="font-weight: bold;" class="col-sm-3 control-label">Puesto </label>
+                            <div class="col-sm-9">
+                                <input align="center" type="text" class="form-control input-xs"
+                                    placeholder="Nombre del puesto" ng-model="empleo" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <br>
+                <button type="button" ng-click="guardarPuesto();" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>

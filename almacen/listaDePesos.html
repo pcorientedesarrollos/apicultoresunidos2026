@@ -1,0 +1,154 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box-tools col s4 visible-lg visible-md hidden-sm hidden-xs" style="float: right">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" ng-model="busquedaListaPesos" class="form-control input-sm pull-right"
+                        placeholder="Ingrese lo que desea buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-warning">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-tools col-sm-4 col-xs-4 visible-xs visible-sm hidden-md hidden-lg">
+                <div class="input-group" style="width: 150px;">
+                    <input type="text" ng-model="busquedaListaPesos" name="table_search"
+                        class="form-control input-sm pull-right" placeholder="Buscar">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        LISTA DE PESOS
+                        <!-- <a href="#/nvoRepPesos/0" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-plus"></i> Agregar
+                        </a> -->
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="1" ng-model="tipoDeMiel">Convencional
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="2" ng-model="tipoDeMiel">Orgánica
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="5" ng-model="tipoDeMiel">Mantequilla
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="6" ng-model="tipoDeMiel">Altiplano
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="7" ng-model="tipoDeMiel">Naranjo
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="8" ng-model="tipoDeMiel">Aguacate
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                    <input type="radio" value="9" ng-model="tipoDeMiel">Mezquite
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+          
+
+      
+                    <br>
+                    <div class="table-responsive no-padding">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Fecha</th>
+                                    <!-- <th class="bgm-blue" style="text-transform: none; font-weight: 600">Miel</th> -->
+                                    <!-- <th class="bgm-blue" style="text-transform: none; font-weight: 600">Cliente</th> -->
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Marcación final
+                                    </th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Lote</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Tambores</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">P. Bruto</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">P. Tara</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">P. Neto</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Clasificación</th>
+                                    <!-- <th class="bgm-blue" style="text-transform: none; font-weight: 600">Tratamiento</th> -->
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Editar</th>
+                                    <th class="bgm-blue" style="text-transform: none; font-weight: 600">Imprimir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="rp in menuPesos| filter:busquedaListaPesos">
+                                    <td>{{rp.fechaImpresion | date:'dd/MM/yyyy'}}</td>
+                                    <!-- <td>{{rp.tipoDeMiel}} {{rp.clasificacionMiel}}</td> -->
+                                    <!-- <td>{{rp.tipoDeMiel}}</td> -->
+                                    <td>{{rp.lote}}</td>
+                                    <td>{{rp.idLoteInterno}}</td>
+                                    <td>{{rp.cantidadTambores | number}}</td>
+                                    <td>{{rp.totalBruto | number}}</td>
+                                    <td>{{rp.totalTara | number}}</td>
+                                    <td>{{rp.totalNeto | number}}</td>
+                                    <td>{{rp.clasificacion}}</td>
+                                    <!-- <td>{{rp.mielHomogeneizada}}</td> -->
+                                    <td>
+                                        <a href="#/nvoRepPesos/{{rp.idTamborPeso}}" class="btn btn-warning btn-xs">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a ng-click="xlsListaPesos(rp.idTamborPeso, rp.mielHomogeneizada)"
+                                            class="btn btn-success btn-xs" title="Imprimir XLS">
+                                            <i class="zmdi zmdi-storage zmdi-hc-lg"></i>
+                                        </a>
+                                        <a ng-click="pdfListaPesos(rp.idTamborPeso, rp.mielHomogeneizada)"
+                                            class="btn btn-danger btn-xs" title="Imprimir PDF">
+                                            <i class="fa fa-file-pdf-o"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-warning btn-xs"
+                                            title="Mandar a imprimir etiquetas" ng-click="mandarEtiquetas(rp, null)">
+                                            <i class="zmdi zmdi-print"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div growl></div>

@@ -1,0 +1,126 @@
+body {
+  background: url(../../images/pruebafondo.png) no-repeat;
+}
+
+h4 {
+  text-align: center;
+}
+
+.linea-tiempo {
+  margin-left: 5%;
+  /* align-content: center; */
+  /* position: relative; */
+  /* margin-left: 20%; */
+  width: 800px; /*500 */
+  max-width: 100vw; /*95 */
+  height: 100%;
+  font-family: Arial;
+}
+
+.momento {
+  position: relative;
+  width: 45%;
+  box-sizing: border-box;
+}
+
+/* .momento:nth-child(even) {
+  left: 55%;
+} */
+
+/* .linea-tiempo::before {
+  content: "";
+  position: absolute;
+  width: 3px;
+  background-color: #000;
+  left: 50%;
+  height: 100%;
+  border-radius: 10px;
+} */
+
+/* .momento::after {
+  content: "";
+  position: absolute;
+  top: calc(50% + 10px);
+  right: calc(-11.11% - 11.5px);
+  height: 20px;
+  width: 20px;
+  background-color: #000;
+  border-radius: 50%;
+} */
+
+/* .momento:nth-child(even)::after {
+  left: calc(-11.11% - 8.5px);
+} */
+
+.momento h4 {
+  margin: 10px 0px;
+  /* font-size: 30px; */
+  text-align: center;
+}
+
+.momento .descripcion {
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 10px;
+  line-height: 22px;
+  font-size: 16px;
+}
+
+/* .momento .descripcion::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: calc(50% + 10px);
+  height: 0;
+  width: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 12px solid #eee;
+} */
+
+/* .momento:nth-child(even) .descripcion {
+  background-color: #3393FE; klñklñkñ
+  background-color: #eee;
+  color: white;
+} */
+
+/* .momento:nth-child(even) .descripcion::after {
+  left: -10px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 12px solid #3393FE; klkl
+  border-right: 12px solid #eee;
+  border-left: none;
+} */
+h3 {
+  color: #385428;
+  text-transform: uppercase;
+}
+.espacio {
+  width: 25%;
+}
+.derecha {
+  margin-left: 50%;
+}
+.imgRedonda {
+  width: 150px;
+  height: 200px;
+  /* border-radius: 160px; */
+  /* border-top-left-radius: 200px;
+  /* border-top-right-radius: 200px; */
+  /* border-bottom-right-radius: 160px;
+  border-bottom-left-radius: 160px; */
+  /* border-right: 160px;  */
+  /* border-left, border-top, border-bottom */
+  /* border: 2.5px solid #f4d03f; */
+}
+.badge {
+  display: inline-block;
+  min-width: 30px; /* pixel unit */
+  padding: 5px 10px; /* pixel unit */
+  border-radius: 50%;
+  font-size: 20px;
+  text-align: center;
+  background: #385428;
+  color: #fefefe;
+}

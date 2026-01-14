@@ -1,0 +1,33 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        Seleccione un área
+                    </h5>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr style="height: 35px">
+                                <th class="bgm-blue" style="text-transform: none; font-weight: 600">Area</th>
+                                <th class="bgm-blue" style="text-transform: none; font-weight: 600">Ver equipos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="mt in areasEquipos">
+                                <td>{{mt.area}}</td>
+                                <td style="align-content: center">
+                                    <a href="#/equipoPorArea/{{mt.idArea}}" class="btn btn-warning btn-xs" >
+                                        <i class="zmdi zmdi-plus"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

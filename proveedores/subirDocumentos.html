@@ -1,0 +1,761 @@
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header" style="height: 50px;">
+                    <h5 class="encabezadosTabla">
+                        DOCUMENTACION DE PROVEEDORES
+                        <a title="Regresar" href="#/docProveedores" class="btn btn-success btn-xs" style="float: right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="modal-body">
+                                    <div class="form-group form-inline"> 
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-2">
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="1" ng-model="comboDoc.idDocumento">Contrato
+                                                    <i class="input-helper"></i>    
+                                                </label> 
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="2" ng-model="comboDoc.idDocumento">INE
+                                                    <i class="input-helper"></i>    
+                                                </label> 
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="3" ng-model="comboDoc.idDocumento">Instalaciones
+                                                    <i class="input-helper"></i>    
+                                                </label> 
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="4" ng-model="comboDoc.idDocumento">Apiarios
+                                                    <i class="input-helper"></i>    
+                                                </label> 
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="5" ng-model="comboDoc.idDocumento">Carta responsiva
+                                                    <i class="input-helper"></i>    
+                                                </label> 
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                    <input type="radio" 
+                                                           value="6" ng-model="comboDoc.idDocumento">Pagaré
+                                                    <i class="input-helper"></i>    
+                                                </label> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <br>
+                                    <div class="col-lg-6 col-lg-offset-3">
+                                        <div class="panel panel-default" ng-show="comboDoc.idDocumento == 1">
+                                            <div class="panel-heading">
+                                                <center><b>Subir archivos</b></center>
+                                            </div>
+                                            <div class=" panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                            <input type="radio" 
+                                                                   value="2" ng-model="comboArchivo.formato">PDF
+                                                            <i class="input-helper"></i>    
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                            <input type="radio" 
+                                                                   value="1" ng-model="comboArchivo.formato">PNG/JPG
+                                                            <i class="input-helper"></i>    
+                                                        </label> 
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="col-lg-12">
+                                                    <div class="row">
+                                                        <div class="col-lg-3">
+                                                            <div class="form-group">
+                                                                <input
+                                                                    type="file" 
+                                                                    name="file"
+                                                                    uploader-model="file"
+                                                                    required="required"/>
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <br>
+                                                    <button style="float: right"
+                                                            value="enviar" class="btn btn-info" 
+                                                            ng-click="subirContrato()"> Guardar
+                                                    </button> 
+                                                </div>
+                                            </div>
+                                            <div class="panel-heading">
+                                                <center><b>Visualizar archivos</b></center>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                            <input type="radio" 
+                                                                   value="2" ng-model="archivos.idFormato"> PDF
+                                                            <i class="input-helper"></i>    
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                            <input type="radio" 
+                                                                   value="1" ng-model="archivos.idFormato">PNG/JPG
+                                                            <i class="input-helper"></i>    
+                                                        </label> 
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row" ng-show="archivos.idFormato == 1">
+                                                    <div class="col-sm-8 col-sm-offset-2" ng-repeat="dc in docContrato.images">
+                                                        <div class="panel-body">
+                                                            <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;" ng-src="proveedores/{{dc.archivoContrato}}"/>
+                                                            <hr>
+                                                            <button class="btn btn-info pull-right" 
+                                                                    ng-click="modalDocumento(1, dc.idContrato)" >
+                                                                <i class="zmdi zmdi-zoom-in zmdi-hc-2x"></i>
+                                                            </button>
+                                                            <button class="btn btn-danger pull-right " ng-click="eliminarDocContrato(dc.idContrato)" style="margin-right: 10px;">
+                                                                <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                                            </button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" ng-show="archivos.idFormato == 2">
+                                                    <div  ng-repeat="dc in docContrato.images">
+                                                        <div class="panel-body">
+                                                            <div class="col-sm-12">
+                                                                <div class="row">
+                                                                    <div class="col-sm-10">
+                                                                        <a  ng-href="proveedores/{{dc.archivoContrato}}" title="Ver documento" target="_blank" class="btn btn-pinterest btn-xs">
+                                                                            <center><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></center> {{dc.nombreImagen}}
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-sm-2">
+                                                                        <button class="btn btn-danger pull-right " ng-click="eliminarDocContrato(dc.idContrato)" style="margin-right: 10px;">
+                                                                            <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                                                        </button>   
+                                                                    </div>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-lg-6 col-lg-offset-3">
+                                            <div class="panel panel-default" ng-show="comboDoc.idDocumento == 2">
+                                                <div class="panel-heading">
+                                                    <center><b>Subir archivos</b></center>
+                                                </div>
+                                                <div class=" panel-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                <input type="radio" 
+                                                                       value="2" ng-model="comboArchivo.formato">PDF
+                                                                <i class="input-helper"></i>    
+                                                            </label> 
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                <input type="radio" 
+                                                                       value="1" ng-model="comboArchivo.formato">PNG/JPG
+                                                                <i class="input-helper"></i>    
+                                                            </label> 
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group">
+                                                                    <input
+                                                                        type="file" 
+                                                                        name="file"
+                                                                        uploader-model="file"
+                                                                        required="required"/>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <br>
+                                                        <button style="float: right"
+                                                                value="enviar" class="btn btn-info" 
+                                                                ng-click="subirINE()"> Guardar
+                                                        </button> 
+                                                    </div>
+                                                </div>
+                                                <div class="panel-heading">
+                                                    <center><b>Visualizar archivos</b></center>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                <input type="radio" 
+                                                                       value="2" ng-model="archivos.idFormato"> PDF
+                                                                <i class="input-helper"></i>    
+                                                            </label> 
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                <input type="radio" 
+                                                                       value="1" ng-model="archivos.idFormato">PNG/JPG
+                                                                <i class="input-helper"></i>    
+                                                            </label> 
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row" ng-show="archivos.idFormato == 1">
+                                                        <div class="col-sm-8 col-sm-offset-2" ng-repeat="doc in docINE.images">
+                                                            <div class="panel-body">
+                                                                <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;" ng-src="proveedores/{{doc.archivoINE}}"/>
+                                                                <hr>
+                                                                <button class="btn btn-info pull-right" 
+                                                                        ng-click="modalDocumento(2, doc.idIne)" >
+                                                                    <i class="zmdi zmdi-zoom-in zmdi-hc-2x"></i>
+                                                                </button>  
+                                                                <button class="btn btn-danger pull-right" ng-click="eliminarDocINE(doc.idIne)" style="margin-right: 10px;">
+                                                                    <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                                                </button>
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" ng-show="archivos.idFormato == 2">
+                                                        <div  ng-repeat="dine in docINE.images">
+                                                            <div class="panel-body">
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-10">
+                                                                            <a  ng-href="proveedores/{{dine.archivoINE}}" title="Ver documento" target="_blank" class="btn btn-pinterest btn-xs">
+                                                                                <center><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></center> {{dine.nombreINE}}
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                            <button class="btn btn-danger pull-right " ng-click="eliminarDocINE(dine.idIne)" style="margin-right: 10px;">
+                                                                                <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                                                            </button>   
+                                                                        </div>
+                                                                    </div> 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-lg-6 col-lg-offset-3">
+                                            <div class="panel panel-default" ng-show="comboDoc.idDocumento == 3">
+                                                <div class="panel-heading">
+                                                    <center><b>Subir archivos</b></center>
+                                                </div>
+                                                <div class=" panel-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                <input type="radio" 
+                                                                       value="2" ng-model="comboArchivo.formato">PDF
+                                                                <i class="input-helper"></i>    
+                                                            </label> 
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                <input type="radio" 
+                                                                       value="1" ng-model="comboArchivo.formato">PNG/JPG
+                                                                <i class="input-helper"></i>    
+                                                            </label> 
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group">
+                                                                    <input
+                                                                        type="file" 
+                                                                        name="file"
+                                                                        uploader-model="file"
+                                                                        required="required"/>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>  
+                                                    <div>
+                                                        <br>
+                                                        <button style="float: right"
+                                                                value="enviar" class="btn btn-info" 
+                                                                ng-click="subirInstalacion()"> Guardar
+                                                        </button> 
+                                                    </div>
+                                                </div>
+                                                <div class="panel-heading">
+                                                    <center><b>Visualizar archivos</b></center>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                <input type="radio" 
+                                                                       value="2" ng-model="archivos.idFormato"> PDF
+                                                                <i class="input-helper"></i>    
+                                                            </label> 
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                <input type="radio" 
+                                                                       value="1" ng-model="archivos.idFormato">PNG/JPG
+                                                                <i class="input-helper"></i>    
+                                                            </label> 
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row" ng-show="archivos.idFormato == 1">
+                                                        <div class="col-sm-8 col-sm-offset-2" ng-repeat="di in docInstalacion.images">
+                                                            <div class="panel-body">
+                                                                <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;" ng-src="proveedores/{{di.archivoInstalacion}}"/>
+                                                                <hr>
+                                                                <button class="btn btn-info pull-right" 
+                                                                        ng-click="modalDocumento(3, di.idInstalacion)" >
+                                                                    <i class="zmdi zmdi-zoom-in zmdi-hc-2x"></i>
+                                                                </button>
+                                                                <button class="btn btn-danger pull-right "  ng-click="eliminarDocInstalacion(di.idInstalacion)" style="margin-right: 10px;">
+                                                                    <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                                                </button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" ng-show="archivos.idFormato == 2">
+                                                    <div  ng-repeat="di in docInstalacion.images">
+                                                        <div class="panel-body">
+                                                            <div class="col-sm-12">
+                                                                <div class="row">
+                                                                    <div class="col-sm-10">
+                                                                        <a  ng-href="proveedores/{{di.archivoInstalacion}}" title="Ver documento" target="_blank" class="btn btn-pinterest btn-xs">
+                                                                            <center><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></center> {{di.nombreInsta}}
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-sm-2">
+                                                                        <button class="btn btn-danger pull-right " ng-click="eliminarDocInstalacion(di.idInstalacion)" style="margin-right: 10px;">
+                                                                            <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                                                        </button>   
+                                                                    </div>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-lg-6 col-lg-offset-3">
+                                            <div class="panel panel-default" ng-show="comboDoc.idDocumento == 4">
+                                                <div class="panel-heading">
+                                                    <center><b>Subir archivos</b></center>
+                                                </div>
+                                                <div class=" panel-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                <input type="radio" 
+                                                                       value="2" ng-model="comboArchivo.formato">PDF
+                                                                <i class="input-helper"></i>    
+                                                            </label> 
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                <input type="radio" 
+                                                                       value="1" ng-model="comboArchivo.formato">PNG/JPG
+                                                                <i class="input-helper"></i>    
+                                                            </label> 
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group">
+                                                                    <input
+                                                                        type="file" 
+                                                                        name="file"
+                                                                        uploader-model="file"
+                                                                        required="required"/>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <br>
+                                                        <button style="float: right"
+                                                                value="enviar" class="btn btn-info" 
+                                                                ng-click="subirApiario()"> Guardar
+                                                        </button> 
+                                                    </div>
+                                                </div>
+                                                <div class="panel-heading">
+                                                    <center><b>Visualizar archivos</b></center>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                <input type="radio" 
+                                                                       value="2" ng-model="archivos.idFormato"> PDF
+                                                                <i class="input-helper"></i>    
+                                                            </label> 
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                <input type="radio" 
+                                                                       value="1" ng-model="archivos.idFormato">PNG/JPG
+                                                                <i class="input-helper"></i>    
+                                                            </label> 
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row" ng-show="archivos.idFormato == 1">
+                                                        <div class="col-sm-8 col-sm-offset-2" ng-repeat="da in docApiario.images">
+                                                            <div class="panel-body">
+                                                                <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;" ng-src="proveedores/{{da.archivoApiario}}"/>
+                                                                <hr>
+                                                                <button class="btn btn-info pull-right" 
+                                                                        ng-click="modalDocumento(4, da.idApiario)" >
+                                                                    <i class="zmdi zmdi-zoom-in zmdi-hc-2x"></i>
+                                                                </button>
+                                                                <button class="btn btn-danger pull-right " ng-click="eliminarDocApiario(da.idApiario)" style="margin-right: 10px;">
+                                                                    <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" ng-show="archivos.idFormato == 2">
+                                                        <div  ng-repeat="da in docApiario.images">
+                                                            <div class="panel-body">
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-10">
+                                                                            <a  ng-href="proveedores/{{da.archivoApiario}}" title="Ver documento" target="_blank" class="btn btn-pinterest btn-xs">
+                                                                                <center><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></center> {{da.nombreApiario}}
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                            <button class="btn btn-danger pull-right " ng-click="eliminarDocApiario(da.idApiario)" style="margin-right: 10px;">
+                                                                                <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                                                            </button>   
+                                                                        </div>
+                                                                    </div> 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" >
+                                            <div class="col-lg-6 col-lg-offset-3">
+                                                <div class="panel panel-default" ng-show="comboDoc.idDocumento == 5">
+                                                    <div class="panel-heading">
+                                                        <center><b>Subir archivos</b></center>
+                                                    </div>
+                                                    <div class=" panel-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                    <input type="radio" 
+                                                                           value="2" ng-model="comboArchivo.formato">PDF
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                    <input type="radio" 
+                                                                           value="1" ng-model="comboArchivo.formato">PNG/JPG
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="col-lg-12">
+                                                            <div class="row">
+                                                                <div class="col-lg-3">
+                                                                    <div class="form-group">
+                                                                        <input
+                                                                            type="file" 
+                                                                            name="file"
+                                                                            uploader-model="file"
+                                                                            required="required"/>
+                                                                    </div> 
+                                                                </div>
+                                                            </div>
+                                                        </div>   
+                                                        <div>
+                                                            <br>
+                                                            <button style="float: right"
+                                                                    value="enviar" class="btn btn-info" 
+                                                                    ng-click="subirCarta()"> Guardar
+                                                            </button> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-heading">
+                                                        <center><b>Visualizar archivos</b></center>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                    <input type="radio" 
+                                                                           value="2" ng-model="archivos.idFormato"> PDF
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                                    <input type="radio" 
+                                                                           value="1" ng-model="archivos.idFormato">PNG/JPG
+                                                                    <i class="input-helper"></i>    
+                                                                </label> 
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="row" ng-show="archivos.idFormato == 1">
+                                                            <div class="col-sm-8 col-sm-offset-2" ng-repeat="car in docCarta.images">
+                                                                <div class="panel-body">
+                                                                    <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;" ng-src="proveedores/{{car.archivoCarta}}"/>
+                                                                    <hr>
+                                                                    <button class="btn btn-info pull-right" 
+                                                                            ng-click="modalDocumento(5, car.idCarta)" >
+                                                                        <i class="zmdi zmdi-zoom-in zmdi-hc-2x"></i>
+                                                                    </button>
+                                                                    <button class="btn btn-danger pull-right " ng-click="eliminarDocCarta(car.idCarta)" style="margin-right: 10px;">
+                                                                        <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                                                    </button>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" ng-show="archivos.idFormato == 2">
+                                                            <div  ng-repeat="car in docCarta.images">
+                                                                <div class="panel-body">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-10">
+                                                                                <a  ng-href="proveedores/{{car.archivoCarta}}" title="Ver documento" target="_blank" class="btn btn-pinterest btn-xs">
+                                                                                    <center><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></center> {{car.nombreCarta}}
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class="col-sm-2">
+                                                                                <button class="btn btn-danger pull-right " ng-click="eliminarDocCarta(car.idCarta)" style="margin-right: 10px;">
+                                                                                    <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                                                                </button>   
+                                                                            </div>
+                                                                        </div> 
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-lg-offset-3">
+                                        <div class="panel panel-default" ng-show="comboDoc.idDocumento == 6">
+                                            <div class="panel-heading">
+                                                <center><b>Subir archivos</b></center>
+                                            </div>
+                                            <div class=" panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                            <input type="radio" 
+                                                                   value="2" ng-model="comboArchivo.formato">PDF
+                                                            <i class="input-helper"></i>    
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                            <input type="radio" 
+                                                                   value="1" ng-model="comboArchivo.formato">PNG/JPG
+                                                            <i class="input-helper"></i>    
+                                                        </label> 
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="col-lg-12">
+                                                    <div class="row">
+                                                        <div class="col-lg-3">
+                                                            <div class="form-group">
+                                                                <input
+                                                                    type="file" 
+                                                                    name="file"
+                                                                    uploader-model="file"
+                                                                    required="required"/>
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <br>
+                                                    <button style="float: right"
+                                                            value="enviar" class="btn btn-info" 
+                                                            ng-click="subirPagare()"> Guardar
+                                                    </button> 
+                                                </div>
+                                            </div>
+                                            <div class="panel-heading">
+                                                <center><b>Visualizar archivos</b></center>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                            <input type="radio" 
+                                                                   value="2" ng-model="archivos.idFormato"> PDF
+                                                            <i class="input-helper"></i>    
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label style="margin-top: 5px" class="radio radio-inline m-r-20">
+                                                            <input type="radio" 
+                                                                   value="1" ng-model="archivos.idFormato">PNG/JPG
+                                                            <i class="input-helper"></i>    
+                                                        </label> 
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row" ng-show="archivos.idFormato == 1">
+                                                    <div class="col-sm-8 col-sm-offset-2" ng-repeat="dp in docPagare.images">
+                                                        <div class="panel-body">
+                                                            <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;" ng-src="proveedores/{{dp.archivoPagare}}"/>
+                                                            <hr>
+                                                            <button class="btn btn-info pull-right" 
+                                                                    ng-click="modalDocumento(6, dp.idPagare)" >
+                                                                <i class="zmdi zmdi-zoom-in zmdi-hc-2x"></i>
+                                                            </button>
+                                                            <button class="btn btn-danger pull-right " ng-click="eliminarDocPagare(dp.idPagare)" style="margin-right: 10px;">
+                                                                <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                                            </button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" ng-show="archivos.idFormato == 2">
+                                                    <div  ng-repeat="dp in docPagare.images">
+                                                        <div class="panel-body">
+                                                            <div class="col-sm-12">
+                                                                <div class="row">
+                                                                    <div class="col-sm-10">
+                                                                        <a  ng-href="proveedores/{{dp.archivoPagare}}" title="Ver documento" target="_blank" class="btn btn-pinterest btn-xs">
+                                                                            <center><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></center> {{dp.nombrePagare}}
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-sm-2">
+                                                                        <button class="btn btn-danger pull-right " ng-click="eliminarDocPagare(dp.idPagare)" style="margin-right: 10px;">
+                                                                            <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                                                        </button>   
+                                                                    </div>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </section>
+                    <div class="modal fade bs-example-modal-lg" id="documentos" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                        <div class="modal-dialog modal-lg" role="document">
+
+                            <div class="modal-content">
+                                <button type="button" class="close " data-dismiss="modal" aria-label="Close" style="margin-left: 96%;
+                                        position: fixed;"><span aria-hidden="true"><i class="zmdi zmdi-close-circle zmdi-hc-2x"></i></span></button>
+                                <img src="proveedores/{{nombreArchivo}}" style=" width: 100%;" class="thumbnail"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div growl>
+
+                    </div>
+                    <!--<div class="modal  fade" id="archivoContrato" tabindex="-1"
+                    
+                    
+                    
+                    role="dialog" aria-hidden="true">
+                        <div class="modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header bgm-miel">
+                                    <h4 class="modal-title" style="color: white">CARTA RESPONSIVA</h4>
+                                </div>
+                                <BR>
+                                <div class="modal-body">
+                                    <div class="col-md-12">
+                                        <h5>Subir archivo PDF o JPG/PNG</h5>
+                                        <hr>
+                                        <div class="form-group">
+                                            <input
+                                                type="file" 
+                                                name="file"
+                                                uploader-model="file"
+                                                required="required"/>
+                                        </div>    
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <br>
+                                    <button style="float: right"
+                                            value="enviar" class="btn btn-info" 
+                                            ng-click="guardarCarta()"> Guardar
+                                    </button> 
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-1" ng-repeat="img in docCarta.images">
+                                        <img class="thumbnail img-responsive" style=" width: 500px; height: 320px;" ng-src="proveedores/{{img.archivoCarta}}"/>
+                                        <button class="btn btn-danger botn" ng-click="eliminarDocCarta(img.idCarta)" >
+                                            <i class="zmdi zmdi-delete"></i>
+                                        </button><br><br>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->

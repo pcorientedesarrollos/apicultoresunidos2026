@@ -1,0 +1,143 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+            <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h5 class="encabezadosTabla">
+                        <span ng-show="!detalleUsuario.usuario.usuario">
+                            USUARIOS DEL SISTEMA OAXACA MIEL
+                        </span>
+                        <span ng-show="detalleUsuario.usuario.usuario">
+                            USUARIO: {{detalleUsuario.usuario.usuario | uppercase}}
+                        </span>
+                        <a href="#/usuariosSistema" title="Regresar" class="btn btn-success btn-xs pull-right">
+                            <i class="zmdi zmdi-arrow-left"></i>
+                        </a>
+                    </h5>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-7">
+                            <div ng-if="detalleUsuario.usuario">
+                                <p>
+                                    <b>Perfil: </b>
+                                    <a href="#/perfilesSistema/{{detalleUsuario.usuario.idPerfil}}"> {{detalleUsuario.usuario.perfil | uppercase}}</a>
+                                </p>
+                                <p>
+                                    <b>Encargado: </b>{{detalleUsuario.usuario.nombre | uppercase}}
+                                </p>
+                                <p>
+                                    <i class="fa fa-mobile"></i>
+                                    <b>Acceso a la App de inventarios: </b>
+                                    <span ng-bind="detalleUsuario.usuario.app ? 'SI' : 'NO'"></span>
+                                </p>
+                                <p>
+                                    <b>Secciones del sistema a las cuales tiene acceso: </b>{{detalleUsuario.permisos.length
+                                    | number}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-5">
+                            <button type="button" class="btn btn-warning btn-sm pull-right" title="Acciones" ng-click="modalAccionesUsuario()">
+                                <i class="fa fa-cog"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive" ng-if="detalleUsuario.permisos.length > 0">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr style="height: 35px">
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: center; font-weight: 600"></th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: left; font-weight: 600">NOMBRE DE SECCIÓN</th>
+                                    <th class="bgm-blue;" style="text-transform: none; text-align: center; font-weight: 600">VER</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="permiso in detalleUsuario.permisos">
+                                    <td style="text-align: center" ng-bind="$index+1"></td>
+                                    <td style="text-align: left" ng-bind="permiso.seccion | uppercase"></td>
+                                    <td style="text-align: center">
+                                        <button type="button" class="btn btn-warning btn-xs" ng-click="verModulosSeccion($index);" title="Ver sección">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="modalAccionesUsuario" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    USUARIO
+                    <span ng-if="usuario">"{{usuario.usuario | uppercase}}"</span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="username">Nombre de usuario</label>
+                            <input type="text" class="form-control" name="username" id="username" ng-model="usuario.usuario">
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="">Encargado</label>
+                            <select class="form-control" ng-model="usuario.idPersonalOM" ng-options="personal.id as personal.nombre for personal in personalOaxaca"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="usuario.app"> Acceso a la aplicación de inventarios.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="usuario.cambiarClave">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="password">Nueva contraseña</label>
+                            <input type="password" class="form-control" name="password" id="password" ng-model="usuario.nuevaPassword.password">
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="repeatPassword">Repetir nueva contraseña</label>
+                            <input type="password" class="form-control" name="repeatPassword" id="repeatPassword" ng-model="usuario.nuevaPassword.confirm">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button type="button" class="btn btn-defaul btn-sm" ng-click="usuario.cambiarClave = !usuario.cambiarClave">
+                            <span ng-show="usuario.cambiarClave">
+                                Mantener contraseña
+                            </span>
+                            <span ng-show="!usuario.cambiarClave">
+                                Cambiar contraseña
+                            </span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm" ng-click="darBajaUsuario();">
+                            Dar de baja usuario
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-success btn-sm" ng-click="guardarCambiosUsuario();">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div growl></div>
