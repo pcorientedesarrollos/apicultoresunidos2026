@@ -13,6 +13,7 @@ try {
         $datos = json_decode($postdata);
         $info = $datos->valor;
     }
+    date_default_timezone_set('America/Merida');
     $fecha = date("Y-m-d");
     $idProveedor = $_GET["idProveedor"];
     if(isset($_GET['miel'])){

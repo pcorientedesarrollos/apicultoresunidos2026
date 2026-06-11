@@ -18,13 +18,26 @@ try {
 
     switch ($info[0]->producto) {
         case '0':
-            $entradaysalida_tabla = 'entradaysalida';
-            break;
         case '1':
             $entradaysalida_tabla = 'entradaysalida';
             break;
         case '2':
             $entradaysalida_tabla = 'entradaysalida_organico';
+            break;
+        case '5':
+            $entradaysalida_tabla = 'entradaysalida_mantequilla';
+            break;
+        case '6':
+            $entradaysalida_tabla = 'entradaysalida_altiplano';
+            break;
+        case '7':
+            $entradaysalida_tabla = 'entradaysalida_naranjo';
+            break;
+        case '8':
+            $entradaysalida_tabla = 'entradaysalida_aguacate';
+            break;
+        case '9':
+            $entradaysalida_tabla = 'entradaysalida_mezquite';
             break;
         default:
             throw new Exception('El tipo de miel no es válido');

@@ -58,12 +58,13 @@ switch ($tipo) {
         break;
 }
 
-$query = "SELECT al.idAlmacen, al.idAlmacenEncabezado, al.zona, al.trazabilidad, 
+$query = "SELECT al.idAlmacen, al.idAlmacenEncabezado, al.zona, al.trazabilidad,
     al.pesoLista, al.bruto, al.tara, al.neto, al.diferencia, al.humedad, al.autorizado,
-    al.precio, al.costoTotal, al.aprobado, l.porcentaje
+    al.precio, al.costoTotal, al.aprobado, MAX(l.porcentaje) as porcentaje
 FROM $detalle al
 LEFT JOIN $laboratorio l ON l.idAlmacen = al.idAlmacen
 WHERE al.idAlmacenEncabezado = :id
+GROUP BY al.idAlmacen
 ORDER BY al.idAlmacen ASC;
 UNION
 SELECT cd.idAlmacen, cd.idAlmacenEncabezado, cd.zona, cd.trazabilidad, cd.pesoLista, cd.bruto, 

@@ -34,6 +34,7 @@ form.controller('certificadoCalidadCtrl', function ($scope, $http, $routeParams,
         }
         $http.post(url, tipoDeMiel).success(function (data) {
             if (data.error) {
+                $scope.cargandoDatos = false;
                 growl.error(data.message);
             } else {
                 $scope.informacionLotes = [];
@@ -43,9 +44,12 @@ form.controller('certificadoCalidadCtrl', function ($scope, $http, $routeParams,
                         // $scope.cargandoDatos = false;
                     } else {
                         if (value.tipoDeCliente == '10') {
-                            var datoNombre = value.cliente.datosCliente;
-                            var nombre = JSON.parse(datoNombre);
-                            value.cliente = nombre.nombre;
+                            if (value.cliente && value.cliente.datosCliente) {
+                                var nombre = JSON.parse(value.cliente.datosCliente);
+                                value.cliente = nombre.nombre;
+                            } else {
+                                value.cliente = '';
+                            }
                             $scope.informacionLotes.push(value);
                             // $scope.cargandoDatos = false;
                         } else if (value.tipoDeCliente == '6') {
@@ -72,8 +76,9 @@ form.controller('certificadoCalidadCtrl', function ($scope, $http, $routeParams,
             }
         })
 
-        if (window.localStorage.getItem('seleccionMes') != null) {
-            $scope.mostrarMes = window.localStorage.getItem('seleccionMes');
+        var storedMes = window.localStorage.getItem('seleccionMes');
+        if (storedMes && storedMes !== "null" && storedMes !== "") {
+            $scope.mostrarMes = storedMes;
         }
         $scope.$watch('mostrarMes', function (mesElegido) {
             window.localStorage.setItem('seleccionMes', mesElegido);

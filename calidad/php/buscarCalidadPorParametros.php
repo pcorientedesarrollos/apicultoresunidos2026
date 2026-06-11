@@ -1,281 +1,221 @@
 <?php
+/**
+ * Búsqueda de calidad por parámetros - Miel Convencional
+ * MIGRADO A PDO - Compatible con PHP 8.4
+ * Fecha migración: 2026-03-16
+ */
 
-include_once '../../DAOConeccion/coneccion.php';
-$cn = new Coneccion();
-$cn->Conectarse();
-$json = file_get_contents("php://input");
-$datos = json_decode($json);
-$info = $datos->valor;
-$contadorResultadoFinal = 1;
-$contadorC13 = 1;
-$contadorPorcentaje = 1;
-$contadorSt = 1;
-$contadorSf = 1;
-$contadorHmf = 1;
-$contadorFloracion = 1;
-$contadorLocalidad = 1;
-$longitud = 0;
-$longitudListaC13 = 0;
-$longitudListaPorcentaje = 0;
-$longitudListaSt = 0;
-$longitudListaSf = 0;
-$longitudListaHmf = 0;
-$longitudFloracion = 0;
-$longitudLocalidad = 0;
-$informacionArrglos = false;
-if (isset($info->listaResultadosFinales)) {
-    $longitud = count($info->listaResultadosFinales);
-    if (count($info->listaResultadosFinales) > 0) {
-        $sqlResulFinal = "SELECT idresultadoFinal FROM resultadofinal WHERE ";
-        foreach ($info->listaResultadosFinales as $resultados) {
+include_once '../../DAOConeccion/conePDO.php';
+
+try {
+    $pdo = new conePDO();
+    $con = $pdo->conectar();
+    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $json = file_get_contents("php://input");
+    $datos = json_decode($json);
+
+    if (!$datos || !isset($datos->valor)) {
+        throw new Exception('No se recibieron datos válidos');
+    }
+
+    $info = $datos->valor;
+
+    // Contadores y variables de control
+    $contadorResultadoFinal = 1;
+    $contadorC13 = 1;
+    $contadorPorcentaje = 1;
+    $contadorSt = 1;
+    $contadorSf = 1;
+    $contadorHmf = 1;
+    $contadorFloracion = 1;
+    $contadorLocalidad = 1;
+    $longitud = 0;
+    $longitudListaC13 = 0;
+    $longitudListaPorcentaje = 0;
+    $longitudListaSt = 0;
+    $longitudListaSf = 0;
+    $longitudListaHmf = 0;
+    $longitudFloracion = 0;
+    $longitudLocalidad = 0;
+    $informacionArrglos = false;
+
+    // Construir subconsultas para cada filtro
+    if (isset($info->listaResultadosFinales)) {
+        $longitud = count($info->listaResultadosFinales);
+        if ($longitud > 0) {
+            $placeholders = implode(',', array_fill(0, $longitud, '?'));
+            $sqlResulFinal = "SELECT idresultadoFinal FROM resultadofinal WHERE idresultadoFinal IN ($placeholders)";
             $informacionArrglos = true;
-            $sqlResulFinal.=" idresultadoFinal = '" . $resultados . "' ";
-            if ($contadorResultadoFinal < $longitud) {
-                $sqlResulFinal.=" or ";
-            }
-//        echo $proveedor;
-            $contadorResultadoFinal++;
         }
     }
-}
-if (isset($info->listaC13)) {
-    $longitudListaC13 = count($info->listaC13);
-    if (count($info->listaC13) > 0) {
-        $sqlC13 = "SELECT adulteracionDescripcion FROM laboratorio WHERE ";
-        foreach ($info->listaC13 as $c13) {
+
+    if (isset($info->listaC13)) {
+        $longitudListaC13 = count($info->listaC13);
+        if ($longitudListaC13 > 0) {
+            $placeholders = implode(',', array_fill(0, $longitudListaC13, '?'));
+            $sqlC13 = "SELECT adulteracionDescripcion FROM laboratorio WHERE adulteracionDescripcion IN ($placeholders)";
             $informacionArrglos = true;
-            $sqlC13.=" adulteracionDescripcion = '" . $c13 . "' ";
-            if ($contadorC13 < $longitudListaC13) {
-                $sqlC13.=" or ";
-            }
-            $contadorC13++;
         }
     }
-}
 
-
-if (isset($info->listaPorcentaje)) {
-    $longitudListaPorcentaje = count($info->listaPorcentaje);
-    if (count($info->listaPorcentaje) > 0) {
-        $sqlPorcentaje = "SELECT porcentaje FROM laboratorio WHERE ";
-        foreach ($info->listaPorcentaje as $porcentaje) {
-            $informacionArrglos = true;
-            if ($porcentaje == "Por rangos") {
-                $rango = $info->rangosPorcentaje;
-                $rango->rango1;
-                $rango->rango2;
-                $sqlPorcentaje.="porcentaje BETWEEN '" . $rango->rango1 . "' AND '" . $rango->rango2 . "'";
-            } else {
-                $sqlPorcentaje.=" porcentaje = '$porcentaje' ";
-                if ($contadorPorcentaje < $longitudListaPorcentaje) {
-                    $sqlPorcentaje.=" or ";
+    if (isset($info->listaPorcentaje)) {
+        $longitudListaPorcentaje = count($info->listaPorcentaje);
+        if ($longitudListaPorcentaje > 0) {
+            $conditions = [];
+            foreach ($info->listaPorcentaje as $porcentaje) {
+                if ($porcentaje == "Por rangos" && isset($info->rangosPorcentaje)) {
+                    $rango = $info->rangosPorcentaje;
+                    $conditions[] = "porcentaje BETWEEN " . $con->quote($rango->rango1) . " AND " . $con->quote($rango->rango2);
+                } else {
+                    $conditions[] = "porcentaje = " . $con->quote($porcentaje);
                 }
-                $contadorPorcentaje++;
             }
-        }
-    }
-}
-if (isset($info->listaSt)) {
-    $longitudListaSt = count($info->listaSt);
-    if (count($info->listaSt) > 0) {
-        $sqlSt = "SELECT st FROM laboratorio WHERE ";
-        foreach ($info->listaSt as $st) {
+            $sqlPorcentaje = "SELECT porcentaje FROM laboratorio WHERE " . implode(' OR ', $conditions);
             $informacionArrglos = true;
-            $sqlSt .=" stDescripcion = '" . $st . "'";
-            if ($contadorSt < $longitudListaSt) {
-                $sqlSt.=" or ";
-            }
-            $contadorSt++;
         }
     }
-}
 
-if (isset($info->listaSf)) {
-    $longitudListaSf = count($info->listaSf);
-    if (count($info->listaSf) > 0) {
-        $sqlSf = "SELECT sf FROM laboratorio WHERE ";
-        foreach ($info->listaSf as $st) {
+    if (isset($info->listaSt)) {
+        $longitudListaSt = count($info->listaSt);
+        if ($longitudListaSt > 0) {
+            $placeholders = implode(',', array_fill(0, $longitudListaSt, '?'));
+            $sqlSt = "SELECT st FROM laboratorio WHERE stDescripcion IN ($placeholders)";
             $informacionArrglos = true;
-            $sqlSf .=" sfDescripcion = '" . $st . "'";
-            if ($contadorSf < $longitudListaSf) {
-                $sqlSf.=" or ";
-            }
-            $contadorSf++;
         }
     }
-}
 
-if (isset($info->listaHmf)) {
-    $longitudListaHmf = count($info->listaHmf);
-    if (count($info->listaHmf) > 0) {
-        $sqlHmf = "SELECT hmf FROM laboratorio WHERE ";
-        foreach ($info->listaHmf as $hmf) {
+    if (isset($info->listaSf)) {
+        $longitudListaSf = count($info->listaSf);
+        if ($longitudListaSf > 0) {
+            $placeholders = implode(',', array_fill(0, $longitudListaSf, '?'));
+            $sqlSf = "SELECT sf FROM laboratorio WHERE sfDescripcion IN ($placeholders)";
             $informacionArrglos = true;
-            if ($hmf == "Por rangos") {
-                $rango = $info->rangosHmf;
-                $rango->rango1;
-                $rango->rango2;
-                $sqlHmf.="hmf BETWEEN '" . $rango->rango1 . "' AND '" . $rango->rango2 . "'";
-            } else {
-                $sqlHmf .=" hmf = '" . $hmf . "'";
-                if ($contadorHmf < $longitudListaHmf) {
-                    $sqlHmf.=" or ";
+        }
+    }
+
+    if (isset($info->listaHmf)) {
+        $longitudListaHmf = count($info->listaHmf);
+        if ($longitudListaHmf > 0) {
+            $conditions = [];
+            foreach ($info->listaHmf as $hmf) {
+                if ($hmf == "Por rangos" && isset($info->rangosHmf)) {
+                    $rango = $info->rangosHmf;
+                    $conditions[] = "hmf BETWEEN " . $con->quote($rango->rango1) . " AND " . $con->quote($rango->rango2);
+                } else {
+                    $conditions[] = "hmf = " . $con->quote($hmf);
                 }
-                $contadorHmf++;
             }
-        }
-    }
-}
-
-if (isset($info->listaFloracion)) {
-    $longitudFloracion = count($info->listaFloracion);
-    if (count($info->listaFloracion) > 0) {
-        $sqlFloracion = "SELECT fl.idFloracion FROM floraciones WHERE ";
-        foreach ($info->listaFloracion as $floraciones) {
+            $sqlHmf = "SELECT hmf FROM laboratorio WHERE " . implode(' OR ', $conditions);
             $informacionArrglos = true;
-            $sqlFloracion.=" fl.idFloracion = '" . $floraciones . "' ";
-            if ($contadorFloracion < $longitudFloracion) {
-                $sqlFloracion.=" or ";
-            }
-            $contadorFloracion++;
         }
     }
-}
 
-if (isset($info->listaLocalidad)) {
-    $longitudLocalidad = count($info->listaLocalidad);
-    if (count($info->listaLocalidad) > 0) {
-        $sqlLocalidad = "SELECT l.idlocalidad FROM localidades WHERE ";
-        foreach ($info->listaLocalidad as $localidades) {
+    if (isset($info->listaFloracion)) {
+        $longitudFloracion = count($info->listaFloracion);
+        if ($longitudFloracion > 0) {
+            $placeholders = implode(',', array_fill(0, $longitudFloracion, '?'));
+            $sqlFloracion = "SELECT fl.idFloracion FROM floraciones WHERE fl.idFloracion IN ($placeholders)";
             $informacionArrglos = true;
-            $sqlLocalidad.=" l.idlocalidad = '" . $localidades . "' ";
-            if ($contadorLocalidad < $longitudLocalidad) {
-                $sqlLocalidad.=" or ";
-            }
-            $contadorLocalidad++;
         }
     }
-}
 
-$sql = "SELECT ale.fecha, al.idAlmacen, al.estado, pr.nombre, pr.idSagarpa, l.localidad, al.bruto, al.tara,
-                al.neto, lab.porcentaje, lab.st, lab.porcentajeDescripcion, lab.sfDescripcion,
-                lab.stDescripcion, lab.adulteracionDescripcion, lab.hmf, lab.procesoDescripcion, lab.resultadoFinal,
-                rs.resultado, rs.idResultadoFinal, fl.idFloracion, fl.floracion
-    FROM        almacen al
-    INNER JOIN  laboratorio lab ON lab.idAlmacen = al.idAlmacen
-    LEFT JOIN   almacenencabezado ale ON  ale.idAlmacen = al.idalmacenEncabezado
-    LEFT JOIN   resultadofinal rs ON rs.idresultadoFinal = lab.resultadoFinal
-    LEFT JOIN   proveedor pr ON pr.idProveedor = ale.idProveedor
-    LEFT JOIN   direccion dir ON dir.idDireccion = pr.idDireccion
-    LEFT JOIN   localidades l ON l.idlocalidad = dir.idlocalidad
-LEFT JOIN floraciones fl ON fl.idFloracion = lab.idFloracion
-    WHERE ";
-if ($longitud > 0) {
-    $sql.="rs.idresultadoFinal in (" . $sqlResulFinal . ")";
-}
-if ($longitud > 0) {
-    $sql.=" and";
-}
+    if (isset($info->listaLocalidad)) {
+        $longitudLocalidad = count($info->listaLocalidad);
+        if ($longitudLocalidad > 0) {
+            $placeholders = implode(',', array_fill(0, $longitudLocalidad, '?'));
+            $sqlLocalidad = "SELECT l.idlocalidad FROM localidades WHERE l.idlocalidad IN ($placeholders)";
+            $informacionArrglos = true;
+        }
+    }
 
-if ($longitudListaPorcentaje > 0) {
-    $sql.=" porcentaje in (" . $sqlPorcentaje . ")";
-}
-if ($longitud > 0 && $longitudListaPorcentaje > 0 || $longitudListaPorcentaje > 0) {
-    $sql .=" and";
-}
-if ($longitudListaSt > 0) {
-    $sql .=" st in (" . $sqlSt . ")";
-}
-if ($longitud > 0 && $longitudListaPorcentaje > 0 && $longitudListaSt > 0 || $longitudListaSt > 0) {
-    $sql .=" and";
-}
-if ($longitudListaSf > 0) {
-    $sql .=" sf in (" . $sqlSf . ")";
-}
-if ($longitud > 0 && $longitudListaPorcentaje > 0 && $longitudListaSt > 0 && $longitudListaSf > 0 || $longitudListaSf > 0) {
-    $sql .=" and";
-}
-if ($longitudListaC13 > 0) {
-    $sql.=" adulteracionDescripcion in (" . $sqlC13 . ")";
-}
-if ($longitud > 0 && $longitudListaPorcentaje > 0 && $longitudListaSt > 0 && $longitudListaSf > 0 && $longitudListaC13 > 0 || $longitudListaC13 > 0) {
-    $sql .=" and";
-}
-if ($longitudListaHmf > 0) {
-    $sql.=" hmf in (" . $sqlHmf . ")";
-}
-if ($longitud > 0 && $longitudListaPorcentaje > 0 && $longitudListaSt > 0 && $longitudListaSf > 0 && $longitudListaC13 > 0 && $longitudListaHmf > 0 || $longitudListaHmf > 0) {
-    $sql .=" and";
-}
-if ($longitudFloracion > 0) {
-    $sql.=" fl.idFloracion in (" . $sqlFloracion . ")";
-}
-if ($longitud > 0 && $longitudListaPorcentaje > 0 && $longitudListaSt > 0 && $longitudListaSf > 0 && $longitudListaC13 > 0 && $longitudListaHmf > 0 && $longitudFloracion > 0 || $longitudFloracion > 0) {
-    $sql .=" and";
-}
-if ($longitudLocalidad > 0) {
-    $sql.=" l.idlocalidad in (" . $sqlLocalidad . ")";
-}
-$valorCadena = substr($sql, -3);
-if ($valorCadena == "and") {
-//    541
-    $longitud = strlen($sql) - 3;
-    $sql = substr($sql, 0, $longitud);
+    // Construir consulta principal
+    $sql = "SELECT ale.fecha, al.idAlmacen, al.estado, pr.nombre, pr.idSagarpa, l.localidad, al.bruto, al.tara,
+                    al.neto, lab.porcentaje, lab.st, lab.porcentajeDescripcion, lab.sfDescripcion,
+                    lab.stDescripcion, lab.adulteracionDescripcion, lab.hmf, lab.procesoDescripcion, lab.resultadoFinal,
+                    rs.resultado, rs.idResultadoFinal, fl.idFloracion, fl.floracion
+        FROM        almacen al
+        INNER JOIN  laboratorio lab ON lab.idAlmacen = al.idAlmacen
+        LEFT JOIN   almacenencabezado ale ON  ale.idAlmacen = al.idalmacenEncabezado
+        LEFT JOIN   resultadofinal rs ON rs.idresultadoFinal = lab.resultadoFinal
+        LEFT JOIN   proveedor pr ON pr.idProveedor = ale.idProveedor
+        LEFT JOIN   direccion dir ON dir.idDireccion = pr.idDireccion
+        LEFT JOIN   localidades l ON l.idlocalidad = dir.idlocalidad
+        LEFT JOIN   floraciones fl ON fl.idFloracion = lab.idFloracion
+        WHERE ";
 
-    $nuevaLongitud = strlen($sql);
-}
-$valorCadena = substr($sql, -6);
-if ($valorCadena == "WHERE ") {
-//    541
-    $longitud = strlen($sql) - 6;
-    $sql = substr($sql, 0, $longitud);
+    $conditions = [];
 
-    $nuevaLongitud = strlen($sql);
-}
-if ($informacionArrglos == true) {
-    $sql .=" and al.estado = 0";
-} else {
-    $sql.=" WHERE al.estado = 0";
-}
+    if ($longitud > 0 && isset($sqlResulFinal)) {
+        $conditions[] = "rs.idresultadoFinal IN ($sqlResulFinal)";
+    }
+    if ($longitudListaPorcentaje > 0 && isset($sqlPorcentaje)) {
+        $conditions[] = "lab.porcentaje IN ($sqlPorcentaje)";
+    }
+    if ($longitudListaSt > 0 && isset($sqlSt)) {
+        $conditions[] = "lab.st IN ($sqlSt)";
+    }
+    if ($longitudListaSf > 0 && isset($sqlSf)) {
+        $conditions[] = "lab.sf IN ($sqlSf)";
+    }
+    if ($longitudListaC13 > 0 && isset($sqlC13)) {
+        $conditions[] = "lab.adulteracionDescripcion IN ($sqlC13)";
+    }
+    if ($longitudListaHmf > 0 && isset($sqlHmf)) {
+        $conditions[] = "lab.hmf IN ($sqlHmf)";
+    }
+    if ($longitudFloracion > 0 && isset($sqlFloracion)) {
+        $conditions[] = "fl.idFloracion IN ($sqlFloracion)";
+    }
+    if ($longitudLocalidad > 0 && isset($sqlLocalidad)) {
+        $conditions[] = "l.idlocalidad IN ($sqlLocalidad)";
+    }
 
-//echo $sql;
-$datosBusqueda = mysql_query($sql);
-if ($datosBusqueda == false) {
-//    echo mysql_error();
-    echo $sql;
-} else {
-    $array = array();
-    $neto = 0;
-    while ($rs = mysql_fetch_array($datosBusqueda)) {
-        // if ($neto / 1000 > 22.5) {
-        //     break;
-        // } else {
+    if (count($conditions) > 0) {
+        $sql .= implode(' AND ', $conditions) . " AND al.estado = 0";
+    } else {
+        $sql .= "al.estado = 0";
+    }
+
+    // Ejecutar consulta con PDO
+    $stmt = $con->prepare($sql);
+    $stmt->execute();
+    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($resultados) == 0) {
+        echo "0";
+    } else {
+        $array = [];
+        $neto = 0;
+
+        foreach ($resultados as $rs) {
             $neto += $rs["neto"];
             $calidad = new stdClass();
             $calidad->fecha = $rs["fecha"];
             $calidad->idAlmacen = $rs["idAlmacen"];
-            $calidad->proveedor = utf8_encode($rs["nombre"]);
+            $calidad->proveedor = $rs["nombre"]; // Ya no necesita utf8_encode con PDO charset=utf8mb4
             $calidad->idSagarpa = $rs["idSagarpa"];
-            $calidad->localidad = utf8_encode($rs["localidad"]);
+            $calidad->localidad = $rs["localidad"];
             $calidad->bruto = $rs["bruto"];
             $calidad->tara = $rs["tara"];
             $calidad->neto = $rs["neto"];
             $calidad->porcentaje = $rs["porcentaje"];
             $calidad->sf = $rs["sfDescripcion"];
             $calidad->st = $rs["stDescripcion"];
-            $calidad->adulteracionDescripcion = utf8_encode($rs["adulteracionDescripcion"]);
+            $calidad->adulteracionDescripcion = $rs["adulteracionDescripcion"];
             $calidad->hmf = $rs["hmf"];
-            $calidad->resultado = utf8_encode($rs["resultado"]);
+            $calidad->resultado = $rs["resultado"];
             $calidad->idResultadoFinal = $rs["idResultadoFinal"];
             $calidad->idFloracion = $rs["idFloracion"];
-            $calidad->floracion = utf8_encode($rs["floracion"]);
+            $calidad->floracion = $rs["floracion"];
             $array[] = $calidad;
-        // }
-    }
+        }
 
-    if (count($array) == 0) {
-        echo 0;
-    } else {
         echo json_encode($array);
     }
+
+} catch (Exception $e) {
+    // En caso de error, devolver mensaje de error en formato JSON
+    http_response_code(500);
+    echo json_encode(['error' => true, 'message' => $e->getMessage()]);
 }
