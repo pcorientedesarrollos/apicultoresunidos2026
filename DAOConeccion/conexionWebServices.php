@@ -23,11 +23,11 @@ class conePDO
 			// $username = 'root';
 			// $password = '';
 			//DREAMHOST
-			// $dsn = 'mysql:host=aup.apicultoresunidos.com;dbname=' . $baseDeDatos;
+			// $dsn = 'mysql:host=mysql.apicultoresunidos.com;dbname=' . $baseDeDatos;
 			// $username = 'apicultores';
 			// $password = 'oaxacaMiel65';
-			// AMAZON
-			$dsn = 'mysql:host=dbpcoriente.ct5sef54k5xo.us-east-2.rds.amazonaws.com;dbname=' . $baseDeDatos;
+			// AMAZON - IP directa (bypass DNS DreamHost 2026-06-11)
+			$dsn = 'mysql:host=3.13.152.128;dbname=' . $baseDeDatos;
 			$username = 'root';
 			$password = 'Oriente65';
 			//PRUEBAS DREAMHOST
