@@ -10,23 +10,27 @@ function main($mes, $fecha)
 {
     global $con;
 
-    $dato = $con->prepare("SELECT idCajaChica FROM cajachica WHERE idMes = :idMes ORDER BY idCajaChica");
-    $dato->bindParam(':idMes', $mes);
-    $dato->execute();
-    
-    if ($dato->rowCount() >= 1) {
-        $respuesta = 1;
-    } else {
-        $dato = $con->prepare("SELECT idMes FROM cajachica WHERE idMes < :idMes ORDER BY idCajaChica");
+    try {
+        $dato = $con->prepare("SELECT idCajaChica FROM cajachica WHERE idMes = :idMes ORDER BY idCajaChica");
         $dato->bindParam(':idMes', $mes);
         $dato->execute();
-        if ($dato->rowCount() == 0) {
-            $respuesta = 0;
+
+        if ($dato->rowCount() >= 1) {
+            $respuesta = 1;
         } else {
-            $respuesta = 2;
+            $dato = $con->prepare("SELECT idMes FROM cajachica WHERE idMes < :idMes ORDER BY idCajaChica");
+            $dato->bindParam(':idMes', $mes);
+            $dato->execute();
+            if ($dato->rowCount() == 0) {
+                $respuesta = 0;
+            } else {
+                $respuesta = 2;
+            }
         }
+        echo json_encode($respuesta);
+    } catch (PDOException $e) {
+        echo json_encode('error');
     }
-    echo json_encode($respuesta);
 }
 
 if (isset($_GET['mes'])) {

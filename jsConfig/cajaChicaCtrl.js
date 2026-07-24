@@ -21,6 +21,7 @@ form.controller('cajaChicaCtrl', ['$scope', '$http', '$routeParams', 'growl', '$
     $scope.totalEnCuenta = 0;
     $scope.respaldoSaldoCaja = 0;
     $scope.saldo = 0;
+    $scope.saldoCargado = false;
     $scope.totalIngresos = 0;
     $scope.totalEgresos = 0;
     $scope.optImprimirReporteMensual = {};
@@ -193,6 +194,9 @@ form.controller('cajaChicaCtrl', ['$scope', '$http', '$routeParams', 'growl', '$
         });
         $http.get('controlAdministrativo/php/ultimoSaldoCajaChica.php').success(function (data) {
             $scope.saldo = data.elUltimoSaldo;
+            $scope.saldoCargado = true;
+        }).error(function () {
+            growl.error('No se pudo obtener el saldo de caja chica');
         });
 
         // Función para cerrar la caja chica, y pasar el saldo al siguiente mes
@@ -260,6 +264,20 @@ form.controller('cajaChicaCtrl', ['$scope', '$http', '$routeParams', 'growl', '$
         //     $scope.catalogoTablaClientes = data.data;
         // });
 
+        function traerUltimoSaldo(_mes) {
+            $http.post('controlAdministrativo/php/ultimoSaldoCajaChica.php', _mes).success(function (data) {
+                if (data && data.error) {
+                    growl.error(data.message || 'No se pudo obtener el saldo de caja chica');
+                    return;
+                }
+                $scope.respaldoSaldoCaja = data.elUltimoSaldo;
+                $scope.saldo = data.elUltimoSaldo;
+                $scope.saldoCargado = true;
+            }).error(function () {
+                growl.error('No se pudo obtener el saldo de caja chica');
+            });
+        }
+
         function calcularSaldo(_mes, _fecha) {
 
             $http.post('controlAdministrativo/php/verificarSaldoInicialCajaChica.php?mes=' + _mes, { fecha: _fecha }).success(function (data) {
@@ -282,24 +300,23 @@ form.controller('cajaChicaCtrl', ['$scope', '$http', '$routeParams', 'growl', '$
                                 }
                                 $http.post('controlAdministrativo/php/iniciarCajaChica.php', { saldo: inputValue, fecha: _fecha, mes: _mes }).success(function (data) {
                                     swal("", data.message, data.swal);
-                                    $http.post('controlAdministrativo/php/ultimoSaldoCajaChica.php', _mes).success(function (data) {
-                                        $scope.respaldoSaldoCaja = data.elUltimoSaldo;
-                                        $scope.saldo = data.elUltimoSaldo;
-                                    });
+                                    traerUltimoSaldo(_mes);
                                 });
                             });
                         break;
                     case '1':
-                        $http.post('controlAdministrativo/php/ultimoSaldoCajaChica.php', _mes).success(function (data) {
-                            $scope.saldo = data.elUltimoSaldo;
-                            $scope.respaldoSaldoCaja = data.elUltimoSaldo;
-                        });
+                        traerUltimoSaldo(_mes);
                         break;
                     case '2':
                         window.location.href = '#/cajaChica';
                         swal('', 'Cierra el mes anterior para hacer los movimientos');
                         break;
+                    default:
+                        growl.error('No se pudo verificar el saldo de caja chica');
+                        break;
                 }
+            }).error(function () {
+                growl.error('No se pudo verificar el saldo de caja chica');
             });
 
         };
@@ -379,7 +396,7 @@ form.controller('cajaChicaCtrl', ['$scope', '$http', '$routeParams', 'growl', '$
 
     $scope.prevCajaChica = function (cantidad) {
 
-        if (parseFloat(cantidad) > parseFloat($scope.respaldoSaldoCaja)) {
+        if ($scope.saldoCargado && parseFloat(cantidad) > parseFloat($scope.respaldoSaldoCaja)) {
             $scope.cajaChica.cantidad = parseFloat($scope.respaldoSaldoCaja);
             cantidad = parseFloat($scope.respaldoSaldoCaja);
         }

@@ -44,8 +44,10 @@ try {
         $mes = $_GET['mes'];
     }
 
-    $sql = "SELECT *, count(alm.idAlmacen) registros, sum(alm.neto) kgs, SUM(alm.diferencia) AS totalKgDiferencia
-    FROM $almacenencabezado_tabla al 
+    $sql = "SELECT *, count(alm.idAlmacen) registros, sum(alm.neto) kgs, SUM(alm.diferencia) AS totalKgDiferencia,
+    SUM(CASE WHEN alm.autorizado = 1 THEN 1 ELSE 0 END) AS datosAutorizados,
+    SUM(CASE WHEN alm.aprobado = 1 THEN 1 ELSE 0 END) AS tamboAprobado
+    FROM $almacenencabezado_tabla al
     LEFT JOIN proveedor pr ON pr.idProveedor = al.idProveedor
     LEFT JOIN $almacen_tabla alm ON al.idAlmacen = alm.idAlmacenEncabezado
     LEFT JOIN direccion dr ON pr.idDireccion = dr.idDireccion
@@ -91,30 +93,8 @@ try {
         $almacen->localidad = $rs["localidad"];
         $almacen->kgs = $rs['kgs'];
         $almacen->totalKgDiferencia = $rs['totalKgDiferencia'];
-
-        $slq = "SELECT count(autorizado) FROM $almacen_tabla 
-            WHERE autorizado = 1 and idAlmacenEncabezado = :idAlmacenEncabezado";
-        $datosAutorizados = $con->prepare($slq);
-        $datosAutorizados->bindParam(':idAlmacenEncabezado', $rs[0]);
-        $datosAutorizados->execute();
-        if ($datosAutorizados == false) {
-            throw new Exception($con->errorInfo());
-        }
-        while ($rsAutorizado = $datosAutorizados->fetch()) {
-            $almacen->datosAutorizados = $rsAutorizado[0];
-        }
-
-        $slqAprobados = "SELECT count(aprobado) FROM $almacen_tabla 
-            WHERE aprobado = 1 and idAlmacenEncabezado = :idAlmacenEncabezado";
-        $tamboAprobado = $con->prepare($slqAprobados);
-        $tamboAprobado->bindParam(':idAlmacenEncabezado', $rs[0]);
-        $tamboAprobado->execute();
-        if ($tamboAprobado == false) {
-            throw new Exception($con->errorInfo());
-        }
-        while ($rsAutorizado = $tamboAprobado->fetch()) {
-            $almacen->tamboAprobado = $rsAutorizado[0];
-        }
+        $almacen->datosAutorizados = $rs['datosAutorizados'];
+        $almacen->tamboAprobado = $rs['tamboAprobado'];
 
         if ($almacen->registros == $almacen->tamboAprobado) {
             $almacen->estado = '1';

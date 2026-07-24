@@ -7,22 +7,27 @@ $con = $pdo->conectar();
 function main($idMes)
 {
     global $con;
-    
-    $seleccionarMovimientosMensual = $con->prepare("SELECT tipo, total FROM cajachica WHERE idMEs = :idMes");
-    $seleccionarMovimientosMensual->bindParam(':idMes', $idMes);
-    $seleccionarMovimientosMensual->execute();
 
-    $saldoDelMes = 0;
-    $saldoMes = new stdClass();
+    try {
+        $seleccionarMovimientosMensual = $con->prepare("SELECT tipo, total FROM cajachica WHERE idMEs = :idMes");
+        $seleccionarMovimientosMensual->bindParam(':idMes', $idMes);
+        $seleccionarMovimientosMensual->execute();
 
-    foreach ($seleccionarMovimientosMensual->fetchAll(PDO::FETCH_ASSOC) as $movimientoDelMes) {
-        $saldoDelMes = $movimientoDelMes['tipo'] == 0
-        ?$saldoDelMes += $movimientoDelMes['total']
-        :$saldoDelMes -= $movimientoDelMes['total'];
+        $saldoDelMes = 0;
+        $saldoMes = new stdClass();
+
+        foreach ($seleccionarMovimientosMensual->fetchAll(PDO::FETCH_ASSOC) as $movimientoDelMes) {
+            $saldoDelMes = $movimientoDelMes['tipo'] == 0
+            ?$saldoDelMes += $movimientoDelMes['total']
+            :$saldoDelMes -= $movimientoDelMes['total'];
+        }
+
+        $saldoMes->elUltimoSaldo = $saldoDelMes;
+        echo json_encode($saldoMes);
+    } catch (PDOException $e) {
+        http_response_code(200);
+        echo json_encode(['error' => true, 'message' => 'No se pudo obtener el saldo de caja chica']);
     }
-
-    $saldoMes->elUltimoSaldo = $saldoDelMes;
-    echo json_encode($saldoMes);
 }
 
 $post = file_get_contents('php://input');

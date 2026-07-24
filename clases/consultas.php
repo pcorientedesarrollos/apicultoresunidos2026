@@ -222,11 +222,12 @@ class consultas
             }
         } else {
             if ($tmp == 1) {
-                $query = "SELECT al.idAlmacen, al.idAlmacenEncabezado, al.zona, al.pesoLista, al.bruto, 
-                al.tara, al.neto, al.diferencia, al.autorizado, al.precio, al.costoTotal, l.porcentaje AS humedad
+                $query = "SELECT al.idAlmacen, al.idAlmacenEncabezado, al.zona, al.pesoLista, al.bruto,
+                al.tara, al.neto, al.diferencia, al.autorizado, al.precio, al.costoTotal, MAX(l.porcentaje) AS humedad
                 FROM almacen al
                 LEFT JOIN laboratorio l ON l.idAlmacen = al.idAlmacen
                 WHERE al.idAlmacenEncabezado = '$id'
+                GROUP BY al.idAlmacen
                 ORDER BY al.idAlmacen ASC;
                                UNION
                                SELECT cd.idAlmacen, cd.idAlmacenEncabezado, cd.zona, cd.pesoLista, cd.bruto,
@@ -237,10 +238,11 @@ class consultas
             } else if ($tmp == 5) {
                 $query = "SELECT al.idAlmacen, al.idAlmacenEncabezado, al.zona,
                 al.pesoLista, al.bruto, al.tara, al.neto, al.diferencia, al.autorizado,
-                al.precio, al.costoTotal, l.porcentaje AS humedad
+                al.precio, al.costoTotal, MAX(l.porcentaje) AS humedad
                FROM almacen_mantequilla al
                LEFT JOIN laboratorio_mantequilla l ON l.idAlmacen = al.idAlmacen
                WHERE al.idAlmacenEncabezado = '$id'
+               GROUP BY al.idAlmacen
                ORDER BY al.idAlmacen ASC;
                UNION
                SELECT cd.idAlmacen, cd.idAlmacenEncabezado, cd.zona, cd.pesoLista, cd.bruto,
@@ -251,10 +253,11 @@ class consultas
             } else if ($tmp == 6) {
                 $query = "SELECT al.idAlmacen, al.idAlmacenEncabezado, al.zona,
                 al.pesoLista, al.bruto, al.tara, al.neto, al.diferencia, al.autorizado,
-                al.precio, al.costoTotal, l.porcentaje AS humedad
+                al.precio, al.costoTotal, MAX(l.porcentaje) AS humedad
                FROM almacen_altiplano al
                LEFT JOIN laboratorio_altiplano l ON l.idAlmacen = al.idAlmacen
                WHERE al.idAlmacenEncabezado = '$id'
+               GROUP BY al.idAlmacen
                ORDER BY al.idAlmacen ASC;
                UNION
                SELECT cd.idAlmacen, cd.idAlmacenEncabezado, cd.zona, cd.pesoLista, cd.bruto,
@@ -265,10 +268,11 @@ class consultas
             }  else if ($tmp == 7) {
                 $query = "SELECT al.idAlmacen, al.idAlmacenEncabezado, al.zona,
                 al.pesoLista, al.bruto, al.tara, al.neto, al.diferencia, al.autorizado,
-                al.precio, al.costoTotal, l.porcentaje AS humedad
+                al.precio, al.costoTotal, MAX(l.porcentaje) AS humedad
                FROM almacen_naranjo al
                LEFT JOIN laboratorio_naranjo l ON l.idAlmacen = al.idAlmacen
                WHERE al.idAlmacenEncabezado = '$id'
+               GROUP BY al.idAlmacen
                ORDER BY al.idAlmacen ASC;
                UNION
                SELECT cd.idAlmacen, cd.idAlmacenEncabezado, cd.zona, cd.pesoLista, cd.bruto,
@@ -280,10 +284,11 @@ class consultas
             else if ($tmp == 8) {
                 $query = "SELECT al.idAlmacen, al.idAlmacenEncabezado, al.zona,
                 al.pesoLista, al.bruto, al.tara, al.neto, al.diferencia, al.autorizado,
-                al.precio, al.costoTotal, l.porcentaje AS humedad
+                al.precio, al.costoTotal, MAX(l.porcentaje) AS humedad
                FROM almacen_aguacate al
                LEFT JOIN laboratorio_aguacate l ON l.idAlmacen = al.idAlmacen
                WHERE al.idAlmacenEncabezado = '$id'
+               GROUP BY al.idAlmacen
                ORDER BY al.idAlmacen ASC;
                UNION
                SELECT cd.idAlmacen, cd.idAlmacenEncabezado, cd.zona, cd.pesoLista, cd.bruto,
@@ -295,10 +300,11 @@ class consultas
             else if ($tmp == 9) {
                 $query = "SELECT al.idAlmacen, al.idAlmacenEncabezado, al.zona,
                 al.pesoLista, al.bruto, al.tara, al.neto, al.diferencia, al.autorizado,
-                al.precio, al.costoTotal, l.porcentaje AS humedad
+                al.precio, al.costoTotal, MAX(l.porcentaje) AS humedad
                FROM almacen_mezquite al
                LEFT JOIN laboratorio_mezquite l ON l.idAlmacen = al.idAlmacen
                WHERE al.idAlmacenEncabezado = '$id'
+               GROUP BY al.idAlmacen
                ORDER BY al.idAlmacen ASC;
                UNION
                SELECT cd.idAlmacen, cd.idAlmacenEncabezado, cd.zona, cd.pesoLista, cd.bruto,
@@ -310,10 +316,11 @@ class consultas
             else {
                 $query = "SELECT al.idAlmacen, al.idAlmacenEncabezado, al.zona,
                 al.pesoLista, al.bruto, al.tara, al.neto, al.diferencia, al.autorizado,
-                al.precio, al.costoTotal, l.porcentaje AS humedad
+                al.precio, al.costoTotal, MAX(l.porcentaje) AS humedad
                FROM almacen_organico al
                LEFT JOIN laboratorio_organico l ON l.idAlmacen = al.idAlmacen
                WHERE al.idAlmacenEncabezado = '$id'
+               GROUP BY al.idAlmacen
                ORDER BY al.idAlmacen ASC;
                UNION
                SELECT cd.idAlmacen, cd.idAlmacenEncabezado, cd.zona, cd.pesoLista, cd.bruto,
