@@ -25,6 +25,7 @@ function main($idMes)
         $saldoMes->elUltimoSaldo = $saldoDelMes;
         echo json_encode($saldoMes);
     } catch (PDOException $e) {
+        error_log('ultimoSaldoCajaChica.php - idMes=' . $idMes . ' database=' . ($_SESSION['database'] ?? '(sin sesion)') . ' - ' . $e->getMessage());
         http_response_code(200);
         echo json_encode(['error' => true, 'message' => 'No se pudo obtener el saldo de caja chica']);
     }

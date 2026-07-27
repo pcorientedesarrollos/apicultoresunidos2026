@@ -29,6 +29,7 @@ function main($mes, $fecha)
         }
         echo json_encode($respuesta);
     } catch (PDOException $e) {
+        error_log('verificarSaldoInicialCajaChica.php - mes=' . $mes . ' database=' . ($_SESSION['database'] ?? '(sin sesion)') . ' - ' . $e->getMessage());
         echo json_encode('error');
     }
 }
