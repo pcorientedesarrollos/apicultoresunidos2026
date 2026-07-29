@@ -1,6 +1,23 @@
 <?php
 
 #Manejar las sessiones de los usiarios
+
+// IMPORTANTE: Configurar cookies de sesión ANTES de session_start()
+// Debe coincidir con la configuración de index.php y validarLogin.php
+if (session_status() == PHP_SESSION_NONE) {
+    $esHttps = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+
+    ini_set('session.cookie_secure', $esHttps ? 1 : 0);
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.cookie_samesite', 'Lax');
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'secure' => $esHttps,
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+}
 session_start();
 if (isset($_GET['opcion'])) {
     $opcion = $_GET['opcion'];

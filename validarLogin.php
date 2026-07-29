@@ -1,17 +1,23 @@
 <?php
-// Configurar ANTES de iniciar sesión
-ini_set('session.cookie_secure', 1);
-ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_samesite', 'Strict');
-session_set_cookie_params([
-    'lifetime' => 0,
-    'path' => '/',
-    'domain' => '.apicultoresunidos.com',
-    'secure' => true,
-    'httponly' => true,
-    'samesite' => 'Strict'
-]);
-session_start();
+
+
+if (session_status() == PHP_SESSION_NONE) {
+    // Solo configura e inicia si no hay sesión activa
+    $esHttps = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+
+    ini_set('session.cookie_secure', $esHttps ? 1 : 0);
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.cookie_samesite', 'Lax');
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'secure' => $esHttps,
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+    session_start();
+}
+
 
 include_once './DAOConeccion/conePDO.php';
 $pdo = new conePDO();
@@ -57,8 +63,6 @@ try {
         throw new Exception('Usuario no encontrado');
     }
 
-    // HASTA ESTE PUNTO: USUARIO VALIDO
-    // LOCALIZAR Y VALIDAR EMPRESA
     $acceso = $res;
     switch ($acceso['idEmpresa']) {
         case '1':
@@ -71,13 +75,7 @@ try {
             $acceso['portada'] = "images/portada_om.jpg";
             break;
     }
-    // if ($acceso["idPerfil"] == 9) {
-    //     $acceso['portada'] = "images/adminis.jpg";
-    // } else {
-    //     $acceso['portada'] = "images/portadaom.jpg";
-    // }
-
-    // Comprobar y validar base de datos
+   
 
     $sqlEmpresa = $con->prepare("SELECT e.idEmpresa, e.nombre, be.nombre as nombreBase, be.idBase, be.anio FROM empresas e
     LEFT JOIN basesempresa be on e.idEmpresa = be.IdEmpresa
@@ -95,10 +93,7 @@ try {
 
     $resultadoEmpresa = $sqlEmpresa->fetch(PDO::FETCH_ASSOC);
 
-    // if($resultadoEmpresa) {
-    //     $_SESSION['idBase'] = $resultadoEmpresa['idBase'];
-    //     error_log("idBase guardado en sesión: " . $_SESSION['idBase']); // Para debugging
-    // }
+    
     
     if ($resultadoEmpresa == false) {
         throw new Exception('Usuario no asignado a ningunda empresa');
@@ -111,8 +106,7 @@ try {
         throw new Exception('No existe una base asignada para la empresa');
     }
 
-    // HASTA AQUI, EMPRESA VALIDA
-    // AGREGAR VALORES DE EMPRESA Y BASE AL RESULTADO
+    
     $acceso['database'] = $resultadoEmpresa['nombreBase'];
     $acceso['tituloEmpresa'] = $resultadoEmpresa['nombre'] . " " . $resultadoEmpresa['anio'];
     // USAR LA BASE DE DATOS

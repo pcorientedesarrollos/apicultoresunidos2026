@@ -1,31 +1,31 @@
 <?php
-// Configurar cookies de sesión ANTES de iniciar la sesión
-ini_set('session.cookie_secure', 1);
-ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_samesite', 'Strict');
 
-// Configurar el dominio de la cookie si usas subdominios
+// Detecta HTTPS automaticamente en vez de hardcodear un entorno
+$esHttps = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+
+ini_set('session.cookie_secure', $esHttps ? 1 : 0);
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_samesite', 'Lax');
+
+// Sin 'domain': por defecto usa el host que sirvio la peticion (funciona igual
+// en localhost, *.up.railway.app o el dominio real de produccion)
 session_set_cookie_params([
     'lifetime' => 0,
     'path' => '/',
-    'domain' => '.apicultoresunidos.com', // Nota el punto inicial
-    'secure' => true,
+    'secure' => $esHttps,
     'httponly' => true,
-    'samesite' => 'Strict'
+    'samesite' => 'Lax'
 ]);
 
-// Iniciar sesión DESPUÉS de configurar los parámetros
 session_start();
-//    if(!isset($_SESSION['user'])){
-//        echo "Acceso Degado.";
-//        die;
-//    }
+
+
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ?>
 <!DOCTYPE html>
-<!--[if IE 9 ]><html class="ie9"><![endif]-->
-<!-- Mirrored from byrushan.com/projects/ma/1-5-2/jquery/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Mar 2016 04:22:53 GMT -->
+
 
 <head>
     <!--<meta charset="utf-8">-->
@@ -153,27 +153,13 @@ ini_set('display_errors', 1);
         Copyright &copy; 2016 Oaxaca Miel
     </footer>
 
-    <!-- Page Loader -->
-    <!--    <div class="page-loader">
-            <div class="preloader pls-blue">
-                <svg class="pl-circular" viewBox="25 25 50 50">
-                <circle class="plc-path" cx="50" cy="50" r="20" />
-                </svg>
-                <p>Cargando</p>
-            </div>
-        </div>-->
+    
 
     <!-- Javascript Libraries -->
     <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
     <!--<script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>-->
 
-    <!--  GRAFICAS  
-        <script src="vendors/sparklines/jquery.sparkline.min.js"></script>
-        <script src="vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>-->
-
-    <!--<script src="vendors/bower_components/Waves/dist/waves.min.js"></script>-->
-    <!--<script src="vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.min.js"></script>-->
-    <!--<script src="vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>-->
+    
 
     <script src="vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
@@ -394,6 +380,8 @@ ini_set('display_errors', 1);
 
 </body>
 
+<!-- TrustLogo deshabilitado para mejorar velocidad de carga en localhost -->
+<!--
 <script type="text/javascript">
     //<![CDATA[
     var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
@@ -403,5 +391,6 @@ ini_set('display_errors', 1);
 <script language="JavaScript" type="text/javascript">
     TrustLogo("https://www.positivessl.com/images/seals/positivessl_trust_seal_lg_222x54.png", "POSDV", "none");
 </script>
+-->
 
 </html>

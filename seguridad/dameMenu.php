@@ -14,9 +14,8 @@ if ($post) {
     } else {
         $con = $pdo->conectar();
     }
-    
-    $con = $pdo->conectar($selectYear);
-    $sql = "SELECT s.*, p.idPerfil 
+
+    $sql = "SELECT s.*, p.idPerfil
         FROM secciones s
         INNER JOIN permisos p 
         ON p.idSeccion = s.idSeccion
@@ -48,7 +47,7 @@ if ($post) {
                     $datosModulos->idModulo = $rsModulos["idModulo"];
                     $datosModulos->modulo = $rsModulos["modulo"];
                     $datosModulos->ruta = $rsModulos["ruta"];
-                    $datosModulos->newSistema = $rsModulos["newSistema"];
+                    $datosModulos->newSistema = $rsModulos["newSistema"] ?? null;
                     $seccion->lstSubMenus[] = $datosModulos;
                 }
             }
