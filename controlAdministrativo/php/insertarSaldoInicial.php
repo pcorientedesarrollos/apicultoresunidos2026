@@ -18,7 +18,19 @@ function main($con, $post)
     $descripcion = 'SALDO INICIAL';
     $tipoDepositoCompra = '';
     $tiposMovimiento = 0;
-    $insertarSaldoInicialCuenta = $con->prepare("INSERT INTO auxiliardebancos (idBanco, idCuenta, fecha, idMes, hora, referencia, nombreDe, descripcion, tipoDepositoCompra, cantidad, tipoMovimiento) 
+
+    $yaExiste = $con->prepare("SELECT COUNT(*) FROM auxiliardebancos
+        WHERE idCuenta = :idCuenta AND referencia = :referencia AND SUBSTR(fecha FROM 6 FOR 2) = :idMes");
+    $yaExiste->bindParam(':idCuenta', $idCuenta);
+    $yaExiste->bindParam(':referencia', $referencia);
+    $yaExiste->bindParam(':idMes', $idMes);
+    $yaExiste->execute();
+    if ($yaExiste->fetchColumn() > 0) {
+        echo json_encode(['error' => true, 'message' => 'Ya existe un saldo inicial capturado para esta cuenta en este mes', 'swal' => 'error']);
+        return;
+    }
+
+    $insertarSaldoInicialCuenta = $con->prepare("INSERT INTO auxiliardebancos (idBanco, idCuenta, fecha, idMes, hora, referencia, nombreDe, descripcion, tipoDepositoCompra, cantidad, tipoMovimiento)
     VALUES (:idBanco, :idCuenta, :fecha, :idMes, :hora, :referencia, :nombreDe, :descripcion, :tipoDepositoCompra, :cantidad, :tipoMovimiento)");
     $insertarSaldoInicialCuenta->bindParam(':idBanco', $idBanco);
     $insertarSaldoInicialCuenta->bindParam(':idCuenta', $idCuenta);

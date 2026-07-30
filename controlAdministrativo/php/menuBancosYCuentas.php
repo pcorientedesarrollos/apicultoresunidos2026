@@ -22,7 +22,7 @@ function main($con, $post){
     (SELECT COALESCE(SUM(cantidad),0) FROM auxiliardebancos WHERE ingresoEgreso = 1 AND idCuenta = :idCuenta AND
                SUBSTR(fecha FROM 6 FOR 2) = :idMes) AS saldoEgresos,
 (SELECT cantidad FROM auxiliardebancos WHERE tipoDePersona = 0 AND ingresoEgreso = 0 AND idCuenta = :idCuenta2 AND
-               SUBSTR(fecha FROM 6 FOR 2) = :idMes2) AS saldoInicial
+               SUBSTR(fecha FROM 6 FOR 2) = :idMes2 ORDER BY idAuxiliar LIMIT 1) AS saldoInicial
     FROM auxiliardebancos WHERE tipoDePersona != 0 AND ingresoEgreso = 0 AND idCuenta = :idCuenta3 AND
                SUBSTR(fecha FROM 6 FOR 2) = :idMes3");
 
