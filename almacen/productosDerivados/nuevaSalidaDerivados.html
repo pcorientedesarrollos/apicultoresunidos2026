@@ -266,7 +266,7 @@
                                     <td ng-bind="concepto.clasificacion.condicionSalida | uppercase"></td>
                                     <td ng-bind="concepto.costoUnitario | currency"></td>
                                     <td ng-bind="concepto.importe | currency"></td>
-                                    <td ng-if="!concepto.idProductoDerivado">
+                                    <td>
                                         <button type="button" class="btn btn-xs btn-danger"
                                             ng-click="eliminarConcepto($index)">
                                             <i class="fa fa-times"></i>
