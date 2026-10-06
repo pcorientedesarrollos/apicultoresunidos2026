@@ -205,6 +205,7 @@ if (isset($_GET['idLoteInterno'])) {  // TAMBORES EN LOTES INTERNOS //
                     $tambores = 'tamboreslotes';
                     $almacen = 'almacen';
                     $calidad = 'calidad';
+                    $traspaso = 'almacentraspaso';
                     $tamboresExperimental = 'tamboresexperimentales';
                     $experimental = 'experimental';
                     break;
@@ -213,6 +214,7 @@ if (isset($_GET['idLoteInterno'])) {  // TAMBORES EN LOTES INTERNOS //
                     $tambores = 'tamboreslotes_organico';
                     $almacen = 'almacen_organico';
                     $calidad = 'calidad_organico';
+                    $traspaso = 'almacentraspaso_organico';
                     $tamboresExperimental = 'tamboresexperimentales_organico';
                     $experimental = 'experimental_organico';
                     break;
@@ -221,6 +223,7 @@ if (isset($_GET['idLoteInterno'])) {  // TAMBORES EN LOTES INTERNOS //
                     $tambores = 'tamboreslotes_mantequilla';
                     $almacen = 'almacen_mantequilla';
                     $calidad = 'calidad_mantequilla';
+                    $traspaso = 'almacentraspaso_mantequilla';
                     $tamboresExperimental = 'tamboresexperimentales_mantequilla';
                     $experimental = 'experimental_mantequilla';
                     break;
@@ -229,6 +232,7 @@ if (isset($_GET['idLoteInterno'])) {  // TAMBORES EN LOTES INTERNOS //
                     $tambores = 'tamboreslotes_altiplano';
                     $almacen = 'almacen_altiplano';
                     $calidad = 'calidad_altiplano';
+                    $traspaso = 'almacentraspaso_altiplano';
                     $tamboresExperimental = 'tamboresexperimentales_altiplano';
                     $experimental = 'experimental_altiplano';
                     break;
@@ -237,6 +241,7 @@ if (isset($_GET['idLoteInterno'])) {  // TAMBORES EN LOTES INTERNOS //
                     $tambores = 'tamboreslotes_naranjo';
                     $almacen = 'almacen_naranjo';
                     $calidad = 'calidad_naranjo';
+                    $traspaso = 'almacentraspaso_naranjo';
                     $tamboresExperimental = 'tamboresexperimentales_naranjo';
                     $experimental = 'experimental_naranjo';
                     break;
@@ -245,6 +250,7 @@ if (isset($_GET['idLoteInterno'])) {  // TAMBORES EN LOTES INTERNOS //
                     $tambores = 'tamboreslotes_aguacate';
                     $almacen = 'almacen_aguacate';
                     $calidad = 'calidad_aguacate';
+                    $traspaso = 'almacentraspaso_aguacate';
                     $tamboresExperimental = 'tamboresexperimentales_aguacate';
                     $experimental = 'experimental_aguacate';
                     break;
@@ -253,6 +259,7 @@ if (isset($_GET['idLoteInterno'])) {  // TAMBORES EN LOTES INTERNOS //
                     $tambores = 'tamboreslotes_mezquite';
                     $almacen = 'almacen_mezquite';
                     $calidad = 'calidad_mezquite';
+                    $traspaso = 'almacentraspaso_mezquite';
                     $tamboresExperimental = 'tamboresexperimentales_mezquite';
                     $experimental = 'experimental_mezquite';
                     break;
@@ -293,29 +300,6 @@ if (isset($_GET['idLoteInterno'])) {  // TAMBORES EN LOTES INTERNOS //
             }
         }
 
-        //Traer número de tambores y kilos totales del lote interno (respaldo)
-        $encabezadoCalidad = "SELECT numeroDeTambores, kilosTotales FROM $calidad WHERE idLoteInterno = :idLoteInterno";
-        $respCalidad = $con->prepare($encabezadoCalidad);
-        $respCalidad->bindParam(':idLoteInterno', $_GET['idLoteInterno']);
-        $respCalidad->execute();
-        $respCalidad->bindColumn('numeroDeTambores', $respTambosCalidad);
-        $respCalidad->bindColumn('kilosTotales', $respKilosCalidad);
-        if ($respCalidad == false) {
-            throw new Exception($con->errorInfo());
-        } else {
-            $respCalidad->fetch(PDO::FETCH_BOUND);
-        }
-        $respTambosCalidad = floatval($respTambosCalidad);
-        $respKilosCalidad = floatval($respKilosCalidad);
-        $neto = floatval($peso);
-        if ($respTambosCalidad > 0 && $respKilosCalidad > 0) {
-            $numeroDeTambores = $respTambosCalidad - 1;
-            $kilosTotales = $respKilosCalidad - $neto;
-        } else {
-            $numeroDeTambores = '0';
-            $kilosTotales = '0';
-        }
-
         $sqlLote = "DELETE FROM $tambores WHERE folioTambor = :folioTambor AND tipo = :tipo AND clasificacion = :clasificacion";
         $data = $con->prepare($sqlLote);
         $data->bindParam(':folioTambor', $folioTambor);
@@ -325,10 +309,22 @@ if (isset($_GET['idLoteInterno'])) {  // TAMBORES EN LOTES INTERNOS //
         if ($data == false) {
             throw new Exception($con->errorInfo());
         } else {
-            $sqlUpTotales = "UPDATE $calidad SET numeroDeTambores = :numeroDeTambores, kilosTotales = :kilosTotales WHERE idLoteInterno = :idLoteInterno";
+            $sqlUpTotales = "UPDATE $calidad c
+                LEFT JOIN (
+                    SELECT t.idLoteInterno, COUNT(*) AS numeroDeTambores, IFNULL(SUM(CASE t.tipo
+                        WHEN '0' THEN (SELECT a.neto FROM $almacen a WHERE a.idAlmacen = t.folioTambor LIMIT 1)
+                        WHEN '1' THEN (SELECT s.neto FROM almacensobrantes s WHERE s.consecutivo = t.folioTambor AND s.sobrante = t.clasificacion AND s.tipoDeMiel = :miel LIMIT 1)
+                        WHEN '2' THEN (SELECT tr.neto FROM $traspaso tr WHERE tr.idAlmacen = t.folioTambor LIMIT 1)
+                    END), 0) AS kilosTotales
+                    FROM $tambores t
+                    WHERE t.idLoteInterno = :idLoteInternoTambos
+                    GROUP BY t.idLoteInterno
+                ) tot ON tot.idLoteInterno = c.idLoteInterno
+                SET c.numeroDeTambores = IFNULL(tot.numeroDeTambores, 0), c.kilosTotales = IFNULL(tot.kilosTotales, 0)
+                WHERE c.idLoteInterno = :idLoteInterno";
             $datosTotales = $con->prepare($sqlUpTotales);
-            $datosTotales->bindParam(':numeroDeTambores', $numeroDeTambores);
-            $datosTotales->bindParam(':kilosTotales', $kilosTotales);
+            $datosTotales->bindParam(':miel', $miel);
+            $datosTotales->bindParam(':idLoteInternoTambos', $_GET['idLoteInterno']);
             $datosTotales->bindParam(':idLoteInterno', $_GET['idLoteInterno']);
             $datosTotales->execute();
             if ($datosTotales == false) {

@@ -11,37 +11,44 @@ if (isset($_GET['tipoDeMiel'])) {
         case '1':
             $almacen_tabla = 'almacen';
             $calidad_tabla = 'calidad';
-            $tambos_tabla = 'tamboreslotes';            
+            $tambos_tabla = 'tamboreslotes';
+            $traspaso_tabla = 'almacentraspaso';
             break;
         case '2':
             $almacen_tabla = 'almacen_organico';
             $calidad_tabla = 'calidad_organico';
-            $tambos_tabla = 'tamboreslotes_organico';                        
+            $tambos_tabla = 'tamboreslotes_organico';
+            $traspaso_tabla = 'almacentraspaso_organico';
             break;
         case '5':
             $almacen_tabla = 'almacen_mantequilla';
             $calidad_tabla = 'calidad_mantequilla';
-            $tambos_tabla = 'tamboreslotes_mantequilla';                        
+            $tambos_tabla = 'tamboreslotes_mantequilla';
+            $traspaso_tabla = 'almacentraspaso_mantequilla';
             break;
         case '6':
             $almacen_tabla = 'almacen_altiplano';
             $calidad_tabla = 'calidad_altiplano';
-            $tambos_tabla = 'tamboreslotes_altiplano';                        
+            $tambos_tabla = 'tamboreslotes_altiplano';
+            $traspaso_tabla = 'almacentraspaso_altiplano';
             break;
         case '7':
             $almacen_tabla = 'almacen_naranjo';
             $calidad_tabla = 'calidad_naranjo';
-            $tambos_tabla = 'tamboreslotes_naranjo';                        
+            $tambos_tabla = 'tamboreslotes_naranjo';
+            $traspaso_tabla = 'almacentraspaso_naranjo';
             break;
         case '8':
             $almacen_tabla = 'almacen_aguacate';
             $calidad_tabla = 'calidad_aguacate';
-            $tambos_tabla = 'tamboreslotes_aguacate';                        
+            $tambos_tabla = 'tamboreslotes_aguacate';
+            $traspaso_tabla = 'almacentraspaso_aguacate';
             break;
         case '9':
             $almacen_tabla = 'almacen_mezquite';
             $calidad_tabla = 'calidad_mezquite';
-            $tambos_tabla = 'tamboreslotes_mezquite';                        
+            $tambos_tabla = 'tamboreslotes_mezquite';
+            $traspaso_tabla = 'almacentraspaso_mezquite';
             break;
         default:
             throw new Exception('El tipo de miel seleccionado no es válido');
@@ -70,10 +77,22 @@ if (isset($_GET['tipoDeMiel'])) {
             throw new Exception($con->errorInfo());
         }
 
-        $sqlUpTotales = "UPDATE $calidad_tabla SET numeroDeTambores = :numeroDeTambores, kilosTotales = :kilosTotales WHERE idLoteInterno = :idLoteInterno";
+        $sqlUpTotales = "UPDATE $calidad_tabla c
+            LEFT JOIN (
+                SELECT t.idLoteInterno, COUNT(*) AS numeroDeTambores, IFNULL(SUM(CASE t.tipo
+                    WHEN '0' THEN (SELECT a.neto FROM $almacen_tabla a WHERE a.idAlmacen = t.folioTambor LIMIT 1)
+                    WHEN '1' THEN (SELECT s.neto FROM almacensobrantes s WHERE s.consecutivo = t.folioTambor AND s.sobrante = t.clasificacion AND s.tipoDeMiel = :miel LIMIT 1)
+                    WHEN '2' THEN (SELECT tr.neto FROM $traspaso_tabla tr WHERE tr.idAlmacen = t.folioTambor LIMIT 1)
+                END), 0) AS kilosTotales
+                FROM $tambos_tabla t
+                WHERE t.idLoteInterno = :idLoteInternoTambos
+                GROUP BY t.idLoteInterno
+            ) tot ON tot.idLoteInterno = c.idLoteInterno
+            SET c.numeroDeTambores = IFNULL(tot.numeroDeTambores, 0), c.kilosTotales = IFNULL(tot.kilosTotales, 0)
+            WHERE c.idLoteInterno = :idLoteInterno";
         $datosTotales = $con->prepare($sqlUpTotales);
-        $datosTotales->bindParam(':numeroDeTambores', $info->numeroDeTambores);
-        $datosTotales->bindParam(':kilosTotales', $info->kilosTotales);
+        $datosTotales->bindParam(':miel', $_GET['tipoDeMiel']);
+        $datosTotales->bindParam(':idLoteInternoTambos', $info->idLoteInterno);
         $datosTotales->bindParam(':idLoteInterno', $info->idLoteInterno);
         $datosTotales->execute();
         if ($datosTotales == false) {
