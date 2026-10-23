@@ -5,7 +5,7 @@ ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 
 if (!isset($_GET['informeFinanciero'])) {
-    include_once '../../../DAOConeccion/conePDO.php';
+    include_once __DIR__ . '/../../../DAOConeccion/conePDO.php';
     $pdo = new conePDO();
     $con = $pdo->conectar();
     $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
