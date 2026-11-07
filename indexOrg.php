@@ -227,6 +227,7 @@
     <script src="jsConfig/subirArchivosCtrl.js"></script>
     <script src="jsConfig/evaluacionCtrl.js"></script>
     <script src="jsConfig/buscaEquipoCtrl.js"></script>
+    <script src="jsConfig/bdImpresionCtrl.js"></script>
     <script src="jsConfig/clasificacionesCtrl.js"></script>
     <script src="jsConfig/cajaChicaCtrl.js"></script>
     <script src="reqDepositoCompra/controladores/requerimiento.js"></script>

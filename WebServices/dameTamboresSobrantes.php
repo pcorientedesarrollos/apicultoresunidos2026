@@ -1,18 +1,9 @@
 <?php
 
 header('Access-Control-Allow-Origin: *');
-include_once '../DAOConeccion/conexionWebServices.php';
+include_once __DIR__ . '/bdImpresion.php';
 $pdo = new conePDO();
-// $con = $pdo->conectar('apicultores2019');
-// $con = $pdo->conectar('apicultores2020');
-// $con = $pdo->conectar('mielorganica2020');
-// $con = $pdo->conectar('apicultores2021');
-// $con = $pdo->conectar('mielorganica2021');
-// $con = $pdo->conectar('apicultores2022');
-// $con = $pdo->conectar('apicultores2023');
-$con = $pdo->conectar('apicultores2026');
-// $con = $pdo->conectar('mielorganica2022');
-// $con = $pdo->conectar('mielorganica2023');
+$con = $pdo->conectar(dameBdImpresion());
 
 
 try {

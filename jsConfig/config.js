@@ -531,6 +531,9 @@ form.config(function ($routeProvider) {
     }).when('/buscadorEquipo', {
         templateUrl: 'utilerias/busquedaDeEquipos.html',
         controller: 'buscaEquipoCtrl'
+    }).when('/bdImpresion', {
+        templateUrl: 'utilerias/bdImpresion.html',
+        controller: 'bdImpresionCtrl'
 
         //=== MENU EXPORTACIÓN ===//
     }).when('/exportadores', {
