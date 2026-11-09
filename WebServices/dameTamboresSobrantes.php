@@ -3,11 +3,11 @@
 header('Access-Control-Allow-Origin: *');
 include_once __DIR__ . '/bdImpresion.php';
 $pdo = new conePDO();
-$con = $pdo->conectar(dameBdImpresion());
+$resultado = array();
 
-
+foreach (dameBdsImpresion() as $bd) {
 try {
-    $resultado = array();
+    $con = $pdo->conectar($bd);
     $sqlImpresion = "SELECT idImpresion, idAlmacen FROM impresion WHERE estado = 5";
     $dato = $con->prepare($sqlImpresion);
     $dato->execute();
@@ -35,7 +35,8 @@ try {
             array_push($resultado, $datosSobrante);
         }
     }
-    echo json_encode($resultado);
 } catch (Exception $e) {
-    echo json_encode([]);
+    error_log('dameTamboresSobrantes.php ' . $bd . ': ' . $e->getMessage());
 }
+}
+echo json_encode($resultado);

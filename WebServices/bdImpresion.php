@@ -7,6 +7,11 @@ const BD_IMPRESION_PERMITIDAS = [
     'apicultores2026_organica' => 'Orgánica 2026',
 ];
 
+function dameBdsImpresion()
+{
+    return array_keys(BD_IMPRESION_PERMITIDAS);
+}
+
 function dameBdImpresion()
 {
     $pdo = new conePDO();

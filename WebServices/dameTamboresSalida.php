@@ -3,11 +3,12 @@
 header('Access-Control-Allow-Origin: *');
 include_once __DIR__ . '/bdImpresion.php';
 $pdo = new conePDO();
-$con = $pdo->conectar(dameBdImpresion());
+$resultado = array();
 
-$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+foreach (dameBdsImpresion() as $bd) {
 try {
-    $resultado = array();
+    $con = $pdo->conectar($bd);
+    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sqlImpresion = "SELECT * FROM impresion WHERE estado = 3";
     $dato = $con->prepare($sqlImpresion);
     $dato->execute();
@@ -111,7 +112,8 @@ try {
             }
         }
     }
-    echo json_encode($resultado);
 } catch (Exception $e) {
-    echo json_encode([]);
+    error_log('dameTamboresSalida.php ' . $bd . ': ' . $e->getMessage());
 }
+}
+echo json_encode($resultado);

@@ -9,7 +9,6 @@ function response($tipo)
     include_once __DIR__ . '/bdImpresion.php';
     date_default_timezone_set('America/Merida');
     $pdo = new conePDO();
-    $dbh = $pdo->conectar(dameBdImpresion());
 
     switch ($tipo) {
         default:
@@ -28,12 +27,14 @@ function response($tipo)
             break;
     }
 
-    $query = $dbh->prepare($consultaEquipos);
-    $query->execute();
-    if ($query == false) {
-        throw new Exception($dbh->errorInfo());
+    $borrados = 0;
+    foreach (dameBdsImpresion() as $bd) {
+        $dbh = $pdo->conectar($bd);
+        $query = $dbh->prepare($consultaEquipos);
+        $query->execute();
+        $borrados += $query->rowCount();
     }
-    echo json_encode(['error' => false, 'message' => $query->rowCount()]);
+    echo json_encode(['error' => false, 'message' => $borrados]);
 }
 
 try {
